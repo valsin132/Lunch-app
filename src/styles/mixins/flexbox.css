@@ -1,0 +1,71 @@
+@mixin horizontal-flexbox-aligned-left($gap: normal) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $gap;
+}
+
+@mixin horizontal-flexbox-space-between($gap: normal) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $gap;
+  justify-content: space-between;
+}
+
+@mixin horizontal-flexbox-space-around($gap: normal) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $gap;
+  justify-content: space-around;
+}
+
+@mixin horizontal-flexbox-aligned-center($gap: normal) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $gap;
+  justify-content: center;
+}
+
+@mixin horizontal-flexbox-aligned-right($gap: normal) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $gap;
+  justify-content: flex-end;
+}
+
+@mixin vertical-flexbox-aligned-top($gap: normal) {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: $gap;
+}
+
+@mixin vertical-flexbox-aligned-center($gap: normal) {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: $gap;
+  justify-content: center;
+}
+
+@mixin vertical-flexbox-space-around($gap: normal) {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: $gap;
+  justify-content: space-around;
+}
+
+@mixin vertical-flexbox-space-between($gap: normal) {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: $gap;
+  justify-content: space-between;
+}
+
+@mixin horizontally-vertically-centered-flexbox($gap: normal) {
+  align-items: center;
+  display: flex;
+  gap: $gap;
+  justify-content: center;
+}

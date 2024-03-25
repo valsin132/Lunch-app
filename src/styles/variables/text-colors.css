@@ -1,5 +1,6 @@
-$text-color-blue: #143149;
-$text-color-grey: #636363;
-$text-color-orange: #E26A00;
-$text-color-purple: #746AE9;
-$text-color-white: #FFFFFF;
+@import "./colors.css";
+$text-color-primary: $color-blue-600;
+$text-color-secondary: $color-grey-500;
+$text-color-orange: $color-orange-600;
+$text-color-purple: $color-purple-500;
+$text-color-white: $color-white;

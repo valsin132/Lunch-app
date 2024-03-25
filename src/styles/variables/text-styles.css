@@ -1,0 +1,125 @@
+$font-family: "Poppins", sans-serif;
+$font-weight-bold: 700;
+$font-weight-semi-bold: 600;
+$font-weight-medium: 500;
+$font-weight-regular: 400;
+$letter-spacing: 0,25px;
+
+
+.headline-l {
+    font-family: $font-family;
+    font-weight: $font-weight-bold;
+    font-size: 32px;
+    line-height: 40px;
+}
+
+.headline-m {
+    font-family: $font-family;
+    font-weight: $font-weight-bold;
+    font-size: 24px;
+    line-height: 30px;
+}
+
+.headline-s {
+    font-family: $font-family;
+    font-weight: $font-weight-bold;
+    font-size: 18px;
+    line-height: 27px;
+}
+
+.title-xl {
+    font-family: $font-family;
+    font-weight: $font-weight-medium;
+    font-size: 24px;
+    line-height: 30px;
+}
+
+.title-l {
+    font-family: $font-family;
+    font-weight: $font-weight-medium;
+    font-size: 18px;
+    line-height: 27px;
+}
+
+.title-m {
+    font-family: $font-family;
+    font-weight: $font-weight-medium;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.title-s {
+    font-family: $font-family;
+    font-weight: $font-weight-medium;
+    font-size: 14px;
+    line-height: 21px;
+}
+
+.title-xs {
+    font-family: $font-family;
+    font-weight: $font-weight-medium;
+    font-size: 10px;
+    line-height: 15px;
+}
+
+.label-l {
+    font-family: $font-family;
+    font-weight: $font-weight-semi-bold;
+    font-size: 20px;
+    line-height: 30px;
+    letter-spacing: $letter-spacing;
+}
+
+.label-m {
+    font-family: $font-family;
+    font-weight: $font-weight-semi-bold;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: $letter-spacing;
+}
+
+.label-s {
+    font-family: $font-family;
+    font-weight: $font-weight-semi-bold;
+    font-size: 14px;
+    line-height: 21px;
+    letter-spacing: $letter-spacing;
+}
+
+.label-xs {
+    font-family: $font-family;
+    font-weight: $font-weight-semi-bold;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: $letter-spacing;
+}
+
+.label-xxs {
+    font-family: $font-family;
+    font-weight: $font-weight-semi-bold;
+    font-size: 10px;
+    line-height: 15px;
+    letter-spacing: $letter-spacing;
+}
+
+.body-l {
+    font-family: $font-family;
+    font-weight: $font-weight-regular;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.body-m {
+    font-family: $font-family;
+    font-weight: $font-weight-regular;
+    font-size: 14px;
+    line-height: 21px;
+}
+
+.body-s {
+    font-family: $font-family;
+    font-weight: $font-weight-regular;
+    font-size: 12px;
+    line-height: 18px;
+}
+

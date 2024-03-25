@@ -1,2 +1,3 @@
 /* Imports for global variables and styles */
 @import 'variables.css';
+@import 'variables/spacing.css';

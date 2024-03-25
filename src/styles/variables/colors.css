@@ -1,0 +1,38 @@
+$primary-800: #0d1f2e;
+$primary-600: #143149;
+$primary-400: #1a4264;
+
+$secondary-600: #e26a00;
+$secondary-400: #ff7f0f;
+$secondary-300: #ffa631;
+$secondary-200: #ffe9d6;
+$secondary-100: #fef5ed;
+
+$grey-500: #636363;
+$grey-400: #8d8d8d;
+$grey-300: #c8c8c8;
+$grey-200: #dddee0;
+$grey-100: #f7f7f7;
+
+$green-500: #00b368;
+$green-400: #3be191;
+
+$red-500: #de1a49;
+$red-300: #ffd4d7;
+
+$purple-500: #746ae9;
+$purple-400: #9a91ff;
+$purple-300: #b7b7fd;
+$purple-200: #eaeefc;
+
+$yellow-500: #eebb39;
+$yellow-400: #fcda83;
+$yellow-300: #ffe7a8;
+$yellow-200: #ffefd0;
+
+$orange-gradient: linear-gradient(318.11deg, #ffcb86 -5.31%, #fff5e8 122.02%);
+
+$modal-overlay: rgba(13, 31, 46, 0.15);
+
+$white: #ffffff;
+$black: #000000;

@@ -4,122 +4,132 @@ $font-weight-semi-bold: 600;
 $font-weight-medium: 500;
 $font-weight-regular: 400;
 $letter-spacing: 0,25px;
+$font-size-xxxl: 2rem;
+$font-size-xxl: 1,5rem;
+$font-size-xl: 1,25rem;
+$font-size-l: 1,125rem;
+$font-size-m: 1rem;
+$font-size-s: 0,875rem;
+$font-size-xs: 0,75rem;
+$font-size-xxs: 0,625rem;
+$ratio-l: 1,5;
+$ratio-m: 1,25;
 
 
 .headline-l {
     font-family: $font-family;
     font-weight: $font-weight-bold;
-    font-size: 32px;
-    line-height: 40px;
+    font-size: $font-size-xxxl;
+    line-height: $ratio-m;
 }
 
 .headline-m {
     font-family: $font-family;
     font-weight: $font-weight-bold;
-    font-size: 24px;
-    line-height: 30px;
+    font-size: $font-size-xxl;
+    line-height: $ratio-m;
 }
 
 .headline-s {
     font-family: $font-family;
     font-weight: $font-weight-bold;
-    font-size: 18px;
-    line-height: 27px;
+    font-size: $font-size-l;
+    line-height: $ratio-l;
 }
 
 .title-xl {
     font-family: $font-family;
     font-weight: $font-weight-medium;
-    font-size: 24px;
-    line-height: 30px;
+    font-size: $font-size-xxl;
+    line-height: $ratio-m;
 }
 
 .title-l {
     font-family: $font-family;
     font-weight: $font-weight-medium;
-    font-size: 18px;
-    line-height: 27px;
+    font-size: $font-size-l;
+    line-height: $ratio-l;
 }
 
 .title-m {
     font-family: $font-family;
     font-weight: $font-weight-medium;
-    font-size: 16px;
-    line-height: 24px;
+    font-size: $font-size-m;
+    line-height: $ratio-l;
 }
 
 .title-s {
     font-family: $font-family;
     font-weight: $font-weight-medium;
-    font-size: 14px;
-    line-height: 21px;
+    font-size: $font-size-s;
+    line-height: $ratio-l;
 }
 
 .title-xs {
     font-family: $font-family;
     font-weight: $font-weight-medium;
-    font-size: 10px;
-    line-height: 15px;
+    font-size: $font-size-xxs;
+    line-height: $ratio-l;
 }
 
 .label-l {
     font-family: $font-family;
     font-weight: $font-weight-semi-bold;
-    font-size: 20px;
-    line-height: 30px;
+    font-size: $font-size-xl;
+    line-height: $ratio-l;
     letter-spacing: $letter-spacing;
 }
 
 .label-m {
     font-family: $font-family;
     font-weight: $font-weight-semi-bold;
-    font-size: 16px;
-    line-height: 24px;
+    font-size: $font-size-m;
+    line-height: $ratio-l;
     letter-spacing: $letter-spacing;
 }
 
 .label-s {
     font-family: $font-family;
     font-weight: $font-weight-semi-bold;
-    font-size: 14px;
-    line-height: 21px;
+    font-size: $font-size-s;
+    line-height: $ratio-l;
     letter-spacing: $letter-spacing;
 }
 
 .label-xs {
     font-family: $font-family;
     font-weight: $font-weight-semi-bold;
-    font-size: 12px;
-    line-height: 18px;
+    font-size: $font-size-xs;
+    line-height: $ratio-l;
     letter-spacing: $letter-spacing;
 }
 
 .label-xxs {
     font-family: $font-family;
     font-weight: $font-weight-semi-bold;
-    font-size: 10px;
-    line-height: 15px;
+    font-size: $font-size-xxs;
+    line-height: $ratio-l;
     letter-spacing: $letter-spacing;
 }
 
 .body-l {
     font-family: $font-family;
     font-weight: $font-weight-regular;
-    font-size: 16px;
-    line-height: 24px;
+    font-size: $font-size-m;
+    line-height: $ratio-l;
 }
 
 .body-m {
     font-family: $font-family;
     font-weight: $font-weight-regular;
-    font-size: 14px;
-    line-height: 21px;
+    font-size: $font-size-s;
+    line-height: $ratio-l;
 }
 
 .body-s {
     font-family: $font-family;
     font-weight: $font-weight-regular;
-    font-size: 12px;
-    line-height: 18px;
+    font-size: $font-size-xs;
+    line-height: $ratio-l;
 }
 

@@ -1,0 +1,19 @@
+@import "./../variables/breakpoints.css";
+
+@mixin mobile-breakpoint {
+    @media screen and (max-width: $mobile-layout-max-width) {
+        @content;
+    }
+}
+
+@mixin tablet-breakpoint {
+    @media screen and (min-width: calc($mobile-layout-max-width + 1px)) and (max-width:$tablet-layout-max-width) {
+        @content;
+    }
+}
+
+@mixin dekstop-breakpoint {
+    @media screen and (min-width: calc($tablet-layout-max-width + 1px)) {
+        @content;
+    }
+}

@@ -1,135 +1,121 @@
-$font-family: "Poppins", sans-serif;
 $font-weight-bold: 700;
 $font-weight-semi-bold: 600;
 $font-weight-medium: 500;
 $font-weight-regular: 400;
-$letter-spacing: 0,25px;
+
 $font-size-xxxl: 2rem;
-$font-size-xxl: 1,5rem;
-$font-size-xl: 1,25rem;
-$font-size-l: 1,125rem;
+$font-size-xxl: 1.5rem;
+$font-size-xl: 1.25rem;
+$font-size-l: 1.125rem;
 $font-size-m: 1rem;
-$font-size-s: 0,875rem;
-$font-size-xs: 0,75rem;
-$font-size-xxs: 0,625rem;
-$ratio-l: 1,5;
-$ratio-m: 1,25;
+$font-size-s: 0.875rem;
+$font-size-xs: 0.75rem;
+$font-size-xxs: 0.625rem;
+
+$line-height-ratio-l: 1.5;
+$line-height-ratio-m: 1.25;
+
+$letter-spacing: 0.25px;
 
 
-.headline-l {
-    font-family: $font-family;
+@mixin headline-l {
     font-weight: $font-weight-bold;
     font-size: $font-size-xxxl;
-    line-height: $ratio-m;
+    line-height: $line-height-ratio-m;
 }
 
-.headline-m {
-    font-family: $font-family;
+@mixin headline-m {
     font-weight: $font-weight-bold;
     font-size: $font-size-xxl;
-    line-height: $ratio-m;
+    line-height: $line-height-ratio-m;
 }
 
-.headline-s {
-    font-family: $font-family;
+@mixin headline-s {
     font-weight: $font-weight-bold;
     font-size: $font-size-l;
-    line-height: $ratio-l;
+    line-height: $line-height-ratio-l;
 }
 
-.title-xl {
-    font-family: $font-family;
+@mixin title-xl {
     font-weight: $font-weight-medium;
     font-size: $font-size-xxl;
-    line-height: $ratio-m;
+    line-height: $line-height-ratio-m;
 }
 
-.title-l {
-    font-family: $font-family;
+@mixin title-l {
     font-weight: $font-weight-medium;
     font-size: $font-size-l;
-    line-height: $ratio-l;
+    line-height: $line-height-ratio-l;
 }
 
-.title-m {
-    font-family: $font-family;
+@mixin title-m {
     font-weight: $font-weight-medium;
     font-size: $font-size-m;
-    line-height: $ratio-l;
+    line-height: $line-height-ratio-l;
 }
 
-.title-s {
-    font-family: $font-family;
+@mixin title-s {
     font-weight: $font-weight-medium;
     font-size: $font-size-s;
-    line-height: $ratio-l;
+    line-height: $line-height-ratio-l;
 }
 
-.title-xs {
-    font-family: $font-family;
+@mixin title-xs {
     font-weight: $font-weight-medium;
     font-size: $font-size-xxs;
-    line-height: $ratio-l;
+    line-height: $line-height-ratio-l;
 }
 
-.label-l {
-    font-family: $font-family;
+@mixin label-l {
     font-weight: $font-weight-semi-bold;
     font-size: $font-size-xl;
-    line-height: $ratio-l;
+    line-height: $line-height-ratio-l;
     letter-spacing: $letter-spacing;
 }
 
-.label-m {
-    font-family: $font-family;
+@mixin label-m {
     font-weight: $font-weight-semi-bold;
     font-size: $font-size-m;
-    line-height: $ratio-l;
+    line-height: $line-height-ratio-l;
     letter-spacing: $letter-spacing;
 }
 
-.label-s {
-    font-family: $font-family;
+@mixin label-s {
     font-weight: $font-weight-semi-bold;
     font-size: $font-size-s;
-    line-height: $ratio-l;
+    line-height: $line-height-ratio-l;
     letter-spacing: $letter-spacing;
 }
 
-.label-xs {
-    font-family: $font-family;
+@mixin label-xs {
     font-weight: $font-weight-semi-bold;
     font-size: $font-size-xs;
-    line-height: $ratio-l;
+    line-height: $line-height-ratio-l;
     letter-spacing: $letter-spacing;
 }
 
-.label-xxs {
-    font-family: $font-family;
+@mixin label-xxs {
     font-weight: $font-weight-semi-bold;
     font-size: $font-size-xxs;
-    line-height: $ratio-l;
+    line-height: $line-height-ratio-l;
     letter-spacing: $letter-spacing;
 }
 
-.body-l {
-    font-family: $font-family;
+@mixin body-l {
     font-weight: $font-weight-regular;
     font-size: $font-size-m;
-    line-height: $ratio-l;
+    line-height: $line-height-ratio-l;
 }
 
-.body-m {
-    font-family: $font-family;
+@mixin body-m {
     font-weight: $font-weight-regular;
     font-size: $font-size-s;
-    line-height: $ratio-l;
+    line-height: $line-height-ratio-l;
 }
 
-.body-s {
-    font-family: $font-family;
+@mixin body-s {
     font-weight: $font-weight-regular;
     font-size: $font-size-xs;
-    line-height: $ratio-l;
+    line-height: $line-height-ratio-l;
 }
 

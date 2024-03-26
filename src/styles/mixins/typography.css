@@ -17,8 +17,6 @@
     @include create-text-style($font-weight-bold, $font-size-l, $line-height-ratio-l)
 }
 
-
-
 @mixin title-xl {
     @include create-text-style($font-weight-medium, $font-size-xxl, $line-height-ratio-m)
 }
@@ -39,8 +37,6 @@
     @include create-text-style($font-weight-medium, $font-size-xxs, $line-height-ratio-l)
 }
 
-
-
 @mixin label-l {
     @include create-text-style($font-weight-semi-bold, $font-size-xl, $line-height-ratio-l, $letter-spacing)
 }
@@ -60,8 +56,6 @@
 @mixin label-xxs {
     @include create-text-style($font-weight-semi-bold, $font-size-xxs, $line-height-ratio-l, $letter-spacing)
 }
-
-
 
 @mixin body-l {
     @include create-text-style($font-weight-regular, $font-size-m, $line-height-ratio-l)

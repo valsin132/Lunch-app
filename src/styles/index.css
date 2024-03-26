@@ -1,4 +1,4 @@
-/* Imports for global variables and styles */
-@import 'variables/global.css';
-@import 'variables/text-colors.css';
-@import 'variables/text-styles.css';
+@import "variables/global.css";
+@import "variables/text-colors.css";
+@import "variables/text-styles.css";
+@import "variables/colors.css";

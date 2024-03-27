@@ -10,12 +10,6 @@ body {
   padding: 0;
   height: 100%;
 }
-img,
-picture,
-svg {
-  display: block;
-  max-width: 100%;
-}
 h1,
 h2,
 h3,
@@ -34,4 +28,17 @@ a {
 ol,
 ul {
   list-style: none;
+}
+article,
+aside,
+footer,
+header,
+nav,
+section {
+  display: block;
+}
+figcaption,
+figure,
+main {
+  display: block;
 }

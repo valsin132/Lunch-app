@@ -6,5 +6,24 @@
   border-radius: $spacing-4xs;
   border: solid 1px $color-grey-100;
   padding: $spacing-2xs;
+}
+
+.card__spacing_xs {
+  padding: $spacing-xs;
+}
+.card__spacing_s {
+  padding: $spacing-s;
+}
+.card__spacing_m {
+  padding: $spacing-m;
+}
+
+.card__boxShadow_xs {
+  @include xs-box-shadow;
+}
+.card__boxShadow_s {
+  @include s-box-shadow;
+}
+.card__boxShadow_m {
   @include m-box-shadow;
 }

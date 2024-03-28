@@ -1,0 +1,10 @@
+@import "./../../styles/index.css";
+
+.card {
+  display: inline-block;
+  background-color: $color-white;
+  border-radius: $spacing-4xs;
+  border: solid 1px $color-grey-100;
+  padding: $spacing-2xs;
+  @include m-box-shadow;
+}

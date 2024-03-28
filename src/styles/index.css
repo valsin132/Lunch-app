@@ -3,3 +3,7 @@
 @import "variables/text-styles.css";
 @import "variables/colors.css";
 @import "variables/spacing.css";
+@import "mixins/box-shadow.css";
+@import "mixins/breakpoints.css";
+@import "mixins/flexbox.css";
+@import "mixins/typography.css";

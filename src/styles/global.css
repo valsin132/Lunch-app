@@ -1,20 +1,41 @@
+@import "normalize.css/normalize.css";
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-* {
-  margin: 0;
-  padding: 0;
-}
 
 body {
   font-family: "Poppins", sans-serif;
-  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+button {
+  background-color: transparent;
+  color: inherit;
+  border-width: 0;
   padding: 0;
-  height: 100%;
+  cursor: pointer;
+}
+
+figure {
+  margin: 0;
+}
+
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+ul,
+ol,
+dd {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  list-style: none;
 }
 
 h1,
@@ -23,53 +44,11 @@ h3,
 h4,
 h5,
 h6 {
-  text-wrap: balance;
-  display: block;
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
 }
 
-a {
-  text-decoration: none;
-  colors: inherit;
-  cursor: pointer;
-}
-
-ol,
-ul {
-  list-style: none;
-}
-
-article,
-aside,
-footer,
-header,
-nav,
-section,
-figcaption,
-figure,
-main {
-  display: block;
-}
-
-button,
-select {
-  text-transform: none;
-}
-
-button,
-[type="button"],
-[type="reset"],
-[type="submit"] {
-  -webkit-appearance: button;
-}
-
-button::-moz-focus-inner,
-[type="button"]::-moz-focus-inner,
-[type="reset"]::-moz-focus-inner,
-[type="submit"]::-moz-focus-inner {
-  border-style: none;
-}
-
-[type="checkbox"],
-[type="radio"] {
-  box-sizing: border-box;
+p {
+  margin: 0;
 }

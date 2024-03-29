@@ -12,11 +12,11 @@ type CardProps = {
 };
 
 const getSpacing = (spacing?: Spacing): string => {
-    return spacing ? styles[`card__spacing_${spacing}`] : ""
+    return spacing ? styles[`card--spacing_${spacing}`] : ""
 }
 
 const getBoxShadow = (boxShadow?: BoxShadow): string => {
-    return boxShadow ? styles[`card__boxShadow_${boxShadow}`] : ""
+    return boxShadow ? styles[`card--boxShadow_${boxShadow}`] : ""
 }
 
 export const Card = ({ children, spacing, shadow }: CardProps): ReactElement => {

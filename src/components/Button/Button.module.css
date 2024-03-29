@@ -2,22 +2,41 @@
 
 .button {
   border-radius: 8px;
-  @include flexbox($justifyContent: center);
+  @include flexbox($justifyContent: center, $alignItems: center);
+  .button__size-xs .button__icon__left {
+    padding: 0 $spacing-5xs 0 0;
+  }
+
+  .button__size-xs .button__icon__right {
+    padding: 0 0 0 $spacing-5xs;
+  }
+
+  .button__icon__left {
+    padding: 0 $spacing-4xs 0 0;
+  }
+
+  .button__icon__right {
+    padding: 0 0 0 $spacing-4xs;
+  }
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
 }
 
-.tex-blue {
+.button__text-blue {
   color: $text-color-blue;
 }
 
-.text-orange {
+.button__text-orange {
   color: $text-color-orange;
 }
 
-.text-white {
+.button__text-white {
   color: $text-color-white;
 }
 
-.text-purple {
+.button__text-purple {
   color: $text-color-purple;
 }
 
@@ -37,8 +56,8 @@
   @include title-xs;
 }
 
-.button__size_xs {
-  width: 32;
+.button__size-xs {
+  height: 32px;
   padding: calc($spacing-4xs - 1px) $spacing-4xs;
   @include label-xs;
   .button__icon {
@@ -47,8 +66,8 @@
   }
 }
 
-.button__size_sm {
-  width: 32;
+.button__size-sm {
+  height: 32px;
   padding: 0 $spacing-4xs;
   @include label-s;
   .button__icon {
@@ -57,8 +76,8 @@
   }
 }
 
-.button__size_md {
-  with: 40;
+.button__size-md {
+  height: 40px;
   padding: 0 $spacing-4xs;
   @include label-m;
   .button__icon {
@@ -67,7 +86,7 @@
   }
 }
 
-.button__color_blue {
+.button__color-blue {
   background-color: $color-blue-800;
   &:hover {
     background-color: $color-blue-600;
@@ -75,9 +94,15 @@
   &:active {
     background-color: $color-blue-400;
   }
+  &:disabled {
+    &:hover,
+    &:active {
+      background-color: $color-blue-800;
+    }
+  }
 }
 
-.button__color_orange {
+.button__color-orange {
   border: 1px solid $color-orange-300;
   background-color: $color-orange-100;
   &:hover {
@@ -86,8 +111,15 @@
   &:active {
     background-color: $color-orange-300;
   }
+  &:disabled {
+    &:hover,
+    &:active {
+      border: 1px solid $color-orange-300;
+      background-color: $color-orange-100;
+    }
+  }
 }
-.button__color_white {
+.button__color-white {
   background-color: $color-white;
   &:hover {
     background-color: $color-orange-100;
@@ -95,20 +127,10 @@
   &:active {
     background-color: $color-orange-200;
   }
-}
-
-.button__size_xs .button__icon__left {
-  padding: 0 $spacing-5xs 0 0;
-}
-
-.button__size_xs .button__icon__right {
-  padding: 0 0 0 $spacing-5xs;
-}
-
-.button__icon__left {
-  padding: 0 $spacing-4xs 0 0;
-}
-
-.button__icon__right {
-  padding: 0 0 0 $spacing-4xs;
+  &:disabled {
+    &:hover,
+    &:active {
+      background-color: $color-white;
+    }
+  }
 }

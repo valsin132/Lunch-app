@@ -68,7 +68,8 @@
     "stylelint-declaration-strict-value": "1.10.4",
     "stylelint-order": "6.0.4",
     "typescript": "5.2.2",
-    "vite": "5.1.6"
+    "vite": "5.1.6",
+    "vite-plugin-svgr": "4.2.0"
   },
   "browserslist": [
     ">3%",

@@ -1,8 +1,105 @@
 @import "src/styles/index.css";
 
 .button {
-  border-radius: 8px;
+  border-radius: $border-radius-regular;
   @include flexbox($justifyContent: center, $alignItems: center);
+
+  &.button__size-xs {
+    height: 32px;
+    padding: calc($spacing-4xs - 1px) $spacing-4xs;
+    @include label-xs;
+    .button__icon {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  &.button__size-sm {
+    height: 32px;
+    padding: 0 $spacing-4xs;
+    @include label-s;
+    .button__icon {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  &.button__size-md {
+    height: 40px;
+    padding: 0 $spacing-4xs;
+    @include label-m;
+    .button__icon {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  &.button__color-blue {
+    background-color: $color-blue-800;
+    &:hover {
+      background-color: $color-blue-600;
+    }
+    &:active {
+      background-color: $color-blue-400;
+    }
+    &:disabled {
+      &:hover,
+      &:active {
+        background-color: $color-blue-800;
+      }
+    }
+  }
+
+  &.button__color-orange {
+    border: 1px solid $color-orange-300;
+    background-color: $color-orange-100;
+    &:hover {
+      background-color: $color-orange-200;
+    }
+    &:active {
+      background-color: $color-orange-300;
+    }
+    &:disabled {
+      &:hover,
+      &:active {
+        border: 1px solid $color-orange-300;
+        background-color: $color-orange-100;
+      }
+    }
+  }
+
+  &.button__color-white {
+    background-color: $color-white;
+    &:hover {
+      background-color: $color-orange-100;
+    }
+    &:active {
+      background-color: $color-orange-200;
+    }
+    &:disabled {
+      &:hover,
+      &:active {
+        background-color: $color-white;
+      }
+    }
+  }
+
+  &.button__text-orange {
+    color: $text-color-orange;
+  }
+
+  &.button__text-white {
+    color: $text-color-white;
+  }
+
+  &.button__text-purple {
+    color: $text-color-purple;
+  }
+
+  &.button__text-gray {
+    color: $text-color-grey;
+  }
+
   .button__size-xs .button__icon__left {
     padding: 0 $spacing-5xs 0 0;
   }
@@ -18,119 +115,20 @@
   .button__icon__right {
     padding: 0 0 0 $spacing-4xs;
   }
+
   &:disabled {
     opacity: 0.4;
     cursor: not-allowed;
   }
 }
 
-.button__text-blue {
-  color: $text-color-blue;
-}
-
-.button__text-orange {
-  color: $text-color-orange;
-}
-
-.button__text-white {
-  color: $text-color-white;
-}
-
-.button__text-purple {
-  color: $text-color-purple;
-}
-
-.text-gray {
-  color: $text-color-grey;
-}
-
-.text-medium {
-  @include title-m;
-}
-
-.text-small {
-  @include title-s;
-}
-
-.text-xsmall {
-  @include title-xs;
-}
-
-.button__size-xs {
-  height: 32px;
-  padding: calc($spacing-4xs - 1px) $spacing-4xs;
-  @include label-xs;
-  .button__icon {
-    width: 16px;
-    height: 16px;
+.button__icon-yellow {
+  & path {
+    fill: $color-yellow-icon;
   }
 }
-
-.button__size-sm {
-  height: 32px;
-  padding: 0 $spacing-4xs;
-  @include label-s;
-  .button__icon {
-    width: 20px;
-    height: 20px;
-  }
-}
-
-.button__size-md {
-  height: 40px;
-  padding: 0 $spacing-4xs;
-  @include label-m;
-  .button__icon {
-    width: 24px;
-    height: 24px;
-  }
-}
-
-.button__color-blue {
-  background-color: $color-blue-800;
-  &:hover {
-    background-color: $color-blue-600;
-  }
-  &:active {
-    background-color: $color-blue-400;
-  }
-  &:disabled {
-    &:hover,
-    &:active {
-      background-color: $color-blue-800;
-    }
-  }
-}
-
-.button__color-orange {
-  border: 1px solid $color-orange-300;
-  background-color: $color-orange-100;
-  &:hover {
-    background-color: $color-orange-200;
-  }
-  &:active {
-    background-color: $color-orange-300;
-  }
-  &:disabled {
-    &:hover,
-    &:active {
-      border: 1px solid $color-orange-300;
-      background-color: $color-orange-100;
-    }
-  }
-}
-.button__color-white {
-  background-color: $color-white;
-  &:hover {
-    background-color: $color-orange-100;
-  }
-  &:active {
-    background-color: $color-orange-200;
-  }
-  &:disabled {
-    &:hover,
-    &:active {
-      background-color: $color-white;
-    }
+.button__icon-default {
+  & path {
+    fill: $color-black;
   }
 }

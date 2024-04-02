@@ -1,4 +1,4 @@
-import React, { Children, ReactElement, ReactNode } from "react";
+import React, { ReactElement, ReactNode } from "react";
 import styles from './Button.module.css';
 
 type ButtonSize = 'md' | 'sm' | 'xs'
@@ -74,11 +74,15 @@ export const Button = ({
         ${getButtonIconColor(buttonIconColor)}
           `} onClick={onClick} disabled={disabled}>
             {displayIconLeft && (
-                <span className={`${styles.button__icon} ${styles.button__icon__left}`}>{icon}</span>
+                <span className={`${styles.button__icon} ${styles.button__icon__left} ${styles.button__icon}`}>
+                    {icon}
+                </span>
             )}
             {title}
             {displayIconRight && (
-                <span className={`${styles.button__icon} ${styles.button__icon__right}`}>{icon}</span>
+                <span className={`${styles.button__icon} ${styles.button__icon__right} ${styles.button__icon}`}>
+                    {icon}
+                </span>
             )}
         </button>
     );

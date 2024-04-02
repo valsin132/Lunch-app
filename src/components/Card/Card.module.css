@@ -6,6 +6,10 @@
   border-radius: $border-radius-large;
   border: solid 1px $color-grey-100;
 
+  &.card--spacing-3xs {
+    padding: $spacing-3xs;
+  }
+
   &.card--spacing-2xs {
     padding: $spacing-2xs;
   }
@@ -16,10 +20,6 @@
 
   &.card--spacing-s {
     padding: $spacing-s;
-  }
-
-  &.card--spacing-m {
-    padding: $spacing-m;
   }
 
   &.card--boxShadow-xs {

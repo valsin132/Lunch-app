@@ -3,27 +3,34 @@
 .card {
   display: inline-block;
   background-color: $color-white;
-  border-radius: $spacing-4xs;
+  border-radius: $border-radius-large;
   border: solid 1px $color-grey-100;
-  padding: $spacing-2xs;
 
-  &.card--spacing_xs {
+  &.card--spacing-2xs {
+    padding: $spacing-2xs;
+  }
+
+  &.card--spacing-xs {
     padding: $spacing-xs;
   }
-  &.card--spacing_s {
+
+  &.card--spacing-s {
     padding: $spacing-s;
   }
-  &.card--spacing_m {
+
+  &.card--spacing-m {
     padding: $spacing-m;
   }
 
-  &.card--boxShadow_xs {
+  &.card--boxShadow-xs {
     @include xs-box-shadow;
   }
-  &.card--boxShadow_s {
+
+  &.card--boxShadow-s {
     @include s-box-shadow;
   }
-  &.card--boxShadow_m {
+
+  &.card--boxShadow-m {
     @include m-box-shadow;
   }
 }

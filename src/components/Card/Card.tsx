@@ -1,9 +1,8 @@
 import { ReactElement, ReactNode } from 'react'
-import styles from "./Card.module.css";
+import styles from './Card.module.css';
 
-type Spacing = "xs" | "s" | "m"
-
-type BoxShadow = "xs" | "s" | "m"
+type Spacing = '2xs' | 'xs' | 's' | 'm';
+type BoxShadow = 'none' | 'xs' | 's' | 'm';
 
 type CardProps = {
     children: ReactNode;
@@ -11,17 +10,13 @@ type CardProps = {
     shadow?: BoxShadow;
 };
 
-const getSpacing = (spacing?: Spacing): string => {
-    return spacing ? styles[`card--spacing_${spacing}`] : ""
-}
-
 const getBoxShadow = (boxShadow?: BoxShadow): string => {
-    return boxShadow ? styles[`card--boxShadow_${boxShadow}`] : ""
+    return boxShadow !== `none` ? styles[`card--boxShadow-${boxShadow}`] : ''
 }
 
-export const Card = ({ children, spacing, shadow }: CardProps): ReactElement => {
+export const Card = ({ children, spacing = '2xs', shadow = 'none' }: CardProps): ReactElement => {
     return (
-        <div className={`${styles.card} ${getSpacing(spacing)} ${getBoxShadow(shadow)}`}>
+        <div className={`${styles.card} ${styles['card-spacing-' + spacing]} ${getBoxShadow(shadow)}`}>
             {children}
         </div>
     )

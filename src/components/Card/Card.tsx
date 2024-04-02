@@ -1,7 +1,7 @@
 import { ReactElement, ReactNode } from 'react'
 import styles from './Card.module.css';
 
-type Spacing = '2xs' | 'xs' | 's' | 'm';
+type Spacing = '3xs' | '2xs' | 'xs' | 's';
 type BoxShadow = 'none' | 'xs' | 's' | 'm';
 
 type CardProps = {

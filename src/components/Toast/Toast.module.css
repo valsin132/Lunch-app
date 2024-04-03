@@ -1,0 +1,53 @@
+@import "src/styles/index.css";
+
+.toast {
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    width: 368px;
+    padding: $spacing-2xs;
+    border-radius: $border-radius-regular;
+    @include m-box-shadow;
+    @include flexbox($gap: 16px, $alignItems: center);
+    @include label-s;
+    &.toast--color-purple {
+        background-color: $color-purple-500;
+        border: 1px solid $color-purple-500;
+    }
+    &.toast--color-green {
+        background-color: $color-green-300;
+        border: 1px solid $color-green-300;
+    }
+    &.toast--color-red {
+        background-color: $color-red-500;
+        border: 1px solid $color-red-500;
+    }
+}
+
+.icon--info {
+    align-self: flex-start;
+    & svg {
+        height: 20px;
+        width: 20px;
+    }
+    & path {
+        fill: $color-white;
+    }
+}
+
+.text {
+    text-align: start;
+    color: $color-white;
+    border-right: 1px solid $color-white;
+    padding-right: $spacing-2xs;
+}
+
+.icon--close {
+    cursor: pointer;
+    align-self: center;
+    padding: $spacing-4xs;
+    & path {
+        fill: $color-white;
+    }
+}

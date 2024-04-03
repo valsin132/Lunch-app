@@ -4,7 +4,7 @@
   border-radius: $border-radius-regular;
   @include flexbox($justifyContent: center, $alignItems: center);
 
-  &.button__size-xs {
+  &.button--size-xs {
     height: 32px;
     padding: calc($spacing-4xs - 1px) $spacing-4xs;
     @include label-xs;
@@ -18,7 +18,7 @@
     }
   }
 
-  &.button__size-sm {
+  &.button--size-sm {
     height: 32px;
     padding: 0 $spacing-4xs;
     @include label-s;
@@ -32,7 +32,7 @@
     }
   }
 
-  &.button__size-md {
+  &.button--size-md {
     height: 40px;
     padding: 0 $spacing-4xs;
     @include label-m;
@@ -42,7 +42,7 @@
     }
   }
 
-  &.button__color-blue {
+  &.button--color-blue {
     background-color: $color-blue-800;
     &:hover {
       background-color: $color-blue-600;
@@ -58,7 +58,7 @@
     }
   }
 
-  &.button__color-orange {
+  &.button--color-orange {
     border: 1px solid $color-orange-300;
     background-color: $color-orange-100;
     &:hover {
@@ -76,7 +76,7 @@
     }
   }
 
-  &.button__color-white {
+  &.button--color-white {
     background-color: $color-white;
     &:hover {
       background-color: $color-orange-100;
@@ -92,35 +92,35 @@
     }
   }
 
-  &.button__text-orange {
+  &.button--text-orange {
     color: $text-color-orange;
   }
 
-  &.button__text-white {
+  &.button--text-white {
     color: $text-color-white;
   }
 
-  &.button__text-purple {
+  &.button--text-purple {
     color: $text-color-purple;
   }
 
-  &.button__text-gray {
+  &.button--text-gray {
     color: $text-color-grey;
   }
 
-  .button__size-xs .button__icon__left {
+  .button--size-xs .button__icon--left {
     padding: 0 $spacing-5xs 0 0;
   }
 
-  .button__size-xs .button__icon__right {
+  .button--size-xs .button__icon--right {
     padding: 0 0 0 $spacing-5xs;
   }
 
-  .button__icon__left {
+  .button__icon--left {
     padding: 0 $spacing-4xs 0 0;
   }
 
-  .button__icon__right {
+  .button__icon--right {
     padding: 0 0 0 $spacing-4xs;
   }
 

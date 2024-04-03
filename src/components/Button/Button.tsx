@@ -5,8 +5,6 @@ type ButtonSize = 'md' | 'sm' | 'xs'
 
 type ButtonColor = 'white' | 'blue' | 'orange'
 
-type IconPosition = 'left' | 'right';
-
 type ButtonTextColor = 'white' | 'purple' | 'orange' | 'blue'
 
 type ButtonWidth = 'auto' | 'full';
@@ -18,7 +16,7 @@ interface ButtonProps {
     buttonSize?: ButtonSize;
     buttonColor?: ButtonColor;
     icon?: React.ReactNode;
-    iconPosition?: IconPosition;
+    iconPosition?: boolean;
     buttonTextColor?: ButtonTextColor;
     buttonWidth?: ButtonWidth;
     buttonIconColor?: ButtonIconColor;
@@ -27,15 +25,15 @@ interface ButtonProps {
 }
 
 const getButtonSize = (buttonSize?: ButtonSize): string => {
-    return buttonSize ? styles[`button__size-${buttonSize}`] : ''
+    return buttonSize ? styles[`button--size-${buttonSize}`] : ''
 }
 
 const getButtonColor = (buttonColor?: ButtonColor): string => {
-    return buttonColor ? styles[`button__color-${buttonColor}`] : ''
+    return buttonColor ? styles[`button--color-${buttonColor}`] : ''
 }
 
 const getButtonTextColor = (buttonTextColor?: ButtonTextColor): string => {
-    return buttonTextColor ? styles[`button__text-${buttonTextColor}`] : ''
+    return buttonTextColor ? styles[`button--text-${buttonTextColor}`] : ''
 }
 
 const getButtonWidth = (buttonWidth?: ButtonWidth): string => {
@@ -52,7 +50,7 @@ export const Button = ({
     buttonColor = "blue",
     title,
     icon,
-    iconPosition = "right",
+    iconPosition = true,
     buttonTextColor = "white",
     buttonWidth = "auto",
     disabled,
@@ -60,8 +58,8 @@ export const Button = ({
     onClick
 }: ButtonProps): ReactElement => {
 
-    const displayIconLeft = icon && iconPosition === 'left'
-    const displayIconRight = icon && iconPosition === 'right'
+    const displayIconLeft = icon && iconPosition === false
+    const displayIconRight = icon && iconPosition === true
 
     return (
         <button
@@ -74,13 +72,13 @@ export const Button = ({
         ${getButtonIconColor(buttonIconColor)}
           `} onClick={onClick} disabled={disabled}>
             {displayIconLeft && (
-                <span className={`${styles.button__icon} ${styles.button__icon__left} ${styles.button__icon}`}>
+                <span className={`${styles.button__icon} ${styles['button__icon--' + iconPosition]} ${styles.button__icon}`}>
                     {icon}
                 </span>
             )}
             {title}
             {displayIconRight && (
-                <span className={`${styles.button__icon} ${styles.button__icon__right} ${styles.button__icon}`}>
+                <span className={`${styles.button__icon} ${styles['button__icon--' + iconPosition]} ${styles.button__icon}`}>
                     {icon}
                 </span>
             )}

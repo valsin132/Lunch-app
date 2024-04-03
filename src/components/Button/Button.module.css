@@ -2,20 +2,18 @@
 
 .button {
   border-radius: $border-radius-regular;
-  @include flexbox($justifyContent: center, $alignItems: center);
+  @include flexbox(
+    $justifyContent: center,
+    $alignItems: center,
+    $gap: $spacing-4xs
+  );
 
   &.button--size-xs {
     padding: calc($spacing-4xs - 1px) $spacing-4xs;
     @include label-xs;
+    gap: 4px;
     .button__icon {
-      @include flexbox($alignItems: center);
-      @include size(14px);
-    }
-    .button__icon-plus {
-      padding: 0 $spacing-5xs 0 0;
-    }
-    .button__icon-arrow {
-      padding: 0 0 0 $spacing-5xs;
+      @include size(14px, 14px);
     }
   }
 
@@ -23,8 +21,7 @@
     padding: $spacing-5xs $spacing-4xs;
     @include label-s;
     .button__icon {
-      @include flexbox($alignItems: center);
-      @include size(18px);
+      @include size(18px, 18px);
     }
   }
 
@@ -32,8 +29,7 @@
     padding: $spacing-4xs;
     @include label-m;
     .button__icon {
-      @include flexbox($alignItems: center);
-      @include size(24px);
+      @include size(24px, 24px);
     }
   }
 
@@ -51,6 +47,9 @@
       &:active {
         background-color: $color-blue-800;
       }
+    }
+    & path {
+      fill: $color-yellow-icon;
     }
   }
 
@@ -71,6 +70,9 @@
         background-color: $color-orange-100;
       }
     }
+    & path {
+      fill: $color-yellow-icon;
+    }
   }
 
   &.button--color-tertiary {
@@ -90,24 +92,12 @@
     }
   }
 
-  &.button__icon-yellow {
-    & path {
-      fill: $color-yellow-icon;
-    }
+  &.button__width-auto {
+    width: auto;
   }
 
-  &.button__icon-default {
-    & path {
-      fill: $color-black;
-    }
-  }
-
-  .button__icon-plus {
-    padding: 0 $spacing-4xs 0 0;
-  }
-
-  .button__icon-arrow {
-    padding: 0 0 0 $spacing-4xs;
+  &.button__width-full {
+    width: 100%;
   }
 
   &:disabled {

@@ -10,15 +10,13 @@ type IconType = 'arrow' | 'plus'
 
 type ButtonWidth = 'auto' | 'full';
 
-type ButtonIconColor = 'yellow' | 'default';
 
 interface ButtonProps {
     title: string;
     buttonSize: ButtonSize;
     buttonType: ButtonType;
     iconType?: IconType;
-    buttonWidth?: ButtonWidth;
-    buttonIconColor?: ButtonIconColor;
+    buttonWidth: ButtonWidth;
     onClick: () => void;
     disabled?: boolean;
 }
@@ -35,10 +33,6 @@ const getButtonWidth = (buttonWidth?: ButtonWidth): string => {
     return buttonWidth ? styles[`button__width-${buttonWidth}`] : ''
 }
 
-const getButtonIconColor = (buttonIconColor?: ButtonIconColor): string => {
-    return buttonIconColor ? styles[`button__icon-${buttonIconColor}`] : ''
-}
-
 export const Button = ({
     buttonSize = "md",
     buttonType = "primary",
@@ -46,12 +40,8 @@ export const Button = ({
     buttonWidth = "auto",
     disabled,
     iconType,
-    buttonIconColor = "default",
     onClick
 }: ButtonProps): ReactElement => {
-
-    const displayIconPlus = iconType === "plus"
-    const displayIconArrow = iconType === "arrow"
 
     return (
         <button
@@ -60,19 +50,14 @@ export const Button = ({
         ${getButtonSize(buttonSize)} 
         ${getButtonWidth(buttonWidth)}
         ${getButtonType(buttonType)}
-        ${getButtonIconColor(buttonIconColor)}
-          `} onClick={onClick} disabled={disabled}>
-            {displayIconPlus && (
-                <div className={`${styles.button__icon}  ${styles['button__icon-' + iconType]}`}>
-                    <AddIcon />
-                </div>
-            )}
+          `}
+            onClick={onClick}
+            disabled={disabled}
+            aria-disabled={disabled}
+        >
+            {iconType === "plus" && <AddIcon className={styles.button__icon} />}
             {title}
-            {displayIconArrow && (
-                <div className={`${styles.button__icon}  ${styles['button__icon-' + iconType]}`}>
-                    <ArrowForwardFilled />
-                </div>
-            )}
+            {iconType === "arrow" && <ArrowForwardFilled className={styles.button__icon} />}
         </button>
     );
 };

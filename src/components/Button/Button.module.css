@@ -5,45 +5,41 @@
   @include flexbox($justifyContent: center, $alignItems: center);
 
   &.button--size-xs {
-    height: 32px;
     padding: calc($spacing-4xs - 1px) $spacing-4xs;
     @include label-xs;
     .button__icon {
-      width: 16px;
-      height: 16px;
-      & svg {
-        width: 16px;
-        height: 16px;
-      }
+      @include flexbox($alignItems: center);
+      @include size(14px);
+    }
+    .button__icon-plus {
+      padding: 0 $spacing-5xs 0 0;
+    }
+    .button__icon-arrow {
+      padding: 0 0 0 $spacing-5xs;
     }
   }
 
   &.button--size-sm {
-    height: 32px;
-    padding: 0 $spacing-4xs;
+    padding: $spacing-5xs $spacing-4xs;
     @include label-s;
     .button__icon {
-      width: 20px;
-      height: 20px;
-      & svg {
-        width: 20px;
-        height: 20px;
-      }
+      @include flexbox($alignItems: center);
+      @include size(18px);
     }
   }
 
   &.button--size-md {
-    height: 40px;
-    padding: 0 $spacing-4xs;
+    padding: $spacing-4xs;
     @include label-m;
     .button__icon {
-      width: 24px;
-      height: 24px;
+      @include flexbox($alignItems: center);
+      @include size(24px);
     }
   }
 
-  &.button--color-blue {
+  &.button--color-primary {
     background-color: $color-blue-800;
+    color: $text-color-white;
     &:hover {
       background-color: $color-blue-600;
     }
@@ -58,14 +54,15 @@
     }
   }
 
-  &.button--color-orange {
+  &.button--color-secondary {
     border: 1px solid $color-orange-300;
-    background-color: $color-orange-100;
+    background-color: $color-white;
+    color: $text-color-blue;
     &:hover {
-      background-color: $color-orange-200;
+      background-color: $color-orange-100;
     }
     &:active {
-      background-color: $color-orange-300;
+      background-color: $color-orange-200;
     }
     &:disabled {
       &:hover,
@@ -76,7 +73,8 @@
     }
   }
 
-  &.button--color-white {
+  &.button--color-tertiary {
+    color: $text-color-blue;
     background-color: $color-white;
     &:hover {
       background-color: $color-orange-100;
@@ -92,51 +90,27 @@
     }
   }
 
-  &.button--text-orange {
-    color: $text-color-orange;
+  &.button__icon-yellow {
+    & path {
+      fill: $color-yellow-icon;
+    }
+  }
+  &.button__icon-default {
+    & path {
+      fill: $color-black;
+    }
   }
 
-  &.button--text-white {
-    color: $text-color-white;
-  }
-
-  &.button--text-purple {
-    color: $text-color-purple;
-  }
-
-  &.button--text-gray {
-    color: $text-color-grey;
-  }
-
-  .button--size-xs .button__icon-false {
-    padding: 0 $spacing-5xs 0 0;
-  }
-
-  .button--size-xs .button__icon-true {
-    padding: 0 0 0 $spacing-5xs;
-  }
-
-  .button__icon-false {
+  .button__icon-plus {
     padding: 0 $spacing-4xs 0 0;
   }
 
-  .button__icon-true {
+  .button__icon-arrow {
     padding: 0 0 0 $spacing-4xs;
   }
 
   &:disabled {
     opacity: 0.4;
     cursor: not-allowed;
-  }
-}
-
-.button__icon-yellow {
-  & path {
-    fill: $color-yellow-icon;
-  }
-}
-.button__icon-default {
-  & path {
-    fill: $color-black;
   }
 }

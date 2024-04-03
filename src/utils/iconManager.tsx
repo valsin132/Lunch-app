@@ -6,6 +6,7 @@ import LogoVertical from './../assets/images/logo/logo-vertical-small.svg?react'
 import AddIcon from './../assets/images/icons/add.svg?react';
 import ArrowFilledIcon from './../assets/images/icons/arrow-filled.svg?react';
 import ArrowFilledCircleIcon from './../assets/images/icons/arrow-circle-filled.svg?react';
+import ArrowForwardFilled from "./../assets/images/icons/arrow-forward-filled.svg?react"
 import ArrowLongIcon from './../assets/images/icons/arrow-long.svg?react';
 import CheckOutlinedIcon from './../assets/images/icons/check-outlined.svg?react';
 import CheckFilledCircleIcon from './../assets/images/icons/check-circle-filled.svg?react';
@@ -35,6 +36,7 @@ export {
     AddIcon,
     ArrowFilledIcon,
     ArrowFilledCircleIcon,
+    ArrowForwardFilled,
     ArrowLongIcon,
     CheckOutlinedIcon,
     CheckFilledCircleIcon,

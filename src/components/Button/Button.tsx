@@ -1,11 +1,12 @@
 import React, { ReactElement } from "react";
 import styles from './Button.module.css';
+import { AddIcon, ArrowForwardFilled } from '../../utils/iconManager';
 
 type ButtonSize = 'md' | 'sm' | 'xs'
 
-type ButtonColor = 'white' | 'blue' | 'orange'
+type ButtonType = 'primary' | 'secondary' | 'tertiary'
 
-type ButtonTextColor = 'white' | 'purple' | 'orange' | 'blue'
+type IconType = 'arrow' | 'plus'
 
 type ButtonWidth = 'auto' | 'full';
 
@@ -13,14 +14,12 @@ type ButtonIconColor = 'yellow' | 'default';
 
 interface ButtonProps {
     title: string;
-    buttonSize?: ButtonSize;
-    buttonColor?: ButtonColor;
-    icon?: React.ReactNode;
-    iconPosition?: boolean;
-    buttonTextColor?: ButtonTextColor;
+    buttonSize: ButtonSize;
+    buttonType: ButtonType;
+    iconType?: IconType;
     buttonWidth?: ButtonWidth;
     buttonIconColor?: ButtonIconColor;
-    onClick?: () => void;
+    onClick: () => void;
     disabled?: boolean;
 }
 
@@ -28,12 +27,8 @@ const getButtonSize = (buttonSize?: ButtonSize): string => {
     return buttonSize ? styles[`button--size-${buttonSize}`] : ''
 }
 
-const getButtonColor = (buttonColor?: ButtonColor): string => {
-    return buttonColor ? styles[`button--color-${buttonColor}`] : ''
-}
-
-const getButtonTextColor = (buttonTextColor?: ButtonTextColor): string => {
-    return buttonTextColor ? styles[`button--text-${buttonTextColor}`] : ''
+const getButtonType = (buttonType?: ButtonType): string => {
+    return buttonType ? styles[`button--color-${buttonType}`] : ''
 }
 
 const getButtonWidth = (buttonWidth?: ButtonWidth): string => {
@@ -47,19 +42,17 @@ const getButtonIconColor = (buttonIconColor?: ButtonIconColor): string => {
 
 export const Button = ({
     buttonSize = "md",
-    buttonColor = "blue",
+    buttonType = "primary",
     title,
-    icon,
-    iconPosition = true,
-    buttonTextColor = "white",
     buttonWidth = "auto",
     disabled,
+    iconType,
     buttonIconColor = "default",
     onClick
 }: ButtonProps): ReactElement => {
 
-    const displayIconLeft = icon && iconPosition === false
-    const displayIconRight = icon && iconPosition === true
+    const displayIconPlus = iconType === "plus"
+    const displayIconArrow = iconType === "arrow"
 
     return (
         <button
@@ -67,20 +60,21 @@ export const Button = ({
         ${styles.button} 
         ${getButtonSize(buttonSize)} 
         ${getButtonWidth(buttonWidth)}
-        ${getButtonTextColor(buttonTextColor)}
-        ${getButtonColor(buttonColor)}
+        ${getButtonType(buttonType)}
         ${getButtonIconColor(buttonIconColor)}
           `} onClick={onClick} disabled={disabled}>
-            {displayIconLeft && (
-                <span className={`${styles.button__icon} ${styles['button__icon-' + iconPosition]} ${styles.button__icon}`}>
-                    {icon}
-                </span>
+            {displayIconPlus && (
+                <div className={`${styles.button__icon}  ${styles['button__icon-' + iconType]}`}>
+                    <AddIcon />
+                </div>
             )}
             {title}
-            {displayIconRight && (
-                <span className={`${styles.button__icon} ${styles['button__icon-' + iconPosition]} ${styles.button__icon}`}>
-                    {icon}
-                </span>
+            <div>
+            </div>
+            {displayIconArrow && (
+                <div className={`${styles.button__icon}  ${styles['button__icon-' + iconType]}`}>
+                    <ArrowForwardFilled />
+                </div>
             )}
         </button>
     );

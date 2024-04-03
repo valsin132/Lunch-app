@@ -108,19 +108,19 @@
     color: $text-color-grey;
   }
 
-  .button--size-xs .button__icon--left {
+  .button--size-xs .button__icon-false {
     padding: 0 $spacing-5xs 0 0;
   }
 
-  .button--size-xs .button__icon--right {
+  .button--size-xs .button__icon-true {
     padding: 0 0 0 $spacing-5xs;
   }
 
-  .button__icon--left {
+  .button__icon-false {
     padding: 0 $spacing-4xs 0 0;
   }
 
-  .button__icon--right {
+  .button__icon-true {
     padding: 0 0 0 $spacing-4xs;
   }
 

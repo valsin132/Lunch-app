@@ -39,7 +39,6 @@ const getButtonIconColor = (buttonIconColor?: ButtonIconColor): string => {
     return buttonIconColor ? styles[`button__icon-${buttonIconColor}`] : ''
 }
 
-
 export const Button = ({
     buttonSize = "md",
     buttonType = "primary",
@@ -69,8 +68,6 @@ export const Button = ({
                 </div>
             )}
             {title}
-            <div>
-            </div>
             {displayIconArrow && (
                 <div className={`${styles.button__icon}  ${styles['button__icon-' + iconType]}`}>
                     <ArrowForwardFilled />

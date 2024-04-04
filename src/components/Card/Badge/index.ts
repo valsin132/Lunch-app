@@ -1,2 +1,2 @@
-export * from "./BadgeCount/BadgeCount";
-export * from "./BadgeFree/BadgeFree";
+export * from './BadgeCount/BadgeCount';
+export * from './BadgeFree/BadgeFree';

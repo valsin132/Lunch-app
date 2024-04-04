@@ -1,6 +1,9 @@
 import { ReactElement, useState } from "react";
 import styles from "./Toast.module.css"
+import classNames from "classnames/bind"
 import { CheckOutlinedIcon, CloseIcon, ErrorOutlinedIcon, InfoOutlinedIcon } from "../../utils/iconManager";
+
+const cx = classNames.bind(styles)
 
 type Icon = "InfoOutlinedIcon" | "CheckOutlinedIcon" | "ErrorOutlinedIcon"
 
@@ -38,10 +41,10 @@ export const Toast = ({ content, icon, colorBg }: ToastProps): ReactElement => {
   }
 
   return isVisible ? (
-    <div className={`${styles.toast} ${getColorBg(colorBg)}`}>
-        <div className={styles["toast__icon-info"]}>{getIcon(icon)}</div>
-        <p className={styles.toast__text}>{content}</p>
-        <div><CloseIcon className={styles["toast__icon-close"]} onClick={handleClose} /></div>
+    <div className={cx("toast", [getColorBg(colorBg)])}>
+        <div className={cx("toast__icon-info")}>{getIcon(icon)}</div>
+        <p className={cx("toast__text")}>{content}</p>
+        <div><CloseIcon className={cx("toast__icon-close")} onClick={handleClose} /></div>
     </div>
   ) : <></>
 }

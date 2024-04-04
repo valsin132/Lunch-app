@@ -36,14 +36,14 @@
   }
 
   &.card--box-shadow-xs {
-    @include xs-box-shadow;
+    @include box-shadow-xs;
   }
 
   &.card--box-shadow-s {
-    @include s-box-shadow;
+    @include box-shadow-s;
   }
 
   &.card--box-shadow-m {
-    @include m-box-shadow;
+    @include box-shadow-m;
   }
 }

@@ -19,11 +19,9 @@ export const Card = ({ children, spacing = '2xs', shadow = 'none', roundedCorner
     return (
         <div className={cx(
             'card',
-            {
-                [`card--spacing-${spacing}`]: spacing,
-                [`card--rounded-corners-${roundedCorners}`]: roundedCorners,
-                [`card--box-shadow-${shadow}`]: shadow !== 'none',
-            }
+            [`card--spacing-${spacing}`],
+            [`card--rounded-corners-${roundedCorners}`],
+            [`card--box-shadow-${shadow}`],
         )}
         >
             {children}

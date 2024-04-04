@@ -25,7 +25,7 @@
     }
 }
 
-.icon--info {
+.toast__icon-info {
     align-self: flex-start;
     & svg {
         height: 20px;
@@ -36,14 +36,14 @@
     }
 }
 
-.text {
+.toast__text {
     text-align: start;
     color: $color-white;
     border-right: 1px solid $color-white;
     padding-right: $spacing-2xs;
 }
 
-.icon--close {
+.toast__icon-close {
     cursor: pointer;
     align-self: center;
     padding: $spacing-4xs;

@@ -39,9 +39,9 @@ export const Toast = ({ content, icon, colorBg }: ToastProps): ReactElement => {
 
   return isVisible ? (
     <div className={`${styles.toast} ${getColorBg(colorBg)}`}>
-        <div className={styles["icon--info"]}>{getIcon(icon)}</div>
-        <p className={styles.text}>{content}</p>
-        <div><CloseIcon className={styles["icon--close"]} onClick={handleClose} /></div>
+        <div className={styles["toast__icon-info"]}>{getIcon(icon)}</div>
+        <p className={styles.toast__text}>{content}</p>
+        <div><CloseIcon className={styles["toast__icon-close"]} onClick={handleClose} /></div>
     </div>
   ) : <></>
 }

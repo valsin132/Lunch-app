@@ -1,8 +1,9 @@
 /// <reference types="vite-plugin-svgr/client" />
 
-import AddIcon from './../assets/images/icons/add.svg?react';
 import LogoHorizontal from './../assets/images/logo/logo-horizontal-large.svg?react';
 import LogoVertical from './../assets/images/logo/logo-vertical-small.svg?react';
+
+import AddIcon from './../assets/images/icons/add.svg?react';
 import ArrowFilledIcon from './../assets/images/icons/arrow-filled.svg?react';
 import ArrowFilledCircleIcon from './../assets/images/icons/arrow-circle-filled.svg?react';
 import ArrowLongIcon from './../assets/images/icons/arrow-long.svg?react';

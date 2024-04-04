@@ -3,18 +3,23 @@ import styles from './Badge.module.css'
 import classNames from 'classnames/bind'
 
 interface BadgeProps {
-    free: boolean;
-    count?: number;
+    count: number;
 }
 
 const cx = classNames.bind(styles);
 
-export const Badge = ({ free, count }: BadgeProps) => {
+export const BadgeFree = () => {
     return (
-        <div className={cx('badge', free)}>
-            <div className={`${styles.badge} ${styles['badge--' + free]}`}>
-                {free ? count : 'Free'}
-            </div>
+        <div className={cx('badge', 'badge--free')}>
+            <p>Free</p>
+        </div>
+    )
+}
+
+export const BadgeContent = ({ count }: BadgeProps) => {
+    return (
+        <div className={cx('badge', 'badge--content')}>
+            {count}
         </div>
     )
 }

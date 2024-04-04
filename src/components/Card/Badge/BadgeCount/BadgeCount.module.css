@@ -1,0 +1,13 @@
+@import "./../../../../styles/index.css";
+
+.badge {
+  color: $color-white;
+  @include label-xs;
+  @include flexbox($justifyContent: center, $alignItems: center);
+
+  &.badge--count {
+    @include size(20px, 20px);
+    background-color: $color-red-500;
+    border-radius: $border-radius-circle;
+  }
+}

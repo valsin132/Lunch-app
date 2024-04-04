@@ -18,7 +18,7 @@ interface ButtonProps {
     iconType?: IconType;
     buttonWidth: ButtonWidth;
     onClick: () => void;
-    disabled?: boolean;
+    isDisabled?: boolean;
 }
 
 const getButtonSize = (buttonSize?: ButtonSize): string => {
@@ -38,7 +38,7 @@ export const Button = ({
     buttonType = "primary",
     title,
     buttonWidth = "auto",
-    disabled,
+    isDisabled,
     iconType,
     onClick
 }: ButtonProps): ReactElement => {
@@ -52,8 +52,8 @@ export const Button = ({
         ${getButtonType(buttonType)}
           `}
             onClick={onClick}
-            disabled={disabled}
-            aria-disabled={disabled}
+            disabled={isDisabled}
+            aria-disabled={isDisabled}
         >
             {iconType === "plus" && <AddIcon className={styles.button__icon} />}
             {title}

@@ -5,13 +5,13 @@
   @include flexbox(
     $justifyContent: center,
     $alignItems: center,
-    $gap: $spacing-4xs
+    $gap: $gap-regular
   );
 
   &.button--size-xs {
     padding: calc($spacing-4xs - 1px) $spacing-4xs;
     @include label-xs;
-    gap: 4px;
+    gap: $gap-small;
     .button__icon {
       @include size(14px, 14px);
     }

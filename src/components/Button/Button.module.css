@@ -1,0 +1,112 @@
+@import "src/styles/index.css";
+
+.button {
+  border: 1px solid transparent;
+  border-radius: $border-radius-regular;
+  @include flexbox(
+    $justifyContent: center,
+    $alignItems: center,
+    $gap: $gap-regular
+  );
+
+  &.button--size-xs {
+    padding: calc($spacing-4xs - 2px) $spacing-4xs;
+    @include label-xs;
+    gap: $gap-small;
+    .button__icon {
+      @include size(14px, 14px);
+    }
+  }
+
+  &.button--size-sm {
+    padding: calc($spacing-5xs + 0.5px) $spacing-4xs;
+    @include label-s;
+    .button__icon {
+      @include size(18px, 18px);
+    }
+  }
+
+  &.button--size-md {
+    padding: calc($spacing-4xs - 1px) $spacing-4xs;
+    @include label-m;
+    .button__icon {
+      @include size(24px, 24px);
+    }
+  }
+
+  &.button--color-primary {
+    background-color: $color-blue-800;
+    color: $text-color-white;
+    &:hover {
+      background-color: $color-blue-600;
+    }
+    &:active {
+      background-color: $color-blue-400;
+    }
+    &:disabled {
+      &:hover,
+      &:active {
+        background-color: $color-blue-800;
+      }
+    }
+    & path {
+      fill: $color-yellow-icon;
+    }
+  }
+
+  &.button--color-secondary {
+    border: 1px solid $color-orange-300;
+    background-color: $color-white;
+    color: $text-color-blue;
+    &:hover {
+      background-color: $color-orange-100;
+    }
+    &:active {
+      background-color: $color-orange-200;
+    }
+    &:disabled {
+      &:hover,
+      &:active {
+        border: 1px solid $color-orange-300;
+        background-color: $color-orange-100;
+      }
+    }
+    & path {
+      fill: $color-yellow-icon;
+    }
+  }
+
+  &.button--color-tertiary {
+    color: $text-color-blue;
+    background-color: $color-white;
+    &:hover {
+      background-color: $color-orange-100;
+    }
+    &:active {
+      background-color: $color-orange-200;
+    }
+    &:disabled {
+      &:hover,
+      &:active {
+        background-color: $color-white;
+      }
+    }
+  }
+
+  &.button__icon-arrow {
+    transform: rotate(-0.25turn);
+  }
+
+  &.button__width-auto {
+    width: auto;
+  }
+
+  &.button__width-full {
+    width: 100%;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}

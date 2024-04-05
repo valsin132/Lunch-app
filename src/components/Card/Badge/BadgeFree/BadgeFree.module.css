@@ -1,6 +1,6 @@
 @import "./../../../../styles/index.css";
 
-.badge--free {
+.badge {
   color: $color-white;
   @include label-xs;
   width: fit-content;

@@ -5,7 +5,7 @@ const cx = classNames.bind(styles);
 
 export const BadgeFree = () => {
     return (
-        <div className={cx('badge--free')}>
+        <div className={cx('badge')}>
             <p>Free</p>
         </div>
     )

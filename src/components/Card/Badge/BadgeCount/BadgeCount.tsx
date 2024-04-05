@@ -9,7 +9,7 @@ const cx = classNames.bind(styles);
 
 export const BadgeCount = ({ count }: BadgeProps) => {
     return (
-        <div className={cx('badge--count')}>
+        <div className={cx('badge')}>
             {count}
         </div>
     )

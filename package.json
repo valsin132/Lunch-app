@@ -18,13 +18,13 @@
     "prepare": "husky"
   },
   "lint-staged": {
-    "*.{js,ts,tsx,jsx}": [
+    "src/**/*.{js,ts,tsx,jsx}": [
       "eslint --quiet --fix"
     ],
-    "*.{json,md,html,js,jsx,ts,tsx,css,module.css}": [
+    "src/**/*.{json,md,html,js,jsx,ts,tsx,css,module.css}": [
       "prettier --write"
     ],
-    "*.{css,module.css}": "stylelint --fix"
+    "src/**/*.{css,module.css}": "stylelint --fix"
   },
   "dependencies": {
     "classnames": "2.5.1",

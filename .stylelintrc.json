@@ -13,7 +13,8 @@
       ["/color$/", "font-size"],
       {
         "ignoreValues": {
-          "/color$/": ["currentColor", "inherit", "transparent"]
+          "/color$/": ["currentColor", "inherit", "transparent"],
+          "font-size": ["inherit"]
         },
         "disableFix": true
       }
@@ -62,6 +63,7 @@
       {
         "ignorePseudoClasses": ["global"]
       }
-    ]
+    ],
+    "declaration-block-no-redundant-longhand-properties": null
   }
 }

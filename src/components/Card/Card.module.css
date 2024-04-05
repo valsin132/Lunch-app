@@ -4,7 +4,6 @@
   background-color: $color-white;
   border: solid 1px $color-grey-100;
   display: inline-block;
-  font-size: $spacing-3xs;
 
   &.card--rounded-corners-all {
     border-radius: $border-radius-regular;

@@ -1,0 +1,11 @@
+@import "./../../../../styles/index.css";
+
+.badge--free {
+  color: $color-white;
+  @include label-xs;
+  width: fit-content;
+  @include flexbox($justifyContent: center, $alignItems: center);
+  background-color: $color-purple-400;
+  border-radius: $border-radius-small;
+  padding: 0 $spacing-4xs;
+}

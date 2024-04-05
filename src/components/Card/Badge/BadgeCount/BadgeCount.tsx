@@ -1,4 +1,4 @@
-import * as styles from '../Badge.modules.css';
+import styles from './BadgeCount.module.css';
 import classNames from 'classnames/bind'
 
 interface BadgeProps {
@@ -9,7 +9,7 @@ const cx = classNames.bind(styles);
 
 export const BadgeCount = ({ count }: BadgeProps) => {
     return (
-        <div className={cx('badge', 'badge--count')}>
+        <div className={cx('badge--count')}>
             {count}
         </div>
     )

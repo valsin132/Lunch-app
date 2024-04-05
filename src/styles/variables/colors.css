@@ -31,13 +31,9 @@ $color-yellow-400: #fcda83;
 $color-yellow-300: #ffe7a8;
 $color-yellow-200: #ffefd0;
 
-$color-orange-gradient: linear-gradient(
-  318.11deg,
-  #ffcb86 -5.31%,
-  #fff5e8 122.02%
-);
+$color-orange-gradient: linear-gradient(318.11deg, #ffcb86 -5.31%, #fff5e8 122.02%);
 
-$color-modal-overlay: rgba(13, 31, 46, 0.15);
+$color-modal-overlay: rgba(13 31 46 / 15%);
 
-$color-white: #ffffff;
-$color-black: #000000;
+$color-white: #fff;
+$color-black: #000;

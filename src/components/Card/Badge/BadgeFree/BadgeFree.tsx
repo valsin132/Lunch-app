@@ -1,4 +1,4 @@
-import styles from './BadgeFree.module.css'
+import * as styles from '../Badge.modules.css';
 import classNames from 'classnames/bind'
 
 const cx = classNames.bind(styles);

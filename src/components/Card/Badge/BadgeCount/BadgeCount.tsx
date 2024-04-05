@@ -1,4 +1,4 @@
-import styles from './BadgeCount.module.css'
+import * as styles from '../Badge.modules.css';
 import classNames from 'classnames/bind'
 
 interface BadgeProps {

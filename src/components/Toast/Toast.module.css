@@ -2,34 +2,29 @@
 
 .toast {
   @include box-shadow-m;
-  @include flexbox($gap: 16px, $alignItems: center, $justifyContent: space-between);
-  @include label-s;
+  @include flexbox($gap: 16px);
 
   border-radius: $border-radius-regular;
   left: 50%;
+  max-width: 368px;
   padding: $spacing-2xs;
   position: absolute;
   transform: translate(-50%, -50%);
-  width: 368px;
   z-index: 1;
 
   &.toast--color-info {
     background-color: $color-purple-500;
-    border: 1px solid $color-purple-500;
   }
 
   &.toast--color-success {
     background-color: $color-green-300;
-    border: 1px solid $color-green-300;
   }
 
   &.toast--color-warning {
     background-color: $color-red-500;
-    border: 1px solid $color-red-500;
   }
 
   & .toast__icon-info {
-    align-self: flex-start;
 
     & svg {
       height: 20px;
@@ -42,11 +37,12 @@
   }
 
   & .toast__text {
+    @include label-s;
+
     border-right: 1px solid $color-white;
     color: $color-white;
     padding-right: $spacing-2xs;
     text-align: start;
-    width: 100%;
   }
 
   & .toast__icon-close {
@@ -58,6 +54,6 @@
   }
 
   & .toast__close {
-    padding: 4px;
+    @include flexbox($alignItems: center);
   }
 }

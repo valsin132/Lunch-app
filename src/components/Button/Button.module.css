@@ -29,7 +29,6 @@
   &.button--size-md {
     @include label-m;
 
-    line-height: 24px;
     padding: $spacing-4xs $spacing-2xs;
 
     &.button--size-md.button--icon-left {

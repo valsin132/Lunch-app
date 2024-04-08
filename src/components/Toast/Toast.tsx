@@ -1,52 +1,44 @@
-import { ReactElement, useState } from "react";
-import styles from "./Toast.module.css"
-import classNames from "classnames/bind"
-import { CheckOutlinedIcon, CloseIcon, ErrorOutlinedIcon, InfoOutlinedIcon } from "../../utils/iconManager";
+import { ReactElement } from 'react';
+import classNames from 'classnames/bind';
+import {
+  CheckOutlinedIcon,
+  CloseIcon,
+  ErrorOutlinedIcon,
+  InfoOutlinedIcon,
+} from '../../utils/iconManager';
+import styles from './Toast.module.css';
 
-const cx = classNames.bind(styles)
+const cx = classNames.bind(styles);
 
-type Icon = "InfoOutlinedIcon" | "CheckOutlinedIcon" | "ErrorOutlinedIcon"
-
-type ColorBg = "purple" | "green" | "red"
+type ToastTypes = 'info' | 'success' | 'warning';
 
 interface ToastProps {
-    content: string;
-    icon: Icon;
-    colorBg: ColorBg;
+  content: string;
+  toastType: ToastTypes;
+  onClick: () => void;
 }
 
-const getIcon = (icon : Icon): ReactElement => {
-  switch (icon) {
-    case "InfoOutlinedIcon":
-      return <InfoOutlinedIcon />
-    case "CheckOutlinedIcon":
-      return <CheckOutlinedIcon />
-    case "ErrorOutlinedIcon":
-      return <ErrorOutlinedIcon />
+const getIcon = (toastType: ToastTypes): ReactElement | null => {
+  switch (toastType) {
+    case 'info':
+      return <InfoOutlinedIcon />;
+    case 'success':
+      return <CheckOutlinedIcon />;
+    case 'warning':
+      return <ErrorOutlinedIcon />;
     default:
-      return <></>
-  } 
-}
-
-const getColorBg = (colorBg : ColorBg): string => {
-  return colorBg ? styles[`toast--color-${colorBg}`] : ""
-}
-
-export const Toast = ({ content, icon, colorBg }: ToastProps): ReactElement => {
-
-  const [isVisible, setIsVisible] = useState(true)
-
-  const handleClose = () => {
-    setIsVisible(false)
+      return null;
   }
+};
 
-  return isVisible ? (
-    <div className={cx("toast", [getColorBg(colorBg)])}>
-        <div className={cx("toast__icon-info")}>{getIcon(icon)}</div>
-        <p className={cx("toast__text")}>{content}</p>
-        <div><CloseIcon className={cx("toast__icon-close")} onClick={handleClose} /></div>
+export function Toast({ content, toastType, onClick }: ToastProps): ReactElement {
+  return (
+    <div className={cx('toast', `toast--color-${toastType}`)}>
+      <div className={cx('toast__icon-info')}>{getIcon(toastType)}</div>
+      <p className={cx('toast__text')}>{content}</p>
+      <div className={cx('toast__close')}>
+        <CloseIcon className={cx('toast__icon-close')} onClick={onClick} />
+      </div>
     </div>
-  ) : <></>
+  );
 }
-
-

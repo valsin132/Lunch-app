@@ -9,15 +9,12 @@ interface TabProps {
   isActive: boolean;
   onClick: () => void;
 }
-
 export function Tab({ label, isActive, onClick }: TabProps): ReactElement {
   return (
-    <div className={cx('tab-container')}>
-      <div className={cx(['tab'], { 'tab--active': isActive })}>
-        <button type="button" onClick={onClick}>
-          {label}
-        </button>
-      </div>
+    <div className={cx(['tab-container'], { 'tab-container--active': isActive })}>
+      <button className={cx('tab')} onClick={onClick} type="button">
+        {label}
+      </button>
     </div>
   );
 }

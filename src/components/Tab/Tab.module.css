@@ -10,7 +10,6 @@
   &.tab-container--active {
     border-bottom: solid 2px $color-orange-400;
     color: $color-blue-600;
-    display: inline-block;
   }
 }
 
@@ -18,8 +17,12 @@
   border-radius: $border-radius-small;
   padding: calc($spacing-4xs + 1px) $spacing-2xs;
 
+  &:disabled {
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
   &:hover {
     background-color: rgb(20 49 73 / 5%);
-    border: solid 0;
   }
 }

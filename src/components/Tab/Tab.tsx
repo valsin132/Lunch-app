@@ -1,30 +1,29 @@
-import styles from "./Tab.module.css";
-import { useState, MouseEvent } from "react";
-import classNames from "classnames/bind";
+import { ReactElement } from 'react';
+import classNames from 'classnames/bind';
+import styles from './Tab.module.css';
 
 const cx = classNames.bind(styles);
 interface TabProps {
   label: string;
-  onClick?: (e: MouseEvent) => void;
+  activeTab: string;
+  onClick: (label: string) => void;
 }
-export const Tab: React.FC<TabProps> = ({ label, onClick }) => {
-  const [isActive, setIsActive] = useState(false);
 
-  const handleClick = (e: MouseEvent) => {
-    setIsActive(!isActive);
+export function Tab({ label, activeTab, onClick }: TabProps): ReactElement {
+  const isActive = activeTab === label;
+  const handleClick = () => {
     if (onClick) {
-      onClick(e);
+      onClick(label);
     }
   };
-
   return (
-    <div className={cx(`tab--container`)}>
+    <div className={cx(`tab-container`)}>
       <button
-        className={cx([`tab`], { ["tab--active"]: isActive })}
-        onClick={handleClick}
-      >
+        type="button"
+        className={cx([`tab`], { 'tab--active': isActive })}
+        onClick={handleClick}>
         {label}
       </button>
     </div>
   );
-};
+}

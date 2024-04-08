@@ -1,19 +1,23 @@
-@import "./../../styles/index.css";
-.tab--container {
+@import './../../styles/index.css';
+
+.tab-container {
   @include label-s;
+
   color: $color-grey-500;
+
   &:hover {
-    background-color: rgba(20, 49, 73, 0.05);
-    border: solid 0px;
+    background-color: rgb(20 49 73 / 5%);
+    border: solid 0;
     border-radius: 4px;
   }
 }
+
 .tab {
   padding: calc($spacing-4xs + 1px) $spacing-2xs;
+
   &.tab--active {
-    padding: calc($spacing-4xs + 1px) $spacing-2xs calc($spacing-4xs - 1px)
-      $spacing-2xs;
     border-bottom: solid $color-orange-400 2px;
     color: $color-blue-600;
+    padding: calc($spacing-4xs + 1px) $spacing-2xs calc($spacing-4xs - 1px) $spacing-2xs;
   }
 }

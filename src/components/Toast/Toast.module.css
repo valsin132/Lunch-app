@@ -25,6 +25,7 @@
   }
 
   & .toast__icon {
+    @include flexbox($alignItems: flex-start);
 
     & svg {
       @include size(20px, 20px);
@@ -44,15 +45,15 @@
     text-align: start;
   }
 
+  & .toast__close {
+    @include flexbox($alignItems: center);
+  }
+
   & .toast__icon-close {
     cursor: pointer;
 
     & path {
       fill: $color-white;
     }
-  }
-
-  & .toast__close {
-    @include flexbox($alignItems: center);
   }
 }

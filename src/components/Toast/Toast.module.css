@@ -27,8 +27,7 @@
   & .toast__icon-info {
 
     & svg {
-      height: 20px;
-      width: 20px;
+      @include size(20px, 20px);
     }
 
     & path {

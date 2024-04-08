@@ -24,7 +24,7 @@
     background-color: $color-red-500;
   }
 
-  & .toast__icon-info {
+  & .toast__icon {
 
     & svg {
       @include size(20px, 20px);

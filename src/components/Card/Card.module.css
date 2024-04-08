@@ -1,10 +1,23 @@
-@import "./../../styles/index.css";
+@import './../../styles/index.css';
 
 .card {
-  display: inline-block;
   background-color: $color-white;
-  border-radius: $border-radius-large;
   border: solid 1px $color-grey-100;
+  display: inline-block;
+
+  &.card--rounded-corners-all {
+    border-radius: $border-radius-regular;
+  }
+
+  &.card--rounded-corners-left {
+    border-bottom-left-radius: $border-radius-regular;
+    border-top-left-radius: $border-radius-regular;
+  }
+
+  &.card--rounded-corners-right {
+    border-bottom-right-radius: $border-radius-regular;
+    border-top-right-radius: $border-radius-regular;
+  }
 
   &.card--spacing-3xs {
     padding: $spacing-3xs;
@@ -22,15 +35,15 @@
     padding: $spacing-s;
   }
 
-  &.card--boxShadow-xs {
-    @include xs-box-shadow;
+  &.card--box-shadow-xs {
+    @include box-shadow-xs;
   }
 
-  &.card--boxShadow-s {
-    @include s-box-shadow;
+  &.card--box-shadow-s {
+    @include box-shadow-s;
   }
 
-  &.card--boxShadow-m {
-    @include m-box-shadow;
+  &.card--box-shadow-m {
+    @include box-shadow-m;
   }
 }

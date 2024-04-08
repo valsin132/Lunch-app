@@ -3,21 +3,22 @@
 .tab-container {
   @include label-s;
 
-  color: $color-grey-500;
+  border-radius: $border-radius-small;
+  display: inline-block;
 
   &:hover {
     background-color: rgb(20 49 73 / 5%);
     border: solid 0;
-    border-radius: 4px;
   }
 }
 
 .tab {
+  box-shadow: 0 2px 0 $color-grey-300;
+  color: $color-grey-500;
   padding: calc($spacing-4xs + 1px) $spacing-2xs;
 
   &.tab--active {
-    border-bottom: solid $color-orange-400 2px;
+    box-shadow: 0 2px 0 $color-orange-400;
     color: $color-blue-600;
-    padding: calc($spacing-4xs + 1px) $spacing-2xs calc($spacing-4xs - 1px) $spacing-2xs;
   }
 }

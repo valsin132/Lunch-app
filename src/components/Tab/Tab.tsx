@@ -3,27 +3,21 @@ import classNames from 'classnames/bind';
 import styles from './Tab.module.css';
 
 const cx = classNames.bind(styles);
+
 interface TabProps {
   label: string;
-  activeTab: string;
-  onClick: (label: string) => void;
+  isActive: boolean;
+  onClick: () => void;
 }
 
-export function Tab({ label, activeTab, onClick }: TabProps): ReactElement {
-  const isActive = activeTab === label;
-  const handleClick = () => {
-    if (onClick) {
-      onClick(label);
-    }
-  };
+export function Tab({ label, isActive, onClick }: TabProps): ReactElement {
   return (
-    <div className={cx(`tab-container`)}>
-      <button
-        type="button"
-        className={cx([`tab`], { 'tab--active': isActive })}
-        onClick={handleClick}>
-        {label}
-      </button>
+    <div className={cx('tab-container')}>
+      <div className={cx(['tab'], { 'tab--active': isActive })}>
+        <button type="button" onClick={onClick}>
+          {label}
+        </button>
+      </div>
     </div>
   );
 }

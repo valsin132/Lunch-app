@@ -2,7 +2,7 @@
 
 .toast {
   @include box-shadow-m;
-  @include flexbox($gap: 16px);
+  @include flexbox($gap: $spacing-2xs);
 
   border-radius: $border-radius-regular;
   left: 50%;

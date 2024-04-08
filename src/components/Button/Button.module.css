@@ -1,0 +1,136 @@
+@import './../../styles/index.css';
+
+.button {
+  @include flexbox($justifyContent: center, $alignItems: center, $gap: $gap-regular);
+
+  border-radius: $border-radius-regular;
+
+  &.button--size-xs {
+    @include label-xs;
+
+    gap: $gap-small;
+    padding: calc($spacing-4xs - 1px) $spacing-4xs;
+
+    & .button__icon {
+      @include size(14px, 14px);
+    }
+  }
+
+  &.button--size-sm {
+    @include label-s;
+
+    padding: $spacing-5xs $spacing-4xs;
+
+    & .button__icon {
+      @include size(18px, 18px);
+    }
+  }
+
+  &.button--size-md {
+    @include label-m;
+
+    line-height: 24px;
+    padding: $spacing-4xs $spacing-2xs;
+
+    &.button--size-md.button--icon-left {
+      padding-left: $spacing-4xs;
+    }
+
+    &.button--size-md.button--icon-right {
+      padding-right: $spacing-4xs;
+    }
+
+    & .button__icon {
+      @include size(24px, 24px);
+    }
+  }
+
+  &.button--color-primary {
+    background-color: $color-blue-800;
+    color: $text-color-white;
+
+    &:hover {
+      background-color: $color-blue-600;
+    }
+
+    &:active {
+      background-color: $color-blue-400;
+    }
+
+    &:disabled {
+
+      &:hover,
+      &:active {
+        background-color: $color-blue-800;
+      }
+    }
+
+    & path {
+      fill: $color-yellow-icon;
+    }
+  }
+
+  &.button--color-secondary {
+    background-color: $color-white;
+    box-shadow: inset 0 0 0 1px $color-orange-300;
+    color: $text-color-blue;
+
+    &:hover {
+      background-color: $color-orange-100;
+    }
+
+    &:active {
+      background-color: $color-orange-200;
+    }
+
+    &:disabled {
+
+      &:hover,
+      &:active {
+        background-color: $color-white;
+      }
+    }
+
+    & path {
+      fill: $color-yellow-icon;
+    }
+  }
+
+  &.button--color-tertiary {
+    background-color: $color-white;
+    color: $text-color-blue;
+
+    &:hover {
+      background-color: $color-orange-100;
+    }
+
+    &:active {
+      background-color: $color-orange-200;
+    }
+
+    &:disabled {
+
+      &:hover,
+      &:active {
+        background-color: $color-white;
+      }
+    }
+  }
+
+  & .button__icon-arrow {
+    transform: rotate(-0.25turn);
+  }
+
+  & .button--width-auto {
+    width: auto;
+  }
+
+  & .button--width-full {
+    width: 100%;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+  }
+}

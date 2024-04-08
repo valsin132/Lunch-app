@@ -61,12 +61,7 @@
 }
 
 @mixin label-s {
-  @include create-text-style(
-    $font-weight-semi-bold,
-    $font-size-s,
-    $line-height-ratio-l,
-    $letter-spacing
-  );
+  @include create-text-style($font-weight-semi-bold, $font-size-s, $line-height-s, $letter-spacing);
 }
 
 @mixin label-xs {

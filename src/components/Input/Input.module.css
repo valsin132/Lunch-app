@@ -1,0 +1,67 @@
+@import '../../styles/index.css';
+
+.input {
+  @include flexbox($direction: column, $gap: 0.25rem, $alignItems: flex-start);
+
+  & .input__label {
+    @include label-s;
+
+    align-self: flex-start;
+    color: $color-blue-600;
+  }
+
+  & .input__field-container {
+    position: relative;
+  }
+
+  & .input__field--search-icon {
+    @include size(1.5rem, 1.5rem);
+
+    left: 10px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.5rem;
+
+    & path {
+      fill: $color-grey-400;
+    }
+  }
+
+  & .input__field {
+    @include body-m;
+
+    border: none;
+    border-radius: $border-radius-regular;
+    box-shadow: inset 0 0 0 1px $color-grey-300;
+    color: $color-grey-500;
+    min-width: 20rem;
+    outline: none;
+    padding: $spacing-4xs $spacing-3xs;
+
+    &:disabled {
+      border-color: $color-border-disabled;
+
+      &::placeholder {
+        color: $color-placeholder-disabled;
+      }
+    }
+  }
+
+  & .input__field--text-search {
+    color: $color-blue-600;
+    padding: calc($spacing-4xs + 1.5px) calc($spacing-l + 4px);
+
+    &:focus {
+      border: 2px solid $color-purple-500;
+      box-shadow: none;
+    }
+  }
+
+  & .input__field--text-error,
+  & .input__field--text-error:focus {
+    border: none;
+    box-shadow: inset 0 0 0 1px $color-error-border;
+    color: $color-error-font;
+  }
+}

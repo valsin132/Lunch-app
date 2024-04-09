@@ -1,5 +1,7 @@
 @import './../../styles/index.css';
 
+$sidebar-animation-duration: 300ms;
+
 .sidebar {
   @include flexbox($direction: column);
 
@@ -14,19 +16,43 @@
   top: 0;
 
   .sidebar__container {
-    transition: 200ms ease-in-out;
+    transition: $sidebar-animation-duration ease-in-out;
     width: 194px;
 
-    @include mobile-breakpoint {
-      width: 62px;
-    }
+    & .sidebar__logo-wrapper {
+      padding: calc($spacing-2xs - 2px);
 
-    & > .sidebar__logo {
-      width: fit-content;
+      & .sidebar__logo {
+        background-image: url('./../../assets/images/logo/logo-horizontal-large.svg');
+        background-position: 50%;
+        background-repeat: no-repeat;
+        background-size: contain;
+        height: 72px;
+        @include mobile-breakpoint {
+          background-image: url('./../../assets/images/logo/logo-vertical-small.svg');
+        }
+      }
     }
 
     &.sidebar--collapsed {
       width: 62px;
+
+      & .sidebar__logo {
+        animation: zoom $sidebar-animation-duration;
+        background-image: url('./../../assets/images/logo/logo-vertical-small.svg');
+      }
+    }
+
+    &.sidebar--expanded .sidebar__logo {
+      animation: zoom2 $sidebar-animation-duration;
+    }
+
+    @include mobile-breakpoint {
+      width: 62px;
+
+      & .sidebar__logo {
+        background-image: url('./../../assets/images/logo/logo-vertical-small.svg');
+      }
     }
   }
 
@@ -46,7 +72,7 @@
     .sidebar__expand-icon {
       display: block;
       transform: rotate(90deg);
-      transition: 200ms ease-in-out;
+      transition: $sidebar-animation-duration ease-in-out;
 
       path {
         fill: $color-white;
@@ -59,5 +85,27 @@
         transform: rotate(-90deg);
       }
     }
+  }
+}
+
+@keyframes zoom {
+
+  from {
+    scale: 0;
+  }
+
+  to {
+    scale: 1;
+  }
+}
+
+@keyframes zoom2 {
+
+  from {
+    scale: 0;
+  }
+
+  to {
+    scale: 1;
   }
 }

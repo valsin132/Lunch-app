@@ -1,3 +1,63 @@
+@import './../../styles/index.css';
+
 .sidebar {
+  @include flexbox($direction: column);
+
+  background-color: $color-blue-800;
+  border-radius: 0 0.5rem 0.5rem 0;
+  color: $color-white;
+  height: 100%;
+  left: 0;
+  padding: 5px;
   position: absolute;
+  text-align: left;
+  top: 0;
+
+  .sidebar__container {
+    transition: 200ms ease-in-out;
+    width: 194px;
+
+    @include mobile-breakpoint {
+      width: 62px;
+    }
+
+    & > .sidebar__logo {
+      width: fit-content;
+    }
+
+    &.sidebar--collapsed {
+      width: 62px;
+    }
+  }
+
+  .sidebar__expand-btn {
+    background-color: $color-orange-400;
+    border: solid 2px $color-white;
+    border-radius: 0.5rem;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(50%, -50%);
+
+    @include mobile-breakpoint {
+      display: none;
+    }
+
+    .sidebar__expand-icon {
+      display: block;
+      transform: rotate(90deg);
+      transition: 200ms ease-in-out;
+
+      path {
+        fill: $color-white;
+      }
+    }
+
+    &[aria-expanded='false'] {
+
+      .sidebar__expand-icon {
+        transform: rotate(-90deg);
+      }
+    }
+  }
 }

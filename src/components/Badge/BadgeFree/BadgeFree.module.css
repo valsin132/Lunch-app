@@ -1,0 +1,11 @@
+@import './../../../styles/index.css';
+
+.badge {
+  @include label-xs;
+
+  background-color: $color-purple-400;
+  border-radius: $border-radius-small;
+  color: $color-white;
+  padding: 0 $spacing-5xs;
+  width: fit-content;
+}

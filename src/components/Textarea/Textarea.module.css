@@ -1,0 +1,28 @@
+@import '../../styles/index.css';
+
+.textarea {
+  @include flexbox($direction: column, $justifyContent: flex-start, $gap: $gap-small);
+
+  & .textarea__label {
+    @include title-s;
+
+    align-self: flex-start;
+    color: $color-blue-600;
+  }
+
+  & .textarea__textfield {
+    @include body-m;
+
+    border: 1px solid $color-grey-300;
+    border-radius: $border-radius-regular;
+    color: $color-blue-600;
+    min-height: 5.1rem;
+    outline: none;
+    padding: $spacing-4xs $spacing-3xs;
+    resize: none;
+
+    &:focus {
+      border: 2px solid $color-purple-500;
+    }
+  }
+}

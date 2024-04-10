@@ -1,25 +1,23 @@
-import { ReactElement, ChangeEvent } from 'react';
+import { ReactElement } from 'react';
 import classNames from 'classnames/bind';
 import { SearchIcon } from '../../utils/iconManager';
 import styles from './Input.module.css';
 
 const cx = classNames.bind(styles);
 
-type TextFieldType = 'text' | 'email' | 'number' | 'password';
-
-type IconType = 'search';
+type TextFieldType = 'text' | 'email' | 'password';
 
 interface InputProps {
   textFieldType: TextFieldType;
-  iconType?: IconType;
+  withIcon?: boolean;
   label: string;
-  value: number | string;
+  value: string;
   name: string;
   isError?: boolean;
   placeholder?: string;
   id: string;
   isDisabled?: boolean;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onChange: () => void;
 }
 
 export function Input({
@@ -30,7 +28,7 @@ export function Input({
   isDisabled,
   onChange,
   isError,
-  iconType,
+  withIcon,
   value,
   name,
 }: InputProps): ReactElement {
@@ -47,13 +45,13 @@ export function Input({
           name={name}
           className={cx('input__field', {
             'input__field--text-error': isError,
-            'input__field--text-search': iconType === 'search',
+            'input__field--text-search': withIcon,
           })}
           disabled={isDisabled}
           onChange={onChange}
           value={value}
         />
-        {iconType === 'search' && (
+        {withIcon && (
           <i className={cx('input__field--search-icon')}>
             <SearchIcon className={cx('icon')} />
           </i>

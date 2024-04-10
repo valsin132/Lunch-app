@@ -54,7 +54,7 @@
 
   & .input__field--text-search {
     color: $color-blue-600;
-    padding: calc($spacing-4xs + 1.5px) calc($spacing-l + 4px);
+    padding-left: calc($spacing-l + 4px);
 
     &:focus {
       border: 2px solid $color-purple-500;

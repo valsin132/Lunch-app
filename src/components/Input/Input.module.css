@@ -50,16 +50,16 @@
         color: $color-input-disabled;
       }
     }
-  }
-
-  & .input__field--text-search {
-    color: $color-blue-600;
-    padding-left: calc($spacing-l + 4px);
 
     &:focus {
       border: 2px solid $color-purple-500;
       box-shadow: none;
     }
+  }
+
+  & .input__field--text-search {
+    color: $color-blue-600;
+    padding-left: calc($spacing-l + 4px);
   }
 
   & .input__field--text-error,

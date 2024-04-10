@@ -34,7 +34,12 @@ export function Input({
 }: InputProps): ReactElement {
   return (
     <div className={cx('input')}>
-      <label htmlFor={id} className={cx('input__label', { 'input__label--disabled': isDisabled })}>
+      <label
+        htmlFor={id}
+        className={cx('input__label', {
+          'input__label--disabled': isDisabled,
+          'input__label--error': isError,
+        })}>
         {label}
       </label>
       <span className={cx('input__field-container')}>
@@ -44,15 +49,15 @@ export function Input({
           id={id}
           name={name}
           className={cx('input__field', {
-            'input__field--text-error': isError,
-            'input__field--text-search': withIcon,
+            'input__field--error': isError,
+            'input__field--with-icon': withIcon,
           })}
           disabled={isDisabled}
           onChange={onChange}
           value={value}
         />
         {withIcon && (
-          <i className={cx('input__field--search-icon')}>
+          <i className={cx('input__field-icon')}>
             <SearchIcon className={cx('icon')} />
           </i>
         )}

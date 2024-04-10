@@ -21,7 +21,6 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 1.5rem;
 
     & path {
       fill: $color-grey-400;
@@ -35,7 +34,6 @@
     border-radius: $border-radius-regular;
     box-shadow: inset 0 0 0 1px $color-grey-300;
     color: $color-grey-500;
-    min-width: 20rem;
     outline: none;
     padding: $spacing-4xs $spacing-3xs;
 

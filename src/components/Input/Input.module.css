@@ -42,7 +42,8 @@
     padding: $spacing-4xs $spacing-3xs;
 
     &:disabled {
-      border-color: $color-border-disabled;
+      border: 1px solid $color-border-disabled;
+      box-shadow: none;
       pointer-events: none;
 
       &::placeholder {

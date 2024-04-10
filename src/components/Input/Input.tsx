@@ -34,7 +34,7 @@ export function Input({
 }: InputProps): ReactElement {
   return (
     <div className={cx('input')}>
-      <label htmlFor={id} className={cx('input__label')}>
+      <label htmlFor={id} className={cx('input__label', { 'input__label--disabled': isDisabled })}>
         {label}
       </label>
       <span className={cx('input__field-container')}>

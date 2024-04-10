@@ -10,6 +10,10 @@
     color: $color-blue-600;
   }
 
+  & .input__label--disabled {
+    color: $color-input-disabled;
+  }
+
   & .input__field-container {
     position: relative;
   }
@@ -39,9 +43,10 @@
 
     &:disabled {
       border-color: $color-border-disabled;
+      pointer-events: none;
 
       &::placeholder {
-        color: $color-placeholder-disabled;
+        color: $color-input-disabled;
       }
     }
   }

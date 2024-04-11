@@ -1,7 +1,7 @@
 @import '../../styles/index.css';
 
 .textarea {
-  @include flexbox($direction: column, $justifyContent: flex-start, $gap: $gap-small);
+  @include flexbox($direction: column, $gap: $gap-small);
 
   & .textarea__label {
     @include title-s;
@@ -16,7 +16,7 @@
     border: 1px solid $color-grey-300;
     border-radius: $border-radius-regular;
     color: $color-blue-600;
-    min-height: 5.1rem;
+    min-height: 81px;
     outline: none;
     padding: $spacing-4xs $spacing-3xs;
     resize: none;

@@ -1,7 +1,7 @@
 @import '../../styles/index.css';
 
 .input {
-  @include flexbox($direction: column, $gap: 0.25rem, $alignItems: flex-start);
+  @include flexbox($direction: column, $gap: $gap-small, $alignItems: flex-start);
 
   & .input__label {
     @include label-s;
@@ -57,7 +57,7 @@
 
   & .input__field--with-icon {
     color: $color-blue-600;
-    padding-left: calc($spacing-l + 4px);
+    padding-left: calc($spacing-l + $spacing-5xs);
   }
 
   & .input__field--error,

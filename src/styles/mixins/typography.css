@@ -87,7 +87,7 @@
 }
 
 @mixin body-m {
-  @include create-text-style($font-weight-regular, $font-size-s, $line-height-ratio-l);
+  @include create-text-style($font-weight-regular, $font-size-s, $line-height-s);
 }
 
 @mixin body-s {

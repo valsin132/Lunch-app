@@ -96,11 +96,11 @@
     transform: rotate(-0.25turn);
   }
 
-  & .button--width-auto {
+  &.button--width-auto {
     width: auto;
   }
 
-  & .button--width-full {
+  &.button--width-full {
     width: 100%;
   }
 

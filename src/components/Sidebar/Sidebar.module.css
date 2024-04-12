@@ -6,7 +6,7 @@ $sidebar-animation-duration: 300ms;
   @include flexbox($direction: column);
 
   background-color: $color-blue-800;
-  border-radius: 0 0.5rem 0.5rem 0;
+  border-radius: 0 $border-radius-regular $border-radius-regular 0;
   color: $color-white;
   max-height: 100dvh;
   padding: calc($spacing-4xs + 2px);

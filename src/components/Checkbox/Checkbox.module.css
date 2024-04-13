@@ -13,9 +13,9 @@
   }
 
   & .checkbox-container__label {
-    @include body-l;
+    @include label-text;
 
-    color: $color-checkbox-label;
+    color: $color-error-label;
   }
 
   & .checkbox-container__input:checked {

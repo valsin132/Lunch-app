@@ -10,24 +10,23 @@
     border: 2px solid $color-orange-300;
     border-radius: $border-radius-small;
     outline: none;
+
+    &:checked {
+      background-color: $color-orange-300;
+      background-image: url('../../assets/images/icons/checkmark.svg');
+      background-position: 0.1rem;
+      background-repeat: no-repeat;
+    }
+
+    &:disabled {
+      border-color: $color-grey-300;
+    }
   }
 
   & .checkbox-container__label {
     @include label-text;
 
     color: $color-error-label;
-  }
-
-  & .checkbox-container__input:checked {
-    background-color: $color-orange-300;
-    background-image: url('../../assets/images/icons/checkmark.svg');
-    background-position: 0.1rem;
-    background-repeat: no-repeat;
-  }
-
-  & .checkbox-container__input:disabled {
-    background-color: $color-grey-300;
-    border-color: $color-grey-300;
   }
 
   & .checkbox-container__label--disabled {

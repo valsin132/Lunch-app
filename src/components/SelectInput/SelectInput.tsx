@@ -34,7 +34,9 @@ export function SelectInput({
         tabIndex={0}
         role="button"
         onKeyDown={onClick}
-        className={cx('dropdown-container__title')}
+        className={cx('dropdown-container__title', {
+          'dropdown-container__title--selected': isOpen,
+        })}
         onClick={() => setisOpen((prev) => !prev)}>
         <p className={cx('dropdown-container__title--text')}>{title}</p>
         <ChevronIcon className={cx({ 'dropdown-container__icon--rotated': isOpen })} />

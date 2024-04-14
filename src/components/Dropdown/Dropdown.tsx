@@ -39,20 +39,22 @@ export function Dropdown({
         <p className={cx('dropdown-container__title--text')}>{title}</p>
         <ChevronIcon className={cx('dropdown-container__icon')} />
       </div>
-      <div className={cx({ 'list--hidden': !isOpen, 'dropdown-container__list': isOpen })}>
-        {options.map((option) => (
-          <button
-            type="button"
-            className={cx('dropdown-container__list-item', {
-              'dropdown-container__list-item--selected': isSelected,
-            })}
-            key={option.id}
-            value={option.name}
-            onClick={onClick}>
-            {option.name}
-          </button>
-        ))}
-      </div>
+      {isOpen && (
+        <div className={cx('dropdown-container__list')}>
+          {options.map((option) => (
+            <button
+              type="button"
+              className={cx('dropdown-container__list-item', {
+                'dropdown-container__list-item--selected': isSelected,
+              })}
+              key={option.id}
+              value={option.name}
+              onClick={onClick}>
+              {option.name}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

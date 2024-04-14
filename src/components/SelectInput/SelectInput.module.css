@@ -13,7 +13,7 @@
   & .dropdown-container__title {
     @include flexbox($justifyContent: space-between);
 
-    border: 2px solid $color-purple-500;
+    border: 1px solid $color-grey-300;
     border-radius: $border-radius-regular;
     padding: $spacing-4xs $spacing-3xs;
 
@@ -28,6 +28,10 @@
     & .dropdown-container__icon--rotated {
       transform: rotate(0.5turn);
     }
+  }
+
+  & .dropdown-container__title--selected {
+    border: 2px solid $color-purple-500;
   }
 
   .dropdown-container__list {

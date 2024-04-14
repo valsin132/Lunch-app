@@ -15,7 +15,7 @@ interface DropdownProps {
   options: DropdownOption[];
   title: string;
   label: string;
-  onClickHandler: () => void;
+  onClick: () => void;
 }
 
 export function Dropdown({
@@ -23,7 +23,7 @@ export function Dropdown({
   title,
   label,
   isSelected,
-  onClickHandler,
+  onClick,
 }: DropdownProps): ReactElement {
   const [isOpen, setisOpen] = useState(false);
 
@@ -33,7 +33,7 @@ export function Dropdown({
       <div
         tabIndex={0}
         role="button"
-        onKeyDown={onClickHandler}
+        onKeyDown={onClick}
         className={cx('dropdown-container__title')}
         onClick={() => setisOpen((prev) => !prev)}>
         <p className={cx('dropdown-container__title--text')}>{title}</p>
@@ -48,7 +48,7 @@ export function Dropdown({
             })}
             key={option.id}
             value={option.name}
-            onClick={onClickHandler}>
+            onClick={onClick}>
             {option.name}
           </button>
         ))}

@@ -9,10 +9,16 @@ interface CheckboxProps {
   isError?: boolean;
   isDisabled?: boolean;
   id: string;
-  onClick?: () => void;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export function Checkbox({ label, id, isDisabled, isError, onClick }: CheckboxProps): ReactElement {
+export function Checkbox({
+  label,
+  id,
+  isDisabled,
+  isError,
+  onChange,
+}: CheckboxProps): ReactElement {
   return (
     <div className={cx('checkbox-container')}>
       <input
@@ -22,7 +28,7 @@ export function Checkbox({ label, id, isDisabled, isError, onClick }: CheckboxPr
           'checkbox-container__input--error': isError,
         })}
         disabled={isDisabled}
-        onClick={onClick}
+        onChange={onChange}
       />
       <label
         className={cx('checkbox-container__label', {

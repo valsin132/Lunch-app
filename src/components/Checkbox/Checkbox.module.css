@@ -26,7 +26,7 @@
   & .checkbox-container__label {
     @include label-text;
 
-    color: $color-error-label;
+    color: $color-label-dark;
   }
 
   & .checkbox-container__label--disabled {

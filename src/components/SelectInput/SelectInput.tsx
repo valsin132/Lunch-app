@@ -1,30 +1,30 @@
 import { ReactElement, useState } from 'react';
 import classNames from 'classnames/bind';
 import { ChevronIcon } from '../../utils/iconManager';
-import styles from './Dropdown.module.css';
+import styles from './SelectInput.module.css';
 
 const cx = classNames.bind(styles);
 
-type DropdownOption = {
+type SelectInputOption = {
   name: string;
   id: string;
 };
 
-interface DropdownProps {
+interface SelectInputProps {
   isSelected?: boolean;
-  options: DropdownOption[];
+  options: SelectInputOption[];
   title: string;
   label: string;
   onClick: () => void;
 }
 
-export function Dropdown({
+export function SelectInput({
   options,
   title,
   label,
   isSelected,
   onClick,
-}: DropdownProps): ReactElement {
+}: SelectInputProps): ReactElement {
   const [isOpen, setisOpen] = useState(false);
 
   return (

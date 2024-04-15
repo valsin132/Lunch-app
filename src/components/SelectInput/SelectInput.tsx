@@ -6,8 +6,8 @@ import styles from './SelectInput.module.css';
 const cx = classNames.bind(styles);
 
 type SelectInputOption = {
-  name: string;
-  id: number;
+  label: string;
+  value: number;
 };
 
 interface SelectInputProps {
@@ -44,7 +44,7 @@ export function SelectInput({ options, title, label, onChange }: SelectInputProp
           'select__input--opened': isOpen,
         })}
         onClick={() => setIsOpen((prev) => !prev)}>
-        <p className={cx('select__value')}>{typeof value === 'undefined' ? title : value.name}</p>
+        <p className={cx('select__value')}>{typeof value === 'undefined' ? title : value.label}</p>
         <ChevronIcon className={cx({ 'select__icon--rotated': isOpen })} />
       </div>
       {isOpen && (
@@ -55,14 +55,14 @@ export function SelectInput({ options, title, label, onChange }: SelectInputProp
               className={cx('select__list-item', {
                 'select__list-item--selected': isOptionSelected(option),
               })}
-              key={option.id}
-              value={option.name}
+              key={option.value}
+              value={option.value}
               onClick={(e) => {
                 e.stopPropagation();
                 selectOption(option);
                 onChange(value);
               }}>
-              {option.name}
+              {option.label}
             </button>
           ))}
         </div>

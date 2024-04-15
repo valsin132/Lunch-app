@@ -38,28 +38,28 @@ export function SelectInput({
   }
 
   return (
-    <div className={cx('dropdown-container')}>
-      <p className={cx('dropdown-container__label')}>{label}</p>
+    <div className={cx('select-container')}>
+      <p className={cx('select-container__label')}>{label}</p>
       <div
         tabIndex={0}
         role="button"
         onKeyDown={() => setisOpen((prev) => !prev)}
-        className={cx('dropdown-container__title', {
-          'dropdown-container__title--selected': isOpen,
+        className={cx('select-container__title', {
+          'select-container__title--selected': isOpen,
         })}
         onClick={() => setisOpen((prev) => !prev)}>
-        <p className={cx('dropdown-container__title--text')}>
+        <p className={cx('select-container__title-text')}>
           {typeof value === 'undefined' ? title : value.name}
         </p>
-        <ChevronIcon className={cx({ 'dropdown-container__icon--rotated': isOpen })} />
+        <ChevronIcon className={cx({ 'select-container__icon--rotated': isOpen })} />
       </div>
       {isOpen && (
-        <div className={cx('dropdown-container__list')}>
+        <div className={cx('select-container__list')}>
           {options.map((option) => (
             <button
               type="button"
-              className={cx('dropdown-container__list-item', {
-                'dropdown-container__list-item--selected': isOptionSelected(option),
+              className={cx('select-container__list-item', {
+                'select-container__list-item--selected': isOptionSelected(option),
               })}
               key={option.id}
               value={option.name}

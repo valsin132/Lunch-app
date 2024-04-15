@@ -1,16 +1,16 @@
 @import 'src/styles/index.css';
 
-.foodCard {
+.food-card {
 
-  & .foodCard__content {
+  & .food-card__content {
     max-width: 261.4px;
 
-    & .foodCard__section1 {
-      min-height: 85px;
+    & .food-card__header {
+      min-height: 126px;
       padding-left: 100px;
       position: relative;
 
-      & .foodCard__image-placeholder {
+      & .food-card__image-placeholder {
         @include box-shadow-l;
 
         background: $color-orange-gradient;
@@ -22,30 +22,30 @@
         width: 103px;
         z-index: 1;
 
-        & .foodCard__food-icon {
+        & .food-card__food-icon {
           left: -3px;
           position: absolute;
           top: -3px;
         }
       }
 
-      & .foodCard__header-content {
+      & .food-card__header-content {
         padding: $spacing-2xs $spacing-4xs $spacing-4xs;
         text-align: left;
 
-        & .foodCard__vendor {
+        & .food-card__vendor {
           @include title-xs;
 
           color: $text-color-grey;
         }
 
-        & .foodCard__title {
+        & .food-card__title {
           @include title-s;
 
           color: $text-color-blue;
         }
 
-        & .foodCard__plant-icon {
+        & .food-card__plant-icon {
           @include size(20px, 20px);
 
           margin-right: $spacing-5xs;
@@ -55,7 +55,7 @@
           }
         }
 
-        & .foodCard__chilli-icon {
+        & .food-card__chilli-icon {
           @include size(20px, 20px);
 
           & path {
@@ -65,25 +65,30 @@
       }
     }
 
-    & .foodCard__section2 {
+    & .food-card__body {
       @include flexbox($direction: column, $gap: $gap-regular);
 
       padding: $spacing-2xs;
 
-      & .foodCard__description {
+      & .food-card__description {
         @include body-m;
 
+        -webkit-box-orient: vertical;
         color: $text-color-grey;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        min-height: 48px;
+        overflow: hidden;
         text-align: left;
       }
 
-      & .foodCard__rating-btn {
+      & .food-card__rating-btn {
         @include flexbox($justifyContent: space-between);
 
-        & .foodCard__rating {
+        & .food-card__rating {
           @include flexbox($alignItems: center, $gap: $gap-small);
 
-          & .foodCard__rating-icon {
+          & .food-card__rating-icon {
             @include size(12px, 12px);
 
             & path {
@@ -91,7 +96,7 @@
             }
           }
 
-          & .foodCard__rating-number {
+          & .food-card__rating-number {
             @include label-xs;
 
             color: $color-blue-600;
@@ -100,19 +105,19 @@
       }
     }
 
-    & .foodCard__section3 {
+    & .food-card__footer {
       @include flexbox($justifyContent: space-between, $alignItems: flex-end);
 
       color: $color-blue-600;
       padding: 0 $spacing-2xs $spacing-2xs;
 
-      & .foodCard__section3--price {
+      & .food-card__footer-price {
         @include body-s;
 
         text-align: left;
       }
 
-      & .foodCard__section3--euro {
+      & .food-card__footer-euro {
         @include title-l;
       }
     }

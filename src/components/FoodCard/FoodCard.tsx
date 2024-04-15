@@ -31,28 +31,28 @@ export function FoodCard({
   onClick,
 }: FoodCardProps): ReactElement {
   return (
-    <div className={cx('foodCard')}>
+    <div className={cx('food-card')}>
       <Card shadow="m" spacing="none">
-        <div className={cx('foodCard__content')}>
-          <div className={cx('foodCard__section1')}>
-            <div className={cx('foodCard__image-placeholder')}>
-              <img src={dishType} className={cx('foodCard__food-icon')} alt={dishType} />
+        <div className={cx('food-card__content')}>
+          <div className={cx('food-card__header')}>
+            <div className={cx('food-card__image-placeholder')}>
+              <img src={dishType} className={cx('food-card__food-icon')} alt={dishType} />
             </div>
-            <div className={cx('foodCard__header-content')}>
-              <h4 className={cx('foodCard__vendor')}>{vendor}</h4>
-              <h3 className={cx('foodCard__title')}>{title}</h3>
+            <div className={cx('food-card__header-content')}>
+              <h4 className={cx('food-card__vendor')}>{vendor}</h4>
+              <h3 className={cx('food-card__title')}>{title}</h3>
               <div>
-                {vegetarian && <PlantIcon className={cx('foodCard__plant-icon')} />}
-                {spicy && <ChilliIcon className={cx('foodCard__chilli-icon')} />}
+                {vegetarian && <PlantIcon className={cx('food-card__plant-icon')} />}
+                {spicy && <ChilliIcon className={cx('food-card__chilli-icon')} />}
               </div>
             </div>
           </div>
-          <div className={cx('foodCard__section2')}>
-            <p className={cx('foodCard__description')}>{description}</p>
-            <div className={cx('foodCard__rating-btn')}>
-              <div className={cx('foodCard__rating')}>
-                <StarFullIcon className={cx('foodCard__rating-icon')} />
-                <p className={cx('foodCard__rating-number')}>{rating}</p>
+          <div className={cx('food-card__body')}>
+            <p className={cx('food-card__description')}>{description}</p>
+            <div className={cx('food-card__rating-btn')}>
+              <div className={cx('food-card__rating')}>
+                <StarFullIcon className={cx('food-card__rating-icon')} />
+                <p className={cx('food-card__rating-number')}>{rating}</p>
               </div>
               <Button
                 title="More info"
@@ -63,10 +63,10 @@ export function FoodCard({
               />
             </div>
           </div>
-          <div className={cx('foodCard__section3')}>
+          <div className={cx('food-card__footer')}>
             <div>
-              <p className={cx('foodCard__section3--price')}>Price</p>
-              <p className={cx('foodCard__section3--euro')}>
+              <p className={cx('food-card__footer-price')}>Price</p>
+              <p className={cx('food-card__footer-euro')}>
                 &euro;
                 {price}
               </p>

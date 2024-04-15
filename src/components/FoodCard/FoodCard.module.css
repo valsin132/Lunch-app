@@ -1,0 +1,120 @@
+@import 'src/styles/index.css';
+
+.foodCard {
+
+  & .foodCard__content {
+    max-width: 261.4px;
+
+    & .foodCard__section1 {
+      min-height: 85px;
+      padding-left: 100px;
+      position: relative;
+
+      & .foodCard__image-placeholder {
+        @include box-shadow-l;
+
+        background: $color-orange-gradient;
+        border-radius: 8px 20px 80px;
+        height: 104px;
+        left: -9px;
+        position: absolute;
+        top: -8px;
+        width: 103px;
+        z-index: 1;
+
+        & .foodCard__food-icon {
+          left: -3px;
+          position: absolute;
+          top: -3px;
+        }
+      }
+
+      & .foodCard__header-content {
+        padding: $spacing-2xs $spacing-4xs $spacing-4xs;
+        text-align: left;
+
+        & .foodCard__vendor {
+          @include title-xs;
+
+          color: $text-color-grey;
+        }
+
+        & .foodCard__title {
+          @include title-s;
+
+          color: $text-color-blue;
+        }
+
+        & .foodCard__plant-icon {
+          @include size(20px, 20px);
+
+          margin-right: $spacing-5xs;
+
+          & path {
+            fill: $color-green-500;
+          }
+        }
+
+        & .foodCard__chilli-icon {
+          @include size(20px, 20px);
+
+          & path {
+            fill: $color-red-500;
+          }
+        }
+      }
+    }
+
+    & .foodCard__section2 {
+      @include flexbox($direction: column, $gap: $gap-regular);
+
+      padding: $spacing-2xs;
+
+      & .foodCard__description {
+        @include body-m;
+
+        color: $text-color-grey;
+        text-align: left;
+      }
+
+      & .foodCard__rating-btn {
+        @include flexbox($justifyContent: space-between);
+
+        & .foodCard__rating {
+          @include flexbox($alignItems: center, $gap: $gap-small);
+
+          & .foodCard__rating-icon {
+            @include size(12px, 12px);
+
+            & path {
+              fill: $color-blue-600;
+            }
+          }
+
+          & .foodCard__rating-number {
+            @include label-xs;
+
+            color: $color-blue-600;
+          }
+        }
+      }
+    }
+
+    & .foodCard__section3 {
+      @include flexbox($justifyContent: space-between, $alignItems: flex-end);
+
+      color: $color-blue-600;
+      padding: 0 $spacing-2xs $spacing-2xs;
+
+      & .foodCard__section3--price {
+        @include body-s;
+
+        text-align: left;
+      }
+
+      & .foodCard__section3--euro {
+        @include title-l;
+      }
+    }
+  }
+}

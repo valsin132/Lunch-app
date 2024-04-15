@@ -36,17 +36,16 @@ export function SelectInput({ options, title, label, onChange }: SelectInputProp
   return (
     <div className={cx('select')}>
       <p className={cx('select__label')}>{label}</p>
-      <div
+      <button
         tabIndex={0}
-        role="button"
-        onKeyDown={() => setIsOpen((prev) => !prev)}
+        type="button"
         className={cx('select__input', {
           'select__input--opened': isOpen,
         })}
         onClick={() => setIsOpen((prev) => !prev)}>
         <p className={cx('select__value')}>{typeof value === 'undefined' ? title : value.label}</p>
         <ChevronIcon className={cx({ 'select__icon--rotated': isOpen })} />
-      </div>
+      </button>
       {isOpen && (
         <div className={cx('select__list')}>
           {options.map((option) => (

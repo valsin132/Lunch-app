@@ -13,6 +13,7 @@ type CardProps = {
   spacing?: Spacing;
   shadow?: BoxShadow;
   roundedCorners?: RoundedCorners;
+  cardDialog?: boolean;
 };
 
 export function Card({
@@ -20,11 +21,13 @@ export function Card({
   spacing = '2xs',
   shadow = 'none',
   roundedCorners = 'all',
+  cardDialog = false,
 }: CardProps): ReactElement {
   return (
     <div
       className={cx(
         'card',
+        { 'card--dialog': cardDialog },
         [`card--spacing-${spacing}`],
         [`card--rounded-corners-${roundedCorners}`],
         [`card--box-shadow-${shadow}`]

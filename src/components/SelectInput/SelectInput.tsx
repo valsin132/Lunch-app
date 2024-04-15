@@ -18,7 +18,7 @@ interface SelectInputProps {
 }
 
 export function SelectInput({ options, title, label, onChange }: SelectInputProps): ReactElement {
-  const [isOpen, setisOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [value, setValue] = useState<SelectInputOption | undefined>(undefined);
 
   function selectOption(option: SelectInputOption) {
@@ -39,11 +39,11 @@ export function SelectInput({ options, title, label, onChange }: SelectInputProp
       <div
         tabIndex={0}
         role="button"
-        onKeyDown={() => setisOpen((prev) => !prev)}
+        onKeyDown={() => setIsOpen((prev) => !prev)}
         className={cx('select-container__title', {
           'select-container__title--selected': isOpen,
         })}
-        onClick={() => setisOpen((prev) => !prev)}>
+        onClick={() => setIsOpen((prev) => !prev)}>
         <p className={cx('select-container__title-text')}>
           {typeof value === 'undefined' ? title : value.name}
         </p>

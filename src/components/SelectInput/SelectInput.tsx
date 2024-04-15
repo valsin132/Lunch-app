@@ -12,26 +12,33 @@ type SelectInputOption = {
 
 interface SelectInputProps {
   options: SelectInputOption[];
-  title: string;
+  value?: SelectInputOption;
+  placeholder?: string;
   label: string;
-  onChange: (value: SelectInputOption | undefined) => void;
+  onChange: (option: SelectInputOption) => void;
 }
 
-export function SelectInput({ options, title, label, onChange }: SelectInputProps): ReactElement {
+export function SelectInput({
+  options,
+  placeholder,
+  value,
+  label,
+  onChange,
+}: SelectInputProps): ReactElement {
   const [isOpen, setIsOpen] = useState(false);
-  const [value, setValue] = useState<SelectInputOption | undefined>(undefined);
+  // const [value, setValue] = useState<SelectInputOption | undefined>(undefined);
 
-  function selectOption(option: SelectInputOption) {
-    if (value !== option) {
-      setValue(option);
-    } else {
-      setValue(undefined);
-    }
-  }
+  // function selectOption(option: SelectInputOption) {
+  //   if (value !== option) {
+  //     setValue(option);
+  //   } else {
+  //     setValue(undefined);
+  //   }
+  // }
 
-  function isOptionSelected(option: SelectInputOption) {
-    return option === value;
-  }
+  // function isOptionSelected(option: SelectInputOption) {
+  //   return option === value;
+  // }
 
   return (
     <div className={cx('select')}>
@@ -43,7 +50,14 @@ export function SelectInput({ options, title, label, onChange }: SelectInputProp
           'select__input--opened': isOpen,
         })}
         onClick={() => setIsOpen((prev) => !prev)}>
-        <p className={cx('select__value')}>{typeof value === 'undefined' ? title : value.label}</p>
+        <p>
+          {value ? (
+            <div className={cx('select__value')}>{value.label}</div>
+          ) : (
+            <div className={cx('select__placeholder')}>{placeholder}</div>
+          )}
+        </p>
+        {/* <p className={cx('select__value')}>{typeof value === 'undefined' ? title : value.label}</p> */}
         <ChevronIcon className={cx({ 'select__icon--rotated': isOpen })} />
       </button>
       {isOpen && (

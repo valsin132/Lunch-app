@@ -1,32 +1,38 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { StrictMode } from 'react';
-import { MAIN_PAGES, AUTH_PAGES_ROUTES } from './constants';
-import { AvailableOrders } from './pages/AvailableOrders';
-import { Loading } from './pages/Loading';
-import { LunchMenu } from './pages/LunchMenu';
-import { OrderHistory } from './pages/OrderHistory';
-import { VendorLeaderboard } from './pages/VendorLeaderboard';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { AUTH_PAGES_ROUTES, MAIN_PAGES_ROUTES } from './constants';
+import { ProtectedRoute } from './containers/ProtectedRoute';
+import { AvailableLunch } from './pages/AvailableLunch';
+import { FoodMenu } from './pages/FoodMenu';
+import { YourOrders } from './pages/YourOrders';
+import { Ratings } from './pages/Ratings';
 import { MainContent } from './containers/MainContent';
-import { Nav } from './containers/Nav';
 
 export function App() {
+  const isLoggedIn = false;
+
   return (
-    <StrictMode>
-      <BrowserRouter>
-        <Nav>
-          <Routes>
-            <Route path="/" element={<Loading />} />
-            <Route path={AUTH_PAGES_ROUTES.Login} element={<div>Login Page</div>} />
-            <Route path={AUTH_PAGES_ROUTES.Register} element={<div>Register page</div>} />
-            <Route element={<MainContent />}>
-              <Route path={MAIN_PAGES.LunchMenu} element={<LunchMenu />} />
-              <Route path={MAIN_PAGES.AvailableLunch} element={<AvailableOrders />} />
-              <Route path={MAIN_PAGES.OrderHistory} element={<OrderHistory />} />
-              <Route path={MAIN_PAGES.VendorLeaderboard} element={<VendorLeaderboard />} />
-            </Route>
-          </Routes>
-        </Nav>
-      </BrowserRouter>
-    </StrictMode>
+    <BrowserRouter>
+      <Routes>
+        <Route
+          element={
+            <ProtectedRoute fallbackPath={MAIN_PAGES_ROUTES.LunchMenu} isLoggedIn={!isLoggedIn} />
+          }>
+          <Route path="/" element={<Navigate to={AUTH_PAGES_ROUTES.Login} />} />
+          <Route path="/login" element={<div>Login</div>} />
+          <Route path="/register" element={<div>Register</div>} />
+        </Route>
+        <Route
+          element={
+            <ProtectedRoute fallbackPath={AUTH_PAGES_ROUTES.Login} isLoggedIn={isLoggedIn} />
+          }>
+          <Route element={<MainContent />}>
+            <Route path={MAIN_PAGES_ROUTES.LunchMenu} element={<FoodMenu />} />
+            <Route path={MAIN_PAGES_ROUTES.AvailableLunch} element={<AvailableLunch />} />
+            <Route path={MAIN_PAGES_ROUTES.OrderHistory} element={<YourOrders />} />
+            <Route path={MAIN_PAGES_ROUTES.VendorLeaderboard} element={<Ratings />} />
+          </Route>
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }

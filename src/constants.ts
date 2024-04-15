@@ -3,9 +3,9 @@ export const AUTH_PAGES_ROUTES = {
   Register: '/register',
 };
 
-export const MAIN_PAGES = {
-  LunchMenu: '/lunch-menu',
-  AvailableLunch: '/available-lunch',
-  OrderHistory: '/order-history',
-  VendorLeaderboard: '/vendor-leaderboard',
+export const MAIN_PAGES_ROUTES = {
+  LunchMenu: '/menu',
+  AvailableLunch: '/lunches',
+  OrderHistory: '/orders',
+  VendorLeaderboard: '/ratings',
 };

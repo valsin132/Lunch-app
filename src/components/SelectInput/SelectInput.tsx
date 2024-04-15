@@ -7,25 +7,35 @@ const cx = classNames.bind(styles);
 
 type SelectInputOption = {
   name: string;
-  id: string;
+  id: number;
 };
 
 interface SelectInputProps {
-  isSelected?: boolean;
   options: SelectInputOption[];
+  value: SelectInputOption | undefined;
   title: string;
   label: string;
-  onClick: () => void;
+  onChange: (value: SelectInputOption | undefined) => void;
 }
 
 export function SelectInput({
   options,
   title,
+  value,
   label,
-  isSelected,
-  onClick,
+  onChange,
 }: SelectInputProps): ReactElement {
   const [isOpen, setisOpen] = useState(false);
+
+  function selectOption(option: SelectInputOption) {
+    if (value === option) {
+      onChange(undefined);
+    } else onChange(option);
+  }
+
+  function isOptionSelected(option: SelectInputOption) {
+    return option === value;
+  }
 
   return (
     <div className={cx('dropdown-container')}>
@@ -33,12 +43,14 @@ export function SelectInput({
       <div
         tabIndex={0}
         role="button"
-        onKeyDown={onClick}
+        onKeyDown={() => setisOpen((prev) => !prev)}
         className={cx('dropdown-container__title', {
           'dropdown-container__title--selected': isOpen,
         })}
         onClick={() => setisOpen((prev) => !prev)}>
-        <p className={cx('dropdown-container__title--text')}>{title}</p>
+        <p className={cx('dropdown-container__title--text')}>
+          {typeof value === 'undefined' ? title : value.name}
+        </p>
         <ChevronIcon className={cx({ 'dropdown-container__icon--rotated': isOpen })} />
       </div>
       {isOpen && (
@@ -47,11 +59,14 @@ export function SelectInput({
             <button
               type="button"
               className={cx('dropdown-container__list-item', {
-                'dropdown-container__list-item--selected': isSelected,
+                'dropdown-container__list-item--selected': isOptionSelected(option),
               })}
               key={option.id}
               value={option.name}
-              onClick={onClick}>
+              onClick={(e) => {
+                e.stopPropagation();
+                selectOption(option);
+              }}>
               {option.name}
             </button>
           ))}

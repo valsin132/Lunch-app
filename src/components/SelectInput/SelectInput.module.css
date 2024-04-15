@@ -1,23 +1,23 @@
 @import '../../styles/index.css';
 
-.dropdown-container {
+.select-container {
   @include flexbox($direction: column, $gap: $gap-small);
 
-  & .dropdown-container__label {
+  & .select-container__label {
     @include label-s;
 
     color: $color-blue-600;
     text-align: left;
   }
 
-  & .dropdown-container__title {
+  & .select-container__title {
     @include flexbox($justifyContent: space-between);
 
     border: 1px solid $color-grey-300;
     border-radius: $border-radius-regular;
     padding: $spacing-4xs $spacing-3xs;
 
-    & .dropdown-container__title--text {
+    & .select-container__title-text {
       @include body-m;
 
       align-self: center;
@@ -25,16 +25,16 @@
       user-select: none;
     }
 
-    & .dropdown-container__icon--rotated {
+    & .select-container__icon--rotated {
       transform: rotate(0.5turn);
     }
   }
 
-  & .dropdown-container__title--selected {
+  & .select-container__title--selected {
     border: 2px solid $color-purple-500;
   }
 
-  .dropdown-container__list {
+  .select-container__list {
     @include flexbox($direction: column);
     @include box-shadow-m;
 
@@ -42,7 +42,7 @@
     border-radius: $border-radius-regular;
     outline: none;
 
-    & .dropdown-container__list-item {
+    & .select-container__list-item {
       @include title-s;
 
       color: $color-blue-600;
@@ -63,7 +63,7 @@
       }
     }
 
-    & .dropdown-container__list-item--selected {
+    & .select-container__list-item--selected {
       background-color: $color-blue-selected;
       color: $color-orange-600;
     }

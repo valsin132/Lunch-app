@@ -12,25 +12,21 @@ type SelectInputOption = {
 
 interface SelectInputProps {
   options: SelectInputOption[];
-  value: SelectInputOption | undefined;
   title: string;
   label: string;
   onChange: (value: SelectInputOption | undefined) => void;
 }
 
-export function SelectInput({
-  options,
-  title,
-  value,
-  label,
-  onChange,
-}: SelectInputProps): ReactElement {
+export function SelectInput({ options, title, label, onChange }: SelectInputProps): ReactElement {
   const [isOpen, setisOpen] = useState(false);
+  const [value, setValue] = useState<SelectInputOption | undefined>(undefined);
 
   function selectOption(option: SelectInputOption) {
-    if (value === option) {
-      onChange(undefined);
-    } else onChange(option);
+    if (value !== option) {
+      setValue(option);
+    } else {
+      setValue(undefined);
+    }
   }
 
   function isOptionSelected(option: SelectInputOption) {
@@ -66,6 +62,7 @@ export function SelectInput({
               onClick={(e) => {
                 e.stopPropagation();
                 selectOption(option);
+                onChange(value);
               }}>
               {option.name}
             </button>

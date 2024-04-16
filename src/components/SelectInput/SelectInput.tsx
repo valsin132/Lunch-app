@@ -12,7 +12,7 @@ export type SelectInputOption = {
 
 interface SelectInputProps {
   options: SelectInputOption[];
-  value?: SelectInputOption | undefined;
+  value?: SelectInputOption;
   placeholder?: string;
   label: string;
   onChange: (option: SelectInputOption | undefined) => void;
@@ -27,11 +27,6 @@ export function SelectInput({
 }: SelectInputProps): ReactElement {
   const [isOpen, setIsOpen] = useState(false);
   const isSelected = (option: SelectInputOption): boolean => value?.value === option.value;
-  const clearSelection = (option: SelectInputOption) => {
-    if (isSelected(option) === true) {
-      onChange(undefined);
-    }
-  };
 
   return (
     <div className={cx('select')}>
@@ -63,9 +58,12 @@ export function SelectInput({
               key={option.value}
               value={option.label}
               onClick={() => {
-                onChange(option);
-                clearSelection(option);
-                setIsOpen((prev) => !prev);
+                if (isSelected(option)) {
+                  onChange(undefined);
+                } else {
+                  onChange(option);
+                  setIsOpen((prev) => !prev);
+                }
               }}>
               {option.label}
             </button>

@@ -1,3 +1,3 @@
 export function AvailableLunch() {
-  return <div>Available lunch</div>;
+  return <main>Available lunch</main>;
 }

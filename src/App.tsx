@@ -12,12 +12,12 @@ export function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<ProtectedRoute isLoggedIn={false} pageType="auth" />}>
+        <Route element={<ProtectedRoute isLoggedIn pageType="auth" />}>
           <Route path="/" element={<Navigate to={AUTH_PAGES_ROUTES.Login} />} />
-          <Route path="/login" element={<div>Login</div>} />
-          <Route path="/register" element={<div>Register</div>} />
+          <Route path="/login" element={<main>Login</main>} />
+          <Route path="/register" element={<main>Register</main>} />
         </Route>
-        <Route element={<ProtectedRoute isLoggedIn={false} pageType="main" />}>
+        <Route element={<ProtectedRoute isLoggedIn pageType="main" />}>
           <Route element={<MainContent />}>
             <Route path={MAIN_PAGES_ROUTES.FoodMenu} element={<FoodMenu />} />
             <Route path={MAIN_PAGES_ROUTES.AvailableLunch} element={<AvailableLunch />} />

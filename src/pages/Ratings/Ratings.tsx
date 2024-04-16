@@ -1,3 +1,3 @@
 export function Ratings() {
-  return <div>Vendor Ratings</div>;
+  return <main>Vendor Ratings</main>;
 }

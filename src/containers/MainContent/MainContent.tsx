@@ -5,9 +5,7 @@ export function MainContent() {
   return (
     <>
       <Sidebar />
-      <main>
-        <Outlet />
-      </main>
+      <Outlet />
     </>
   );
 }

@@ -1,3 +1,3 @@
 export function YourOrders() {
-  return <div>Your orders</div>;
+  return <main>Your orders</main>;
 }

@@ -1,3 +1,3 @@
 export function FoodMenu() {
-  return <div>Food menu</div>;
+  return <main>Food menu</main>;
 }

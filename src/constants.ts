@@ -4,8 +4,8 @@ export const AUTH_PAGES_ROUTES = {
 };
 
 export const MAIN_PAGES_ROUTES = {
-  LunchMenu: '/menu',
+  FoodMenu: '/menu',
   AvailableLunch: '/lunches',
-  OrderHistory: '/orders',
-  VendorLeaderboard: '/ratings',
+  YourOrders: '/orders',
+  Ratings: '/ratings',
 };

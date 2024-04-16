@@ -17,6 +17,7 @@ interface FoodCardProps {
   rating: number;
   dishType: string;
   onClick: () => void;
+  onMoreInfoClick: () => void;
 }
 
 export function FoodCard({
@@ -29,6 +30,7 @@ export function FoodCard({
   rating,
   dishType,
   onClick,
+  onMoreInfoClick,
 }: FoodCardProps): ReactElement {
   return (
     <div className={cx('food-card')}>
@@ -41,15 +43,13 @@ export function FoodCard({
             <div className={cx('food-card__header-content')}>
               <h4 className={cx('food-card__vendor')}>{vendor}</h4>
               <h3 className={cx('food-card__title')}>{title}</h3>
-              <div>
-                {vegetarian && <PlantIcon className={cx('food-card__plant-icon')} />}
-                {spicy && <ChilliIcon className={cx('food-card__chilli-icon')} />}
-              </div>
+              {vegetarian && <PlantIcon className={cx('food-card__plant-icon')} />}
+              {spicy && <ChilliIcon className={cx('food-card__chilli-icon')} />}
             </div>
           </div>
           <div className={cx('food-card__body')}>
             <p className={cx('food-card__description')}>{description}</p>
-            <div className={cx('food-card__rating-btn')}>
+            <div className={cx('food-card__rating-container')}>
               <div className={cx('food-card__rating')}>
                 <StarFullIcon className={cx('food-card__rating-icon')} />
                 <p className={cx('food-card__rating-number')}>{rating}</p>
@@ -59,7 +59,7 @@ export function FoodCard({
                 iconType="arrow"
                 buttonType="tertiary"
                 buttonSize="sm"
-                onClick={onClick}
+                onClick={onMoreInfoClick}
               />
             </div>
           </div>
@@ -71,15 +71,13 @@ export function FoodCard({
                 {price}
               </p>
             </div>
-            <div>
-              <Button
-                title="Add to cart"
-                iconType="plus"
-                buttonType="secondary"
-                buttonSize="sm"
-                onClick={onClick}
-              />
-            </div>
+            <Button
+              title="Add to cart"
+              iconType="plus"
+              buttonType="secondary"
+              buttonSize="sm"
+              onClick={onClick}
+            />
           </div>
         </div>
       </Card>

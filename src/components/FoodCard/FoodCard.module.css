@@ -1,9 +1,9 @@
 @import 'src/styles/index.css';
 
 .food-card {
+  max-width: 263px;
 
   & .food-card__content {
-    max-width: 261.4px;
 
     & .food-card__header {
       min-height: 126px;
@@ -82,7 +82,7 @@
         text-align: left;
       }
 
-      & .food-card__rating-btn {
+      & .food-card__rating-container {
         @include flexbox($justifyContent: space-between);
 
         & .food-card__rating {

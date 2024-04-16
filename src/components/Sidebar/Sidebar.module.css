@@ -1,0 +1,110 @@
+@import './../../styles/index.css';
+
+$sidebar-animation-duration: 300ms;
+
+.sidebar {
+  @include flexbox($direction: column);
+
+  background-color: $color-blue-800;
+  border-radius: 0 $border-radius-regular $border-radius-regular 0;
+  color: $color-white;
+  max-height: 100dvh;
+  padding: calc($spacing-4xs + 2px);
+  position: sticky;
+  text-align: left;
+  top: 0;
+
+  .sidebar__container {
+    transition: $sidebar-animation-duration ease-in-out;
+    width: 194px;
+
+    & .sidebar__logo-wrapper {
+      padding: calc($spacing-2xs - 2px);
+
+      & .sidebar__logo {
+        background-image: url('./../../assets/images/logo/logo-horizontal-large.svg');
+        background-position: 50%;
+        background-repeat: no-repeat;
+        background-size: contain;
+        height: 72px;
+        @include mobile-breakpoint {
+          background-image: url('./../../assets/images/logo/logo-vertical-small.svg');
+        }
+      }
+    }
+
+    &.sidebar--collapsed {
+      width: 62px;
+
+      & .sidebar__logo {
+        animation: zoom $sidebar-animation-duration;
+        background-image: url('./../../assets/images/logo/logo-vertical-small.svg');
+      }
+    }
+
+    &.sidebar--expanded .sidebar__logo {
+      animation: zoom2 $sidebar-animation-duration;
+    }
+
+    @include mobile-breakpoint {
+      width: 62px;
+
+      & .sidebar__logo {
+        background-image: url('./../../assets/images/logo/logo-vertical-small.svg');
+      }
+    }
+  }
+
+  .sidebar__expand-btn {
+    background-color: $color-orange-400;
+    border: solid 2px $color-white;
+    border-radius: $border-radius-regular;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(50%, -50%);
+
+    @include mobile-breakpoint {
+      display: none;
+    }
+
+    .sidebar__expand-icon {
+      display: block;
+      transform: rotate(90deg);
+      transition: $sidebar-animation-duration ease-in-out;
+
+      path {
+        fill: $color-white;
+      }
+    }
+
+    &[aria-expanded='false'] {
+
+      .sidebar__expand-icon {
+        transform: rotate(-90deg);
+      }
+    }
+  }
+}
+
+@keyframes zoom {
+
+  from {
+    scale: 0;
+  }
+
+  to {
+    scale: 1;
+  }
+}
+
+@keyframes zoom2 {
+
+  from {
+    scale: 0;
+  }
+
+  to {
+    scale: 1;
+  }
+}

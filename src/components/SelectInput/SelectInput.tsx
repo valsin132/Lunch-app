@@ -5,17 +5,17 @@ import styles from './SelectInput.module.css';
 
 const cx = classNames.bind(styles);
 
-type SelectInputOption = {
+export type SelectInputOption = {
   label: string;
   value: number;
 };
 
 interface SelectInputProps {
   options: SelectInputOption[];
-  value?: SelectInputOption;
+  value?: SelectInputOption | undefined;
   placeholder?: string;
   label: string;
-  onChange: (option: SelectInputOption) => void;
+  onChange: (option: SelectInputOption | undefined) => void;
 }
 
 export function SelectInput({
@@ -26,19 +26,12 @@ export function SelectInput({
   onChange,
 }: SelectInputProps): ReactElement {
   const [isOpen, setIsOpen] = useState(false);
-  // const [value, setValue] = useState<SelectInputOption | undefined>(undefined);
-
-  // function selectOption(option: SelectInputOption) {
-  //   if (value !== option) {
-  //     setValue(option);
-  //   } else {
-  //     setValue(undefined);
-  //   }
-  // }
-
-  // function isOptionSelected(option: SelectInputOption) {
-  //   return option === value;
-  // }
+  const isSelected = (option: SelectInputOption): boolean => value?.value === option.value;
+  const clearSelection = (option: SelectInputOption) => {
+    if (isSelected(option) === true) {
+      onChange(undefined);
+    }
+  };
 
   return (
     <div className={cx('select')}>
@@ -50,14 +43,13 @@ export function SelectInput({
           'select__input--opened': isOpen,
         })}
         onClick={() => setIsOpen((prev) => !prev)}>
-        <p>
+        <div>
           {value ? (
-            <div className={cx('select__value')}>{value.label}</div>
+            <p className={cx('select__value')}>{value.label}</p>
           ) : (
-            <div className={cx('select__placeholder')}>{placeholder}</div>
+            <p className={cx('select__placeholder')}>{placeholder}</p>
           )}
-        </p>
-        {/* <p className={cx('select__value')}>{typeof value === 'undefined' ? title : value.label}</p> */}
+        </div>
         <ChevronIcon className={cx({ 'select__icon--rotated': isOpen })} />
       </button>
       {isOpen && (
@@ -66,14 +58,14 @@ export function SelectInput({
             <button
               type="button"
               className={cx('select__list-item', {
-                'select__list-item--selected': isOptionSelected(option),
+                'select__list-item--selected': isSelected(option),
               })}
               key={option.value}
-              value={option.value}
-              onClick={(e) => {
-                e.stopPropagation();
-                selectOption(option);
-                onChange(value);
+              value={option.label}
+              onClick={() => {
+                onChange(option);
+                clearSelection(option);
+                setIsOpen((prev) => !prev);
               }}>
               {option.label}
             </button>

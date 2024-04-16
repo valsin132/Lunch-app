@@ -4,7 +4,7 @@ import styles from './Card.module.css';
 
 const cx = classNames.bind(styles);
 
-type Spacing = '3xs' | '2xs' | 'xs' | 's';
+type Spacing = 'none' | '3xs' | '2xs' | 'xs' | 's';
 type BoxShadow = 'none' | 'xs' | 's' | 'm';
 type RoundedCorners = 'all' | 'left' | 'right';
 

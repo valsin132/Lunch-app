@@ -35,7 +35,7 @@ export function SelectInput({
         tabIndex={0}
         type="button"
         className={cx('select__input', {
-          'select__input--focused': isOpen || value,
+          'select__input--focused': isOpen,
         })}
         onClick={() => setIsOpen((prev) => !prev)}>
         <div>

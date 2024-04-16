@@ -16,6 +16,7 @@
 
   & .input__field-container {
     position: relative;
+    width: 100%;
   }
 
   & .input__field-icon {
@@ -69,5 +70,11 @@
 
   & .input__label--error {
     color: $color-label-dark;
+  }
+
+  & .input__field-message {
+    @include label-xxs;
+
+    color: $color-error-font;
   }
 }

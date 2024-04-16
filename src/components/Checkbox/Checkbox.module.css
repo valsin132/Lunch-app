@@ -1,0 +1,46 @@
+@import '../../styles/index.css';
+
+.checkbox {
+  @include flexbox($gap: $gap-regular, $alignItems: center);
+
+  & .checkbox__input {
+    @include size(1.25rem, 1.25rem);
+
+    appearance: none;
+    border: 2px solid $color-orange-300;
+    border-radius: $border-radius-small;
+    outline: none;
+
+    &:checked {
+      background-color: $color-orange-300;
+      background-image: url('../../assets/images/icons/checkmark.svg');
+      background-position: 0.1rem;
+      background-repeat: no-repeat;
+    }
+
+    &:disabled {
+      border-color: $color-grey-300;
+    }
+  }
+
+  & .checkbox__label {
+    @include label-text;
+
+    color: $color-label-dark;
+  }
+
+  & .checkbox__label--disabled {
+    color: $color-grey-500;
+  }
+
+  & .checkbox__input:disabled:checked {
+    background-color: $color-grey-300;
+    border-color: $color-grey-300;
+  }
+
+  & .checkbox__input--error,
+  & .checkbox__label--error {
+    border-color: $color-red-500;
+    color: $color-red-500;
+  }
+}

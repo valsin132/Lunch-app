@@ -68,6 +68,6 @@
   }
 
   & .input__label--error {
-    color: $color-error-label;
+    color: $color-label-dark;
   }
 }

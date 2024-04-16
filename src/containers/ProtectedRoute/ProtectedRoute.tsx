@@ -1,11 +1,13 @@
 import { Navigate, Outlet } from 'react-router-dom';
+import { AUTH_PAGES_ROUTES, MAIN_PAGES_ROUTES } from '../../constants';
 
 type ProtectedRouteProps = {
   isLoggedIn: boolean;
-  fallbackPath: string;
+  pageType: 'auth' | 'main';
 };
 
-export function ProtectedRoute({ isLoggedIn, fallbackPath }: ProtectedRouteProps) {
-  if (!isLoggedIn) return <Navigate to={fallbackPath} replace />;
+export function ProtectedRoute({ isLoggedIn, pageType }: ProtectedRouteProps) {
+  if (pageType === 'auth' && isLoggedIn) return <Navigate to={MAIN_PAGES_ROUTES.FoodMenu} />;
+  if (pageType === 'main' && !isLoggedIn) return <Navigate to={AUTH_PAGES_ROUTES.Login} />;
   return <Outlet />;
 }

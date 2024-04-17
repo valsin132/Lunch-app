@@ -6,18 +6,16 @@ import { Card } from '../Card';
 import { Button } from '../Button';
 import { Input } from '../Input';
 import { Tab } from '../Tab';
+import { useAuth } from '../../helpers/AuthContext';
 import styles from './Auth.module.css';
 
 const cx = classNames.bind(styles);
 
-interface AuthProps {
-  onLogin: () => void;
-}
-
-export function Auth({ onLogin }: AuthProps): ReactElement {
+export function Auth(): ReactElement {
   const navigate = useNavigate();
   const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
   const [email, setEmail] = useState('');
+  const { login } = useAuth();
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
@@ -58,7 +56,7 @@ export function Auth({ onLogin }: AuthProps): ReactElement {
       setEmailError(true);
       return;
     }
-    onLogin();
+    login();
     navigate('/menu');
   };
 

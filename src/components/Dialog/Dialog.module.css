@@ -2,27 +2,26 @@
 
 .dialog {
   display: block;
-  width: 447px;
+  left: 50%;
+  max-width: 447px;
+  position: absolute;
+  transform: translate(-50%, 50%);
+  z-index: 1;
 
   & .dialog__structure {
     @include flexbox($gap: $gap-Xlarge, $direction: column);
-
-    display: flex;
-    gap: $gap-Xlarge;
-    width: 415px;
   }
 
   & .dialog__header {
     @include flexbox($justifyContent: space-between);
-
     @include headline-s;
 
     color: $color-blue-600;
   }
 
   & .dialog__close-icon {
-    line-height: 10px;
-    padding: $spacing-5xs;
+    @include flexbox($justifyContent: center, $alignItems: center);
+    @include size(32px, 32px);
   }
 
   & .dialog__picture-and-content {
@@ -31,8 +30,7 @@
   }
 
   & .dialog__img-container {
-    height: 80px;
-    width: 80px;
+    @include size(80px, 80px);
   }
 
   & .dialog__img-too-big {
@@ -43,20 +41,12 @@
   & .dialog__content {
     @include flexbox($alignItems: center);
 
-    text-align: justify;
-  }
-
-  & .dialog__content--warningText {
-    display: none;
-  }
-
-  & .dialog__content--successText {
-    display: none;
+    max-width: 319px;
+    text-align: start;
   }
 
   & .dialog__buttons {
-    @include label-m;
-    @include flexbox($gap: calc($gap-large - 5px), $direction: row-reverse);
+    @include flexbox($gap: $gap-medium, $direction: row-reverse);
   }
 
   & .dialog__buttons--second-button-off {

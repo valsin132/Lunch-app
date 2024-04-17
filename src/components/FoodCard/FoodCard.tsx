@@ -3,9 +3,19 @@ import classNames from 'classnames/bind';
 import { Card } from '../Card';
 import { Button } from '../Button';
 import { ChilliIcon, PlantIcon, StarFullIcon } from '../../utils/iconManager';
+import {
+  kebabImage,
+  soupImage,
+  pizzaImage,
+  sandwichImage,
+  burgerImage,
+  logoWithoutText,
+} from '../../utils/imageManager';
 import styles from './FoodCard.module.css';
 
 const cx = classNames.bind(styles);
+
+type DishTypes = 'wrap' | 'soup' | 'pizza' | 'sandwich' | 'burger' | 'bowl';
 
 interface FoodCardProps {
   vendor: string;
@@ -15,10 +25,29 @@ interface FoodCardProps {
   vegetarian: boolean;
   spicy: boolean;
   rating: number;
-  dishType: string;
+  dishType: DishTypes;
   onClick: () => void;
   onMoreInfoClick: () => void;
 }
+
+const getDishTypeImage = (dishType: DishTypes): string => {
+  switch (dishType) {
+    case 'wrap':
+      return kebabImage;
+    case 'soup':
+      return soupImage;
+    case 'pizza':
+      return pizzaImage;
+    case 'sandwich':
+      return sandwichImage;
+    case 'burger':
+      return burgerImage;
+    case 'bowl':
+      return soupImage;
+    default:
+      return logoWithoutText;
+  }
+};
 
 export function FoodCard({
   vendor,
@@ -38,7 +67,11 @@ export function FoodCard({
         <div className={cx('food-card__content')}>
           <div className={cx('food-card__header')}>
             <div className={cx('food-card__image-placeholder')}>
-              <img src={dishType} className={cx('food-card__food-icon')} alt={dishType} />
+              <img
+                src={getDishTypeImage(dishType)}
+                className={cx('food-card__food-icon')}
+                alt={dishType}
+              />
             </div>
             <div className={cx('food-card__header-content')}>
               <h4 className={cx('food-card__vendor')}>{vendor}</h4>

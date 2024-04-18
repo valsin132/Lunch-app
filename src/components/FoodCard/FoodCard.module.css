@@ -23,6 +23,8 @@
 
         & .food-card__food-icon {
           @include size(90px, 90px);
+
+          object-fit: scale-down;
         }
       }
 

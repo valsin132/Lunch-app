@@ -4,7 +4,6 @@ import { AvailableLunch } from './pages/AvailableLunch';
 import { FoodMenu } from './pages/FoodMenu';
 import { YourOrders } from './pages/YourOrders';
 import { Ratings } from './pages/Ratings';
-import { Auth } from './components/Auth';
 import { AuthContainer } from './components/AuthContainer';
 import { MainContent } from './containers/MainContent';
 import { ProtectedRoute } from './containers/ProtectedRoute';
@@ -17,14 +16,7 @@ function AppRoutes() {
     <Routes>
       <Route element={<ProtectedRoute isLoggedIn={isLogged} pageType="auth" />}>
         <Route path="/" element={<Navigate to={AUTH_PAGES_ROUTES.Login} />} />
-        <Route
-          path="/login"
-          element={
-            <AuthContainer>
-              <Auth />
-            </AuthContainer>
-          }
-        />
+        <Route path="/login" element={<AuthContainer />} />
         <Route path="/register" element={<main>Register</main>} />
       </Route>
       <Route element={<ProtectedRoute isLoggedIn={isLogged} pageType="main" />}>

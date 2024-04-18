@@ -76,5 +76,7 @@
     @include label-xxs;
 
     color: $color-error-font;
+    left: 0;
+    position: absolute;
   }
 }

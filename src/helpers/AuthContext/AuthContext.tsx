@@ -20,7 +20,7 @@ export const useAuth = (): AuthContextType => {
   return context;
 };
 
-export const AuthProvider: React.FC<AuthProviderProps> = function AuthProvider({ children }) {
+export function AuthProvider({ children }: AuthProviderProps) {
   const [isLogged, setIsLogged] = useState(false);
 
   const login = () => {
@@ -34,4 +34,4 @@ export const AuthProvider: React.FC<AuthProviderProps> = function AuthProvider({
   const authContextValue = useMemo(() => ({ isLogged, login, logout }), [isLogged]);
 
   return <AuthContext.Provider value={authContextValue}>{children}</AuthContext.Provider>;
-};
+}

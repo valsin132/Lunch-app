@@ -63,67 +63,65 @@ export function Auth(): ReactElement {
   const handleTabClick = () => {};
 
   return (
-    <div>
-      <Card spacing="s" shadow="m">
-        <div className={cx('login')}>
-          <div className={cx('login__container')}>
-            <LogoHorizontal className={cx('login__logo')} />
-            <div className={cx('login__header')}>
-              <div>
-                <Tab label="Login" isActive onClick={() => handleTabClick} />
-              </div>
-              <div>
-                <Tab label="Register" isActive={false} onClick={() => handleTabClick} />
-              </div>
+    <Card spacing="s" shadow="m">
+      <div className={cx('login')}>
+        <div className={cx('login__container')}>
+          <LogoHorizontal className={cx('login__logo')} />
+          <div className={cx('login__header')}>
+            <div>
+              <Tab label="Login" isActive onClick={() => handleTabClick} />
             </div>
-            <form className={cx('login__form')} aria-label="Login Form">
-              <div className={cx('login__form-head')}>
-                <h1>Login</h1>
-                <p>Lunch won’t order itself</p>
-              </div>
-              <div className={cx('login__form-input')}>
-                <Input
-                  id="email"
-                  textFieldType="email"
-                  placeholder="Email"
-                  label="Email"
-                  value={email}
-                  name="email"
-                  onChange={handleEmailChange}
-                  aria-required="true"
-                  aria-label="Email Input Field"
-                  isError={emailError}
-                  errorMessage={emailError ? errorMessage : ''}
-                />
-                <Input
-                  id="password"
-                  textFieldType="password"
-                  placeholder="Password"
-                  label="Password"
-                  value={password}
-                  name="password"
-                  onChange={handlePasswordChange}
-                  aria-required="true"
-                  aria-label="Password Input Field"
-                  isError={passwordError}
-                  errorMessage={passwordError ? errorMessage : ''}
-                />
-                <a href="/login" aria-label="Forgot Password" className={cx('login__form-link')}>
-                  Forgot Password?
-                </a>
-              </div>
-            </form>
+            <div>
+              <Tab label="Register" isActive={false} onClick={() => handleTabClick} />
+            </div>
           </div>
-          <Button
-            title="Log in"
-            buttonSize="md"
-            buttonType="primary"
-            buttonWidth="full"
-            iconType="arrow"
-            onClick={handleLogin}
-          />
+          <form className={cx('login__form')} aria-label="Login Form">
+            <div className={cx('login__form-head')}>
+              <h1>Login</h1>
+              <p>Lunch won’t order itself</p>
+            </div>
+            <div className={cx('login__form-input')}>
+              <Input
+                id="email"
+                textFieldType="email"
+                placeholder="Email"
+                label="Email"
+                value={email}
+                name="email"
+                onChange={handleEmailChange}
+                aria-required="true"
+                aria-label="Email Input Field"
+                isError={emailError}
+                errorMessage={emailError ? errorMessage : ''}
+              />
+              <Input
+                id="password"
+                textFieldType="password"
+                placeholder="Password"
+                label="Password"
+                value={password}
+                name="password"
+                onChange={handlePasswordChange}
+                aria-required="true"
+                aria-label="Password Input Field"
+                isError={passwordError}
+                errorMessage={passwordError ? errorMessage : ''}
+              />
+              <a href="/login" aria-label="Forgot Password" className={cx('login__form-link')}>
+                Forgot Password?
+              </a>
+            </div>
+          </form>
         </div>
-      </Card>
-    </div>
+        <Button
+          title="Log in"
+          buttonSize="md"
+          buttonType="primary"
+          buttonWidth="full"
+          iconType="arrow"
+          onClick={handleLogin}
+        />
+      </div>
+    </Card>
   );
 }

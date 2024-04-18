@@ -23,8 +23,7 @@
         z-index: 1;
 
         & .food-card__food-icon {
-          height: 90px;
-          width: 90px;
+          @include size(90px, 90px);
         }
       }
 

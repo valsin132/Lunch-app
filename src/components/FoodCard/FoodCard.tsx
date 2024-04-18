@@ -15,7 +15,7 @@ import styles from './FoodCard.module.css';
 
 const cx = classNames.bind(styles);
 
-type DishTypes = 'wrap' | 'soup' | 'pizza' | 'sandwich' | 'burger' | 'bowl';
+type DishType = 'wrap' | 'soup' | 'pizza' | 'sandwich' | 'burger' | 'bowl';
 
 interface FoodCardProps {
   vendor: string;
@@ -25,12 +25,12 @@ interface FoodCardProps {
   vegetarian: boolean;
   spicy: boolean;
   rating: number;
-  dishType: DishTypes;
+  dishType: DishType;
   onClick: () => void;
   onMoreInfoClick: () => void;
 }
 
-const getDishTypeImage = (dishType: DishTypes): string => {
+const getDishTypeImage = (dishType: DishType): string => {
   switch (dishType) {
     case 'wrap':
       return kebabImage;

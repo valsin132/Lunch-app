@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement, useState } from 'react';
 import classNames from 'classnames/bind';
 import { Card } from '../Card';
 import { Button } from '../Button';
@@ -27,7 +27,6 @@ interface FoodCardProps {
   rating: number;
   dishType: DishType;
   onClick: () => void;
-  onMoreInfoClick: () => void;
 }
 
 const getDishTypeImage = (dishType: DishType): string => {
@@ -59,8 +58,14 @@ export function FoodCard({
   rating,
   dishType,
   onClick,
-  onMoreInfoClick,
 }: FoodCardProps): ReactElement {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [isOpenModal, setIsOpenModal] = useState(false);
+
+  const handleMoreInfoClick = () => {
+    setIsOpenModal(true);
+  };
+
   return (
     <div className={cx('food-card')}>
       <Card shadow="m" spacing="none">
@@ -76,10 +81,8 @@ export function FoodCard({
             <div className={cx('food-card__header-content')}>
               <h4 className={cx('food-card__vendor')}>{vendor}</h4>
               <h3 className={cx('food-card__title')}>{title}</h3>
-              <div>
-                {vegetarian && <PlantIcon className={cx('food-card__plant-icon')} />}
-                {spicy && <ChilliIcon className={cx('food-card__chilli-icon')} />}
-              </div>
+              {vegetarian && <PlantIcon className={cx('food-card__plant-icon')} />}
+              {spicy && <ChilliIcon className={cx('food-card__chilli-icon')} />}
             </div>
           </div>
           <div className={cx('food-card__body')}>
@@ -94,7 +97,7 @@ export function FoodCard({
                 iconType="arrow"
                 buttonType="tertiary"
                 buttonSize="sm"
-                onClick={onMoreInfoClick}
+                onClick={handleMoreInfoClick}
               />
             </div>
           </div>

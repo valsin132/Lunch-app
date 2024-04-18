@@ -6,7 +6,6 @@
   & .food-card__content {
 
     & .food-card__header {
-      min-height: 126px;
       padding-left: 100px;
       position: relative;
 
@@ -40,7 +39,12 @@
         & .food-card__title {
           @include title-s;
 
+          -webkit-box-orient: vertical;
           color: $text-color-blue;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          min-height: 42px;
+          overflow: hidden;
         }
 
         & .food-card__plant-icon {
@@ -77,7 +81,6 @@
         -webkit-line-clamp: 2;
         min-height: 48px;
         overflow: hidden;
-        text-align: left;
       }
 
       & .food-card__rating-container {

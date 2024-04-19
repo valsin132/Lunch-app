@@ -68,7 +68,7 @@ export function FoodCard({
 
   return (
     <div className={cx('food-card')}>
-      <Card isCardNoBorder shadow="m" spacing="none">
+      <Card isNoBorder shadow="m" spacing="none">
         <div className={cx('food-card__content')}>
           <div className={cx('food-card__header')}>
             <div className={cx('food-card__image-placeholder')}>

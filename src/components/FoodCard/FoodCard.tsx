@@ -68,21 +68,23 @@ export function FoodCard({
 
   return (
     <div className={cx('food-card')}>
-      <Card shadow="m" spacing="none">
+      <Card isCardNoBorder shadow="m" spacing="none">
         <div className={cx('food-card__content')}>
           <div className={cx('food-card__header')}>
             <div className={cx('food-card__image-placeholder')}>
               <img
                 src={getDishTypeImage(dishType)}
-                className={cx('food-card__food-icon')}
+                className={cx('food-card__food-image')}
                 alt={dishType}
               />
             </div>
             <div className={cx('food-card__header-content')}>
               <h4 className={cx('food-card__vendor')}>{vendor}</h4>
               <h3 className={cx('food-card__title')}>{title}</h3>
-              {vegetarian && <PlantIcon className={cx('food-card__plant-icon')} />}
-              {spicy && <ChilliIcon className={cx('food-card__chilli-icon')} />}
+              <div className={cx('food-card__header-icons')}>
+                {vegetarian && <PlantIcon className={cx('food-card__plant-icon')} />}
+                {spicy && <ChilliIcon className={cx('food-card__chilli-icon')} />}
+              </div>
             </div>
           </div>
           <div className={cx('food-card__body')}>

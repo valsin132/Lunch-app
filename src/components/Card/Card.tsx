@@ -13,6 +13,7 @@ type CardProps = {
   spacing?: Spacing;
   shadow?: BoxShadow;
   roundedCorners?: RoundedCorners;
+  isNoBorder?: boolean;
 };
 
 export function Card({
@@ -20,11 +21,13 @@ export function Card({
   spacing = '2xs',
   shadow = 'none',
   roundedCorners = 'all',
+  isNoBorder = false,
 }: CardProps): ReactElement {
   return (
     <div
       className={cx(
         'card',
+        { 'card--no-border': isNoBorder },
         [`card--spacing-${spacing}`],
         [`card--rounded-corners-${roundedCorners}`],
         [`card--box-shadow-${shadow}`]

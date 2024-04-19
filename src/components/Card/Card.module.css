@@ -5,6 +5,10 @@
   border: solid 1px $color-grey-100;
   display: inline-block;
 
+  &.card--no-border {
+    border: solid 0;
+  }
+
   &.card--rounded-corners-all {
     border-radius: $border-radius-regular;
   }

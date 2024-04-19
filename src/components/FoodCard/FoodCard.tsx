@@ -62,10 +62,6 @@ export function FoodCard({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isOpenModal, setIsOpenModal] = useState(false);
 
-  const handleMoreInfoClick = () => {
-    setIsOpenModal(true);
-  };
-
   return (
     <div className={cx('food-card')}>
       <Card isNoBorder shadow="m" spacing="none">
@@ -99,7 +95,7 @@ export function FoodCard({
                 iconType="arrow"
                 buttonType="tertiary"
                 buttonSize="sm"
-                onClick={handleMoreInfoClick}
+                onClick={() => setIsOpenModal(true)}
               />
             </div>
           </div>

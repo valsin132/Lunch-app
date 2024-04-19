@@ -1,0 +1,22 @@
+@import '../../../styles/index.css';
+
+.login {
+  /* @include flexbox($justifyContent: center, $direction: column, $gap: $gap-6Xlarge); */
+  min-width: 341px;
+
+  & .login__container {
+    @include flexbox($justifyContent: center, $direction: column, $gap: $gap-Xlarge);
+  }
+
+  & .login__logo {
+    @include size(104px, 51px);
+
+    align-self: center;
+  }
+
+  & .login__header {
+    @include flexbox($alignItems: center, $direction: row);
+
+    box-shadow: inset 0 -4px 0 -2px $color-grey-300;
+  }
+}

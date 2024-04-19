@@ -72,7 +72,7 @@
     color: $color-label-dark;
   }
 
-  & .input__field-message {
+  & .input__error-message {
     @include label-xxs;
 
     color: $color-error-font;

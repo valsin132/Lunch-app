@@ -1,19 +1,19 @@
 import { ReactElement } from 'react';
 import classNames from 'classnames/bind';
 import { loginIllustration1 } from '../../utils/imageManager';
-import { Auth } from '../Auth/Auth';
-import styles from './AuthContainer.module.css';
+import { AuthCard } from './AuthCard/AuthCard';
+import styles from './Auth.module.css';
 
 const cx = classNames.bind(styles);
 
-export function AuthContainer(): ReactElement {
+export function Auth(): ReactElement {
   return (
     <div className={cx('auth')}>
       <div className={cx('auth-image')}>
         <img src={loginIllustration1} alt="login illustration" />
       </div>
       <div className={cx('auth-card')}>
-        <Auth />
+        <AuthCard />
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-@import './../../styles/index.css';
+@import '../../styles/index.css';
 
 .auth {
   @include flexbox($justifyContent: between, $alignItems: flex-start, $gap: $gap-Xlarge);

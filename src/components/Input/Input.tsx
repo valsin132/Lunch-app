@@ -63,7 +63,7 @@ export function Input({
             <SearchIcon className={cx('icon')} />
           </i>
         )}
-        <p className={cx('input__field-message')}>{errorMessage}</p>
+        <p className={cx('input__error-message')}>{errorMessage}</p>
       </span>
     </div>
   );

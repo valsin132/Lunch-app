@@ -1,6 +1,7 @@
 import loginIllustration1 from '../assets/images/illustrations/login-illustration-1.png';
 import loginIllustration2 from '../assets/images/illustrations/login-illustration-2.png';
 import loginIllustration3 from '../assets/images/illustrations/login-illustration-3.png';
+import logoWithoutText from '../assets/images/logo/logo-without-text.png';
 import alarmClockImage from '../assets/images/graphics/alarm-clock.png';
 import basketImage from '../assets/images/graphics/basket.png';
 import okHandImage from '../assets/images/graphics/ok-hand.png';
@@ -25,6 +26,7 @@ export {
   loginIllustration1,
   loginIllustration2,
   loginIllustration3,
+  logoWithoutText,
   burgerImage,
   chickenImage,
   cornImage,

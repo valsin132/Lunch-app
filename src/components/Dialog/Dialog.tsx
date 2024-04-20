@@ -44,7 +44,7 @@ export function Dialog({
 }: DialogProps): ReactElement {
   return (
     <div className={cx('dialog')}>
-      <Card isDialogCard>
+      <Card isNoBorder>
         <div className={cx('dialog__structure')}>
           <div className={cx('dialog__header')}>
             <p>{dialogHeaderTitle}</p>

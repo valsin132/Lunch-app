@@ -5,7 +5,7 @@
   border: solid 1px $color-grey-100;
   display: inline-block;
 
-  &.card--dialog {
+  &.card--no-border {
     border: solid 0;
   }
 

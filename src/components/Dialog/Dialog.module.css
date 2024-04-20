@@ -41,15 +41,11 @@
   & .dialog__content {
     @include flexbox($alignItems: center);
 
-    max-width: 319px;
+    min-width: 319px;
     text-align: start;
   }
 
   & .dialog__buttons {
     @include flexbox($gap: $gap-medium, $direction: row-reverse);
-  }
-
-  & .dialog__buttons--second-button-off {
-    display: none;
   }
 }

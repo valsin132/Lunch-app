@@ -75,17 +75,14 @@ export function Dialog({
               title={primaryButtonLabel}
               onClick={onClick}
             />
-            <div
-              className={
-                secondaryButtonLabel === undefined ? cx('dialog__buttons--second-button-off') : ''
-              }>
+            {secondaryButtonLabel && (
               <Button
                 buttonSize="md"
                 buttonType="secondary"
-                title={secondaryButtonLabel === undefined ? 'noButton' : secondaryButtonLabel}
+                title={secondaryButtonLabel}
                 onClick={() => setIsOpen(false)}
               />
-            </div>
+            )}
           </div>
         </div>
       </Card>

@@ -7,13 +7,51 @@ const cx = classNames.bind(styles);
 interface HeaderProps {
   heading: string;
   title: string;
+  isDate?: boolean;
 }
 
-export function Header({ heading, title }: HeaderProps): ReactElement {
+export function Header({ heading, title, isDate }: HeaderProps): ReactElement {
+  const getDate = () => {
+    const curr = new Date('2024-04-22');
+
+    const months = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
+
+    const firstDayDate = new Date(curr.setDate(curr.getDate() - (curr.getDay() || 7) + 1));
+    const lastDayDate = new Date(curr.setDate(curr.getDate() - (curr.getDay() || 7) + 1 + 6));
+
+    const firstDayMonth = firstDayDate.getMonth();
+    const firstDay = firstDayDate.getDate().toLocaleString();
+    const lastDayMonth = lastDayDate.getMonth();
+    const lastDay = lastDayDate.getDate().toLocaleString();
+
+    const dateDisplayed = `${firstDay} ${months[firstDayMonth]} - ${lastDay} ${months[lastDayMonth]}`;
+
+    return dateDisplayed;
+  };
+
   return (
     <div className={cx('header')}>
       <h1 className={cx('header__heading')}>{heading}</h1>
-      <p className={cx('header__title')}>{title}</p>
+      {isDate ? (
+        <p className={cx('header__title')}>
+          {title} {getDate()}
+        </p>
+      ) : (
+        <p className={cx('header__title')}>{title}</p>
+      )}
     </div>
   );
 }

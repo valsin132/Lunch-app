@@ -12,7 +12,7 @@ interface HeaderProps {
 
 export function Header({ title, subtitle, isDate }: HeaderProps): ReactElement {
   const getDate = () => {
-    const curr = new Date('2024-04-22');
+    const curr = new Date();
 
     const months = [
       'Jan',

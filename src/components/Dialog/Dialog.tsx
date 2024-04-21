@@ -59,7 +59,7 @@ export function Dialog({
           <div className={cx('dialog__picture-and-content')}>
             <div className={cx('dialog__img-container')}>
               <img
-                className={dialogType === 'warning' ? '' : cx('dialog__img-too-big')}
+                className={cx({ 'dialog__img-too-big': dialogType !== 'warning' })}
                 src={getSupportingIllustration(dialogType)}
                 alt="Dialog icon"
               />

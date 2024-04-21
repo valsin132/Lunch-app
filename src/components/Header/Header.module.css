@@ -1,19 +1,15 @@
 @import '../../styles/index.css';
 
 .header {
-  /* Ar tikrai reikia situ properties */
 
-  /* margin-left: 40px;
-  max-height: 75px; */
-
-  & .header__heading {
+  & .header__title {
     @include headline-l;
 
     color: $color-blue-600;
     padding-bottom: $spacing-4xs;
   }
 
-  & .header__title {
+  & .header__subtitle {
     @include title-l;
 
     color: $color-blue-600;

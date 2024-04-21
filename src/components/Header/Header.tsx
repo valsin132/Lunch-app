@@ -5,12 +5,12 @@ import styles from './Header.module.css';
 const cx = classNames.bind(styles);
 
 interface HeaderProps {
-  heading: string;
   title: string;
+  subtitle: string;
   isDate?: boolean;
 }
 
-export function Header({ heading, title, isDate }: HeaderProps): ReactElement {
+export function Header({ title, subtitle, isDate }: HeaderProps): ReactElement {
   const getDate = () => {
     const curr = new Date('2024-04-22');
 
@@ -44,13 +44,13 @@ export function Header({ heading, title, isDate }: HeaderProps): ReactElement {
 
   return (
     <div className={cx('header')}>
-      <h1 className={cx('header__heading')}>{heading}</h1>
+      <h1 className={cx('header__title')}>{title}</h1>
       {isDate ? (
-        <p className={cx('header__title')}>
-          {title} {getDate()}
+        <p className={cx('header__subtitle')}>
+          {subtitle} {getDate()}
         </p>
       ) : (
-        <p className={cx('header__title')}>{title}</p>
+        <p className={cx('header__subtitle')}>{subtitle}</p>
       )}
     </div>
   );

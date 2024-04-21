@@ -1,5 +1,21 @@
 @import '../../styles/index.css';
 
-& .header {
-  width: 200px;
+.header {
+  /* Ar tikrai reikia situ properties */
+
+  /* margin-left: 40px;
+  max-height: 75px; */
+
+  & .header__heading {
+    @include headline-l;
+
+    color: $color-blue-600;
+    padding-bottom: $spacing-4xs;
+  }
+
+  & .header__title {
+    @include title-l;
+
+    color: $color-blue-600;
+  }
 }

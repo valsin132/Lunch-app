@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import classNames from 'classnames/bind';
 import { ReactElement } from 'react';
 import styles from './Header.module.css';
 
@@ -12,8 +12,8 @@ interface HeaderProps {
 export function Header({ heading, title }: HeaderProps): ReactElement {
   return (
     <div className={cx('header')}>
-      <h1>{heading}</h1>
-      <h2>{title}</h2>
+      <h1 className={cx('header__heading')}>{heading}</h1>
+      <p className={cx('header__title')}>{title}</p>
     </div>
   );
 }

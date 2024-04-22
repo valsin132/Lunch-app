@@ -1,0 +1,35 @@
+@import 'src/styles/index.css';
+
+.modal-overlay {
+  @include flexbox($justifyContent: center, $alignItems: center);
+
+  background-color: rgba(0 0 0 / 10%);
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+
+  & .modal {
+    position: absolute;
+
+    & .modal__header {
+      @include flexbox($justifyContent: space-between);
+      @include headline-s;
+
+      color: $color-blue-600;
+    }
+
+    & .modal__close {
+      @include flexbox($justifyContent: center, $alignItems: center);
+
+      cursor: pointer;
+      padding: $spacing-5xs;
+    }
+
+    & .modal__buttons {
+      @include flexbox($gap: $gap-medium, $direction: row-reverse);
+    }
+  }
+}

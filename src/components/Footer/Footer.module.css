@@ -1,0 +1,13 @@
+@import '../../styles/index.css';
+
+.footer {
+  padding: $spacing-l $spacing-l $spacing-s $spacing-l;
+  width: 100%;
+
+  & .footer__container {
+    @include flexbox($justifyContent: space-between);
+    @include title-s;
+
+    color: $color-grey-500;
+  }
+}

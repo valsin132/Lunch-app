@@ -1,0 +1,51 @@
+@import './../../styles/index.css';
+
+.dialog {
+  display: block;
+  left: 50%;
+  max-width: 447px;
+  position: absolute;
+  transform: translate(-50%, 50%);
+  z-index: 1;
+
+  & .dialog__structure {
+    @include flexbox($gap: $gap-Xlarge, $direction: column);
+  }
+
+  & .dialog__header {
+    @include flexbox($justifyContent: space-between);
+    @include headline-s;
+
+    color: $color-blue-600;
+  }
+
+  & .dialog__close-icon {
+    @include flexbox($justifyContent: center, $alignItems: center);
+    @include size(32px, 32px);
+  }
+
+  & .dialog__picture-and-content {
+    @include body-l;
+    @include flexbox($gap: $gap-medium);
+  }
+
+  & .dialog__img-container {
+    @include size(80px, 80px);
+  }
+
+  & .dialog__img-too-big {
+    position: relative;
+    top: -8px;
+  }
+
+  & .dialog__content {
+    @include flexbox($alignItems: center);
+
+    min-width: 319px;
+    text-align: start;
+  }
+
+  & .dialog__buttons {
+    @include flexbox($gap: $gap-medium, $direction: row-reverse);
+  }
+}

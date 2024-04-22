@@ -1,7 +1,7 @@
 @import '../../styles/index.css';
 
 .input {
-  @include flexbox($direction: column, $gap: $gap-small, $alignItems: flex-start);
+  @include flexbox($direction: column, $gap: $gap-small);
 
   & .input__label {
     @include label-s;
@@ -16,7 +16,6 @@
 
   & .input__field-container {
     position: relative;
-    width: 100%;
   }
 
   & .input__field-icon {
@@ -41,6 +40,7 @@
     color: $color-grey-500;
     outline: none;
     padding: $spacing-4xs $spacing-3xs;
+    width: 100%;
 
     &:disabled {
       box-shadow: inset 0 0 0 1px $color-border-disabled;

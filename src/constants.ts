@@ -1,4 +1,4 @@
-export const AUTH_PAGES_ROUTES = {
+export const AUTH_PAGE_ROUTE = {
   Auth: '/auth',
 };
 

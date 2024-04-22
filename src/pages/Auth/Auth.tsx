@@ -12,7 +12,7 @@ export function Auth(): ReactElement {
       <div className={cx('auth-image')}>
         <img src={loginIllustration1} alt="login illustration" />
       </div>
-      <div className={cx('auth-card')}>
+      <div className={cx('auth-container')}>
         <AuthCard />
       </div>
     </div>

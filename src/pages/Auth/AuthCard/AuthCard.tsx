@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import { ReactElement } from 'react';
 import { LogoHorizontal } from '../../../utils/iconManager';
 import { Card } from '../../../components/Card';
-import { Login } from '../components/login/login';
+import { LoginForm } from '../components/LoginForm/LoginForm';
 import { Tab } from '../../../components/Tab';
 import styles from './AuthCard.module.css';
 
@@ -13,18 +13,14 @@ export function AuthCard(): ReactElement {
 
   return (
     <Card spacing="s" shadow="m">
-      <div className={cx('login')}>
-        <div className={cx('login__container')}>
-          <LogoHorizontal className={cx('login__logo')} />
-          <div className={cx('login__header')}>
-            <div>
-              <Tab label="Login" isActive onClick={() => handleTabClick} />
-            </div>
-            <div>
-              <Tab label="Register" isActive={false} onClick={() => handleTabClick} />
-            </div>
+      <div className={cx('auth')}>
+        <div className={cx('auth__container')}>
+          <LogoHorizontal className={cx('auth__logo')} />
+          <div className={cx('auth__header')}>
+            <Tab label="Login" isActive onClick={() => handleTabClick} />
+            <Tab label="Register" isActive={false} onClick={() => handleTabClick} />
           </div>
-          <Login />
+          <LoginForm />
         </div>
       </div>
     </Card>

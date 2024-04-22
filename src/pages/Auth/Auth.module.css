@@ -23,7 +23,7 @@
     }
   }
 
-  & .auth-card {
+  & .auth-container {
     @include flexbox($justifyContent: center, $alignItems: center);
 
     width: 100%;

@@ -1,5 +1,5 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import { AUTH_PAGES_ROUTES, MAIN_PAGES_ROUTES } from './constants';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { AUTH_PAGE_ROUTE, MAIN_PAGES_ROUTES } from './constants';
 import { AvailableLunch } from './pages/AvailableLunch';
 import { FoodMenu } from './pages/FoodMenu';
 import { YourOrders } from './pages/YourOrders';
@@ -15,8 +15,7 @@ function AppRoutes() {
   return (
     <Routes>
       <Route element={<ProtectedRoute isLoggedIn={isLogged} pageType="auth" />}>
-        <Route path="/" element={<Navigate to={AUTH_PAGES_ROUTES.Auth} />} />
-        <Route path="/auth" element={<Auth />} />
+        <Route path={AUTH_PAGE_ROUTE.Auth} element={<Auth />} />
       </Route>
       <Route element={<ProtectedRoute isLoggedIn={isLogged} pageType="main" />}>
         <Route element={<MainContent />}>

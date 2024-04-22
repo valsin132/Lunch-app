@@ -44,7 +44,7 @@ export function Input({
         })}>
         {label}
       </label>
-      <span className={cx('input__field-container')}>
+      <div className={cx('input__field-container')}>
         <input
           placeholder={placeholder}
           type={textFieldType}
@@ -64,7 +64,7 @@ export function Input({
           </i>
         )}
         <p className={cx('input__error-message')}>{errorMessage}</p>
-      </span>
+      </div>
     </div>
   );
 }

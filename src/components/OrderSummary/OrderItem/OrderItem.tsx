@@ -1,4 +1,4 @@
-type DishType = 'wrap' | 'soup' | 'pizza' | 'sandwich' | 'burger' | 'bowl';
+import { DishType } from '../../FoodCard';
 
 export type Order = {
   dishType: DishType;
@@ -9,15 +9,18 @@ export type Order = {
 };
 
 type OrderItemProps = {
-  onRemove?: () => void;
   details: Order;
 };
 
-export function OrderItem({ details, onRemove }: OrderItemProps) {
+export function OrderItem({ details }: OrderItemProps) {
+  const handleItemRemoval = () => {
+    alert(`removing item ${details.mealId}`);
+  };
+
   return (
     <article>
       <div>{JSON.stringify(details)}</div>
-      <button type="button" onClick={onRemove}>
+      <button type="button" onClick={handleItemRemoval}>
         Remove
       </button>
     </article>

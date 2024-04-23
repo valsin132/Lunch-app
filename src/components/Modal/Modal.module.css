@@ -12,24 +12,39 @@
   z-index: 2;
 
   & .modal {
-    position: absolute;
 
-    & .modal__header {
-      @include flexbox($justifyContent: space-between);
-      @include headline-s;
-
-      color: $color-blue-600;
+    &.modal--size-xs {
+      max-width: 447px;
     }
 
-    & .modal__close {
-      @include flexbox($justifyContent: center, $alignItems: center);
-
-      cursor: pointer;
-      padding: $spacing-5xs;
+    &.modal--size-sm {
+      max-width: 534px;
     }
 
-    & .modal__buttons {
-      @include flexbox($gap: $gap-medium, $direction: row-reverse);
+    &.modal--size-md {
+      max-width: 674px;
+    }
+
+    & .modal__wrapper {
+      @include flexbox($direction: column, $gap: $gap-Xlarge);
+
+      & .modal__header {
+        @include flexbox($justifyContent: space-between);
+        @include headline-s;
+
+        color: $color-blue-600;
+      }
+
+      & .modal__close {
+        @include flexbox($justifyContent: center, $alignItems: center);
+
+        cursor: pointer;
+        padding: $spacing-5xs;
+      }
+
+      & .modal__buttons {
+        @include flexbox($gap: $gap-medium, $direction: row-reverse);
+      }
     }
   }
 }

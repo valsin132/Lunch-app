@@ -7,10 +7,12 @@ import styles from './Modal.module.css';
 
 const cx = classNames.bind(styles);
 
+type ModalSize = 'md' | 'sm' | 'xs';
+
 interface ModalProps {
   children: ReactNode;
-  header?: boolean;
-  title?: string;
+  title: string;
+  modalSize: ModalSize;
   primaryButtonLabel?: string;
   secondaryButtonLabel?: string;
   setIsOpenModal: (isOpenModal: boolean) => void;
@@ -19,8 +21,8 @@ interface ModalProps {
 
 export function Modal({
   children,
-  header,
   title,
+  modalSize,
   primaryButtonLabel,
   secondaryButtonLabel,
   onClick,
@@ -28,9 +30,9 @@ export function Modal({
 }: ModalProps): ReactElement {
   return (
     <div className={cx('modal-overlay')}>
-      <div className={cx('modal')}>
+      <div className={cx('modal', [`modal--size-${modalSize}`])}>
         <Card isNoBorder>
-          {header && (
+          <div className={cx('modal__wrapper')}>
             <div className={cx('modal__header')}>
               <p>{title}</p>
               <div className={cx('modal__close')}>
@@ -40,25 +42,25 @@ export function Modal({
                 />
               </div>
             </div>
-          )}
-          {children}
-          <div className={cx('modal__buttons')}>
-            {primaryButtonLabel && (
-              <Button
-                buttonSize="md"
-                buttonType="primary"
-                title={primaryButtonLabel}
-                onClick={onClick}
-              />
-            )}
-            {secondaryButtonLabel && (
-              <Button
-                buttonSize="md"
-                buttonType="secondary"
-                title={secondaryButtonLabel}
-                onClick={() => setIsOpenModal(false)}
-              />
-            )}
+            {children}
+            <div className={cx('modal__buttons')}>
+              {primaryButtonLabel && (
+                <Button
+                  buttonSize="md"
+                  buttonType="primary"
+                  title={primaryButtonLabel}
+                  onClick={onClick}
+                />
+              )}
+              {secondaryButtonLabel && (
+                <Button
+                  buttonSize="md"
+                  buttonType="secondary"
+                  title={secondaryButtonLabel}
+                  onClick={() => setIsOpenModal(false)}
+                />
+              )}
+            </div>
           </div>
         </Card>
       </div>

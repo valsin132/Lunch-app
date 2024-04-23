@@ -104,7 +104,7 @@ export function LoginForm() {
             isError={!!emailErrorMsg}
             errorMessage={emailErrorMsg}
           />
-          <div className={cx('login-password__container')}>
+          <div className={cx('login-password-container')}>
             <Input
               id="password"
               textFieldType="password"
@@ -118,7 +118,7 @@ export function LoginForm() {
               isError={!!passwordErrorMsg}
               errorMessage={passwordErrorMsg}
             />
-            <button aria-label="Forgot Password" className={cx('login-form-button')} type="button">
+            <button aria-label="Forgot Password" className={cx('login-form__button')} type="button">
               Forgot Password?
             </button>
           </div>

@@ -25,12 +25,12 @@
     & .login-form__input {
       @include flexbox($direction: column, $gap: $gap-Xlarge);
 
-      & .login-password__container {
+      & .login-password-container {
         @include flexbox($direction: column, $gap: $gap-compact);
       }
     }
 
-    & .login-form-button {
+    & .login-form__button {
       @include label-s;
 
       color: $color-orange-600;

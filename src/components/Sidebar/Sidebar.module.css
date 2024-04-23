@@ -8,13 +8,25 @@ $sidebar-animation-duration: 300ms;
   background-color: $color-blue-800;
   border-radius: 0 $border-radius-regular $border-radius-regular 0;
   color: $color-white;
-  max-height: 100dvh;
-  padding: calc($spacing-4xs + 2px);
+  height: 100vh;
   position: sticky;
   text-align: left;
   top: 0;
 
+  &.sidebar--expanded {
+    padding: calc($spacing-4xs + 2px);
+    @include mobile-breakpoint {
+      padding: calc($spacing-4xs + 2px) calc($spacing-5xs + 1px);
+    }
+  }
+
+  &.sidebar--collapsed {
+    padding: calc($spacing-4xs + 2px) calc($spacing-5xs + 1px);
+  }
+
   .sidebar__container {
+    @include flexbox($direction: column, $gap: $gap-large);
+
     transition: $sidebar-animation-duration ease-in-out;
     width: 194px;
 
@@ -26,8 +38,23 @@ $sidebar-animation-duration: 300ms;
         background-position: 50%;
         background-repeat: no-repeat;
         background-size: contain;
-        height: 72px;
-        @include mobile-breakpoint {
+        margin: auto;
+
+        &.sidebar__logo--expanded {
+          @include size(77px, 38px);
+
+          animation: zoom2 $sidebar-animation-duration;
+          @include mobile-breakpoint {
+            @include size(25.17px, 47.88px);
+
+            background-image: url('./../../assets/images/logo/logo-vertical-small.svg');
+          }
+        }
+
+        &.sidebar__logo--collapsed {
+          @include size(25.17px, 47.88px);
+
+          animation: zoom $sidebar-animation-duration;
           background-image: url('./../../assets/images/logo/logo-vertical-small.svg');
         }
       }
@@ -35,23 +62,10 @@ $sidebar-animation-duration: 300ms;
 
     &.sidebar--collapsed {
       width: 62px;
-
-      & .sidebar__logo {
-        animation: zoom $sidebar-animation-duration;
-        background-image: url('./../../assets/images/logo/logo-vertical-small.svg');
-      }
-    }
-
-    &.sidebar--expanded .sidebar__logo {
-      animation: zoom2 $sidebar-animation-duration;
     }
 
     @include mobile-breakpoint {
       width: 62px;
-
-      & .sidebar__logo {
-        background-image: url('./../../assets/images/logo/logo-vertical-small.svg');
-      }
     }
   }
 
@@ -84,6 +98,11 @@ $sidebar-animation-duration: 300ms;
         transform: rotate(-90deg);
       }
     }
+  }
+
+  & .navigation {
+    margin: auto;
+    max-width: 181px;
   }
 }
 

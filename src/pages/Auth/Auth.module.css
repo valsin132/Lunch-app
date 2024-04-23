@@ -6,7 +6,7 @@
   margin-top: 80px;
   width: 100%;
 
-  & .auth-image {
+  & .auth__image {
     width: 100%;
 
     & img {
@@ -23,7 +23,7 @@
     }
   }
 
-  & .auth-container {
+  & .auth__container {
     @include flexbox($justifyContent: center, $alignItems: center);
 
     width: 100%;

@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import { AUTH_PAGE_ROUTE, MAIN_PAGES_ROUTES } from './constants';
 import { AvailableLunch } from './pages/AvailableLunch';
 import { FoodMenu } from './pages/FoodMenu';
@@ -15,6 +15,7 @@ function AppRoutes() {
   return (
     <Routes>
       <Route element={<ProtectedRoute isLoggedIn={isLogged} pageType="auth" />}>
+        <Route path="/" element={<Navigate to={AUTH_PAGE_ROUTE.Auth} />} />
         <Route path={AUTH_PAGE_ROUTE.Auth} element={<Auth />} />
       </Route>
       <Route element={<ProtectedRoute isLoggedIn={isLogged} pageType="main" />}>

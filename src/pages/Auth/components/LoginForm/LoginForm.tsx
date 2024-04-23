@@ -84,13 +84,13 @@ export function LoginForm() {
     }
   };
   return (
-    <form className={cx('login__form')} aria-label="Login Form">
-      <div className={cx('login__form-container')}>
-        <div className={cx('login__form-head')}>
+    <form className={cx('login-form')} aria-label="Login Form">
+      <div className={cx('login-form__container')}>
+        <div className={cx('login-form__head')}>
           <h1>Login</h1>
           <p>Lunch won’t order itself</p>
         </div>
-        <div className={cx('login__form-input')}>
+        <div className={cx('login-form__input')}>
           <Input
             id="email"
             textFieldType="email"
@@ -104,7 +104,7 @@ export function LoginForm() {
             isError={!!emailErrorMsg}
             errorMessage={emailErrorMsg}
           />
-          <div className={cx('login__password-container')}>
+          <div className={cx('login-password__container')}>
             <Input
               id="password"
               textFieldType="password"
@@ -118,22 +118,20 @@ export function LoginForm() {
               isError={!!passwordErrorMsg}
               errorMessage={passwordErrorMsg}
             />
-            <button aria-label="Forgot Password" className={cx('login__form-link')} type="button">
+            <button aria-label="Forgot Password" className={cx('login-form-button')} type="button">
               Forgot Password?
             </button>
           </div>
         </div>
       </div>
-      <div className={cx('login__form-button')}>
-        <Button
-          title="Log in"
-          buttonSize="md"
-          buttonType="primary"
-          buttonWidth="full"
-          iconType="arrow"
-          onClick={handleLogin}
-        />
-      </div>
+      <Button
+        title="Log in"
+        buttonSize="md"
+        buttonType="primary"
+        buttonWidth="full"
+        iconType="arrow"
+        onClick={handleLogin}
+      />
     </form>
   );
 }

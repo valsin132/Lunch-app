@@ -1,12 +1,12 @@
 @import '../../../../styles/index.css';
 
-.login__form {
+.login-form {
   @include flexbox($justifyContent: center, $direction: column, $gap: $gap-6Xlarge);
 
-  & .login__form-container {
+  & .login-form__container {
     @include flexbox($direction: column, $gap: $gap-2Xlarge);
 
-    & .login__form-head {
+    & .login-form__head {
       @include flexbox($direction: column, $gap: $gap-regular);
 
       & h1 {
@@ -22,15 +22,15 @@
       }
     }
 
-    & .login__form-input {
+    & .login-form__input {
       @include flexbox($direction: column, $gap: $gap-Xlarge);
 
-      & .login__password-container {
-        @include flexbox($direction: column, $gap-compact);
+      & .login-password__container {
+        @include flexbox($direction: column, $gap: $gap-compact);
       }
     }
 
-    & .login__form-link {
+    & .login-form-button {
       @include label-s;
 
       color: $color-orange-600;

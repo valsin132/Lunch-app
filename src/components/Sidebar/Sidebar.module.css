@@ -25,7 +25,7 @@ $sidebar-animation-duration: 300ms;
   }
 
   .sidebar__container {
-    @include flexbox($direction: column, $gap: $gap-large);
+    @include flexbox($direction: column, $gap: $gap-Xlarge);
 
     transition: $sidebar-animation-duration ease-in-out;
     width: 194px;

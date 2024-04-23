@@ -10,7 +10,7 @@ const cx = classNames.bind(styles);
 interface ModalProps {
   children: ReactNode;
   header?: boolean;
-  title: string;
+  title?: string;
   primaryButtonLabel?: string;
   secondaryButtonLabel?: string;
   setIsOpenModal: (isOpenModal: boolean) => void;

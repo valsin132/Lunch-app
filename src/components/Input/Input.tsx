@@ -16,8 +16,9 @@ interface InputProps {
   isError?: boolean;
   placeholder?: string;
   id: string;
+  errorMessage?: string;
   isDisabled?: boolean;
-  onChange: () => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export function Input({
@@ -31,6 +32,7 @@ export function Input({
   withIcon,
   value,
   name,
+  errorMessage,
 }: InputProps): ReactElement {
   return (
     <div className={cx('input')}>
@@ -42,7 +44,7 @@ export function Input({
         })}>
         {label}
       </label>
-      <span className={cx('input__field-container')}>
+      <div className={cx('input__field-container')}>
         <input
           placeholder={placeholder}
           type={textFieldType}
@@ -61,7 +63,8 @@ export function Input({
             <SearchIcon className={cx('icon')} />
           </i>
         )}
-      </span>
+        <p className={cx('input__error-message')}>{errorMessage}</p>
+      </div>
     </div>
   );
 }

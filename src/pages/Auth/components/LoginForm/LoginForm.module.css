@@ -1,0 +1,45 @@
+@import '../../../../styles/index.css';
+
+.login-form {
+  @include flexbox($justifyContent: center, $direction: column, $gap: $gap-6Xlarge);
+
+  & .login-form__container {
+    @include flexbox($direction: column, $gap: $gap-2Xlarge);
+
+    & .login-form__head {
+      @include flexbox($direction: column, $gap: $gap-regular);
+
+      & h1 {
+        @include headline-l;
+
+        color: $text-color-blue;
+      }
+
+      & p {
+        @include body-l;
+
+        color: $text-color-grey;
+      }
+    }
+
+    & .login-form__input {
+      @include flexbox($direction: column, $gap: $gap-Xlarge);
+
+      & .login-form__password-container {
+        @include flexbox($direction: column, $gap: $gap-compact);
+      }
+    }
+
+    & .login-form__button {
+      @include label-s;
+
+      color: $color-orange-600;
+      text-align: end;
+      text-decoration: underline;
+
+      &:hover {
+        text-decoration-color: $color-orange-300;
+      }
+    }
+  }
+}

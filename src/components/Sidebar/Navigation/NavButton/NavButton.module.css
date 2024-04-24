@@ -14,9 +14,8 @@ $button-animation-duration: 350ms;
   }
 
   &.button--expanded {
-
     @include label-s;
-    @include flexbox($alignItems: center, $gap: $gap-Xmedium);
+    @include flexbox($alignItems: center, $gap: $gap-compact);
 
     animation: button-width2 $button-animation-duration;
     border-radius: $border-radius-medium;

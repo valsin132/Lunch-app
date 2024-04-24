@@ -35,10 +35,7 @@ export function Modal({
           <div className={cx('modal__header')}>
             <p>{title}</p>
             <div className={cx('modal__close')}>
-              <CloseIcon
-                className={cx('modal__close-icon')}
-                onClick={() => setIsOpenModal(false)}
-              />
+              <CloseIcon onClick={() => setIsOpenModal(false)} />
             </div>
           </div>
           {children}

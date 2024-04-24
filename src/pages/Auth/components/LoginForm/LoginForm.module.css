@@ -25,7 +25,7 @@
     & .login-form__input {
       @include flexbox($direction: column, $gap: $gap-Xlarge);
 
-      & .login-password-container {
+      & .login-form__password-container {
         @include flexbox($direction: column, $gap: $gap-compact);
       }
     }

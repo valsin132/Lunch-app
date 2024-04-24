@@ -104,7 +104,7 @@ export function LoginForm() {
             isError={!!emailErrorMsg}
             errorMessage={emailErrorMsg}
           />
-          <div className={cx('login-password-container')}>
+          <div className={cx('login-form__password-container')}>
             <Input
               id="password"
               textFieldType="password"

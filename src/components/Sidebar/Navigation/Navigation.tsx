@@ -11,56 +11,38 @@ interface NavProps {
   isExpanded: boolean;
 }
 export function Navigation({ isExpanded }: NavProps): ReactElement {
+  type IconType = 'foodMenu' | 'yourOrder' | 'availableLunch' | 'ratings';
+  interface NavigationItem {
+    title: string;
+    iconType: IconType;
+    route: string;
+  }
+  const navigationItems: NavigationItem[] = [
+    { title: 'Food Menu', iconType: 'foodMenu', route: MAIN_PAGES_ROUTES.FoodMenu },
+    {
+      title: 'Available Lunch',
+      iconType: 'availableLunch',
+      route: MAIN_PAGES_ROUTES.AvailableLunch,
+    },
+    { title: 'Your Orders', iconType: 'yourOrder', route: MAIN_PAGES_ROUTES.YourOrders },
+    { title: 'Ratings', iconType: 'ratings', route: MAIN_PAGES_ROUTES.Ratings },
+  ];
   return (
     <ul className={cx('ul-list')}>
-      <li>
-        <NavLink to={MAIN_PAGES_ROUTES.FoodMenu}>
-          {({ isActive }) => (
-            <NavButton
-              isActive={isActive}
-              isExpanded={isExpanded}
-              title="Food Menu"
-              iconType="foodMenu"
-            />
-          )}
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to={MAIN_PAGES_ROUTES.AvailableLunch}>
-          {({ isActive }) => (
-            <NavButton
-              isActive={isActive}
-              isExpanded={isExpanded}
-              title="Available Lunch"
-              iconType="availableLunch"
-            />
-          )}
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to={MAIN_PAGES_ROUTES.YourOrders}>
-          {({ isActive }) => (
-            <NavButton
-              isActive={isActive}
-              isExpanded={isExpanded}
-              title="Your Orders"
-              iconType="yourOrder"
-            />
-          )}
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to={MAIN_PAGES_ROUTES.Ratings}>
-          {({ isActive }) => (
-            <NavButton
-              isActive={isActive}
-              isExpanded={isExpanded}
-              title="Ratings"
-              iconType="ratings"
-            />
-          )}
-        </NavLink>
-      </li>
+      {Object.entries(navigationItems).map(([key, { title, iconType, route }]) => (
+        <li key={key}>
+          <NavLink to={route}>
+            {({ isActive }) => (
+              <NavButton
+                isActive={isActive}
+                isExpanded={isExpanded}
+                title={title}
+                iconType={iconType}
+              />
+            )}
+          </NavLink>
+        </li>
+      ))}
     </ul>
   );
 }

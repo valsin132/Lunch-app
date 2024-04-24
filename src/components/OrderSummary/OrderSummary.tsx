@@ -2,6 +2,8 @@ import classNames from 'classnames/bind';
 import { CloseIcon } from '../../utils/iconManager';
 import { Order } from './OrderItem';
 import { FormattedOrders, OrderDay, Workdays } from './OrderDay';
+import { Card } from '../Card';
+import { OrderButton } from './OrderButton/OrderButton';
 import styles from './OrderSummary.module.css';
 
 const cx = classNames.bind(styles);
@@ -47,32 +49,41 @@ export function OrderSummary({ monday, tuesday, wednesday, thursday, friday }: O
   const handleOrdering = () => {
     alert('Order');
   };
+
   return (
     <aside className={cx('order-summary')}>
-      <div className={cx('order-summary__wrapper')}>
-        <div className={cx('order-summary__header')}>
-          <h2>Order Summary</h2>
-          <button
-            onClick={() => {
-              alert('Close menu');
-            }}
-            aria-label="Close order summary"
-            type="button">
-            <CloseIcon />
-          </button>
+      <Card spacing="xs" shadow="s" roundedCorners="left">
+        <div className={cx('order-summary__content-wrapper')}>
+          <div className={cx('order-summary__wrapper')}>
+            <div className={cx('order-summary__header')}>
+              <h2>Order Summary</h2>
+              <button
+                className={cx('order-summary__close-button')}
+                onClick={() => {
+                  alert('Close menu');
+                }}
+                aria-label="Close order summary"
+                type="button">
+                <CloseIcon />
+              </button>
+            </div>
+            <section className={cx('order-summary__orders-wrapper')}>
+              {isEmpty
+                ? 'There are no orders'
+                : orders.map((order) => <OrderDay key={order.day} details={order} />)}
+            </section>
+          </div>
+          <div className={cx('order-summary__footer')}>
+            <div>
+              <div className={cx('order-summary__price-wrapper')}>
+                <span className={cx('order-summary__price-title')}>Total price</span>
+                <span className={cx('order-summary__price')}>{totalPrice}</span>
+              </div>
+            </div>
+            <OrderButton onClick={handleOrdering} disabled={isEmpty} />
+          </div>
         </div>
-        <section className={cx('order-summary__orders-wrapper')}>
-          {isEmpty
-            ? 'There are no orders'
-            : orders.map((order) => <OrderDay key={order.day} details={order} />)}
-        </section>
-      </div>
-      <div>
-        <div>Total price {totalPrice}</div>
-        <button onClick={handleOrdering} type="button">
-          Buy
-        </button>
-      </div>
+      </Card>
     </aside>
   );
 }

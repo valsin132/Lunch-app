@@ -2,4 +2,61 @@
 
 .order-summary {
   text-align: center;
+
+  & .order-summary__content-wrapper {
+    @include flexbox($direction: column, $gap: $spacing-s);
+
+    & .order-summary__wrapper {
+      @include flexbox($direction: column, $gap: $spacing-s);
+
+      max-height: 609px;
+
+      &::after {
+        background-color: $color-grey-200;
+        content: '';
+        height: 1px;
+        transform: translateY(12px);
+        width: 100%;
+      }
+
+      & .order-summary__header {
+        @include flexbox($justifyContent: space-between, $alignItems: center);
+        @include headline-s;
+
+        color: $color-blue-600;
+
+        & .order-summary__close-button {
+          padding: $spacing-5xs;
+
+          & svg {
+            display: block;
+          }
+        }
+      }
+    }
+
+    & .order-summary__footer {
+      @include flexbox($direction: column, $gap: $spacing-s);
+
+      position: relative;
+
+      & .order-summary__price-wrapper {
+        @include flexbox($direction: column, $alignItems: flex-end);
+
+        padding: 0 $spacing-s 0 $spacing-s;
+
+        & .order-summary__price-title {
+          @include title-s;
+
+          color: $color-grey-500;
+        }
+
+        & .order-summary__price {
+          @include title-l;
+
+          color: $color-blue-600;
+        }
+      }
+    }
+  }
 }

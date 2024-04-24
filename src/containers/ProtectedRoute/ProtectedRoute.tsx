@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from 'react-router-dom';
-import { AUTH_PAGES_ROUTES, MAIN_PAGES_ROUTES } from '../../constants';
+import { AUTH_PAGE_ROUTE, MAIN_PAGES_ROUTES } from '../../constants';
 
 type ProtectedRouteProps = {
   isLoggedIn: boolean;
@@ -8,6 +8,6 @@ type ProtectedRouteProps = {
 
 export function ProtectedRoute({ isLoggedIn, pageType }: ProtectedRouteProps) {
   if (pageType === 'auth' && isLoggedIn) return <Navigate to={MAIN_PAGES_ROUTES.FoodMenu} />;
-  if (pageType === 'main' && !isLoggedIn) return <Navigate to={AUTH_PAGES_ROUTES.Login} />;
+  if (pageType === 'main' && !isLoggedIn) return <Navigate to={AUTH_PAGE_ROUTE.Auth} />;
   return <Outlet />;
 }

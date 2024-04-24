@@ -11,40 +11,37 @@
   width: 100%;
   z-index: 2;
 
-  & .modal {
+  & .modal__wrapper {
+    @include flexbox($direction: column, $gap: $gap-Xlarge);
 
-    &.modal--size-xs {
-      max-width: 447px;
+    &.modal__wrapper--size-xs {
+      max-width: 415px;
     }
 
-    &.modal--size-sm {
-      max-width: 534px;
+    &.modal__wrapper--size-sm {
+      max-width: 502px;
     }
 
-    &.modal--size-md {
-      max-width: 674px;
+    &.modal__wrapper--size-md {
+      max-width: 642px;
     }
 
-    & .modal__wrapper {
-      @include flexbox($direction: column, $gap: $gap-Xlarge);
+    & .modal__header {
+      @include flexbox($justifyContent: space-between, $alignItems: flex-start);
+      @include headline-s;
 
-      & .modal__header {
-        @include flexbox($justifyContent: space-between);
-        @include headline-s;
+      color: $color-blue-600;
+    }
 
-        color: $color-blue-600;
-      }
+    & .modal__close {
+      @include flexbox($justifyContent: center, $alignItems: center);
 
-      & .modal__close {
-        @include flexbox($justifyContent: center, $alignItems: center);
+      cursor: pointer;
+      padding: $spacing-5xs;
+    }
 
-        cursor: pointer;
-        padding: $spacing-5xs;
-      }
-
-      & .modal__buttons {
-        @include flexbox($gap: $gap-medium, $direction: row-reverse);
-      }
+    & .modal__buttons {
+      @include flexbox($gap: $gap-medium, $direction: row-reverse);
     }
   }
 }

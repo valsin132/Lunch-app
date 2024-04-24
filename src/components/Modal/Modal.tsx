@@ -30,40 +30,38 @@ export function Modal({
 }: ModalProps): ReactElement {
   return (
     <div className={cx('modal-overlay')}>
-      <div className={cx('modal', [`modal--size-${modalSize}`])}>
-        <Card isNoBorder>
-          <div className={cx('modal__wrapper')}>
-            <div className={cx('modal__header')}>
-              <p>{title}</p>
-              <div className={cx('modal__close')}>
-                <CloseIcon
-                  className={cx('modal__close-icon')}
-                  onClick={() => setIsOpenModal(false)}
-                />
-              </div>
-            </div>
-            {children}
-            <div className={cx('modal__buttons')}>
-              {primaryButtonLabel && (
-                <Button
-                  buttonSize="md"
-                  buttonType="primary"
-                  title={primaryButtonLabel}
-                  onClick={onClick}
-                />
-              )}
-              {secondaryButtonLabel && (
-                <Button
-                  buttonSize="md"
-                  buttonType="secondary"
-                  title={secondaryButtonLabel}
-                  onClick={() => setIsOpenModal(false)}
-                />
-              )}
+      <Card isNoBorder>
+        <div className={cx('modal__wrapper', [`modal__wrapper--size-${modalSize}`])}>
+          <div className={cx('modal__header')}>
+            <p>{title}</p>
+            <div className={cx('modal__close')}>
+              <CloseIcon
+                className={cx('modal__close-icon')}
+                onClick={() => setIsOpenModal(false)}
+              />
             </div>
           </div>
-        </Card>
-      </div>
+          {children}
+          <div className={cx('modal__buttons')}>
+            {primaryButtonLabel && (
+              <Button
+                buttonSize="md"
+                buttonType="primary"
+                title={primaryButtonLabel}
+                onClick={onClick}
+              />
+            )}
+            {secondaryButtonLabel && (
+              <Button
+                buttonSize="md"
+                buttonType="secondary"
+                title={secondaryButtonLabel}
+                onClick={() => setIsOpenModal(false)}
+              />
+            )}
+          </div>
+        </div>
+      </Card>
     </div>
   );
 }

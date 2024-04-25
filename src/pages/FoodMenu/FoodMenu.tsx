@@ -51,7 +51,7 @@ export function FoodMenu(): ReactElement {
 
   return (
     <div>
-      <div className={cx('tab__wrapper')}>
+      <div className={cx('tab-wrapper')}>
         {dayLabels.map((day) => (
           <Tab
             key={day}

@@ -4,6 +4,6 @@
   @include flexbox($wrap: wrap, $gap: 32px);
 }
 
-.tab__wrapper {
+.tab-wrapper {
   box-shadow: inset 0 -4px 0 -2px $color-grey-300;
 }

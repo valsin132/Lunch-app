@@ -1,0 +1,47 @@
+@import 'src/styles/index.css';
+
+.modal-overlay {
+  @include flexbox($justifyContent: center, $alignItems: center);
+
+  background-color: $color-modal-overlay;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+
+  & .modal__wrapper {
+    @include flexbox($direction: column, $gap: $gap-Xlarge);
+
+    &.modal__wrapper--size-xs {
+      max-width: 415px;
+    }
+
+    &.modal__wrapper--size-sm {
+      max-width: 502px;
+    }
+
+    &.modal__wrapper--size-md {
+      max-width: 642px;
+    }
+
+    & .modal__header {
+      @include flexbox($justifyContent: space-between, $alignItems: flex-start);
+      @include headline-s;
+
+      color: $color-blue-600;
+    }
+
+    & .modal__close {
+      @include flexbox($justifyContent: center, $alignItems: center);
+
+      cursor: pointer;
+      padding: $spacing-5xs;
+    }
+
+    & .modal__buttons {
+      @include flexbox($gap: $gap-medium, $direction: row-reverse);
+    }
+  }
+}

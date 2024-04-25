@@ -1,9 +1,7 @@
 import classNames from 'classnames/bind';
 import { ReactElement } from 'react';
-import { Card } from '../Card';
-import { Button } from '../Button';
-import { CloseIcon } from '../../utils/iconManager';
 import { okHandImage, thumbsUpImage, questionMarkImage } from '../../utils/imageManager';
+import { Modal } from '../Modal';
 import styles from './Dialog.module.css';
 
 const cx = classNames.bind(styles);
@@ -44,48 +42,26 @@ export function Dialog({
 }: DialogProps): ReactElement {
   return (
     <div className={cx('dialog')}>
-      <Card isNoBorder>
-        <div className={cx('dialog__structure')}>
-          <div className={cx('dialog__header')}>
-            <p>{dialogHeaderTitle}</p>
-            <button
-              className={cx('dialog__close-icon')}
-              onClick={() => setIsOpen(false)}
-              type="button"
-              aria-label="Close dialog">
-              <CloseIcon />
-            </button>
-          </div>
-          <div className={cx('dialog__picture-and-content')}>
-            <div className={cx('dialog__img-container')}>
-              <img
-                className={cx({ 'dialog__img-too-big': dialogType !== 'warning' })}
-                src={getSupportingIllustration(dialogType)}
-                alt="Dialog icon"
-              />
-            </div>
-            <div className={cx('dialog__content')}>
-              <p>{content}</p>
-            </div>
-          </div>
-          <div className={cx('dialog__buttons')}>
-            <Button
-              buttonSize="md"
-              buttonType="primary"
-              title={primaryButtonLabel}
-              onClick={onClick}
+      <Modal
+        title={dialogHeaderTitle}
+        primaryButtonLabel={primaryButtonLabel}
+        secondaryButtonLabel={secondaryButtonLabel}
+        modalSize="xs"
+        onClick={onClick}
+        setIsOpenModal={setIsOpen}>
+        <div className={cx('dialog__picture-and-content')}>
+          <div className={cx('dialog__img-container')}>
+            <img
+              className={cx({ 'dialog__img-too-big': dialogType !== 'warning' })}
+              src={getSupportingIllustration(dialogType)}
+              alt="Dialog icon"
             />
-            {secondaryButtonLabel && (
-              <Button
-                buttonSize="md"
-                buttonType="secondary"
-                title={secondaryButtonLabel}
-                onClick={() => setIsOpen(false)}
-              />
-            )}
+          </div>
+          <div className={cx('dialog__content')}>
+            <p>{content}</p>
           </div>
         </div>
-      </Card>
+      </Modal>
     </div>
   );
 }

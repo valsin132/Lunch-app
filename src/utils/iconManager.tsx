@@ -16,6 +16,7 @@ import ErrorOutlinedIcon from '../assets/images/icons/error-outlined.svg?react';
 import GradingIcon from '../assets/images/icons/grading.svg?react';
 import InfoOutlinedIcon from '../assets/images/icons/info-outlined.svg?react';
 import LinkIcon from '../assets/images/icons/link.svg?react';
+import Logout from '../assets/images/icons/logout.svg?react';
 import MenuIcon from '../assets/images/icons/menu.svg?react';
 import PlantIcon from '../assets/images/icons/plant.svg?react';
 import RestartIcon from '../assets/images/icons/restart.svg?react';
@@ -44,6 +45,7 @@ export {
   GradingIcon,
   InfoOutlinedIcon,
   LinkIcon,
+  Logout,
   MenuIcon,
   PlantIcon,
   RestartIcon,

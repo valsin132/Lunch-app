@@ -19,6 +19,13 @@
         width: 100%;
       }
 
+      & .order-summary__orders-wrapper {
+        @include flexbox($direction: column, $gap: $spacing-4xs);
+
+        overflow-y: scroll;
+        scrollbar-width: none;
+      }
+
       & .order-summary__header {
         @include flexbox($justifyContent: space-between, $alignItems: center);
         @include headline-s;
@@ -55,6 +62,10 @@
           @include title-l;
 
           color: $color-blue-600;
+
+          &::before {
+            content: '€';
+          }
         }
       }
     }

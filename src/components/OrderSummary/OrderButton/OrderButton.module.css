@@ -6,6 +6,18 @@
   border: 2px solid $color-green-400;
   border-radius: $border-radius-extra-large;
   height: 48px;
+  overflow: hidden;
   padding: $spacing-5xs;
+  position: relative;
   width: 100%;
+
+  & .order-summary__buy-button__checkbox {
+    appearance: none;
+    height: 100%;
+    width: 100%;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+  }
 }

@@ -1,0 +1,55 @@
+@import './../../../styles/index.css';
+
+.order-item {
+  @include flexbox($direction: row);
+
+  width: 243px;
+
+  & .order-item__icon {
+    object-fit: contain;
+    width: 40px;
+  }
+
+  & .order-item__info {
+    @include flexbox($direction: column);
+
+    text-align: left;
+    width: 100%;
+
+    & .order-item__info__title {
+      @include title-s;
+
+      color: $color-grey-500;
+    }
+
+    & .order-item__info__body {
+      @include flexbox($justifyContent: space-between);
+
+      & .order-item__info__body__actions {
+        @include flexbox($direction: column, $alignItems: center);
+
+        & .order-item__info__body__actions__remove {
+          border-radius: $spacing-4xs;
+          padding: $spacing-5xs;
+
+          svg {
+            @include size($width: 18px, $height: 18px);
+
+            display: block;
+
+            path {
+              fill: $color-red-500;
+            }
+          }
+        }
+
+        & .order-item__info__body__actions__price {
+
+          &::before {
+            content: '€';
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind';
+import { useRef } from 'react';
 import { CloseIcon } from '../../utils/iconManager';
 import { Order } from './OrderItem';
 import { FormattedOrders, OrderDay, Workdays } from './OrderDay';
@@ -19,6 +20,8 @@ type OrderSummaryProps = {
 type OrderArray = Order[] | undefined;
 
 export function OrderSummary({ monday, tuesday, wednesday, thursday, friday }: OrderSummaryProps) {
+  const foodContainerRef = useRef(null);
+
   const calculateIsArrayEmpty = (...args: OrderArray[]) => {
     const filtered = args.filter((arr) => {
       if (!arr) return false;
@@ -67,7 +70,7 @@ export function OrderSummary({ monday, tuesday, wednesday, thursday, friday }: O
                 <CloseIcon />
               </button>
             </div>
-            <section className={cx('order-summary__orders-wrapper')}>
+            <section ref={foodContainerRef} className={cx('order-summary__orders-wrapper')}>
               {isEmpty
                 ? 'There are no orders'
                 : orders.map((order) => <OrderDay key={order.day} details={order} />)}
@@ -77,10 +80,10 @@ export function OrderSummary({ monday, tuesday, wednesday, thursday, friday }: O
             <div>
               <div className={cx('order-summary__price-wrapper')}>
                 <span className={cx('order-summary__price-title')}>Total price</span>
-                <span className={cx('order-summary__price')}>{totalPrice}</span>
+                <span className={cx('order-summary__price')}>{totalPrice.toFixed(2)}</span>
               </div>
             </div>
-            <OrderButton onClick={handleOrdering} disabled={isEmpty} />
+            <OrderButton onSubmit={handleOrdering} disabled={isEmpty} />
           </div>
         </div>
       </Card>

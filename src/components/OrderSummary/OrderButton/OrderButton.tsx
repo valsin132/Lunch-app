@@ -4,16 +4,16 @@ import styles from './OrderButton.module.css';
 const cx = classNames.bind(styles);
 
 type OrderButtonProps = {
-  onClick: () => void;
+  onSubmit: () => void;
   disabled?: boolean;
 };
 
-export function OrderButton({ onClick, disabled }: OrderButtonProps) {
+export function OrderButton({ onSubmit, disabled }: OrderButtonProps) {
   return (
     <button
       className={cx('order-summary__buy-button')}
       disabled={disabled}
-      onClick={onClick}
+      onClick={onSubmit}
       type="button">
       Press & Hold to Send
     </button>

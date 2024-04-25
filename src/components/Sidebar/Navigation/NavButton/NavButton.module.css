@@ -2,8 +2,23 @@
 $button-animation-duration: 350ms;
 
 .button {
+  @include label-s;
+  @include flexbox($alignItems: center, $gap: $gap-compact);
+
+  animation: button-width2 $button-animation-duration;
   background-color: $color-blue-800;
+  border-radius: $border-radius-medium;
+  padding: calc($spacing-4xs - 2px) $spacing-3xs;
   transition: $button-animation-duration ease-in-out;
+  width: 181px;
+  @include mobile-breakpoint {
+    @include flexbox($justifyContent: center, $alignItems: center, $direction: column);
+    @include label-xxs;
+
+    border-radius: $border-radius-small;
+    padding: 0;
+    width: 60px;
+  }
 
   &:hover {
     background-color: $color-blue-600;
@@ -11,24 +26,6 @@ $button-animation-duration: 350ms;
 
   &:active {
     background-color: $color-blue-400;
-  }
-
-  &.button--expanded {
-    @include label-s;
-    @include flexbox($alignItems: center, $gap: $gap-compact);
-
-    animation: button-width2 $button-animation-duration;
-    border-radius: $border-radius-medium;
-    padding: calc($spacing-4xs - 2px) $spacing-3xs;
-    width: 181px;
-    @include mobile-breakpoint {
-      @include flexbox($justifyContent: center, $alignItems: center, $direction: column);
-      @include label-xxs;
-
-      border-radius: $border-radius-small;
-      padding: 0;
-      width: 60px;
-    }
   }
 
   & .button__icon {
@@ -40,7 +37,7 @@ $button-animation-duration: 350ms;
     }
   }
 
-  & .button__text--expanded {
+  & .button__text {
     @include flexbox($alignItems: center);
 
     min-height: 28px;
@@ -59,11 +56,15 @@ $button-animation-duration: 350ms;
 
     animation: button-width $button-animation-duration;
     border-radius: $border-radius-small;
+    padding: 0;
     width: 60px;
   }
 
-  &.button-selected--expanded {
+  &.button-selected {
     box-shadow: inset 0 0 0 2px $color-orange-400;
+    @include mobile-breakpoint {
+      box-shadow: inset 0 0 0 0.5px $color-orange-400;
+    }
   }
 
   &.button-selected--collapsed {

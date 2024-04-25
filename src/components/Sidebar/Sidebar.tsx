@@ -18,24 +18,20 @@ export function Sidebar() {
       id="sidebar-nav"
       className={cx('sidebar', {
         'sidebar--collapsed': !isExpanded,
-        'sidebar--expanded': isExpanded,
       })}>
       <div
         className={cx('sidebar__container', {
           'sidebar--collapsed': !isExpanded,
-          'sidebar--expanded': isExpanded,
         })}>
         <div className={cx('sidebar__logo-wrapper')}>
           <div
             className={cx('sidebar__logo', {
               'sidebar__logo--collapsed': !isExpanded,
-              'sidebar__logo--expanded': isExpanded,
             })}
           />
         </div>
-        <nav className={cx('navigation')}>
-          <Navigation isExpanded={isExpanded} />
-        </nav>
+
+        <Navigation isExpanded={isExpanded} />
       </div>
       <button
         className={cx('sidebar__expand-btn')}

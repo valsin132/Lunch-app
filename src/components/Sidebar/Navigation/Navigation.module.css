@@ -1,6 +1,8 @@
 @import './../../../styles/index.css';
 
-.ul-list {
+.navigation {
+  margin: auto;
+  max-width: 181px;
 
   li:not(:last-child) {
     margin-bottom: 16px;

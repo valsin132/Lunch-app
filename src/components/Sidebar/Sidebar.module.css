@@ -9,15 +9,12 @@ $sidebar-animation-duration: 300ms;
   border-radius: 0 $border-radius-regular $border-radius-regular 0;
   color: $color-white;
   height: 100vh;
+  padding: calc($spacing-4xs + 2px);
   position: sticky;
   text-align: left;
   top: 0;
-
-  &.sidebar--expanded {
-    padding: calc($spacing-4xs + 2px);
-    @include mobile-breakpoint {
-      padding: calc($spacing-4xs + 2px) calc($spacing-5xs + 1px);
-    }
+  @include mobile-breakpoint {
+    padding: calc($spacing-4xs + 2px) calc($spacing-5xs + 1px);
   }
 
   &.sidebar--collapsed {
@@ -34,21 +31,18 @@ $sidebar-animation-duration: 300ms;
       padding: calc($spacing-2xs - 2px);
 
       & .sidebar__logo {
+        @include size(77px, 38px);
+
+        animation: zoom2 $sidebar-animation-duration;
         background-image: url('./../../assets/images/logo/logo-horizontal-large.svg');
         background-position: 50%;
         background-repeat: no-repeat;
         background-size: contain;
         margin: auto;
+        @include mobile-breakpoint {
+          @include size(25.17px, 47.88px);
 
-        &.sidebar__logo--expanded {
-          @include size(77px, 38px);
-
-          animation: zoom2 $sidebar-animation-duration;
-          @include mobile-breakpoint {
-            @include size(25.17px, 47.88px);
-
-            background-image: url('./../../assets/images/logo/logo-vertical-small.svg');
-          }
+          background-image: url('./../../assets/images/logo/logo-vertical-small.svg');
         }
 
         &.sidebar__logo--collapsed {
@@ -98,11 +92,6 @@ $sidebar-animation-duration: 300ms;
         transform: rotate(-90deg);
       }
     }
-  }
-
-  & .navigation {
-    margin: auto;
-    max-width: 181px;
   }
 }
 

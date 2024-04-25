@@ -10,7 +10,7 @@ import styles from './NavButton.module.css';
 
 const cx = classNames.bind(styles);
 
-type IconType = 'foodMenu' | 'yourOrder' | 'availableLunch' | 'ratings';
+export type IconType = 'foodMenu' | 'yourOrder' | 'availableLunch' | 'ratings';
 
 interface ButtonProps {
   title: string;
@@ -39,16 +39,15 @@ export function NavButton({ title, iconType, isExpanded, isActive }: ButtonProps
       type="button"
       className={cx(
         'button',
-        { 'button--expanded': isExpanded, 'button--collapsed': !isExpanded },
+        { 'button--collapsed': !isExpanded },
         {
-          'button-selected--expanded': isActive && isExpanded,
+          'button-selected': isActive && isExpanded,
           'button-selected--collapsed': isActive && !isExpanded,
         }
       )}>
       <div className={cx('button__icon')}>{getIcon(iconType)}</div>
       <p
-        className={cx({
-          'button__text--expanded': isExpanded,
+        className={cx('button__text', {
           'button__text--collapsed': !isExpanded,
         })}>
         {title}

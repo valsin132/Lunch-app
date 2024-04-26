@@ -1,9 +1,14 @@
 import { Outlet } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Sidebar } from '../../components/Sidebar';
 import { UserCard } from '../../components/UserCard';
 
 export function MainContent() {
+  const [showOrderSummary, setShowOrderSummary] = useState(false);
+
+  const toggleOrderSummary = () => {
+    setShowOrderSummary(!showOrderSummary);
+  };
   // TEST data for local storage it will be delted before merge
   useEffect(() => {
     fetch('http://localhost:3002/user')
@@ -20,9 +25,8 @@ export function MainContent() {
     <>
       <Sidebar />
       <Outlet />
-      <aside>
-        <UserCard />
-      </aside>
+      <UserCard toggleOrderSummary={toggleOrderSummary} />
+      {showOrderSummary && <div>Order Summary</div>}
     </>
   );
 }

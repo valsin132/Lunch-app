@@ -1,26 +1,21 @@
 import classNames from 'classnames/bind';
-import { useRef } from 'react';
 import { CloseIcon } from '../../utils/iconManager';
-import { Order } from './OrderItem';
-import { FormattedOrders, OrderDay, Workdays } from './OrderDay';
+import { OrderDay } from './OrderDay';
 import { Card } from '../Card';
 import { OrderButton } from './OrderButton/OrderButton';
+import { Order, Workdays, useOrderSummary } from '../../helpers/OrderSummaryContext';
 import styles from './OrderSummary.module.css';
 
 const cx = classNames.bind(styles);
 
 type OrderSummaryProps = {
-  monday?: Order[];
-  tuesday?: Order[];
-  wednesday?: Order[];
-  thursday?: Order[];
-  friday?: Order[];
+  visibilityHandler: () => void;
 };
 
 type OrderArray = Order[] | undefined;
 
-export function OrderSummary({ monday, tuesday, wednesday, thursday, friday }: OrderSummaryProps) {
-  const foodContainerRef = useRef(null);
+export function OrderSummary({ visibilityHandler }: OrderSummaryProps) {
+  const orderSummaryContext = useOrderSummary();
 
   const calculateIsArrayEmpty = (...args: OrderArray[]) => {
     const filtered = args.filter((arr) => {
@@ -30,22 +25,12 @@ export function OrderSummary({ monday, tuesday, wednesday, thursday, friday }: O
     return !filtered.length;
   };
 
-  const isEmpty = calculateIsArrayEmpty(monday, tuesday, wednesday, thursday, friday);
+  const orderArr = Object.values(orderSummaryContext.orders) as Order[][];
+  const orderDays = Object.keys(orderSummaryContext.orders) as Workdays[];
 
-  const formatOrdersArray = (...args: OrderArray[]): FormattedOrders[] => {
-    const workdayNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
-    const formatedArr = args.map((arr, idx) => ({
-      day: workdayNames[idx] as Workdays,
-      orders: arr as Order[],
-    }));
-    return formatedArr.filter((day) => !!day.orders);
-  };
-
-  const orders = formatOrdersArray(monday, tuesday, wednesday, thursday, friday);
-
-  const totalPrice = orders.reduce(
-    (total, currentOrders) =>
-      total + currentOrders.orders.reduce((accum, cur) => accum + cur.price, 0),
+  const isEmpty = calculateIsArrayEmpty(...orderArr);
+  const totalPrice = orderArr.reduce(
+    (total, currentOrders) => total + currentOrders.reduce((accum, cur) => accum + cur.price, 0),
     0
   );
 
@@ -62,18 +47,24 @@ export function OrderSummary({ monday, tuesday, wednesday, thursday, friday }: O
               <h2>Order Summary</h2>
               <button
                 className={cx('order-summary__close-button')}
-                onClick={() => {
-                  alert('Close menu');
-                }}
+                onClick={visibilityHandler}
                 aria-label="Close order summary"
                 type="button">
                 <CloseIcon />
               </button>
             </div>
-            <section ref={foodContainerRef} className={cx('order-summary__orders-wrapper')}>
+            <section className={cx('order-summary__orders-wrapper')}>
               {isEmpty
                 ? 'There are no orders'
-                : orders.map((order) => <OrderDay key={order.day} details={order} />)}
+                : orderDays.map((orderDay) =>
+                    orderSummaryContext.orders[orderDay].length ? (
+                      <OrderDay
+                        key={orderDay}
+                        day={orderDay}
+                        orders={orderSummaryContext.orders[orderDay]}
+                      />
+                    ) : null
+                  )}
             </section>
           </div>
           <div className={cx('order-summary__footer')}>

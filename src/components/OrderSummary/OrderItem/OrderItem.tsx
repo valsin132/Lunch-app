@@ -1,43 +1,37 @@
 import classNames from 'classnames/bind';
-import { DishType, getDishTypeImage } from '../../FoodCard';
+import { getDishTypeImage } from '../../FoodCard';
 import { DeleteBinIcon } from '../../../utils/iconManager';
+import { Order, Workdays, useOrderSummary } from '../../../helpers/OrderSummaryContext';
 import styles from './OrderItem.module.css';
 
 const cx = classNames.bind(styles);
 
-export type Order = {
-  dishType: DishType;
-  vendor: string;
-  title: string;
-  price: number;
-  mealId: number;
-};
-
 type OrderItemProps = {
-  details: Order;
+  day: Workdays;
+  order: Order;
 };
 
-export function OrderItem({ details }: OrderItemProps) {
+export function OrderItem({ day, order }: OrderItemProps) {
+  const items = useOrderSummary();
   const handleItemRemoval = () => {
-    alert(`removing item ${details.mealId}`);
+    items.removeElement({ day, mealId: order.mealId });
   };
-
   return (
     <article className={cx('order-item')}>
       <div>
         <img
           className={cx('order-item__icon')}
-          src={getDishTypeImage(details.dishType)}
-          alt={details.title}
+          src={getDishTypeImage(order.dishType)}
+          alt={order.title}
         />
       </div>
       <div className={cx('order-item__info')}>
-        <span className={cx('order-item__info__title')}>{details.vendor}</span>
+        <span className={cx('order-item__info__title')}>{order.vendor}</span>
         <div className={cx('order-item__info__body')}>
-          <span>{details.title}</span>
+          <span>{order.title}</span>
           <div className={cx('order-item__info__body__actions')}>
             <span className={cx('order-item__info__body__actions__price')}>
-              {details.price.toFixed(2)}
+              {order.price.toFixed(2)}
             </span>
             <button
               className={cx('order-item__info__body__actions__remove')}

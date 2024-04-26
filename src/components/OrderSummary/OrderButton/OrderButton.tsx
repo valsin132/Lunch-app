@@ -13,8 +13,8 @@ export function OrderButton({ onSubmit, disabled }: OrderButtonProps) {
     <button
       className={cx('order-summary__buy-button')}
       disabled={disabled}
-      onClick={onSubmit}
-      type="button">
+      type="button"
+      onClick={onSubmit}>
       Press & Hold to Send
     </button>
   );

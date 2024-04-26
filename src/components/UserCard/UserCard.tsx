@@ -50,7 +50,7 @@ export function UserCard(): ReactElement {
   };
 
   return (
-    <div className={cx('user-card')}>
+    <>
       <Card spacing="2xs" shadow="s" roundedCorners="left" isNoBorder>
         <div className={cx('user-card__layout')}>
           <div className={cx('user-card__header')}>
@@ -95,6 +95,6 @@ export function UserCard(): ReactElement {
         </div>
       </Card>
       {showOrderSummary && <div>Order Summary</div>}
-    </div>
+    </>
   );
 }

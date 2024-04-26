@@ -19,8 +19,10 @@ export function MainContent() {
   return (
     <>
       <Sidebar />
-      <UserCard />
       <Outlet />
+      <aside>
+        <UserCard />
+      </aside>
     </>
   );
 }

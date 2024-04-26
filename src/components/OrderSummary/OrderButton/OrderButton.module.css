@@ -1,7 +1,8 @@
 @import './../../../styles/index.css';
 
-.order-summary__buy-button {
+.buy-button {
   @include label-s;
+  @include flexbox($alignItems: center, $justifyContent: center, $gap: calc($spacing-5xs + 1px));
 
   border: 2px solid $color-green-400;
   border-radius: $border-radius-extra-large;
@@ -9,15 +10,58 @@
   overflow: hidden;
   padding: $spacing-5xs;
   position: relative;
+  transition-duration: 0.2s;
+  transition-property: color;
+  transition-timing-function: linear;
   width: 100%;
+  z-index: 1;
 
-  & .order-summary__buy-button__checkbox {
-    appearance: none;
+  & .buy-button__background {
+    background-color: $color-green-400;
+    border-radius: $border-radius-extra-large;
+    content: '';
     height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transition-duration: 0.9s;
+    transition-property: width;
+    transition-timing-function: linear;
+    width: 0%;
+    z-index: -1;
+  }
+
+  &.buy-button--held .buy-button__background {
     width: 100%;
+  }
+
+  &.buy-button--bought {
+    color: $color-white;
+
+    & svg {
+      @include size($width: calc($spacing-2xs + 2px), $height: calc($spacing-2xs + 2px));
+
+      path {
+        animation-duration: 0.2s;
+        animation-fill-mode: forwards;
+        animation-name: change-icon;
+        animation-timing-function: linear;
+      }
+    }
   }
 
   &:disabled {
     opacity: 0.4;
+  }
+}
+
+@keyframes change-icon {
+
+  from {
+    fill: $color-blue-600;
+  }
+
+  to {
+    fill: $color-white;
   }
 }

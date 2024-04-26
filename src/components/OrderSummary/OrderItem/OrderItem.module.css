@@ -17,13 +17,14 @@
     width: 100%;
 
     & .order-item__info__title {
-      @include title-s;
+      @include title-xs;
 
       color: $color-grey-500;
     }
 
     & .order-item__info__body {
-      @include flexbox($justifyContent: space-between);
+      @include flexbox($justifyContent: space-between, $gap: $spacing-5xs);
+      @include body-s;
 
       & .order-item__info__body__actions {
         @include flexbox($direction: column, $alignItems: center);
@@ -44,6 +45,7 @@
         }
 
         & .order-item__info__body__actions__price {
+          @include body-m;
 
           &::before {
             content: '€';

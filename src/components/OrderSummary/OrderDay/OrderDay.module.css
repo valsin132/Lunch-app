@@ -5,7 +5,9 @@
 
   & .order-day__header {
     @include flexbox($direction: row, $alignItems: center, $gap: calc($spacing-3xs - 1px));
+    @include title-s;
 
+    color: $color-grey-500;
     text-align: left;
 
     &::after {

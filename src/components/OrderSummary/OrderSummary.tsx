@@ -4,6 +4,7 @@ import { OrderDay } from './OrderDay';
 import { Card } from '../Card';
 import { OrderButton } from './OrderButton/OrderButton';
 import { Order, Workdays, useOrderSummary } from '../../helpers/OrderSummaryContext';
+import { EmptyCart } from './EmptyCart';
 import styles from './OrderSummary.module.css';
 
 const cx = classNames.bind(styles);
@@ -54,17 +55,19 @@ export function OrderSummary({ visibilityHandler }: OrderSummaryProps) {
               </button>
             </div>
             <section className={cx('order-summary__orders-wrapper')}>
-              {isEmpty
-                ? 'There are no orders'
-                : orderDays.map((orderDay) =>
-                    orderSummaryContext.orders[orderDay].length ? (
-                      <OrderDay
-                        key={orderDay}
-                        day={orderDay}
-                        orders={orderSummaryContext.orders[orderDay]}
-                      />
-                    ) : null
-                  )}
+              {isEmpty ? (
+                <EmptyCart />
+              ) : (
+                orderDays.map((orderDay) =>
+                  orderSummaryContext.orders[orderDay].length ? (
+                    <OrderDay
+                      key={orderDay}
+                      day={orderDay}
+                      orders={orderSummaryContext.orders[orderDay]}
+                    />
+                  ) : null
+                )
+              )}
             </section>
           </div>
           <div className={cx('order-summary__footer')}>

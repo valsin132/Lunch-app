@@ -1,0 +1,15 @@
+@import './../../../styles/index.css';
+
+.empty-cart {
+  @include body-m;
+  @include flexbox($direction: column, $alignItems: center);
+
+  color: $color-grey-500;
+  width: 243px;
+
+  & img {
+    object-fit: contain;
+    opacity: 0.7;
+    width: 124px;
+  }
+}

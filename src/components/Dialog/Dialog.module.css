@@ -4,7 +4,7 @@
 
   & .dialog__picture-and-content {
     @include body-l;
-    @include flexbox($gap: $gap-medium);
+    @include flexbox($gap: $gap-medium, $alignItems: center);
   }
 
   & .dialog__img-container {
@@ -17,8 +17,10 @@
   }
 
   & .dialog__content {
-    @include flexbox($alignItems: center);
+    @include body-m;
+    @include flexbox($direction: column);
 
+    color: $color-blue-600;
     min-width: 319px;
     text-align: start;
   }

@@ -14,7 +14,7 @@ type OrderItemProps = {
 export function OrderItem({ day, order }: OrderItemProps) {
   const items = useOrderSummary();
   const handleItemRemoval = () => {
-    items.removeElement({ day, mealId: order.mealId });
+    items.modifyArray({ day, mealId: order.mealId, action: 'REMOVE' });
   };
   return (
     <article className={cx('order-item')}>

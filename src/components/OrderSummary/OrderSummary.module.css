@@ -33,6 +33,7 @@
         color: $color-blue-600;
 
         & .order-summary__close-button {
+          border-radius: $border-radius-regular;
           padding: $spacing-5xs;
 
           & svg {

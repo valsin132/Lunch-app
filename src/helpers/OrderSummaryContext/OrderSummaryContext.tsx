@@ -1,6 +1,8 @@
 import { ReactNode, createContext, useContext, useMemo, useReducer } from 'react';
 import { DishType } from '../../components/FoodCard';
 
+type OrderActions = 'REMOVE';
+
 export type Order = {
   dishType: DishType;
   vendor: string;
@@ -19,24 +21,30 @@ export type Orders = {
 
 export type Workdays = keyof Orders;
 
-interface OrderIdentifier {
+type OrderIdentifier = {
   day: Workdays;
   mealId: number;
-}
+  action: OrderActions;
+};
 
-interface OrderSummaryContextType {
+type OrderSummaryContextType = {
   orders: Orders;
-  removeElement: (order: OrderIdentifier) => void;
-}
+  modifyArray: (order: OrderIdentifier) => void;
+};
 
 const OrderSummaryContext = createContext<OrderSummaryContextType | null>(null);
 
 function orderReducer(state: Orders, payload: OrderIdentifier): Orders {
-  const filteredState = state[payload.day].filter((order) => order.mealId !== payload.mealId);
-  return {
-    ...state,
-    [payload.day]: filteredState,
-  };
+  const { action } = payload;
+  switch (action) {
+    case 'REMOVE':
+      return {
+        ...state,
+        [payload.day]: state[payload.day].filter((order) => order.mealId !== payload.mealId),
+      };
+    default:
+      return state;
+  }
 }
 
 export const useOrderSummary = (): OrderSummaryContextType => {
@@ -52,7 +60,7 @@ type OrderSummaryProviderProps = {
 };
 
 const initialVal: Orders = {
-  monday: [{ dishType: 'bowl', mealId: 1, price: 4, title: 'Kuku', vendor: 'SOmi' }],
+  monday: [],
   tuesday: [],
   wednesday: [],
   thursday: [],
@@ -62,7 +70,7 @@ const initialVal: Orders = {
 export function OrderSummaryProvider({ children }: OrderSummaryProviderProps) {
   const [state, dispatch] = useReducer(orderReducer, initialVal);
 
-  const orderSummaryValue = useMemo(() => ({ orders: state, removeElement: dispatch }), [state]);
+  const orderSummaryValue = useMemo(() => ({ orders: state, modifyArray: dispatch }), [state]);
 
   return (
     <OrderSummaryContext.Provider value={orderSummaryValue}>

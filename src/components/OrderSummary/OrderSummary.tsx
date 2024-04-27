@@ -1,10 +1,12 @@
 import classNames from 'classnames/bind';
+import { useState } from 'react';
 import { CloseIcon } from '../../utils/iconManager';
 import { OrderDay } from './OrderDay';
 import { Card } from '../Card';
 import { OrderButton } from './OrderButton/OrderButton';
 import { Order, Workdays, useOrderSummary } from '../../helpers/OrderSummaryContext';
 import { EmptyCart } from './EmptyCart';
+import { Dialog } from '../Dialog';
 import styles from './OrderSummary.module.css';
 
 const cx = classNames.bind(styles);
@@ -16,6 +18,7 @@ type OrderSummaryProps = {
 type OrderArray = Order[] | undefined;
 
 export function OrderSummary({ visibilityHandler }: OrderSummaryProps) {
+  const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
   const orderSummaryContext = useOrderSummary();
 
   const calculateIsArrayEmpty = (...args: OrderArray[]) => {
@@ -30,13 +33,14 @@ export function OrderSummary({ visibilityHandler }: OrderSummaryProps) {
   const orderDays = Object.keys(orderSummaryContext.orders) as Workdays[];
 
   const isEmpty = calculateIsArrayEmpty(...orderArr);
+
   const totalPrice = orderArr.reduce(
     (total, currentOrders) => total + currentOrders.reduce((accum, cur) => accum + cur.price, 0),
     0
   );
 
   const handleOrdering = () => {
-    alert('Order');
+    setIsConfirmationOpen(true);
   };
 
   return (
@@ -81,6 +85,25 @@ export function OrderSummary({ visibilityHandler }: OrderSummaryProps) {
           </div>
         </div>
       </Card>
+      {isConfirmationOpen && (
+        <Dialog
+          content="Order has been placed successfully.
+            You can view lunch for the week in Your Orders."
+          dialogHeaderTitle="We've got your lunch order!"
+          dialogType="success"
+          primaryButtonLabel="Cool, Thanks!"
+          setIsOpen={setIsConfirmationOpen}
+          onClick={() => {
+            setIsConfirmationOpen(false);
+          }}>
+          <p>
+            Order has been placed successfully.
+            <br />
+            <br />
+            You can view lunch for the week in <b>Your Orders.</b>
+          </p>
+        </Dialog>
+      )}
     </aside>
   );
 }

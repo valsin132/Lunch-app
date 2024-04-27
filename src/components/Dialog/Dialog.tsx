@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { ReactElement } from 'react';
+import { ReactElement, ReactNode } from 'react';
 import { okHandImage, thumbsUpImage, questionMarkImage } from '../../utils/imageManager';
 import { Modal } from '../Modal';
 import styles from './Dialog.module.css';
@@ -14,6 +14,7 @@ interface DialogProps {
   dialogHeaderTitle: string;
   primaryButtonLabel: string;
   secondaryButtonLabel?: string;
+  children?: ReactNode;
   setIsOpen: (isOpen: boolean) => void;
   onClick: () => void;
 }
@@ -39,6 +40,7 @@ export function Dialog({
   secondaryButtonLabel,
   onClick,
   setIsOpen,
+  children,
 }: DialogProps): ReactElement {
   return (
     <div className={cx('dialog')}>
@@ -57,9 +59,7 @@ export function Dialog({
               alt="Dialog icon"
             />
           </div>
-          <div className={cx('dialog__content')}>
-            <p>{content}</p>
-          </div>
+          <div className={cx('dialog__content')}>{children || <p>{content}</p>}</div>
         </div>
       </Modal>
     </div>

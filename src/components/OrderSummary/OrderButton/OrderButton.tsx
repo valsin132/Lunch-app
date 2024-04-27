@@ -9,10 +9,13 @@ type OrderButtonProps = {
   onSubmit: () => void;
   disabled?: boolean;
 };
+
 const timeToHoldInSeconds = 1;
+
 export function OrderButton({ onSubmit, disabled }: OrderButtonProps) {
   const [isBought, setIsBougth] = useState(false);
   const [isHeld, setIsHeld] = useState(false);
+
   const holdTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const backgroundElementRef = useRef<HTMLDivElement>(null);
   const buttonElementRef = useRef<HTMLButtonElement>(null);

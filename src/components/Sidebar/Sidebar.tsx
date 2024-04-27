@@ -30,7 +30,6 @@ export function Sidebar() {
             })}
           />
         </div>
-
         <Navigation isExpanded={isExpanded} />
       </div>
       <button

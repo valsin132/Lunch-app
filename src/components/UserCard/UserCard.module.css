@@ -23,14 +23,14 @@ $logout-animation-duration: 300ms;
       object-fit: cover;
     }
 
-    & h1 {
+    & p {
       @include title-s;
 
       color: $text-color-blue;
     }
 
     & .user-card__button-arrow {
-      @include size(18.5px, 18.5px);
+      @include size(20px, 20px);
 
       background-color: $color-blue-800;
       border: solid 1.5px $color-white;
@@ -38,10 +38,15 @@ $logout-animation-duration: 300ms;
       left: 60%;
       position: absolute;
       top: 60%;
+      transition: $logout-animation-duration ease-in-out;
 
       & path {
         fill: $color-white;
       }
+    }
+
+    & .user-card__button-arrow-rotated {
+      transform: rotate(0.5turn);
     }
 
     & .user-card__logout-button {
@@ -61,7 +66,7 @@ $logout-animation-duration: 300ms;
       }
 
       & .user-card__logout-text {
-        @include flexbox($direction: row, $alignItems: center, $gap: 8px);
+        @include flexbox($direction: row, $alignItems: center, $gap: $spacing-4xs);
         @include title-s;
 
         padding: calc($spacing-4xs - 2px) $spacing-2xs;
@@ -73,19 +78,24 @@ $logout-animation-duration: 300ms;
 & .user-card__content {
   @include flexbox($justifyContent: space-between, $alignItems: center);
 
-  & p,
-  span {
-    @include title-m;
+  & .user-card__content-balance {
+    @include flexbox($justifyContent: center, $alignItems: center, $gap: $spacing-m;);
 
-    color: $text-color-blue;
+    border-right: 1px solid $color-grey-200;
+    padding-right: $spacing-2xs;
+
+    & span {
+      @include title-m;
+
+      color: $text-color-blue;
+    }
   }
 
-  & .user-card__cart-container {
-    align-items: center;
+  & .user-card__logout-button {
+    @include flexbox($justifyContent: center, $alignItems: center);
+
     border-radius: $border-radius-regular;
     box-shadow: inset 0 0 0 1px $color-orange-300;
-    display: flex;
-    justify-content: center;
     padding: $spacing-5xs;
     position: relative;
   }
@@ -107,5 +117,16 @@ $logout-animation-duration: 300ms;
 
   to {
     opacity: 1;
+  }
+}
+
+@keyframes dissolve2 {
+
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
   }
 }

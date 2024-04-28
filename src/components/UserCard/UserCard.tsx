@@ -58,7 +58,11 @@ export function UserCard({ toggleOrderSummary }: UserCardProps): ReactElement {
               type="button"
               onClick={handleArrowButtonClick}
               aria-label="Toggle Logout Button">
-              <ArrowFilledIcon className={cx('user-card__button-arrow')} />
+              <ArrowFilledIcon
+                className={cx('user-card__button-arrow', {
+                  'user-card__button-arrow-rotated': showLogoutButton,
+                })}
+              />
             </button>
             {showLogoutButton && (
               <button type="button" className={cx('user-card__logout-button')} onClick={logout}>
@@ -70,16 +74,18 @@ export function UserCard({ toggleOrderSummary }: UserCardProps): ReactElement {
               </button>
             )}
           </div>
-          <h1>
+          <p>
             {name} {surname}
-          </h1>
+          </p>
         </div>
         <div className={cx('user-card__content')}>
-          <p>Balance</p>
-          <span>€ {balance}</span>
+          <div className={cx('user-card__content-balance')}>
+            <span>Balance</span>
+            <span>&euro;{balance}</span>
+          </div>
           <button
             type="button"
-            className={cx('user-card__cart-container')}
+            className={cx('user-card__logout-button')}
             aria-labelledby="orderSummaryLabel"
             onClick={toggleOrderSummary}>
             <ShoppingBasketIcon />

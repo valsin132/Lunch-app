@@ -1,7 +1,7 @@
 import { DishType } from '../../components/FoodCard';
 
 export interface MealProps {
-  id: number;
+  id: string;
   vendorId: number;
   title: string;
   description: string;
@@ -28,13 +28,6 @@ export interface UserProps {
 }
 
 export interface VendorProps {
-  id: number;
+  id: string;
   name: string;
 }
-
-// export interface FoodMenuDataProps {
-//   meals: MealProps[];
-//   vendors: VendorProps[];
-//   ratings: RatingProps[];
-//   users: UserProps[];
-// }

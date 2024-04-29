@@ -1,5 +1,7 @@
 @import './../../../styles/index.css';
 
+$transition-duration: 0.2s;
+
 .buy-button {
   @include label-s;
   @include flexbox($alignItems: center, $justifyContent: center, $gap: calc($spacing-5xs + 1px));
@@ -10,7 +12,7 @@
   overflow: hidden;
   padding: $spacing-5xs;
   position: relative;
-  transition-duration: 0.2s;
+  transition-duration: $transition-duration;
   transition-property: color;
   transition-timing-function: linear;
   width: 100%;
@@ -42,7 +44,7 @@
       @include size($width: calc($spacing-2xs + 2px), $height: calc($spacing-2xs + 2px));
 
       path {
-        animation-duration: 0.2s;
+        animation-duration: $transition-duration;
         animation-fill-mode: forwards;
         animation-name: change-icon;
         animation-timing-function: linear;

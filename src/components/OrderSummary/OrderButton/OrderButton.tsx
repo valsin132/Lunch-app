@@ -7,12 +7,12 @@ const cx = classNames.bind(styles);
 
 type OrderButtonProps = {
   onSubmit: () => void;
-  disabled?: boolean;
+  isDisabled?: boolean;
 };
 
 const timeToHoldInSeconds = 1;
 
-export function OrderButton({ onSubmit, disabled }: OrderButtonProps) {
+export function OrderButton({ onSubmit, isDisabled }: OrderButtonProps) {
   const [isBought, setIsBougth] = useState(false);
   const [isHeld, setIsHeld] = useState(false);
 
@@ -21,7 +21,7 @@ export function OrderButton({ onSubmit, disabled }: OrderButtonProps) {
   const buttonElementRef = useRef<HTMLButtonElement>(null);
   // const holdTime = useRef(0);
   const handlePointerDown = () => {
-    if (disabled || isBought) return;
+    if (isDisabled || isBought) return;
     setIsHeld(true);
     let modifier = 1;
     if (backgroundElementRef.current && buttonElementRef.current) {
@@ -37,7 +37,7 @@ export function OrderButton({ onSubmit, disabled }: OrderButtonProps) {
     );
   };
   const handlePointerUp = () => {
-    if (disabled || isBought) return;
+    if (isDisabled || isBought) return;
     setIsHeld(false);
     if (holdTimeoutRef.current) clearTimeout(holdTimeoutRef.current);
   };
@@ -45,15 +45,15 @@ export function OrderButton({ onSubmit, disabled }: OrderButtonProps) {
     <button
       className={cx('buy-button', {
         'buy-button--held': isHeld,
-        'buy-button--bought': isBought && !disabled,
+        'buy-button--bought': isBought && !isDisabled,
       })}
-      disabled={disabled}
+      disabled={isDisabled}
       type="button"
       onPointerDown={handlePointerDown}
       onPointerUp={handlePointerUp}
       ref={buttonElementRef}>
       <div className={cx('buy-button__background')} ref={backgroundElementRef} />
-      {!isBought || disabled ? (
+      {!isBought || isDisabled ? (
         <span>Press & Hold to Send</span>
       ) : (
         <>

@@ -1,7 +1,7 @@
 @import '../../styles/index.css';
 
 .footer {
-  padding: $spacing-l $spacing-l $spacing-s $spacing-l;
+  padding: $spacing-l $spacing-l $spacing-s;
   width: 100%;
 
   & .footer__container {

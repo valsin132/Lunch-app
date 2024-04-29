@@ -1,0 +1,54 @@
+@import '../../../../styles/index.css';
+
+.register-form {
+  @include flexbox($justifyContent: center, $direction: column, $gap: $gap-6Xlarge);
+
+  & .register-form__container {
+    @include flexbox($direction: column, $gap: $gap-2Xlarge);
+
+    & .register-form__head {
+      @include flexbox($direction: column, $gap: $gap-regular);
+
+      & h1 {
+        @include headline-l;
+
+        color: $text-color-blue;
+      }
+
+      & p {
+        @include body-l;
+
+        color: $text-color-grey;
+      }
+    }
+
+    & .register-form__input {
+      @include flexbox($direction: column, $gap: $gap-Xlarge);
+
+      min-width: 343px;
+
+      & .register-form__input-container {
+        @include flexbox($direction: column, $gap: $gap-small);
+      }
+    }
+
+    & .register-form__input-checkbox {
+      @include flexbox($direction: row, $gap: $gap-regular);
+    }
+
+    & .community-rules {
+      @include label-text;
+
+      color: $color-orange-600;
+      text-decoration: underline;
+
+      &:hover {
+        text-decoration-color: $color-orange-300;
+      }
+
+      &:visited {
+        color: $color-purple-400;
+      }
+    }
+  }
+}

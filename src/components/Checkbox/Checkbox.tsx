@@ -8,6 +8,7 @@ interface CheckboxProps {
   label: string;
   isError?: boolean;
   isDisabled?: boolean;
+  errorMessage?: string;
   id: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
@@ -17,6 +18,7 @@ export function Checkbox({
   id,
   isDisabled,
   isError,
+  errorMessage,
   onChange,
 }: CheckboxProps): ReactElement {
   return (
@@ -38,6 +40,7 @@ export function Checkbox({
         htmlFor={id}>
         {label}
       </label>
+      <p className={cx('input__error-message')}>{errorMessage}</p>
     </div>
   );
 }

@@ -18,6 +18,7 @@ interface InputProps {
   id: string;
   errorMessage?: string;
   isDisabled?: boolean;
+  onBlur?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -28,6 +29,7 @@ export function Input({
   label,
   isDisabled,
   onChange,
+  onBlur,
   isError,
   withIcon,
   value,
@@ -56,6 +58,7 @@ export function Input({
           })}
           disabled={isDisabled}
           onChange={onChange}
+          onBlur={onBlur}
           value={value}
         />
         {withIcon && (

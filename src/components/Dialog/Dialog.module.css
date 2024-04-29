@@ -1,0 +1,25 @@
+@import './../../styles/index.css';
+
+.dialog {
+
+  & .dialog__picture-and-content {
+    @include body-l;
+    @include flexbox($gap: $gap-medium);
+  }
+
+  & .dialog__img-container {
+    @include size(80px, 80px);
+  }
+
+  & .dialog__img-too-big {
+    position: relative;
+    top: -8px;
+  }
+
+  & .dialog__content {
+    @include flexbox($alignItems: center);
+
+    min-width: 319px;
+    text-align: start;
+  }
+}

@@ -4,10 +4,9 @@ import { Sidebar } from '../../components/Sidebar';
 import { UserCard } from '../../components/UserCard';
 
 export function MainContent() {
-  const [showOrderSummary, setShowOrderSummary] = useState(false);
-
-  const toggleOrderSummary = () => {
-    setShowOrderSummary(!showOrderSummary);
+  const [isOrderSummaryVisible, setIsOrderSummaryVisible] = useState(true);
+  const handleOrderSummaryVisible = () => {
+    setIsOrderSummaryVisible(true);
   };
   // TEST data for local storage it will be delted before merge
   useEffect(() => {
@@ -26,9 +25,9 @@ export function MainContent() {
       <Sidebar />
       <Outlet />
       <header>
-        <UserCard toggleOrderSummary={toggleOrderSummary} />
+        <UserCard toggleOrderSummary={handleOrderSummaryVisible} />
       </header>
-      {showOrderSummary && <div>Order Summary</div>}
+      {isOrderSummaryVisible && <div>Order Summary</div>}
     </>
   );
 }

@@ -25,7 +25,9 @@ export function MainContent() {
     <>
       <Sidebar />
       <Outlet />
-      <UserCard toggleOrderSummary={toggleOrderSummary} />
+      <header>
+        <UserCard toggleOrderSummary={toggleOrderSummary} />
+      </header>
       {showOrderSummary && <div>Order Summary</div>}
     </>
   );

@@ -25,10 +25,12 @@ export function FoodMenu(): ReactElement {
   const mealRatings: number[] = [];
 
   const getRating = (id: number) => {
-    const findRating = ratings.find((rating) => rating.mealId === id);
-    if (findRating) {
-      const ratingValue = findRating.rating.rating;
-      mealRatings.push(ratingValue);
+    const filteredRatings = ratings.filter((rating) => rating.mealId === id);
+    if (filteredRatings.length > 0) {
+      filteredRatings.forEach((rating) => {
+        mealRatings.push(rating.rating.rating);
+      });
+
       const sum = mealRatings.reduce((total, rating) => total + rating, 0);
       const averageRating = sum / mealRatings.length || 0;
       return Number(averageRating.toFixed(1));

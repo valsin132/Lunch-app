@@ -30,7 +30,7 @@ export function Header({ title, subtitle, isDate }: HeaderProps): ReactElement {
     ];
 
     const firstDayDate = new Date(curr.setDate(curr.getDate() - (curr.getDay() || 7) + 1));
-    const lastDayDate = new Date(curr.setDate(curr.getDate() - (curr.getDay() || 7) + 1 + 6));
+    const lastDayDate = new Date(curr.setDate(curr.getDate() - (curr.getDay() || 7) + 1 + 4));
 
     const firstDayMonth = firstDayDate.getMonth();
     const firstDay = firstDayDate.getDate().toLocaleString();

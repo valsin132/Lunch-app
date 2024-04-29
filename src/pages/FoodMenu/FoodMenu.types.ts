@@ -32,9 +32,9 @@ export interface VendorProps {
   name: string;
 }
 
-export interface FoodMenuDataProps {
-  meals: MealProps[];
-  vendors: VendorProps[];
-  ratings: RatingProps[];
-  users: UserProps[];
-}
+// export interface FoodMenuDataProps {
+//   meals: MealProps[];
+//   vendors: VendorProps[];
+//   ratings: RatingProps[];
+//   users: UserProps[];
+// }

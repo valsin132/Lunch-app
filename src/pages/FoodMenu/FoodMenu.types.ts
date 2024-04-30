@@ -21,12 +21,6 @@ export interface Rating {
   };
 }
 
-export interface User {
-  id: number;
-  name: string;
-  surname: string;
-}
-
 export interface Vendor {
   id: string;
   name: string;

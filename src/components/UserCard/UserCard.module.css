@@ -101,6 +101,8 @@ $logout-animation-duration: 300ms;
   }
 
   & .user-card__badge {
+    @include size(20px, 20px);
+
     border: solid 1.5px $color-white;
     border-radius: $border-radius-circle;
     left: 70%;

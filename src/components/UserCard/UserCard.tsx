@@ -7,6 +7,7 @@ import { useAuth } from '../../helpers/AuthContext';
 import styles from './UserCard.module.css';
 
 const cx = classNames.bind(styles);
+
 interface UserData {
   userName: string;
   password: string;

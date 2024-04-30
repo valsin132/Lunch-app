@@ -8,6 +8,8 @@ import styles from './FoodMenu.module.css';
 
 const cx = classNames.bind(styles);
 
+type WeekDay = 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday';
+
 export function FoodMenu(): ReactElement {
   const {
     data: vendorsData,
@@ -25,14 +27,12 @@ export function FoodMenu(): ReactElement {
     isError: ratingsError,
   } = useFetchData<Rating[]>('http://localhost:3002/ratings');
 
-  const [selectedDay, setSelectedDay] = useState<string>('Monday');
+  const [selectedDay, setSelectedDay] = useState<WeekDay>('Monday');
 
   const dayLabels = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 
-  const getVendorName = (vendorId: number) => {
-    const mealVendor = vendorsData?.find((vendor) => Number(vendor.id) === vendorId);
-    return mealVendor ? mealVendor.name : '';
-  };
+  const getVendorName = (vendorId: number) =>
+    vendorsData?.find((vendor) => Number(vendor.id) === vendorId)?.name ?? '';
 
   const filteredMeals = useMemo(() => {
     if (!mealsData) return [];
@@ -66,7 +66,7 @@ export function FoodMenu(): ReactElement {
             key={day}
             label={day}
             isActive={selectedDay === day}
-            onClick={() => setSelectedDay(day)}
+            onClick={() => setSelectedDay(day as WeekDay)}
           />
         ))}
       </div>

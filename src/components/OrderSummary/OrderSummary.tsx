@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { CloseIcon } from '../../utils/iconManager';
 import { OrderDay } from './OrderDay';
 import { Card } from '../Card';
@@ -19,10 +19,6 @@ export function OrderSummary({ visibilityHandler }: OrderSummaryProps) {
   const [isConfirmationDialogOpen, setIsConfirmationDialogOpen] = useState(false);
   const orderSummaryContext = useOrderSummary();
 
-  useEffect(() => {
-    if (!isConfirmationDialogOpen) orderSummaryContext.modifyOrders({ action: 'CLEAR_ORDERS' });
-  }, [isConfirmationDialogOpen]);
-
   const allOrderCartItems = Object.entries(orderSummaryContext.orders);
   const isOrderCartEmpty = !allOrderCartItems.some(([, orders]) => orders.length > 0);
 
@@ -30,7 +26,10 @@ export function OrderSummary({ visibilityHandler }: OrderSummaryProps) {
     (total, [, orders]) => total + orders.reduce((totalDay, order) => totalDay + order.price, 0),
     0
   );
-
+  const handleOrderSubmit = () => {
+    orderSummaryContext.modifyOrders({ action: 'CLEAR_ORDERS' });
+    setIsConfirmationDialogOpen(false);
+  };
   return (
     <aside className={cx('order-summary')}>
       <Card spacing="xs" shadow="s" roundedCorners="left">
@@ -59,11 +58,9 @@ export function OrderSummary({ visibilityHandler }: OrderSummaryProps) {
             </section>
           </div>
           <div className={cx('order-summary__footer')}>
-            <div>
-              <div className={cx('order-summary__price-wrapper')}>
-                <span className={cx('order-summary__price-title')}>Total price</span>
-                <span className={cx('order-summary__price')}>{totalPrice.toFixed(2)}</span>
-              </div>
+            <div className={cx('order-summary__price-wrapper')}>
+              <span className={cx('order-summary__price-title')}>Total price</span>
+              <span className={cx('order-summary__price')}>{totalPrice.toFixed(2)}</span>
             </div>
             <OrderButton
               onSubmit={() => {
@@ -80,9 +77,7 @@ export function OrderSummary({ visibilityHandler }: OrderSummaryProps) {
           dialogType="success"
           primaryButtonLabel="Cool, Thanks!"
           setIsOpen={setIsConfirmationDialogOpen}
-          onClick={() => {
-            setIsConfirmationDialogOpen(false);
-          }}>
+          onClick={handleOrderSubmit}>
           <p>
             Order has been placed successfully.
             <br />

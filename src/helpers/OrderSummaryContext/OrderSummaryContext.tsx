@@ -1,7 +1,7 @@
 import { ReactNode, createContext, useContext, useMemo, useReducer } from 'react';
 import { DishType } from '../../components/FoodCard';
 
-type OrderActions = 'REMOVE' | 'ADD' | 'CLEAR';
+type OrderActions = 'REMOVE_ORDER' | 'ADD_ORDER' | 'CLEAR_ORDERS';
 
 export type Order = {
   dishType: DishType;
@@ -30,7 +30,7 @@ type OrderIdentifier = {
 
 type OrderSummaryContextType = {
   orders: Orders;
-  modifyArray: (order: OrderIdentifier) => void;
+  modifyOrders: (order: OrderIdentifier) => void;
 };
 
 const OrderSummaryContext = createContext<OrderSummaryContextType | null>(null);
@@ -38,7 +38,7 @@ const OrderSummaryContext = createContext<OrderSummaryContextType | null>(null);
 function orderReducer(state: Orders, payload: OrderIdentifier): Orders {
   const { action, day, meal, mealId } = payload;
   switch (action) {
-    case 'REMOVE':
+    case 'REMOVE_ORDER':
       if (!day) {
         return state;
       }
@@ -49,7 +49,7 @@ function orderReducer(state: Orders, payload: OrderIdentifier): Orders {
         ...state,
         [day]: state[day]?.filter((order) => order.mealId !== mealId),
       };
-    case 'ADD': {
+    case 'ADD_ORDER': {
       if (!meal) {
         return state;
       }
@@ -68,9 +68,8 @@ function orderReducer(state: Orders, payload: OrderIdentifier): Orders {
         [day]: [...(state[day] as Order[]), meal],
       };
     }
-    case 'CLEAR':
+    case 'CLEAR_ORDERS':
       return {};
-      break;
     default:
       return state;
   }
@@ -93,7 +92,7 @@ const initialVal: Orders = {};
 export function OrderSummaryProvider({ children }: OrderSummaryProviderProps) {
   const [state, dispatch] = useReducer(orderReducer, initialVal);
 
-  const orderSummaryValue = useMemo(() => ({ orders: state, modifyArray: dispatch }), [state]);
+  const orderSummaryValue = useMemo(() => ({ orders: state, modifyOrders: dispatch }), [state]);
 
   return (
     <OrderSummaryContext.Provider value={orderSummaryValue}>

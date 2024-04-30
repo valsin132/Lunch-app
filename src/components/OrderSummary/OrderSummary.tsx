@@ -16,12 +16,12 @@ type OrderSummaryProps = {
 };
 
 export function OrderSummary({ visibilityHandler }: OrderSummaryProps) {
-  const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
+  const [isConfirmationDialogOpen, setIsConfirmationDialogOpen] = useState(false);
   const orderSummaryContext = useOrderSummary();
 
   useEffect(() => {
-    if (!isConfirmationOpen) orderSummaryContext.modifyArray({ action: 'CLEAR' });
-  }, [isConfirmationOpen]);
+    if (!isConfirmationDialogOpen) orderSummaryContext.modifyOrders({ action: 'CLEAR_ORDERS' });
+  }, [isConfirmationDialogOpen]);
 
   const allOrderCartItems = Object.entries(orderSummaryContext.orders);
   const isOrderCartEmpty = !allOrderCartItems.some(([, orders]) => orders.length > 0);
@@ -67,21 +67,21 @@ export function OrderSummary({ visibilityHandler }: OrderSummaryProps) {
             </div>
             <OrderButton
               onSubmit={() => {
-                setIsConfirmationOpen(true);
+                setIsConfirmationDialogOpen(true);
               }}
               isDisabled={isOrderCartEmpty}
             />
           </div>
         </div>
       </Card>
-      {isConfirmationOpen && (
+      {isConfirmationDialogOpen && (
         <Dialog
           dialogHeaderTitle="We've got your lunch order!"
           dialogType="success"
           primaryButtonLabel="Cool, Thanks!"
-          setIsOpen={setIsConfirmationOpen}
+          setIsOpen={setIsConfirmationDialogOpen}
           onClick={() => {
-            setIsConfirmationOpen(false);
+            setIsConfirmationDialogOpen(false);
           }}>
           <p>
             Order has been placed successfully.

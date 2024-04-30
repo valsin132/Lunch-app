@@ -11,20 +11,24 @@ export const useFetchData = <DataType>(endpoint: string): UseFetchDataResult<Dat
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
-  const fetchAndSetData = async () => {
-    try {
-      const response = await fetch(endpoint);
-      setData(await response.json());
-    } catch (_error) {
-      setIsError(true);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   useEffect(() => {
+    let isMounted = true;
+    const fetchAndSetData = async () => {
+      try {
+        const response = await fetch(endpoint);
+        if (!isMounted) return;
+        setData(await response.json());
+      } catch (_error) {
+        setIsError(true);
+      } finally {
+        setIsLoading(false);
+      }
+    };
     fetchAndSetData();
-  }, []);
+    return () => {
+      isMounted = false;
+    };
+  }, [endpoint]);
 
   return { data, isError, isLoading };
 };

@@ -1,9 +1,9 @@
 import classNames from 'classnames/bind';
-import { ReactElement, useState } from 'react';
+import { ReactElement, useState, useMemo } from 'react';
 import { useFetchData } from '../../hooks/useFetchData';
 import { FoodCard } from '../../components/FoodCard';
 import { Tab } from '../../components/Tab';
-import { MealProps, VendorProps, RatingProps } from './FoodMenu.types';
+import { Meal, Vendor, Rating } from './FoodMenu.types';
 import styles from './FoodMenu.module.css';
 
 const cx = classNames.bind(styles);
@@ -13,56 +13,50 @@ export function FoodMenu(): ReactElement {
     data: vendorsData,
     isLoading: vendorsLoading,
     isError: vendorsError,
-  } = useFetchData<VendorProps[]>('http://localhost:3002/vendors');
+  } = useFetchData<Vendor[]>('http://localhost:3002/vendors');
   const {
     data: mealsData,
     isLoading: mealsLoading,
     isError: mealsError,
-  } = useFetchData<MealProps[]>('http://localhost:3002/meals');
+  } = useFetchData<Meal[]>('http://localhost:3002/meals');
   const {
     data: ratingsData,
     isLoading: ratingsLoading,
     isError: ratingsError,
-  } = useFetchData<RatingProps[]>('http://localhost:3002/ratings');
+  } = useFetchData<Rating[]>('http://localhost:3002/ratings');
 
   const [selectedDay, setSelectedDay] = useState<string>('Monday');
+
+  const dayLabels = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+
+  const getVendorName = (vendorId: number) => {
+    const mealVendor = vendorsData?.find((vendor) => Number(vendor.id) === vendorId);
+    return mealVendor ? mealVendor.name : '';
+  };
+
+  const filteredMeals = useMemo(() => {
+    if (!mealsData) return [];
+    return mealsData.filter((meal) => meal.weekDays.includes(selectedDay));
+  }, [mealsData, selectedDay]);
+
+  const getRating = (id: number) => {
+    const filteredRatings = ratingsData?.filter((rating) => rating.mealId === id) ?? [];
+    if (filteredRatings.length > 0) {
+      const ratings = filteredRatings.map((rating) => rating.rating.rating);
+      const sum = ratings.reduce((total, rating) => total + rating, 0);
+      const averageRating = sum / ratings.length;
+      return Number(averageRating.toFixed(1));
+    }
+    return 0;
+  };
 
   if (vendorsLoading || mealsLoading || ratingsLoading) {
     return <p>Loading...</p>;
   }
 
-  if (vendorsError || mealsError || ratingsError || !vendorsData || !mealsData || !ratingsData) {
+  if (vendorsError || mealsError || ratingsError) {
     return <p>Error fetching data!</p>;
   }
-
-  const handleTabClick = (day: string) => {
-    setSelectedDay(day);
-  };
-
-  const dayLabels = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
-
-  const getVendorName = (vendorId: number) => {
-    const findVendor = vendorsData.find((vendor) => Number(vendor.id) === vendorId);
-    return findVendor ? findVendor.name : 'Unknown Vendor';
-  };
-
-  const filteredMeals = mealsData
-    ? mealsData.filter((meal) => meal.weekDays.includes(selectedDay))
-    : [];
-
-  const mealRatings: number[] = [];
-  const getRating = (id: number) => {
-    const filteredRatings = ratingsData ? ratingsData.filter((rating) => rating.mealId === id) : [];
-    if (filteredRatings.length > 0) {
-      filteredRatings.forEach((rating) => {
-        mealRatings.push(rating.rating.rating);
-      });
-      const sum = mealRatings.reduce((total, rating) => total + rating, 0);
-      const averageRating = sum / mealRatings.length || 0;
-      return Number(averageRating.toFixed(1));
-    }
-    return 0;
-  };
 
   return (
     <div>
@@ -72,7 +66,7 @@ export function FoodMenu(): ReactElement {
             key={day}
             label={day}
             isActive={selectedDay === day}
-            onClick={() => handleTabClick(day)}
+            onClick={() => setSelectedDay(day)}
           />
         ))}
       </div>

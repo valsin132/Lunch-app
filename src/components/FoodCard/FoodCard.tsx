@@ -24,7 +24,7 @@ interface FoodCardProps {
   price: number;
   vegetarian: boolean;
   spicy: boolean;
-  rating: number;
+  rating: number | string;
   dishType: DishType;
   onClick: () => void;
 }
@@ -88,7 +88,7 @@ export function FoodCard({
             <div className={cx('food-card__rating-container')}>
               <div className={cx('food-card__rating')}>
                 <StarFullIcon className={cx('food-card__rating-icon')} />
-                <p className={cx('food-card__rating-number')}>{rating.toFixed(1)}</p>
+                <p className={cx('food-card__rating-number')}>{rating}</p>
               </div>
               <Button
                 title="More info"

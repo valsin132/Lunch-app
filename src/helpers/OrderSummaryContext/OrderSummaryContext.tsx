@@ -39,23 +39,22 @@ function orderReducer(state: Orders, payload: OrderIdentifier): Orders {
   const { action, day, meal, mealId } = payload;
   switch (action) {
     case 'REMOVE_ORDER':
-      if (!day) {
-        return state;
-      }
-      if (!state[day] && !mealId) {
-        return state;
+      if (!day || !state[day] || !mealId) {
+        throw new Error(
+          'When removing order summary context elements you must specify: day and mealId'
+        );
       }
       return {
         ...state,
         [day]: state[day]?.filter((order) => order.mealId !== mealId),
       };
     case 'ADD_ORDER': {
-      if (!meal) {
-        return state;
+      if (!meal || !day) {
+        throw new Error(
+          'When adding orders to order summary context you must specify: day and a meal object'
+        );
       }
-      if (!day) {
-        return state;
-      }
+
       if (state[day] === undefined) {
         return {
           ...state,
@@ -87,10 +86,8 @@ type OrderSummaryProviderProps = {
   children: ReactNode;
 };
 
-const initialVal: Orders = {};
-
 export function OrderSummaryProvider({ children }: OrderSummaryProviderProps) {
-  const [state, dispatch] = useReducer(orderReducer, initialVal);
+  const [state, dispatch] = useReducer(orderReducer, {});
 
   const orderSummaryValue = useMemo(() => ({ orders: state, modifyOrders: dispatch }), [state]);
 

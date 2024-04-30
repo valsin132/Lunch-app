@@ -10,7 +10,22 @@ interface PageProp {
   pageType: PageTypes;
 }
 
-const getDate = () => {
+const getTitle = (pageType: PageTypes): string => {
+  switch (pageType) {
+    case 'foodMenu':
+      return 'Lunch Menu';
+    case 'availableLunch':
+      return 'Available Lunch';
+    case 'yourOrders':
+      return 'Your Orders';
+    case 'ratings':
+      return 'Ratings';
+    default:
+      return pageType;
+  }
+};
+
+const getSubtitle = (pageType: PageTypes): string => {
   const curr = new Date();
 
   const months = [
@@ -40,36 +55,13 @@ const getDate = () => {
   const lastDayMonth = lastDayDate.getMonth();
   const lastDay = lastDayDate.getDate().toLocaleString();
 
-  return [
-    `${months[firstDayMonth]} ${firstDay} - ${firstDayMonth !== lastDayMonth ? months[lastDayMonth] : ''} ${lastDay}`,
-    `${firstDay} ${months[firstDayMonth]} - ${lastDay} ${months[lastDayMonth]}`,
-    `${weekDay}`,
-  ];
-};
-
-const getTitle = (pageType: PageTypes): string => {
   switch (pageType) {
     case 'foodMenu':
-      return 'Lunch Menu';
+      return `Lunch menu for the week of ${months[firstDayMonth]} ${firstDay} - ${firstDayMonth !== lastDayMonth ? months[lastDayMonth] : ''} ${lastDay}`;
     case 'availableLunch':
-      return 'Available Lunch';
-    case 'yourOrders':
-      return 'Your Orders';
-    case 'ratings':
-      return 'Ratings';
+      return `${weekDay} dishes that are up for grabs, from your colleagues.`;
     default:
-      return pageType;
-  }
-};
-
-const getSubtitle = (page: PageTypes): string => {
-  switch (page) {
-    case 'foodMenu':
-      return `Lunch menu for the week of ${getDate()[0]}`;
-    case 'availableLunch':
-      return `${getDate()[2]} dishes that are up for grabs, from your colleagues.`;
-    default:
-      return `Week of ${getDate()[1]}`;
+      return `Week of ${firstDay} ${months[firstDayMonth]} - ${lastDay} ${months[lastDayMonth]} `;
   }
 };
 

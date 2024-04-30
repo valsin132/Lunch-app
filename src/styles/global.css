@@ -9,7 +9,7 @@
 }
 
 #root {
-  @include flexbox();
+  @include flexbox;
 }
 
 body {

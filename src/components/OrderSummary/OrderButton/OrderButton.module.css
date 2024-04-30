@@ -1,6 +1,7 @@
 @import './../../../styles/index.css';
 
 $transition-duration: 0.2s;
+$button-width: 243px;
 
 .buy-button {
   @include label-s;
@@ -15,7 +16,7 @@ $transition-duration: 0.2s;
   transition-duration: $transition-duration;
   transition-property: color;
   transition-timing-function: linear;
-  width: 100%;
+  width: $button-width;
   z-index: 1;
 
   & .buy-button__background {
@@ -53,6 +54,7 @@ $transition-duration: 0.2s;
   }
 
   &:disabled {
+    cursor: not-allowed;
     opacity: 0.4;
   }
 }

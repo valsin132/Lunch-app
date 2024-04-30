@@ -1,4 +1,5 @@
 @import './../../styles/index.css';
+$max-height-until-scroll: 609px;
 
 .order-summary {
   text-align: center;
@@ -9,7 +10,7 @@
     & .order-summary__wrapper {
       @include flexbox($direction: column, $gap: $spacing-s);
 
-      max-height: 609px;
+      max-height: $max-height-until-scroll;
 
       &::after {
         background-color: $color-grey-200;

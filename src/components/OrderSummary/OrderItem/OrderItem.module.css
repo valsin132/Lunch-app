@@ -1,13 +1,16 @@
 @import './../../../styles/index.css';
 
-.order-item {
-  @include flexbox($direction: row);
+$max-item-width: 243px;
 
-  width: 243px;
+.order-item {
+  @include flexbox($direction: row, $gap: $spacing-4xs);
+
+  width: 100%;
 
   & .order-item__icon {
+    @include size($width: 40px, $height: 40px);
+
     object-fit: contain;
-    width: 40px;
   }
 
   & .order-item__info {

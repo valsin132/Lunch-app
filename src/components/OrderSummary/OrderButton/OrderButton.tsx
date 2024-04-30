@@ -28,7 +28,6 @@ export function OrderButton({ onSubmit, isDisabled }: OrderButtonProps) {
     }
   }, [isDisabled]);
 
-  // const holdTime = useRef(0);
   const handlePointerDown = () => {
     if (isDisabled || isBought) return;
     setIsHeld(true);

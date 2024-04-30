@@ -5,7 +5,7 @@
   @include flexbox($direction: column, $alignItems: center);
 
   color: $color-grey-500;
-  width: 243px;
+  width: 100%;
 
   & img {
     object-fit: contain;

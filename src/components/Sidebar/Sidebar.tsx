@@ -21,7 +21,7 @@ export function Sidebar() {
       })}>
       <div
         className={cx('sidebar__container', {
-          'sidebar--collapsed': !isExpanded,
+          'sidebar__container--collapsed': !isExpanded,
         })}>
         <div className={cx('sidebar__logo-wrapper')}>
           <div

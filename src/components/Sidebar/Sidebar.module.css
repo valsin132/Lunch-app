@@ -54,7 +54,7 @@ $sidebar-animation-duration: 300ms;
       }
     }
 
-    &.sidebar--collapsed {
+    &.sidebar__container--collapsed {
       width: 62px;
     }
 

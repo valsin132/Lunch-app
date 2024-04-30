@@ -16,6 +16,12 @@ interface NavProps {
   isExpanded: boolean;
 }
 
+interface NavigationItem {
+  title: string;
+  iconType: IconType;
+  route: string;
+}
+
 type IconType = 'foodMenu' | 'yourOrder' | 'availableLunch' | 'ratings';
 
 const getIcon = (iconType: IconType): ReactElement | null => {
@@ -33,11 +39,6 @@ const getIcon = (iconType: IconType): ReactElement | null => {
   }
 };
 export function Navigation({ isExpanded }: NavProps): ReactElement {
-  interface NavigationItem {
-    title: string;
-    iconType: IconType;
-    route: string;
-  }
   const navigationItems: NavigationItem[] = [
     { title: 'Food Menu', iconType: 'foodMenu', route: MAIN_PAGES_ROUTES.FoodMenu },
     {
@@ -60,7 +61,7 @@ export function Navigation({ isExpanded }: NavProps): ReactElement {
                     'navigation-list-item',
                     { 'navigation-list-item--collapsed': !isExpanded },
                     {
-                      'navigation-list-item-selected': isActive && isExpanded,
+                      'navigation-list-item-selected': isActive,
                       'navigation-list-item-selected--collapsed': isActive && !isExpanded,
                     }
                   )}>

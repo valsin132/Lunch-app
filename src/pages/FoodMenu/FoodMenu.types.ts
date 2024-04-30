@@ -25,3 +25,5 @@ export interface Vendor {
   id: string;
   name: string;
 }
+
+export type WeekDay = 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday';

@@ -3,12 +3,10 @@ import { ReactElement, useState, useMemo } from 'react';
 import { useFetchData } from '../../hooks/useFetchData';
 import { FoodCard } from '../../components/FoodCard';
 import { Tab } from '../../components/Tab';
-import { Meal, Vendor, Rating } from './FoodMenu.types';
+import { Meal, Vendor, Rating, WeekDay } from './FoodMenu.types';
 import styles from './FoodMenu.module.css';
 
 const cx = classNames.bind(styles);
-
-type WeekDay = 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday';
 
 export function FoodMenu(): ReactElement {
   const {

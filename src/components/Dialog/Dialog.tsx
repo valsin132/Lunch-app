@@ -9,12 +9,11 @@ const cx = classNames.bind(styles);
 type DialogTypes = 'info' | 'success' | 'warning';
 
 interface DialogProps {
-  content: string;
   dialogType: DialogTypes;
   dialogHeaderTitle: string;
   primaryButtonLabel: string;
   secondaryButtonLabel?: string;
-  children?: ReactNode;
+  children: ReactNode;
   setIsOpen: (isOpen: boolean) => void;
   onClick: () => void;
 }
@@ -33,7 +32,6 @@ const getSupportingIllustration = (dialogType: DialogTypes): string => {
 };
 
 export function Dialog({
-  content,
   dialogType,
   dialogHeaderTitle,
   primaryButtonLabel,
@@ -59,7 +57,7 @@ export function Dialog({
               alt="Dialog icon"
             />
           </div>
-          <div className={cx('dialog__content')}>{children || <p>{content}</p>}</div>
+          <div className={cx('dialog__content')}>{children}</div>
         </div>
       </Modal>
     </div>

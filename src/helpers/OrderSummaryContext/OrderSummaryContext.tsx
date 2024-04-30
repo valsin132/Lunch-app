@@ -1,7 +1,7 @@
 import { ReactNode, createContext, useContext, useMemo, useReducer } from 'react';
 import { DishType } from '../../components/FoodCard';
 
-type OrderActions = 'REMOVE';
+type OrderActions = 'REMOVE' | 'ADD' | 'CLEAR';
 
 export type Order = {
   dishType: DishType;
@@ -12,19 +12,20 @@ export type Order = {
 };
 
 export type Orders = {
-  monday: Order[];
-  tuesday: Order[];
-  wednesday: Order[];
-  thursday: Order[];
-  friday: Order[];
+  monday?: Order[];
+  tuesday?: Order[];
+  wednesday?: Order[];
+  thursday?: Order[];
+  friday?: Order[];
 };
 
 export type Workdays = keyof Orders;
 
 type OrderIdentifier = {
-  day: Workdays;
-  mealId: number;
   action: OrderActions;
+  day?: Workdays;
+  mealId?: number;
+  meal?: Order;
 };
 
 type OrderSummaryContextType = {
@@ -35,13 +36,41 @@ type OrderSummaryContextType = {
 const OrderSummaryContext = createContext<OrderSummaryContextType | null>(null);
 
 function orderReducer(state: Orders, payload: OrderIdentifier): Orders {
-  const { action } = payload;
+  const { action, day, meal, mealId } = payload;
   switch (action) {
     case 'REMOVE':
+      if (!day) {
+        return state;
+      }
+      if (!state[day] && !mealId) {
+        return state;
+      }
       return {
         ...state,
-        [payload.day]: state[payload.day].filter((order) => order.mealId !== payload.mealId),
+        [day]: state[day]?.filter((order) => order.mealId !== mealId),
       };
+    case 'ADD': {
+      if (!meal) {
+        return state;
+      }
+      if (!day) {
+        return state;
+      }
+      if (state[day] === undefined) {
+        return {
+          ...state,
+          [day]: [meal],
+        };
+      }
+
+      return {
+        ...state,
+        [day]: [...(state[day] as Order[]), meal],
+      };
+    }
+    case 'CLEAR':
+      return {};
+      break;
     default:
       return state;
   }
@@ -59,13 +88,7 @@ type OrderSummaryProviderProps = {
   children: ReactNode;
 };
 
-const initialVal: Orders = {
-  monday: [],
-  tuesday: [],
-  wednesday: [],
-  thursday: [],
-  friday: [],
-};
+const initialVal: Orders = {};
 
 export function OrderSummaryProvider({ children }: OrderSummaryProviderProps) {
   const [state, dispatch] = useReducer(orderReducer, initialVal);

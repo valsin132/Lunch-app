@@ -16,20 +16,20 @@
     text-align: left;
     width: 100%;
 
-    & .order-item__info__title {
+    & .order-item__info-title {
       @include title-xs;
 
       color: $color-grey-500;
     }
 
-    & .order-item__info__body {
+    & .order-item__info-body {
       @include flexbox($justifyContent: space-between, $gap: $spacing-5xs);
       @include body-s;
 
-      & .order-item__info__body__actions {
+      & .order-item__info-body-actions {
         @include flexbox($direction: column, $alignItems: center);
 
-        & .order-item__info__body__actions__remove {
+        & .order-item__info-body-actions-remove {
           border-radius: $spacing-4xs;
           padding: $spacing-5xs;
 
@@ -44,7 +44,7 @@
           }
         }
 
-        & .order-item__info__body__actions__price {
+        & .order-item__info-body-actions-price {
           @include body-m;
 
           &::before {

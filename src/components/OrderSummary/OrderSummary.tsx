@@ -1,10 +1,10 @@
 import classNames from 'classnames/bind';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CloseIcon } from '../../utils/iconManager';
 import { OrderDay } from './OrderDay';
 import { Card } from '../Card';
-import { OrderButton } from './OrderButton/OrderButton';
-import { Order, Workdays, useOrderSummary } from '../../helpers/OrderSummaryContext';
+import { OrderButton } from './OrderButton';
+import { Workdays, useOrderSummary } from '../../helpers/OrderSummaryContext';
 import { EmptyCart } from './EmptyCart';
 import { Dialog } from '../Dialog';
 import styles from './OrderSummary.module.css';
@@ -15,33 +15,21 @@ type OrderSummaryProps = {
   visibilityHandler: () => void;
 };
 
-type OrderArray = Order[] | undefined;
-
 export function OrderSummary({ visibilityHandler }: OrderSummaryProps) {
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
   const orderSummaryContext = useOrderSummary();
 
-  const calculateIsArrayEmpty = (...args: OrderArray[]) => {
-    const filtered = args.filter((arr) => {
-      if (!arr) return false;
-      return arr.length;
-    });
-    return !filtered.length;
-  };
+  useEffect(() => {
+    if (!isConfirmationOpen) orderSummaryContext.modifyArray({ action: 'CLEAR' });
+  }, [isConfirmationOpen]);
 
-  const orderArr = Object.values(orderSummaryContext.orders) as Order[][];
-  const orderDays = Object.keys(orderSummaryContext.orders) as Workdays[];
+  const allOrderCartItems = Object.entries(orderSummaryContext.orders);
+  const isOrderCartEmpty = !allOrderCartItems.some(([, orders]) => orders.length > 0);
 
-  const isEmpty = calculateIsArrayEmpty(...orderArr);
-
-  const totalPrice = orderArr.reduce(
-    (total, currentOrders) => total + currentOrders.reduce((accum, cur) => accum + cur.price, 0),
+  const totalPrice = allOrderCartItems.reduce(
+    (total, [, orders]) => total + orders.reduce((totalDay, order) => totalDay + order.price, 0),
     0
   );
-
-  const handleOrdering = () => {
-    setIsConfirmationOpen(true);
-  };
 
   return (
     <aside className={cx('order-summary')}>
@@ -59,16 +47,12 @@ export function OrderSummary({ visibilityHandler }: OrderSummaryProps) {
               </button>
             </div>
             <section className={cx('order-summary__orders-wrapper')}>
-              {isEmpty ? (
+              {isOrderCartEmpty ? (
                 <EmptyCart />
               ) : (
-                orderDays.map((orderDay) =>
-                  orderSummaryContext.orders[orderDay].length ? (
-                    <OrderDay
-                      key={orderDay}
-                      day={orderDay}
-                      orders={orderSummaryContext.orders[orderDay]}
-                    />
+                allOrderCartItems.map(([orderDay, orders]) =>
+                  orders.length ? (
+                    <OrderDay key={orderDay} day={orderDay as Workdays} orders={orders} />
                   ) : null
                 )
               )}
@@ -81,14 +65,17 @@ export function OrderSummary({ visibilityHandler }: OrderSummaryProps) {
                 <span className={cx('order-summary__price')}>{totalPrice.toFixed(2)}</span>
               </div>
             </div>
-            <OrderButton onSubmit={handleOrdering} disabled={isEmpty} />
+            <OrderButton
+              onSubmit={() => {
+                setIsConfirmationOpen(true);
+              }}
+              isDisabled={isOrderCartEmpty}
+            />
           </div>
         </div>
       </Card>
       {isConfirmationOpen && (
         <Dialog
-          content="Order has been placed successfully.
-            You can view lunch for the week in Your Orders."
           dialogHeaderTitle="We've got your lunch order!"
           dialogType="success"
           primaryButtonLabel="Cool, Thanks!"

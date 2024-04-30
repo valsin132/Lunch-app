@@ -26,15 +26,15 @@ export function OrderItem({ day, order }: OrderItemProps) {
         />
       </div>
       <div className={cx('order-item__info')}>
-        <span className={cx('order-item__info__title')}>{order.vendor}</span>
-        <div className={cx('order-item__info__body')}>
+        <span className={cx('order-item__info-title')}>{order.vendor}</span>
+        <div className={cx('order-item__info-body')}>
           <span>{order.title}</span>
-          <div className={cx('order-item__info__body__actions')}>
-            <span className={cx('order-item__info__body__actions__price')}>
+          <div className={cx('order-item__info-body-actions')}>
+            <span className={cx('order-item__info-body-actions-price')}>
               {order.price.toFixed(2)}
             </span>
             <button
-              className={cx('order-item__info__body__actions__remove')}
+              className={cx('order-item__info-body-actions-remove')}
               aria-label="remove-order-summary-item"
               type="button"
               onClick={handleItemRemoval}>

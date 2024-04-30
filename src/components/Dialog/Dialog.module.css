@@ -17,7 +17,6 @@
   }
 
   & .dialog__content {
-    @include body-m;
     @include flexbox($direction: column);
 
     color: $color-blue-600;

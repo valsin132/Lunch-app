@@ -88,7 +88,7 @@ export function FoodCard({
             <div className={cx('food-card__rating-container')}>
               <div className={cx('food-card__rating')}>
                 <StarFullIcon className={cx('food-card__rating-icon')} />
-                <p className={cx('food-card__rating-number')}>{rating}</p>
+                <p className={cx('food-card__rating-number')}>{rating.toFixed(1)}</p>
               </div>
               <Button
                 title="More info"

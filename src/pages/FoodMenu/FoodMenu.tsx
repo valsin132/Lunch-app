@@ -43,7 +43,7 @@ export function FoodMenu(): ReactElement {
       const ratings = filteredRatings.map((rating) => rating.rating.rating);
       const sum = ratings.reduce((total, rating) => total + rating, 0);
       const averageRating = sum / ratings.length;
-      return Number(averageRating.toFixed(1));
+      return averageRating;
     }
     return 0;
   };

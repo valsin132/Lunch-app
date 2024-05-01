@@ -1,4 +1,4 @@
-@import 'src/styles/index.css';
+@import '../../styles/index.css';
 
 .menu-wrapper {
   @include flexbox($wrap: wrap, $gap: 32px);

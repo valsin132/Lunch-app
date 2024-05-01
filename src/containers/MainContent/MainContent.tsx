@@ -4,6 +4,7 @@ import { Sidebar } from '../../components/Sidebar';
 import { UserCard } from '../../components/UserCard';
 
 export function MainContent() {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isOrderSummaryVisible, setIsOrderSummaryVisible] = useState(true);
 
   // TEST data for local storage it will be delted before merge
@@ -25,7 +26,6 @@ export function MainContent() {
       <header>
         <UserCard toggleOrderSummary={() => setIsOrderSummaryVisible(true)} />
       </header>
-      {isOrderSummaryVisible && <div />}
     </>
   );
 }

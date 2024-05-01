@@ -13,7 +13,7 @@ $navigation-list-item-animation-duration: 350ms;
     @include label-s;
     @include flexbox($alignItems: center, $gap: $gap-compact);
 
-    animation: navigation-list-item-width2 $navigation-list-item-animation-duration;
+    animation: navigation-list-item-to-expanded $navigation-list-item-animation-duration;
     background-color: $color-blue-800;
     border-radius: $border-radius-medium;
     padding: calc($spacing-4xs - 2px) $spacing-3xs;
@@ -70,7 +70,7 @@ $navigation-list-item-animation-duration: 350ms;
       @include flexbox($justifyContent: center, $alignItems: center, $direction: column);
       @include label-xxs;
 
-      animation: navigation-list-item-width $navigation-list-item-animation-duration;
+      animation: navigation-list-item-to-collapsed $navigation-list-item-animation-duration;
       border-radius: $border-radius-small;
       max-width: 60px;
       padding: 0;
@@ -89,24 +89,28 @@ $navigation-list-item-animation-duration: 350ms;
   }
 }
 
-@keyframes navigation-list-item-width {
+@keyframes navigation-list-item-to-collapsed {
 
   from {
+    transform: scale(0);
     width: 181px;
   }
 
   to {
+    transform: scale(1);
     width: 60px;
   }
 }
 
-@keyframes navigation-list-item-width2 {
+@keyframes navigation-list-item-to-expanded {
 
   from {
+    transform: scale(0);
     width: 60px;
   }
 
   to {
+    transform: scale(1);
     width: 181px;
   }
 }

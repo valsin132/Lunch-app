@@ -55,25 +55,26 @@ export function UserCard({ toggleOrderSummary }: UserCardProps): ReactElement {
         <div className={cx('user-card__header')}>
           <div className={cx('user-card__avatar-container')}>
             <img src={img} alt="profile avatar" className={cx('user-card__avatar')} />
-            <button
-              type="button"
-              onClick={handleArrowButtonClick}
-              aria-label="Toggle Logout Button">
-              <ArrowFilledIcon
-                className={cx('user-card__button-arrow', {
-                  'user-card__button-arrow-rotated': showLogoutButton,
-                })}
-              />
-            </button>
-            {showLogoutButton && (
-              <button type="button" className={cx('user-card__logout-button')} onClick={logout}>
-                <span className={cx('user-card__logout-text')}>
-                  {' '}
-                  <Logout className={cx('user-card__logout-icon')} />
-                  Log Out
-                </span>
+            <div className={cx('user-card__button-arrow')}>
+              <button
+                type="button"
+                onClick={handleArrowButtonClick}
+                aria-label="Toggle Logout Button">
+                <ArrowFilledIcon
+                  className={cx('user-card__button-icon', {
+                    'user-card__button-icon-rotated': showLogoutButton,
+                  })}
+                />
               </button>
-            )}
+              {showLogoutButton && (
+                <button type="button" className={cx('user-card__logout-button')} onClick={logout}>
+                  <span className={cx('user-card__logout-text')}>
+                    <Logout className={cx('user-card__logout-icon')} />
+                    Log Out
+                  </span>
+                </button>
+              )}
+            </div>
           </div>
           <p>
             {name} {surname}
@@ -84,18 +85,20 @@ export function UserCard({ toggleOrderSummary }: UserCardProps): ReactElement {
             <span>Balance</span>
             <span>&euro;{balance}</span>
           </div>
-          <button
-            type="button"
-            className={cx('user-card__logout-button')}
-            aria-labelledby="orderSummaryLabel"
-            onClick={toggleOrderSummary}>
-            <ShoppingBasketIcon />
-            {numberOfOrders > 0 && (
-              <span className={cx('user-card__badge')}>
-                <BadgeCount count={numberOfOrders} />
-              </span>
-            )}
-          </button>
+          <div className={cx('user_card__orders-button-wrapper')}>
+            <button
+              type="button"
+              className={cx('user-card__number-of-orders')}
+              aria-labelledby="orderSummaryLabel"
+              onClick={toggleOrderSummary}>
+              <ShoppingBasketIcon className={cx('user-card__shopping-basket-icon')} />
+              {numberOfOrders > 0 && (
+                <span className={cx('user-card__badge')}>
+                  <BadgeCount count={numberOfOrders} />
+                </span>
+              )}
+            </button>
+          </div>
         </div>
       </div>
     </Card>

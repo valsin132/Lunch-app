@@ -24,7 +24,7 @@ interface FoodCardProps {
   price: number;
   vegetarian: boolean;
   spicy: boolean;
-  rating: number;
+  rating: number | string;
   dishType: DishType;
   onClick: () => void;
 }

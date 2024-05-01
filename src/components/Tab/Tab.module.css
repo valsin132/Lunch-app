@@ -1,8 +1,6 @@
 @import './../../styles/index.css';
 
 .tab-container {
-  @include label-s;
-
   border-bottom: solid 2px $color-grey-300;
   color: $color-grey-500;
   display: inline-block;
@@ -13,6 +11,8 @@
   }
 
   & .tab {
+    @include label-s;
+
     border-radius: $border-radius-small;
     padding: calc($spacing-4xs + 1px) $spacing-2xs;
   }

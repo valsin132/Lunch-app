@@ -27,6 +27,7 @@ import StartFilledCircleIcon from '../assets/images/icons/star-circle-filled.svg
 import StarFullIcon from '../assets/images/icons/star-full.svg?react';
 import StarHalfFullIcon from '../assets/images/icons/star-half-full.svg?react';
 import StarEmptyIcon from '../assets/images/icons/start-empty.svg?react';
+import UserProfile from '../assets/images/icons/user-profile.svg?react';
 
 export {
   LogoHorizontal,
@@ -56,4 +57,5 @@ export {
   StarFullIcon,
   StarHalfFullIcon,
   StarEmptyIcon,
+  UserProfile,
 };

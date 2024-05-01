@@ -2,7 +2,7 @@ import { ReactElement, useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import { Card } from '../Card';
 import { BadgeCount } from '../Badge';
-import { ShoppingBasketIcon, Logout, ArrowFilledIcon } from '../../utils/iconManager';
+import { ShoppingBasketIcon, Logout, ArrowFilledIcon, UserProfile } from '../../utils/iconManager';
 import { useAuth } from '../../helpers/AuthContext';
 import styles from './UserCard.module.css';
 
@@ -28,6 +28,7 @@ interface UserCardProps {
 export function UserCard({ toggleOrderSummary }: UserCardProps): ReactElement {
   const [userData, setUserData] = useState<UserData | null>(null);
   const [showLogoutButton, setShowLogoutButton] = useState(false);
+  const [imgLoadError, setImgLoadError] = useState(false);
   const { logout } = useAuth();
 
   useEffect(() => {
@@ -45,20 +46,25 @@ export function UserCard({ toggleOrderSummary }: UserCardProps): ReactElement {
   const { name, surname, balance, img, orders } = userData;
   const numberOfOrders = orders.length;
 
-  const handleArrowButtonClick = () => {
-    setShowLogoutButton(!showLogoutButton);
-  };
-
   return (
     <Card spacing="2xs" shadow="s" roundedCorners="left" isNoBorder>
       <div className={cx('user-card__layout')}>
         <div className={cx('user-card__header')}>
           <div className={cx('user-card__avatar-container')}>
-            <img src={img} alt="profile avatar" className={cx('user-card__avatar')} />
+            {!imgLoadError ? (
+              <img
+                src={img}
+                alt="profile avatar"
+                className={cx('user-card__avatar')}
+                onError={() => setImgLoadError(true)}
+              />
+            ) : (
+              <UserProfile className={cx('user-card__avatar')} />
+            )}
             <div className={cx('user-card__button-arrow')}>
               <button
                 type="button"
-                onClick={handleArrowButtonClick}
+                onClick={() => setShowLogoutButton(!showLogoutButton)}
                 aria-label="Toggle Logout Button">
                 <ArrowFilledIcon
                   className={cx('user-card__button-icon', {

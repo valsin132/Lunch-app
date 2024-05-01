@@ -4,7 +4,7 @@ import { CloseIcon } from '../../utils/iconManager';
 import { OrderDay } from './OrderDay';
 import { Card } from '../Card';
 import { OrderButton } from './OrderButton';
-import { Workdays, useOrderSummary } from '../../helpers/OrderSummaryContext';
+import { OrderDayType, useOrderSummary } from '../../helpers/OrderSummaryContext';
 import { EmptyCart } from './EmptyCart';
 import { Dialog } from '../Dialog';
 import styles from './OrderSummary.module.css';
@@ -19,17 +19,24 @@ export function OrderSummary({ visibilityHandler }: OrderSummaryProps) {
   const [isConfirmationDialogOpen, setIsConfirmationDialogOpen] = useState(false);
   const orderSummaryContext = useOrderSummary();
 
-  const allOrderCartItems = Object.entries(orderSummaryContext.orders);
-  const isOrderCartEmpty = !allOrderCartItems.some(([, orders]) => orders.length > 0);
+  const isOrderCartEmpty = orderSummaryContext.orders.length < 1;
 
-  const totalPrice = allOrderCartItems.reduce(
-    (total, [, orders]) => total + orders.reduce((totalDay, order) => totalDay + order.price, 0),
-    0
-  );
+  const calculateDayTotal = ({ orders }: OrderDayType) =>
+    orders.reduce((totalDayPrice, currentMeal) => totalDayPrice + currentMeal.price, 0);
+
+  const calculateTotalPrice = () =>
+    orderSummaryContext.orders.reduce(
+      (total, ordersForDay) => total + calculateDayTotal(ordersForDay),
+      0
+    );
+
+  const totalPrice = calculateTotalPrice();
+
   const handleOrderSubmit = () => {
     orderSummaryContext.modifyOrders({ action: 'CLEAR_ORDERS' });
     setIsConfirmationDialogOpen(false);
   };
+
   return (
     <aside className={cx('order-summary')}>
       <Card spacing="xs" shadow="s" roundedCorners="left">
@@ -49,11 +56,13 @@ export function OrderSummary({ visibilityHandler }: OrderSummaryProps) {
               {isOrderCartEmpty ? (
                 <EmptyCart />
               ) : (
-                allOrderCartItems.map(([orderDay, orders]) =>
-                  orders.length ? (
-                    <OrderDay key={orderDay} day={orderDay as Workdays} orders={orders} />
-                  ) : null
-                )
+                orderSummaryContext.orders.map((ordersForDay) => (
+                  <OrderDay
+                    day={ordersForDay.day}
+                    orders={ordersForDay.orders}
+                    key={ordersForDay.day}
+                  />
+                ))
               )}
             </section>
           </div>

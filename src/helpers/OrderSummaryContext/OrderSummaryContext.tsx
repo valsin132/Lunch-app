@@ -11,15 +11,21 @@ export type Order = {
   mealId: number;
 };
 
-export type Orders = {
-  monday?: Order[];
-  tuesday?: Order[];
-  wednesday?: Order[];
-  thursday?: Order[];
-  friday?: Order[];
+export type OrderDayType = {
+  day: Workdays;
+  orders: Order[];
 };
 
-export type Workdays = keyof Orders;
+export type Orders = OrderDayType[];
+
+export type Workdays = 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday';
+const workdayToIndex: { [keyof in Workdays]: number } = {
+  monday: 1,
+  tuesday: 2,
+  wednesday: 3,
+  thursday: 4,
+  friday: 5,
+};
 
 type OrderIdentifier = {
   action: OrderActions;
@@ -38,37 +44,49 @@ const OrderSummaryContext = createContext<OrderSummaryContextType | null>(null);
 function orderReducer(state: Orders, payload: OrderIdentifier): Orders {
   const { action, day, meal, mealId } = payload;
   switch (action) {
-    case 'REMOVE_ORDER':
-      if (!day || !state[day] || !mealId) {
-        throw new Error(
-          'When removing order summary context elements you must specify: day and mealId'
-        );
+    case 'REMOVE_ORDER': {
+      if (!day || !mealId) {
+        return state;
       }
-      return {
-        ...state,
-        [day]: state[day]?.filter((order) => order.mealId !== mealId),
-      };
+      const dayIndex = state.findIndex((ordersForDay) => ordersForDay.day === day);
+      if (dayIndex === -1) {
+        return state;
+      }
+      const newState = [...state];
+      newState[dayIndex].orders = newState[dayIndex].orders.filter(
+        (order) => order.mealId !== mealId
+      );
+      if (newState[dayIndex].orders.length === 0) newState.splice(dayIndex, 1);
+      return [...newState];
+    }
     case 'ADD_ORDER': {
-      if (!meal || !day) {
-        throw new Error(
-          'When adding orders to order summary context you must specify: day and a meal object'
+      if (!day || !meal) {
+        return state;
+      }
+
+      const dayIndex = state.findIndex((ordersForDay) => ordersForDay.day === day);
+
+      if (dayIndex === -1) {
+        const newState = [...state, { day, orders: [meal] }].sort(
+          (aOrderDay, bOrderDay) => workdayToIndex[aOrderDay.day] - workdayToIndex[bOrderDay.day]
         );
+
+        return [...newState];
       }
 
-      if (state[day] === undefined) {
-        return {
-          ...state,
-          [day]: [meal],
-        };
+      if (state[dayIndex].orders.some((order) => order.mealId === meal.mealId)) {
+        return state;
       }
 
-      return {
-        ...state,
-        [day]: [...(state[day] as Order[]), meal],
+      const newState = [...state];
+      newState[dayIndex] = {
+        ...newState[dayIndex],
+        orders: [...newState[dayIndex].orders, meal],
       };
+      return [...newState];
     }
     case 'CLEAR_ORDERS':
-      return {};
+      return [];
     default:
       return state;
   }
@@ -87,10 +105,9 @@ type OrderSummaryProviderProps = {
 };
 
 export function OrderSummaryProvider({ children }: OrderSummaryProviderProps) {
-  const [state, dispatch] = useReducer(orderReducer, {});
+  const [state, dispatch] = useReducer(orderReducer, []);
 
   const orderSummaryValue = useMemo(() => ({ orders: state, modifyOrders: dispatch }), [state]);
-
   return (
     <OrderSummaryContext.Provider value={orderSummaryValue}>
       {children}

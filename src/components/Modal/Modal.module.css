@@ -1,4 +1,4 @@
-@import 'src/styles/index.css';
+@import '../../styles/index.css';
 
 .modal-overlay {
   @include flexbox($justifyContent: center, $alignItems: center);

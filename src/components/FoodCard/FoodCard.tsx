@@ -15,7 +15,7 @@ import styles from './FoodCard.module.css';
 
 const cx = classNames.bind(styles);
 
-type DishType = 'wrap' | 'soup' | 'pizza' | 'sandwich' | 'burger' | 'bowl';
+export type DishType = 'wrap' | 'soup' | 'pizza' | 'sandwich' | 'burger' | 'bowl';
 
 interface FoodCardProps {
   vendor: string;
@@ -24,7 +24,7 @@ interface FoodCardProps {
   price: number;
   vegetarian: boolean;
   spicy: boolean;
-  rating: number;
+  rating: number | string;
   dishType: DishType;
   onClick: () => void;
 }

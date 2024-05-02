@@ -1,9 +1,11 @@
 import React, { useReducer } from 'react';
 import classNames from 'classnames/bind';
+import { NavLink } from 'react-router-dom';
 import { Input } from '../../../../components/Input';
 import { Button } from '../../../../components/Button';
 import { useAuth } from '../../../../helpers/AuthContext';
 import { EMAIL_REGEX } from '../../../../constants';
+import { useLogin } from '../../../../hooks/useLogin';
 import styles from './LoginForm.module.css';
 
 const cx = classNames.bind(styles);
@@ -38,14 +40,13 @@ const formReducer = (state: State, action: Action): State => {
 
 export function LoginForm() {
   const { login } = useAuth();
-
+  const { login: loginAction } = useLogin();
   const initialState = {
     email: '',
     password: '',
     emailErrorMsg: '',
     passwordErrorMsg: '',
   };
-
   const [state, dispatch] = useReducer(formReducer, initialState);
   const { email, password, emailErrorMsg, passwordErrorMsg } = state;
 
@@ -64,7 +65,7 @@ export function LoginForm() {
     setPassword(e.target.value);
     setPasswordErrorMsg('');
   };
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!email) {
       setEmailErrorMsg('Please enter your email.');
     } else if (!EMAIL_REGEX.test(email)) {
@@ -72,15 +73,17 @@ export function LoginForm() {
     } else {
       setEmailErrorMsg('');
     }
-
     if (!password) {
       setPasswordErrorMsg('Please enter your password.');
     } else {
       setPasswordErrorMsg('');
     }
-
     if (email && EMAIL_REGEX.test(email) && password) {
-      login();
+      const success = await loginAction(email, password);
+      if (success) {
+        login();
+        <NavLink to="/food-menu" />;
+      }
     }
   };
   return (

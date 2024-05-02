@@ -4,17 +4,27 @@ $sidebar-animation-duration: 300ms;
 
 .sidebar {
   @include flexbox($direction: column);
+  @include box-shadow-m;
 
   background-color: $color-blue-800;
   border-radius: 0 $border-radius-regular $border-radius-regular 0;
   color: $color-white;
-  max-height: 100dvh;
+  height: 100vh;
   padding: calc($spacing-4xs + 2px);
   position: sticky;
   text-align: left;
   top: 0;
+  @include mobile-breakpoint {
+    padding: calc($spacing-4xs + 2px) calc($spacing-5xs + 1px);
+  }
+
+  &.sidebar--collapsed {
+    padding: calc($spacing-4xs + 2px) calc($spacing-5xs + 1px);
+  }
 
   .sidebar__container {
+    @include flexbox($direction: column, $gap: $gap-Xlarge);
+
     transition: $sidebar-animation-duration ease-in-out;
     width: 194px;
 
@@ -22,36 +32,35 @@ $sidebar-animation-duration: 300ms;
       padding: calc($spacing-2xs - 2px);
 
       & .sidebar__logo {
+        @include size(77px, 38px);
+
+        animation: zoom2 $sidebar-animation-duration;
         background-image: url('./../../assets/images/logo/logo-horizontal-large.svg');
         background-position: 50%;
         background-repeat: no-repeat;
         background-size: contain;
-        height: 72px;
+        margin: auto;
         @include mobile-breakpoint {
+          @include size(25.17px, 47.88px);
+
+          background-image: url('./../../assets/images/logo/logo-vertical-small.svg');
+        }
+
+        &.sidebar__logo--collapsed {
+          @include size(25.17px, 47.88px);
+
+          animation: zoom $sidebar-animation-duration;
           background-image: url('./../../assets/images/logo/logo-vertical-small.svg');
         }
       }
     }
 
-    &.sidebar--collapsed {
+    &.sidebar__container--collapsed {
       width: 62px;
-
-      & .sidebar__logo {
-        animation: zoom $sidebar-animation-duration;
-        background-image: url('./../../assets/images/logo/logo-vertical-small.svg');
-      }
-    }
-
-    &.sidebar--expanded .sidebar__logo {
-      animation: zoom2 $sidebar-animation-duration;
     }
 
     @include mobile-breakpoint {
       width: 62px;
-
-      & .sidebar__logo {
-        background-image: url('./../../assets/images/logo/logo-vertical-small.svg');
-      }
     }
   }
 

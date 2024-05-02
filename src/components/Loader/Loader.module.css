@@ -1,6 +1,11 @@
 @import './../../styles/index.css';
 
 $logo-dimensions: 254px;
+$animation-duration: 2s;
+
+@mixin add-opacity-to-background($opacity) {
+  background-color: rgba(255, 208, 167, $opacity);
+}
 
 .loader {
   @include flexbox($alignItems: center, $justifyContent: center);
@@ -15,16 +20,39 @@ $logo-dimensions: 254px;
 
   & .loader__logo {
     @include size($width: $logo-dimensions, $height: $logo-dimensions);
-    @include flexbox($alignItems: center, $justifyContent: center);
 
-    background-color: $color-white;
-    border-radius: $border-radius-circle;
     position: relative;
-    z-index: 102;
+
+    & .loader__background {
+      @include flexbox($alignItems: center, $justifyContent: center);
+
+      animation: pulse 2s infinite ease-in-out;
+      animation-delay: 1s;
+      background-color: $color-white;
+      border-radius: $border-radius-circle;
+      height: 100%;
+      position: absolute;
+      width: 100%;
+      z-index: 102;
+    }
 
     &::before {
-      animation: appear-expand ease-in-out 1s infinite;
-      background-color: $color-;
+      @include add-opacity-to-background(0.1);
+
+      animation: appear-expand ease-in-out $animation-duration infinite;
+      border-radius: $border-radius-circle;
+      content: '';
+      height: 100%;
+      position: absolute;
+      width: 100%;
+      z-index: 101;
+    }
+
+    &::after {
+      @include add-opacity-to-background(0.2);
+
+      animation: appear-expand-secondary ease-in-out $animation-duration infinite;
+      animation-delay: 1s;
       border-radius: $border-radius-circle;
       content: '';
       height: 100%;
@@ -39,9 +67,32 @@ $logo-dimensions: 254px;
   }
 }
 
+@keyframes pulse {
+
+  0% {
+    box-shadow: none;
+  }
+
+  25% {
+    box-shadow: 0 0 $spacing-m 0 rgb(255 208 167);
+  }
+
+  30% {
+    box-shadow: none;
+  }
+
+  100% {
+    box-shadow: none;
+  }
+}
+
 @keyframes appear-expand {
 
   0% {
+    scale: 0;
+  }
+
+  25% {
     scale: 0;
   }
 
@@ -54,10 +105,41 @@ $logo-dimensions: 254px;
   }
 
   90% {
+    opacity: 1;
     scale: 2;
   }
 
   100% {
     opacity: 0;
+    scale: 2;
+  }
+}
+
+@keyframes appear-expand-secondary {
+
+  0% {
+    scale: 0;
+  }
+
+  25% {
+    scale: 1.2;
+  }
+
+  50% {
+    scale: 1.2;
+  }
+
+  65% {
+    opacity: 1;
+    scale: 2;
+  }
+
+  85% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0;
+    scale: 2;
   }
 }

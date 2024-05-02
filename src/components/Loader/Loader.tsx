@@ -8,7 +8,9 @@ export function Loader() {
   return (
     <div className={cx('loader')}>
       <div className={cx('loader__logo')}>
-        <LogoHorizontal />
+        <div className={cx('loader__background')}>
+          <LogoHorizontal />
+        </div>
       </div>
     </div>
   );

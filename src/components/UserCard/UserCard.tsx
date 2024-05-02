@@ -15,17 +15,17 @@ interface UserData {
   surname: string;
   balance: number;
   img: string;
+}
+
+interface UserCardProps {
+  toggleOrderSummary: () => void;
   orders: {
     weekDay: string;
     mealIds: number[];
   }[];
 }
 
-interface UserCardProps {
-  toggleOrderSummary: () => void;
-}
-
-export function UserCard({ toggleOrderSummary }: UserCardProps): ReactElement {
+export function UserCard({ toggleOrderSummary, orders }: UserCardProps): ReactElement {
   const [userData, setUserData] = useState<UserData | null>(null);
   const [showLogoutButton, setShowLogoutButton] = useState(false);
   const [imgLoadError, setImgLoadError] = useState(false);
@@ -43,7 +43,7 @@ export function UserCard({ toggleOrderSummary }: UserCardProps): ReactElement {
     return <div>Loading...</div>;
   }
 
-  const { name, surname, balance, img, orders } = userData;
+  const { name, surname, balance, img } = userData;
   const numberOfOrders = orders.length;
 
   return (

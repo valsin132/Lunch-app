@@ -1,7 +1,5 @@
 @import './../../../styles/index.css';
 
-$max-item-width: 243px;
-
 .order-item {
   @include flexbox($direction: row, $gap: $spacing-4xs);
 
@@ -14,12 +12,21 @@ $max-item-width: 243px;
   }
 
   & .order-item__info {
-    @include flexbox($direction: column);
+    @include flexbox($direction: column, $gap: $spacing-5xs);
 
+    overflow: hidden;
     text-align: left;
     width: 100%;
 
     & .order-item__info-title {
+      @include body-s;
+
+      -webkit-box-orient: vertical;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+    }
+
+    & .order-item__info-vendor {
       @include title-xs;
 
       color: $color-grey-500;
@@ -30,7 +37,7 @@ $max-item-width: 243px;
       @include body-s;
 
       & .order-item__info-body-actions {
-        @include flexbox($direction: column, $alignItems: center);
+        @include flexbox($direction: column, $alignItems: flex-end);
 
         & .order-item__info-body-actions-remove {
           border-radius: $spacing-4xs;

@@ -14,9 +14,11 @@ export function OrderDay({ day, orders }: OrderDayProps) {
   return (
     <article className={cx('order-day')}>
       <h3 className={cx('order-day__header')}>{day[0].toUpperCase() + day.substring(1)}</h3>
-      {orders.map((order) => (
-        <OrderItem day={day} order={order} key={day + order.mealId} />
-      ))}
+      <section className={cx('order-day__orders-container')}>
+        {orders.map((order) => (
+          <OrderItem day={day} order={order} key={day + order.mealId} />
+        ))}
+      </section>
     </article>
   );
 }

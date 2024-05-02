@@ -11,11 +11,15 @@
     text-align: left;
 
     &::after {
+      @include size($height: 1px, $width: 100%);
+
       background-color: $color-grey-200;
       content: '';
       display: inline-block;
-      height: 1px;
-      width: 100%;
     }
+  }
+
+  & .order-day__orders-container {
+    @include flexbox($direction: column, $gap: $spacing-4xs);
   }
 }

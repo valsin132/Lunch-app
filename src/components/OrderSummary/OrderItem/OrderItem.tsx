@@ -26,9 +26,9 @@ export function OrderItem({ day, order }: OrderItemProps) {
         />
       </div>
       <div className={cx('order-item__info')}>
-        <span className={cx('order-item__info-title')}>{order.vendor}</span>
+        <span className={cx('order-item__info-vendor')}>{order.vendor}</span>
         <div className={cx('order-item__info-body')}>
-          <span>{order.title}</span>
+          <span className={cx('order-item__info-title')}>{order.title}</span>
           <div className={cx('order-item__info-body-actions')}>
             <span className={cx('order-item__info-body-actions-price')}>
               {order.price.toFixed(2)}

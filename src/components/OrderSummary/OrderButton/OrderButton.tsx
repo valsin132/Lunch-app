@@ -13,57 +13,58 @@ type OrderButtonProps = {
 const timeToHoldInSeconds = 1;
 
 export function OrderButton({ onSubmit, isDisabled }: OrderButtonProps) {
-  const [isBought, setIsBougth] = useState(false);
-  const [isHeld, setIsHeld] = useState(false);
+  const [isOrderConfirmed, setIsOrderConfirmed] = useState(false);
+  const [isConfirmOrderHeld, setIsConfirmOrderHeld] = useState(false);
 
   const holdTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const backgroundElementRef = useRef<HTMLDivElement>(null);
   const buttonElementRef = useRef<HTMLButtonElement>(null);
 
+  // used to set button states to default when order context is empty
   useEffect(() => {
     if (isDisabled) {
-      setIsBougth(false);
-      setIsHeld(false);
-      if (holdTimeoutRef.current) clearTimeout(holdTimeoutRef.current);
+      setIsOrderConfirmed(false);
+      setIsConfirmOrderHeld(false);
     }
   }, [isDisabled]);
 
   const handlePointerDown = () => {
-    if (isDisabled || isBought) return;
-    setIsHeld(true);
-    let modifier = 1;
+    if (isDisabled || isOrderConfirmed) return;
+    setIsConfirmOrderHeld(true);
+    let currentHoldProgress = 1;
     if (backgroundElementRef.current && buttonElementRef.current) {
-      modifier =
+      currentHoldProgress =
         1 - backgroundElementRef.current.offsetWidth / buttonElementRef.current.offsetWidth;
     }
     holdTimeoutRef.current = setTimeout(
       () => {
-        setIsBougth(true);
+        setIsOrderConfirmed(true);
         onSubmit();
       },
-      timeToHoldInSeconds * 1000 * modifier
+      timeToHoldInSeconds * 1000 * currentHoldProgress
     );
   };
 
   const handlePointerUp = () => {
-    if (isDisabled || isBought) return;
-    setIsHeld(false);
+    if (isDisabled || isOrderConfirmed) return;
+    setIsConfirmOrderHeld(false);
     if (holdTimeoutRef.current) clearTimeout(holdTimeoutRef.current);
   };
 
   return (
     <button
       className={cx('buy-button', {
-        'buy-button--held': isHeld,
-        'buy-button--bought': isBought && !isDisabled,
+        'buy-button--held': isConfirmOrderHeld,
+        'buy-button--bought': isOrderConfirmed,
       })}
       disabled={isDisabled}
       type="button"
       onPointerDown={handlePointerDown}
       onPointerUp={handlePointerUp}
+      onPointerLeave={handlePointerUp}
       ref={buttonElementRef}>
       <div className={cx('buy-button__background')} ref={backgroundElementRef} />
-      {!isBought || isDisabled ? (
+      {!isOrderConfirmed ? (
         <span>Press & Hold to Send</span>
       ) : (
         <>

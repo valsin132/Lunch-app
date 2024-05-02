@@ -1,7 +1,6 @@
 @import './../../../styles/index.css';
 
 $transition-duration: 0.2s;
-$button-width: 243px;
 
 .buy-button {
   @include label-s;
@@ -9,14 +8,11 @@ $button-width: 243px;
 
   border: 2px solid $color-green-400;
   border-radius: $border-radius-extra-large;
-  height: 48px;
+  min-height: 48px;
+  min-width: 243px;
   overflow: hidden;
-  padding: $spacing-5xs;
   position: relative;
-  transition-duration: $transition-duration;
-  transition-property: color;
-  transition-timing-function: linear;
-  width: $button-width;
+  transition: $transition-duration color linear;
   z-index: 1;
 
   & .buy-button__background {
@@ -42,7 +38,7 @@ $button-width: 243px;
     color: $color-white;
 
     & svg {
-      @include size($width: calc($spacing-2xs + 2px), $height: calc($spacing-2xs + 2px));
+      @include size($width: 18px, $height: 18px);
 
       path {
         animation-duration: $transition-duration;

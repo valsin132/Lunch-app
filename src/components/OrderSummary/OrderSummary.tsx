@@ -41,7 +41,10 @@ export function OrderSummary({ visibilityHandler }: OrderSummaryProps) {
     <aside className={cx('order-summary')}>
       <Card spacing="xs" shadow="s" roundedCorners="left">
         <div className={cx('order-summary__content-wrapper')}>
-          <div className={cx('order-summary__wrapper')}>
+          <div
+            className={cx('order-summary__wrapper', {
+              'order-summary__wrapper--empty': isOrderCartEmpty,
+            })}>
             <div className={cx('order-summary__header')}>
               <h2>Order Summary</h2>
               <button
@@ -53,9 +56,7 @@ export function OrderSummary({ visibilityHandler }: OrderSummaryProps) {
               </button>
             </div>
             <section className={cx('order-summary__orders-wrapper')}>
-              {isOrderCartEmpty ? (
-                <EmptyCart />
-              ) : (
+              {!isOrderCartEmpty ? (
                 orderSummaryContext.orders.map((ordersForDay) => (
                   <OrderDay
                     day={ordersForDay.day}
@@ -63,6 +64,8 @@ export function OrderSummary({ visibilityHandler }: OrderSummaryProps) {
                     key={ordersForDay.day}
                   />
                 ))
+              ) : (
+                <EmptyCart />
               )}
             </section>
           </div>
@@ -86,7 +89,8 @@ export function OrderSummary({ visibilityHandler }: OrderSummaryProps) {
           dialogType="success"
           primaryButtonLabel="Cool, Thanks!"
           setIsOpen={setIsConfirmationDialogOpen}
-          onClick={handleOrderSubmit}>
+          onClick={handleOrderSubmit}
+          onClose={handleOrderSubmit}>
           <p>
             Order has been placed successfully.
             <br />

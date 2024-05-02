@@ -5,12 +5,21 @@ $max-height-until-scroll: 609px;
   text-align: center;
 
   & .order-summary__content-wrapper {
-    @include flexbox($direction: column, $gap: $spacing-s);
+    @include flexbox($direction: column, $gap: $spacing-s, $justifyContent: space-between);
+
+    max-width: 243px;
+    min-height: 434px;
 
     & .order-summary__wrapper {
-      @include flexbox($direction: column, $gap: $spacing-s);
+      @include flexbox($direction: column, $gap: $spacing-s, $justifyContent: flex-start);
 
+      flex: 1;
       max-height: $max-height-until-scroll;
+      position: relative;
+
+      &.order-summary__wrapper--empty {
+        justify-content: space-between;
+      }
 
       &::after {
         background-color: $color-grey-200;
@@ -20,8 +29,14 @@ $max-height-until-scroll: 609px;
         width: 100%;
       }
 
+      &:not(&.order-summary__wrapper--empty)::after {
+        bottom: 0;
+        left: 0;
+        position: absolute;
+      }
+
       & .order-summary__orders-wrapper {
-        @include flexbox($direction: column, $gap: $spacing-4xs);
+        @include flexbox($direction: column, $gap: $spacing-2xs);
 
         overflow-y: scroll;
         scrollbar-width: none;

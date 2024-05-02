@@ -16,6 +16,7 @@ import ErrorOutlinedIcon from '../assets/images/icons/error-outlined.svg?react';
 import GradingIcon from '../assets/images/icons/grading.svg?react';
 import InfoOutlinedIcon from '../assets/images/icons/info-outlined.svg?react';
 import LinkIcon from '../assets/images/icons/link.svg?react';
+import Logout from '../assets/images/icons/logout.svg?react';
 import MenuIcon from '../assets/images/icons/menu.svg?react';
 import PlantIcon from '../assets/images/icons/plant.svg?react';
 import RestartIcon from '../assets/images/icons/restart.svg?react';
@@ -26,6 +27,7 @@ import StartFilledCircleIcon from '../assets/images/icons/star-circle-filled.svg
 import StarFullIcon from '../assets/images/icons/star-full.svg?react';
 import StarHalfFullIcon from '../assets/images/icons/star-half-full.svg?react';
 import StarEmptyIcon from '../assets/images/icons/start-empty.svg?react';
+import UserProfile from '../assets/images/icons/user-profile.svg?react';
 
 export {
   LogoHorizontal,
@@ -44,6 +46,7 @@ export {
   GradingIcon,
   InfoOutlinedIcon,
   LinkIcon,
+  Logout,
   MenuIcon,
   PlantIcon,
   RestartIcon,
@@ -54,4 +57,5 @@ export {
   StarFullIcon,
   StarHalfFullIcon,
   StarEmptyIcon,
+  UserProfile,
 };

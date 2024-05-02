@@ -1,0 +1,153 @@
+@import './../../styles/index.css';
+
+$logout-animation-duration: 300ms;
+
+.user-card__layout {
+  @include flexbox($direction: column, $gap: $gap-medium);
+
+  min-width: 251px;
+}
+
+& .user-card__header {
+  @include flexbox($alignItems: center, $gap: $gap-compact: );
+
+  & .user-card__avatar-container {
+    @include flexbox($justifyContent: center, $alignItems: center);
+
+    position: relative;
+
+    & .user-card__avatar {
+      @include size(32px, 32px);
+
+      border-radius: $border-radius-circle;
+      object-fit: cover;
+    }
+
+    & p {
+      @include title-s;
+
+      color: $text-color-blue;
+    }
+
+    & .user-card__button-arrow {
+      left: 60%;
+      position: absolute;
+      top: 60%;
+
+      & .user-card__button-icon {
+        @include size(20px, 20px);
+
+        background-color: $color-blue-800;
+        border: solid 1.5px $color-white;
+        border-radius: $border-radius-circle;
+        position: relative;
+        transition: $logout-animation-duration ease-in-out;
+
+        & path {
+          fill: $color-white;
+        }
+      }
+
+      & .user-card__button-icon-rotated {
+        transform: rotate(0.5turn);
+      }
+
+      & .user-card__logout-button {
+        animation: dissolve $logout-animation-duration ease-in-out;
+        background-color: $color-white;
+        border-radius: $border-radius-small;
+        box-shadow: inset 0 0 0 1px $color-grey-200;
+        min-width: 183px;
+        padding: $spacing-5xs 0;
+        position: absolute;
+        right: 0;
+        top: 25px;
+        z-index: 2;
+
+        &:hover {
+          background-color: $color-purple-200;
+        }
+
+        &.user-card__logout-icon {
+          @include size(20px, 20px);
+        }
+      }
+
+      & .user-card__logout-text {
+        @include flexbox($direction: row, $alignItems: center, $gap: $spacing-4xs);
+        @include title-s;
+
+        padding: calc($spacing-4xs - 2px) $spacing-2xs;
+      }
+    }
+  }
+}
+
+& .user-card__content {
+  @include flexbox($justifyContent: space-between, $alignItems: center);
+
+  & .user-card__content-balance {
+    @include flexbox($justifyContent: center, $alignItems: center, $gap: $gap-2Xlarge);
+
+    border-right: 1px solid $color-grey-200;
+    padding-right: $spacing-2xs;
+
+    & span {
+      @include title-m;
+
+      color: $text-color-blue;
+    }
+  }
+
+  & .user_card__orders-button-wrapper {
+    @include flexbox($justifyContent: space-around, $alignItems: center);
+
+    width: 100%;
+
+    & .user-card__number-of-orders {
+      @include flexbox($justifyContent: center, $alignItems: center);
+      @include size(32px, 32px);
+
+      border-radius: $border-radius-regular;
+      box-shadow: inset 0 0 0 1px $color-orange-300;
+      padding: $spacing-5xs;
+      position: relative;
+    }
+
+    & .user-card__shopping-basket-icon {
+      @include size(18px, 18px);
+    }
+
+    & .user-card__badge {
+      @include size(20px, 20px);
+
+      border: solid 1.5px $color-white;
+      border-radius: $border-radius-circle;
+      left: 70%;
+      position: absolute;
+      top: 70%;
+    }
+  }
+}
+
+@keyframes dissolve {
+
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes dissolve2 {
+
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}

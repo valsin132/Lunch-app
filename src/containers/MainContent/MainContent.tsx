@@ -18,25 +18,12 @@ export function MainContent() {
         throw new Error(`An error occurred while fetching user data: ${error}`);
       });
   }, []);
-  const testDataOrderSummary = [
-    {
-      weekDay: 'Monday',
-      mealIds: [6, 3],
-    },
-    {
-      weekDay: 'Monday',
-      mealIds: [6, 3],
-    },
-  ];
   return (
     <>
       <Sidebar />
       <Outlet />
       <header>
-        <UserCard
-          toggleOrderSummary={() => setIsOrderSummaryVisible(true)}
-          orders={testDataOrderSummary}
-        />
+        <UserCard toggleOrderSummary={() => setIsOrderSummaryVisible(true)} />
       </header>
     </>
   );

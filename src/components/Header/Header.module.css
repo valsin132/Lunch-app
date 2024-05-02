@@ -1,0 +1,15 @@
+@import '../../styles/index.css';
+
+.header {
+  @include flexbox($direction: column, $gap: $gap-regular);
+
+  color: $color-blue-600;
+
+  & .header__title {
+    @include headline-l;
+  }
+
+  & .header__subtitle {
+    @include title-l;
+  }
+}

@@ -39,12 +39,12 @@ export function UserCard({ toggleOrderSummary }: UserCardProps): ReactElement {
     }
   }, []);
 
-  const { name, surname, balance, img, orders } = userData!;
-  const numberOfOrders = orders.length;
-
   if (!userData) {
     return <div>Loading...</div>;
   }
+  const { name, surname, balance, img, orders } = userData!;
+  const numberOfOrders = orders.length;
+
   return (
     <Card spacing="2xs" shadow="s" roundedCorners="left" isNoBorder>
       <div className={cx('user-card__layout')}>

@@ -38,17 +38,17 @@ const getIcon = (iconType: IconType): ReactElement | null => {
       return null;
   }
 };
+const navigationItems: NavigationItem[] = [
+  { title: 'Food Menu', iconType: 'foodMenu', route: MAIN_PAGES_ROUTES.FoodMenu },
+  {
+    title: 'Available Lunch',
+    iconType: 'availableLunch',
+    route: MAIN_PAGES_ROUTES.AvailableLunch,
+  },
+  { title: 'Your Orders', iconType: 'yourOrder', route: MAIN_PAGES_ROUTES.YourOrders },
+  { title: 'Ratings', iconType: 'ratings', route: MAIN_PAGES_ROUTES.Ratings },
+];
 export function Navigation({ isExpanded }: NavProps): ReactElement {
-  const navigationItems: NavigationItem[] = [
-    { title: 'Food Menu', iconType: 'foodMenu', route: MAIN_PAGES_ROUTES.FoodMenu },
-    {
-      title: 'Available Lunch',
-      iconType: 'availableLunch',
-      route: MAIN_PAGES_ROUTES.AvailableLunch,
-    },
-    { title: 'Your Orders', iconType: 'yourOrder', route: MAIN_PAGES_ROUTES.YourOrders },
-    { title: 'Ratings', iconType: 'ratings', route: MAIN_PAGES_ROUTES.Ratings },
-  ];
   return (
     <nav className={cx('navigation')}>
       <ul>

@@ -4,6 +4,7 @@ $sidebar-animation-duration: 300ms;
 
 .sidebar {
   @include flexbox($direction: column);
+  @include box-shadow-m;
 
   background-color: $color-blue-800;
   border-radius: 0 $border-radius-regular $border-radius-regular 0;

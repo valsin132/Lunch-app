@@ -17,7 +17,6 @@ interface ModalProps {
   secondaryButtonLabel?: string;
   setIsOpenModal: (isOpenModal: boolean) => void;
   onClick: () => void;
-  onClose?: () => void;
 }
 
 export function Modal({
@@ -28,12 +27,7 @@ export function Modal({
   secondaryButtonLabel,
   onClick,
   setIsOpenModal,
-  onClose,
 }: ModalProps): ReactElement {
-  const handleClose = () => {
-    setIsOpenModal(false);
-    if (onClose) onClose();
-  };
   return (
     <div className={cx('modal-overlay')}>
       <Card isNoBorder>
@@ -41,7 +35,11 @@ export function Modal({
           <div className={cx('modal__header')}>
             <p>{title}</p>
             <div className={cx('modal__close')}>
-              <CloseIcon onClick={handleClose} />
+              <CloseIcon
+                onClick={() => {
+                  setIsOpenModal(false);
+                }}
+              />
             </div>
           </div>
           {children}

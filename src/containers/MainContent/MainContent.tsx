@@ -11,19 +11,19 @@ export function MainContent() {
   return (
     <>
       <Sidebar />
-      <Outlet />
-      {isOrderSummaryVisible && (
-        <OrderSummaryProvider>
+      <OrderSummaryProvider>
+        <Outlet />
+        {isOrderSummaryVisible && (
           <OrderSummary
             visibilityHandler={() => {
               setIsOrderSummaryVisible(false);
             }}
           />
-        </OrderSummaryProvider>
-      )}
-      <header>
-        <UserCard toggleOrderSummary={() => alert('close order summary')} />
-      </header>
+        )}
+        <header>
+          <UserCard toggleOrderSummary={() => alert('close order summary')} />
+        </header>
+      </OrderSummaryProvider>
     </>
   );
 }

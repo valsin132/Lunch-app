@@ -16,7 +16,6 @@ interface DialogProps {
   children: ReactNode;
   setIsOpen: (isOpen: boolean) => void;
   onClick: () => void;
-  onClose?: () => void;
 }
 
 const getSupportingIllustration = (dialogType: DialogTypes): string => {
@@ -40,7 +39,6 @@ export function Dialog({
   onClick,
   setIsOpen,
   children,
-  onClose,
 }: DialogProps): ReactElement {
   return (
     <div className={cx('dialog')}>
@@ -50,8 +48,7 @@ export function Dialog({
         secondaryButtonLabel={secondaryButtonLabel}
         modalSize="xs"
         onClick={onClick}
-        setIsOpenModal={setIsOpen}
-        onClose={onClose}>
+        setIsOpenModal={setIsOpen}>
         <div className={cx('dialog__picture-and-content')}>
           <div className={cx('dialog__img-container')}>
             <img

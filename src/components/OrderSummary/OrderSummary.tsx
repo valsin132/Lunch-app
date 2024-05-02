@@ -32,14 +32,15 @@ export function OrderSummary({ visibilityHandler }: OrderSummaryProps) {
 
   const totalPrice = calculateTotalPrice();
 
-  const handleOrderSubmit = () => {
-    orderSummaryContext.modifyOrders({ action: 'CLEAR_ORDERS' });
-    setIsConfirmationDialogOpen(false);
+  const handleModelVisibility = (isDialogOpen: boolean) => {
+    setIsConfirmationDialogOpen(isDialogOpen);
+    if (!isDialogOpen) {
+      orderSummaryContext.modifyOrders({ action: 'CLEAR_ORDERS' });
+    }
   };
-
   return (
     <aside className={cx('order-summary')}>
-      <Card spacing="xs" shadow="s" roundedCorners="left">
+      <Card spacing="none" shadow="s" roundedCorners="left" isNoBorder>
         <div className={cx('order-summary__content-wrapper')}>
           <div
             className={cx('order-summary__wrapper', {
@@ -88,9 +89,10 @@ export function OrderSummary({ visibilityHandler }: OrderSummaryProps) {
           dialogHeaderTitle="We've got your lunch order!"
           dialogType="success"
           primaryButtonLabel="Cool, Thanks!"
-          setIsOpen={setIsConfirmationDialogOpen}
-          onClick={handleOrderSubmit}
-          onClose={handleOrderSubmit}>
+          setIsOpen={handleModelVisibility}
+          onClick={() => {
+            handleModelVisibility(false);
+          }}>
           <p>
             Order has been placed successfully.
             <br />

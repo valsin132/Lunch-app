@@ -14,7 +14,6 @@
   & .order-item__info {
     @include flexbox($direction: column, $gap: $spacing-5xs);
 
-    overflow: hidden;
     text-align: left;
     width: 100%;
 
@@ -23,7 +22,9 @@
 
       -webkit-box-orient: vertical;
       display: -webkit-box;
-      -webkit-line-clamp: 3;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+      word-break: break-all;
     }
 
     & .order-item__info-vendor {
@@ -33,11 +34,11 @@
     }
 
     & .order-item__info-body {
-      @include flexbox($justifyContent: space-between, $gap: $spacing-5xs);
+      @include flexbox($justifyContent: space-between, $alignItems: flex-start, $gap: $spacing-5xs);
       @include body-s;
 
       & .order-item__info-body-actions {
-        @include flexbox($direction: column, $alignItems: flex-end);
+        @include flexbox($direction: column, $alignItems: flex-end, $gap: $spacing-5xs);
 
         & .order-item__info-body-actions-remove {
           border-radius: $spacing-4xs;

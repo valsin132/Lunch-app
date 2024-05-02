@@ -1,20 +1,22 @@
 @import './../../styles/index.css';
-$max-height-until-scroll: 609px;
 
 .order-summary {
+  height: fit-content;
   text-align: center;
 
   & .order-summary__content-wrapper {
     @include flexbox($direction: column, $gap: $spacing-s, $justifyContent: space-between);
 
-    max-width: 243px;
+    box-shadow: inset 0 0 0 1px $color-grey-100;
     min-height: 434px;
+    min-width: 283px;
+    padding: $spacing-xs;
 
     & .order-summary__wrapper {
       @include flexbox($direction: column, $gap: $spacing-s, $justifyContent: flex-start);
 
       flex: 1;
-      max-height: $max-height-until-scroll;
+      max-height: 609px;
       position: relative;
 
       &.order-summary__wrapper--empty {
@@ -67,7 +69,7 @@ $max-height-until-scroll: 609px;
       & .order-summary__price-wrapper {
         @include flexbox($direction: column, $alignItems: flex-end);
 
-        padding: 0 $spacing-s 0 $spacing-s;
+        padding: 0 $spacing-2xs;
 
         & .order-summary__price-title {
           @include title-s;

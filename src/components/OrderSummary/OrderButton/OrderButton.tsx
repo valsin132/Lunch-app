@@ -55,7 +55,7 @@ export function OrderButton({ onSubmit, isDisabled }: OrderButtonProps) {
     <button
       className={cx('buy-button', {
         'buy-button--held': isConfirmOrderHeld,
-        'buy-button--bought': isOrderConfirmed,
+        'buy-button--order-confirmed': isOrderConfirmed,
       })}
       disabled={isDisabled}
       type="button"

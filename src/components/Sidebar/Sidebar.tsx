@@ -1,27 +1,36 @@
 import classNames from 'classnames/bind';
 import { useState } from 'react';
 import { ChevronIcon } from '../../utils/iconManager';
+import { Navigation } from './Navigation';
 import styles from './Sidebar.module.css';
 
 const cx = classNames.bind(styles);
 
 export function Sidebar() {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(true);
 
   const handleExpand = () => {
     setIsExpanded(!isExpanded);
   };
 
   return (
-    <aside id="sidebar-nav" className={cx('sidebar')}>
+    <aside
+      id="sidebar-nav"
+      className={cx('sidebar', {
+        'sidebar--collapsed': !isExpanded,
+      })}>
       <div
         className={cx('sidebar__container', {
-          'sidebar--collapsed': !isExpanded,
-          'sidebar--expanded': isExpanded,
+          'sidebar__container--collapsed': !isExpanded,
         })}>
         <div className={cx('sidebar__logo-wrapper')}>
-          <div className={cx('sidebar__logo')} />
+          <div
+            className={cx('sidebar__logo', {
+              'sidebar__logo--collapsed': !isExpanded,
+            })}
+          />
         </div>
+        <Navigation isExpanded={isExpanded} />
       </div>
       <button
         className={cx('sidebar__expand-btn')}

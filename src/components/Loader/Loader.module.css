@@ -13,11 +13,12 @@ $animation-duration: 2s;
   height: 100%;
   left: 0;
   opacity: 1;
+  overflow: hidden;
   position: absolute;
   top: 0;
-  transition: $animation-duration opacity;
+  transition: 500ms opacity;
   width: 100%;
-  z-index: 100;
+  z-index: 10;
 
   &.loader--hidden {
     opacity: 0;

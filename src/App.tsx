@@ -9,7 +9,6 @@ import { MainContent } from './containers/MainContent';
 import { ProtectedRoute } from './containers/ProtectedRoute';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { useAuth, AuthProvider } from './helpers/AuthContext';
-import { Loader } from './components/Loader';
 
 function AppRoutes() {
   const { isLogged } = useAuth();
@@ -35,7 +34,6 @@ function AppRoutes() {
 export function App() {
   return (
     <BrowserRouter>
-      <Loader />
       <AuthProvider>
         <AppRoutes />
       </AuthProvider>

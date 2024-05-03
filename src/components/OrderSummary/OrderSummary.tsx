@@ -15,6 +15,7 @@ type OrderSummaryProps = {
   visibilityHandler: () => void;
 };
 
+// eslint-disable-next-line max-lines-per-function
 export function OrderSummary({ visibilityHandler }: OrderSummaryProps) {
   const [isConfirmationDialogOpen, setIsConfirmationDialogOpen] = useState(false);
   const orderSummaryContext = useOrderSummary();
@@ -32,7 +33,7 @@ export function OrderSummary({ visibilityHandler }: OrderSummaryProps) {
 
   const totalPrice = calculateTotalPrice();
 
-  const handleModelVisibility = (isDialogOpen: boolean) => {
+  const handleOrderSubmit = (isDialogOpen: boolean) => {
     setIsConfirmationDialogOpen(isDialogOpen);
     if (!isDialogOpen) {
       orderSummaryContext.modifyOrders({ action: 'CLEAR_ORDERS' });
@@ -89,9 +90,9 @@ export function OrderSummary({ visibilityHandler }: OrderSummaryProps) {
           dialogHeaderTitle="We've got your lunch order!"
           dialogType="success"
           primaryButtonLabel="Cool, Thanks!"
-          setIsOpen={handleModelVisibility}
+          setIsOpen={handleOrderSubmit}
           onClick={() => {
-            handleModelVisibility(false);
+            handleOrderSubmit(false);
           }}>
           <p>
             Order has been placed successfully.

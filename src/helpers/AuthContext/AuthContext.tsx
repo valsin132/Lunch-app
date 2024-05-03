@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode, useMemo } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useMemo, useEffect } from 'react';
 
 interface AuthContextType {
   isLogged: boolean;
@@ -21,7 +21,23 @@ export const useAuth = (): AuthContextType => {
 };
 
 export function AuthProvider({ children }: AuthProviderProps) {
-  const [isLogged, setIsLogged] = useState(false);
+  const [isLogged, setIsLogged] = useState(() => {
+    const user = localStorage.getItem('userData');
+    return !!user;
+  });
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const user = localStorage.getItem('userData');
+      setIsLogged(!!user);
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
 
   const login = () => {
     setIsLogged(true);
@@ -29,6 +45,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const logout = () => {
     setIsLogged(false);
+    localStorage.removeItem('userData');
   };
 
   const authContextValue = useMemo(() => ({ isLogged, login, logout }), [isLogged]);

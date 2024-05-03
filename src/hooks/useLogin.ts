@@ -1,43 +1,43 @@
 import { useState } from 'react';
 import { useFetchData } from './useFetchData';
 
-interface UserProps {
+interface User {
   email: string;
   password: string;
   name: string;
   surname: string;
   balance: number;
   img: string;
-  orders: string[];
-  orderhistory: string[];
+  orders: {
+    weekDay: string;
+    mealIds: number[];
+  }[];
 }
 
 export const useLogin = () => {
-  const { data: userData } = useFetchData<UserProps>('http://localhost:3002/user');
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const { data: userData } = useFetchData<User>('http://localhost:3002/user');
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState<string>('');
 
   const login = async (email: string, password: string) => {
-    setLoading(true);
-    setError(null);
+    setIsLoading(true);
+    setIsError('');
 
     try {
       if (userData?.email === email && userData?.password === password) {
-        localStorage.setItem('user', JSON.stringify(userData));
-
-        setLoading(false);
+        localStorage.setItem('userData', JSON.stringify(userData));
+        setIsLoading(false);
         return true;
       }
-
-      setError('Invalid email or password. Please try again.');
-      setLoading(false);
+      setIsError('Incorrect email or password. Please try again.');
+      setIsLoading(false);
       return false;
-    } catch (_error) {
-      setError('Login failed. Please try again later.');
-      setLoading(false);
+    } catch (_isError) {
+      setIsError('Login failed. Please try again later.');
+      setIsLoading(false);
       return false;
     }
   };
 
-  return { login, loading, error };
+  return { login, isLoading, isError };
 };

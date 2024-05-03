@@ -15,7 +15,6 @@ type OrderSummaryProps = {
   visibilityHandler: () => void;
 };
 
-// eslint-disable-next-line max-lines-per-function
 export function OrderSummary({ visibilityHandler }: OrderSummaryProps) {
   const [isConfirmationDialogOpen, setIsConfirmationDialogOpen] = useState(false);
   const orderSummaryContext = useOrderSummary();

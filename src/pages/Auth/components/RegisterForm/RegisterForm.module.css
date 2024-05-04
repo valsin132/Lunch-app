@@ -1,7 +1,7 @@
 @import '../../../../styles/index.css';
 
 .register-form {
-  @include flexbox($justifyContent: center, $direction: column, $gap: $gap-6Xlarge);
+  @include flexbox($direction: column, $gap: $gap-6Xlarge);
 
   & .register-form__container {
     @include flexbox($direction: column, $gap: $gap-2Xlarge);
@@ -26,10 +26,6 @@
       @include flexbox($direction: column, $gap: $gap-Xlarge);
 
       min-width: 343px;
-
-      & .register-form__input-container {
-        @include flexbox($direction: column, $gap: $gap-small);
-      }
     }
 
     & .register-form__input-checkbox {

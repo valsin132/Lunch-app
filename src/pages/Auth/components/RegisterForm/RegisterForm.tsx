@@ -1,4 +1,4 @@
-import { useReducer } from 'react';
+import { useReducer, useState } from 'react';
 import classNames from 'classnames/bind';
 import { Input } from '../../../../components/Input';
 import { Checkbox } from '../../../../components/Checkbox';
@@ -13,7 +13,7 @@ interface State {
   userName: string;
   createPassword: string;
   repeatPassword: string;
-  communityRules: string;
+  communityRules: boolean;
   emailErrorMsg: string;
   userNameErrorMsg: string;
   createPasswordErrorMsg: string;
@@ -26,7 +26,6 @@ type Action =
   | { type: 'SET_USER_NAME'; payload: string }
   | { type: 'SET_CREATE_PASSWORD'; payload: string }
   | { type: 'SET_REPEAT_PASSWORD'; payload: string }
-  | { type: 'SET_COMMUNITY_RULES'; payload: string }
   | { type: 'SET_EMAIL_ERROR_MSG'; payload: string }
   | { type: 'SET_USER_NAME_ERROR_MSG'; payload: string }
   | { type: 'SET_CREATE_PASSWORD_ERROR_MSG'; payload: string }
@@ -43,8 +42,6 @@ const formReducer = (state: State, action: Action): State => {
       return { ...state, createPassword: action.payload };
     case 'SET_REPEAT_PASSWORD':
       return { ...state, repeatPassword: action.payload };
-    case 'SET_COMMUNITY_RULES':
-      return { ...state, communityRules: action.payload };
     case 'SET_EMAIL_ERROR_MSG':
       return { ...state, emailErrorMsg: action.payload };
     case 'SET_USER_NAME_ERROR_MSG':
@@ -61,16 +58,16 @@ const formReducer = (state: State, action: Action): State => {
 };
 
 interface RegisterProps {
-  handleLogin: () => void;
+  handleSuccesfulRegistration: () => void;
 }
 
-export function RegisterForm({ handleLogin }: RegisterProps) {
+export function RegisterForm({ handleSuccesfulRegistration }: RegisterProps) {
   const initialState = {
     email: '',
     userName: '',
     createPassword: '',
     repeatPassword: '',
-    communityRules: '',
+    communityRules: false,
     emailErrorMsg: '',
     userNameErrorMsg: '',
     createPasswordErrorMsg: '',
@@ -91,104 +88,78 @@ export function RegisterForm({ handleLogin }: RegisterProps) {
     repeatPasswordErrorMsg,
     communityRulesErrorMsg,
   } = state;
-
-  const setEmail = (value: string) => dispatch({ type: 'SET_EMAIL', payload: value });
-  const setUserName = (value: string) => dispatch({ type: 'SET_USER_NAME', payload: value });
-  const setCreatePassword = (value: string) =>
-    dispatch({ type: 'SET_CREATE_PASSWORD', payload: value });
-  const setRepeatPassword = (value: string) =>
-    dispatch({ type: 'SET_REPEAT_PASSWORD', payload: value });
-  const setCommunityRules = (value: string) =>
-    dispatch({ type: 'SET_COMMUNITY_RULES', payload: value });
-  const setEmailErrorMsg = (value: string) =>
-    dispatch({ type: 'SET_EMAIL_ERROR_MSG', payload: value });
-  const setUserNameErrorMsg = (value: string) =>
-    dispatch({ type: 'SET_USER_NAME_ERROR_MSG', payload: value });
-  const setCreatePasswordErrorMsg = (value: string) =>
-    dispatch({ type: 'SET_CREATE_PASSWORD_ERROR_MSG', payload: value });
-  const setRepeatPasswordErrorMsg = (value: string) =>
-    dispatch({ type: 'SET_REPEAT_PASSWORD_ERROR_MSG', payload: value });
-  const setCommunityRulesErrorMsg = (value: string) =>
-    dispatch({ type: 'SET_COMMUNITY_RULES_ERROR_MSG', payload: value });
-
+  const setReducerState = (type: Action['type'], value: string) =>
+    dispatch({ type, payload: value });
+  const [isRulesChecked, setIsRulesChecked] = useState(communityRules);
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-    setEmailErrorMsg('');
+    setReducerState('SET_EMAIL', e.target.value);
+    setReducerState('SET_EMAIL_ERROR_MSG', '');
   };
   const handleUserNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserName(e.target.value);
-    setUserNameErrorMsg('');
+    setReducerState('SET_USER_NAME', e.target.value);
+    setReducerState('SET_USER_NAME_ERROR_MSG', '');
   };
   const handleCreatePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCreatePassword(e.target.value);
-    setCreatePasswordErrorMsg('');
+    setReducerState('SET_CREATE_PASSWORD', e.target.value);
+    setReducerState('SET_CREATE_PASSWORD_ERROR_MSG', '');
   };
   const handleReapeatPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setRepeatPassword(e.target.value);
-    setRepeatPasswordErrorMsg('');
+    setReducerState('SET_REPEAT_PASSWORD', e.target.value);
+    setReducerState('SET_REPEAT_PASSWORD_ERROR_MSG', '');
   };
-  const handleCommunityRulesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCommunityRules(e.target.value);
-    setCommunityRulesErrorMsg('');
-  };
-  const handleCreatePasswordCharacters = () => {
-    if (!PASSWORD_REGEX.test(createPassword)) {
-      setCreatePasswordErrorMsg(
-        'Password must contain minimum 8 characters, at least one uppercase letter, one lowercase letter and one number.'
-      );
-    } else {
-      setCreatePasswordErrorMsg('');
-    }
-    if (!PASSWORD_REGEX.test(repeatPassword)) {
-      setRepeatPasswordErrorMsg(
-        'Password must contain minimum 8 characters, at least one uppercase letter, one lowercase letter and one number.'
-      );
-    } else {
-      setRepeatPasswordErrorMsg('');
-    }
-    if (createPassword !== repeatPassword && repeatPassword !== '') {
-      setRepeatPasswordErrorMsg("Password doesn't match. Please check it.");
-    } else {
-      setRepeatPasswordErrorMsg('');
-    }
+  const handleCommunityRulesChange = () => {
+    setIsRulesChecked(!isRulesChecked);
   };
   const handleRegister = () => {
-    if (!email) {
-      setEmailErrorMsg('Please enter your email.');
-    } else if (!EMAIL_REGEX.test(email)) {
-      setEmailErrorMsg('Invalid email address');
+    if (isRulesChecked) {
+      setReducerState('SET_COMMUNITY_RULES_ERROR_MSG', 'Please accept the rules.');
     } else {
-      setEmailErrorMsg('');
+      setReducerState('SET_COMMUNITY_RULES_ERROR_MSG', '');
+    }
+    if (!email) {
+      setReducerState('SET_EMAIL_ERROR_MSG', 'Please enter your email.');
+    } else if (!EMAIL_REGEX.test(email)) {
+      setReducerState('SET_EMAIL_ERROR_MSG', 'Invalid email address.');
+    } else {
+      setReducerState('SET_EMAIL_ERROR_MSG', '');
     }
     if (!userName) {
-      setUserNameErrorMsg('Please enter your user name.');
+      setReducerState('SET_USER_NAME_ERROR_MSG', 'Please enter your user name.');
     } else {
-      setUserNameErrorMsg('');
+      setReducerState('SET_USER_NAME_ERROR_MSG', '');
     }
     if (!createPassword) {
-      setCreatePasswordErrorMsg('Please enter your password.');
+      setReducerState('SET_CREATE_PASSWORD_ERROR_MSG', 'Please enter your password.');
+    } else if (!PASSWORD_REGEX.test(createPassword)) {
+      setReducerState(
+        'SET_CREATE_PASSWORD_ERROR_MSG',
+        'Password must contain minimum 8 characters, at least one uppercase, lowercase letters, number and symbol.'
+      );
     } else {
-      setCreatePasswordErrorMsg('');
+      setReducerState('SET_CREATE_PASSWORD_ERROR_MSG', '');
     }
     if (!repeatPassword) {
-      setRepeatPasswordErrorMsg('Please repeat your password.');
+      setReducerState('SET_REPEAT_PASSWORD_ERROR_MSG', 'Please repeat your password.');
+    } else if (createPassword !== repeatPassword) {
+      setReducerState('SET_REPEAT_PASSWORD_ERROR_MSG', "Password doesn't match. Please check it.");
     } else {
-      setRepeatPasswordErrorMsg('');
+      setReducerState('SET_REPEAT_PASSWORD_ERROR_MSG', '');
     }
-    if (!communityRules) {
-      setCommunityRulesErrorMsg('Please accept the rules.');
+    if (!isRulesChecked) {
+      setReducerState('SET_COMMUNITY_RULES_ERROR_MSG', 'Please accept the rules.');
     } else {
-      setCommunityRulesErrorMsg('');
+      setReducerState('SET_COMMUNITY_RULES_ERROR_MSG', '');
     }
     if (
       email &&
       EMAIL_REGEX.test(email) &&
       PASSWORD_REGEX.test(createPassword) &&
       PASSWORD_REGEX.test(repeatPassword) &&
+      createPassword === repeatPassword &&
       userName &&
-      communityRules
+      isRulesChecked
     ) {
-      handleLogin();
+      handleSuccesfulRegistration();
     }
   };
   return (
@@ -233,7 +204,6 @@ export function RegisterForm({ handleLogin }: RegisterProps) {
             value={createPassword}
             name="createPassword"
             onChange={handleCreatePasswordChange}
-            onBlur={handleCreatePasswordCharacters}
             aria-required="true"
             aria-label="Create password Input Field"
             isError={!!createPasswordErrorMsg}
@@ -247,7 +217,6 @@ export function RegisterForm({ handleLogin }: RegisterProps) {
             value={repeatPassword}
             name="repeatPassword"
             onChange={handleReapeatPasswordChange}
-            onBlur={handleCreatePasswordCharacters}
             aria-required="true"
             aria-label="Create password Input Field"
             isError={!!repeatPasswordErrorMsg}

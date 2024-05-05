@@ -57,7 +57,7 @@ const formReducer = (state: State, action: Action): State => {
       return state;
   }
 };
-
+// eslint-disable-next-line max-lines-per-function
 export function RegisterForm() {
   const initialState = {
     email: '',

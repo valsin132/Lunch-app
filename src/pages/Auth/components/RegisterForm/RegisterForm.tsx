@@ -1,9 +1,10 @@
-import { useReducer, useState } from 'react';
+import React, { useReducer, useState } from 'react';
 import classNames from 'classnames/bind';
 import { Input } from '../../../../components/Input';
 import { Checkbox } from '../../../../components/Checkbox';
 import { Button } from '../../../../components/Button';
 import { EMAIL_REGEX, PASSWORD_REGEX } from '../../../../constants';
+import { Toast } from '../../../../components/Toast';
 import styles from './RegisterForm.module.css';
 
 const cx = classNames.bind(styles);
@@ -57,11 +58,7 @@ const formReducer = (state: State, action: Action): State => {
   }
 };
 
-interface RegisterProps {
-  handleSuccesfulRegistration: () => void;
-}
-
-export function RegisterForm({ handleSuccesfulRegistration }: RegisterProps) {
+export function RegisterForm() {
   const initialState = {
     email: '',
     userName: '',
@@ -91,6 +88,7 @@ export function RegisterForm({ handleSuccesfulRegistration }: RegisterProps) {
   const setReducerState = (type: Action['type'], value: string) =>
     dispatch({ type, payload: value });
   const [isRulesChecked, setIsRulesChecked] = useState(communityRules);
+  const [isRegistartionDone, setIsRegistrationDone] = useState(false);
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setReducerState('SET_EMAIL', e.target.value);
     setReducerState('SET_EMAIL_ERROR_MSG', '');
@@ -159,7 +157,14 @@ export function RegisterForm({ handleSuccesfulRegistration }: RegisterProps) {
       userName &&
       isRulesChecked
     ) {
-      handleSuccesfulRegistration();
+      setIsRegistrationDone(!isRegistartionDone);
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
+      setReducerState('SET_EMAIL', '');
+      setReducerState('SET_USER_NAME', '');
+      setReducerState('SET_CREATE_PASSWORD', '');
+      setReducerState('SET_REPEAT_PASSWORD', '');
     }
   };
   return (
@@ -244,6 +249,13 @@ export function RegisterForm({ handleSuccesfulRegistration }: RegisterProps) {
         buttonWidth="full"
         onClick={handleRegister}
       />
+      {isRegistartionDone && (
+        <Toast
+          content="Congratulations, your account has been succesfully created! You will be redirected to login page soon."
+          toastType="success"
+          onClick={() => setIsRegistrationDone(!isRegistartionDone)}
+        />
+      )}
     </form>
   );
 }

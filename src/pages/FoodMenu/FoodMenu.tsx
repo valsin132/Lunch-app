@@ -4,6 +4,7 @@ import { useFetchData } from '../../hooks/useFetchData';
 import { FoodCard } from '../../components/FoodCard';
 import { Tab } from '../../components/Tab';
 import { Meal, Vendor, Rating, WeekDay } from './FoodMenu.types';
+import { MealSearch } from '../../components/MealSearch';
 import styles from './FoodMenu.module.css';
 
 const cx = classNames.bind(styles);
@@ -26,6 +27,7 @@ export function FoodMenu(): ReactElement {
   } = useFetchData<Rating[]>('http://localhost:3002/ratings');
 
   const [selectedDay, setSelectedDay] = useState<WeekDay>('Monday');
+  const [mealTitleSearch, setMealTitleSearch] = useState('');
 
   const dayLabels = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 
@@ -34,8 +36,14 @@ export function FoodMenu(): ReactElement {
 
   const filteredMeals = useMemo(() => {
     if (!mealsData) return [];
-    return mealsData.filter((meal) => meal.weekDays.includes(selectedDay));
-  }, [mealsData, selectedDay]);
+    let filteredMealData = mealsData.filter((meal) => meal.weekDays.includes(selectedDay));
+    if (mealTitleSearch) {
+      filteredMealData = filteredMealData.filter((meal) =>
+        meal.title.toLowerCase().includes(mealTitleSearch)
+      );
+    }
+    return filteredMealData;
+  }, [mealsData, selectedDay, mealTitleSearch]);
 
   const getRating = (id: number) => {
     const filteredRatings = ratingsData?.filter((rating) => rating.mealId === id) ?? [];
@@ -68,6 +76,11 @@ export function FoodMenu(): ReactElement {
           />
         ))}
       </div>
+      <MealSearch
+        handleSearch={(title) => {
+          setMealTitleSearch(title);
+        }}
+      />
       <div className={cx('menu-wrapper')}>
         {filteredMeals.map((meal) => (
           <FoodCard

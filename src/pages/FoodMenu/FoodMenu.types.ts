@@ -26,4 +26,9 @@ export interface Vendor {
   name: string;
 }
 
+export interface Orders {
+  weekDay?: string;
+  mealIds?: number[];
+}
+
 export type WeekDay = 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday';

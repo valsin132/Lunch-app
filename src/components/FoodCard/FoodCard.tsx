@@ -29,7 +29,7 @@ interface FoodCardProps {
   onClick: () => void;
 }
 
-const getDishTypeImage = (dishType: DishType): string => {
+export const getDishTypeImage = (dishType: DishType): string => {
   switch (dishType) {
     case 'wrap':
       return kebabImage;

@@ -3,7 +3,7 @@ import { ReactElement, useState, useMemo, useEffect } from 'react';
 import { useFetchData } from '../../hooks/useFetchData';
 import { FoodCard } from '../../components/FoodCard';
 import { Tab } from '../../components/Tab';
-import { Meal, Vendor, Rating, WeekDay, Orders } from './FoodMenu.types';
+import { Meal, Vendor, Rating, WeekDay, UserData, Order } from './FoodMenu.types';
 import styles from './FoodMenu.module.css';
 
 const cx = classNames.bind(styles);
@@ -26,20 +26,19 @@ export function FoodMenu(): ReactElement {
   } = useFetchData<Rating[]>('http://localhost:3002/ratings');
 
   const [selectedDay, setSelectedDay] = useState<WeekDay>('Monday');
-  const [orders, setOrders] = useState<Orders[]>([]);
+  const [userData, setUserData] = useState<UserData | null>(null);
 
   const dayLabels = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 
   useEffect(() => {
     const storedData = localStorage.getItem('userData');
     if (storedData) {
-      setOrders(JSON.parse(storedData));
+      setUserData(JSON.parse(storedData));
     }
   }, []);
-
+  const { orders } = userData || {};
   const isMealOrdered =
-    Array.isArray(orders) &&
-    orders.filter((order: Orders) => order.weekDay === selectedDay).length > 0;
+    (orders || []).filter((order: Order) => order.weekDay === selectedDay)?.length > 0;
 
   const getVendorName = (vendorId: number) =>
     vendorsData?.find((vendor) => Number(vendor.id) === vendorId)?.name ?? '';
@@ -60,7 +59,7 @@ export function FoodMenu(): ReactElement {
     return 'Not rated';
   };
 
-  if (vendorsLoading || mealsLoading || ratingsLoading) {
+  if (vendorsLoading || mealsLoading || ratingsLoading || !orders) {
     return <p>Loading...</p>;
   }
 

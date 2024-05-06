@@ -15,7 +15,7 @@ export function MealSearch({ handleSearch }: MealSearchProps) {
   const [mealTitle, setMealTitle] = useState('');
 
   return (
-    <Card spacing="none" shadow="s" isFullWidth>
+    <Card spacing="none" shadow="s" isFullWidth isNoBorder>
       <div className={cx('meal-search')}>
         <form className={cx('meal-search__form')}>
           <div className={cx('meal-search__inputs')}>

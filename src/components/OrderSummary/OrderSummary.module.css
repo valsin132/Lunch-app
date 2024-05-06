@@ -8,7 +8,6 @@
     @include flexbox($direction: column, $gap: $spacing-s, $justifyContent: space-between);
 
     box-shadow: inset 0 0 0 1px $color-grey-100;
-    max-width: 283px;
     min-height: 434px;
     min-width: 283px;
     padding: $spacing-xs;
@@ -18,6 +17,7 @@
 
       flex: 1;
       max-height: 609px;
+      max-width: 283px;
       position: relative;
 
       &.order-summary__wrapper--empty {

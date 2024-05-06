@@ -30,7 +30,12 @@
     & .order-item__info-vendor {
       @include title-xs;
 
+      -webkit-box-orient: vertical;
       color: $color-grey-500;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      overflow: hidden;
+      word-break: break-all;
     }
 
     & .order-item__info-body {

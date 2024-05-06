@@ -1,0 +1,73 @@
+@import './../../../styles/index.css';
+
+.order-item {
+  @include flexbox($direction: row, $gap: $spacing-4xs);
+
+  width: 100%;
+
+  & .order-item__icon {
+    @include size($width: 40px, $height: 40px);
+
+    object-fit: contain;
+  }
+
+  & .order-item__info {
+    @include flexbox($direction: column, $gap: $spacing-5xs);
+
+    text-align: left;
+    width: 100%;
+
+    & .order-item__info-title {
+      @include body-s;
+
+      -webkit-box-orient: vertical;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+      word-break: break-all;
+    }
+
+    & .order-item__info-vendor {
+      @include title-xs;
+
+      -webkit-box-orient: vertical;
+      color: $color-grey-500;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      overflow: hidden;
+      word-break: break-all;
+    }
+
+    & .order-item__info-body {
+      @include flexbox($justifyContent: space-between, $alignItems: flex-start, $gap: $spacing-5xs);
+      @include body-s;
+
+      & .order-item__info-body-actions {
+        @include flexbox($direction: column, $alignItems: flex-end, $gap: $spacing-5xs);
+
+        & .order-item__info-body-actions-remove {
+          border-radius: $spacing-4xs;
+          padding: $spacing-5xs;
+
+          svg {
+            @include size($width: 18px, $height: 18px);
+
+            display: block;
+
+            path {
+              fill: $color-red-500;
+            }
+          }
+        }
+
+        & .order-item__info-body-actions-price {
+          @include body-m;
+
+          &::before {
+            content: '€';
+          }
+        }
+      }
+    }
+  }
+}

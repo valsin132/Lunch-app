@@ -24,8 +24,6 @@
 
     & .register-form__input {
       @include flexbox($direction: column, $gap: $gap-Xlarge);
-
-      min-width: 343px;
     }
 
     & .register-form__input-checkbox {

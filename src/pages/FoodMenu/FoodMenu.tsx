@@ -31,13 +31,15 @@ export function FoodMenu(): ReactElement {
   const dayLabels = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 
   useEffect(() => {
-    const storedOrders = localStorage.getItem('orders');
-    if (storedOrders) {
-      setOrders(JSON.parse(storedOrders));
+    const storedData = localStorage.getItem('userData');
+    if (storedData) {
+      setOrders(JSON.parse(storedData));
     }
   }, []);
 
-  const isMealOrdered = orders.filter((order: Orders) => order.weekDay === selectedDay).length > 0;
+  const isMealOrdered =
+    Array.isArray(orders) &&
+    orders.filter((order: Orders) => order.weekDay === selectedDay).length > 0;
 
   const getVendorName = (vendorId: number) =>
     vendorsData?.find((vendor) => Number(vendor.id) === vendorId)?.name ?? '';

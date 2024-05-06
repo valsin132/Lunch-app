@@ -21,15 +21,16 @@ export const useAuth = (): AuthContextType => {
 };
 
 export function AuthProvider({ children }: AuthProviderProps) {
-  const [isLogged, setIsLogged] = useState(() => {
+  const isUserLogged = () => {
     const user = localStorage.getItem('userData');
     return !!user;
-  });
+  };
+
+  const [isLogged, setIsLogged] = useState(isUserLogged());
 
   useEffect(() => {
     const handleStorageChange = () => {
-      const user = localStorage.getItem('userData');
-      setIsLogged(!!user);
+      setIsLogged(isUserLogged());
     };
 
     window.addEventListener('storage', handleStorageChange);

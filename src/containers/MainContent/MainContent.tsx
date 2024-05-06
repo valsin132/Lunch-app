@@ -1,29 +1,59 @@
 import { Outlet } from 'react-router-dom';
 import { useState } from 'react';
+import classNames from 'classnames/bind';
 import { Sidebar } from '../../components/Sidebar';
+import { Header } from '../../components/Header';
+import { UserCard } from '../../components/UserCard';
+import { Footer } from '../../components/Footer';
 import { OrderSummary } from '../../components/OrderSummary';
 import { OrderSummaryProvider } from '../../helpers/OrderSummaryContext';
-import { UserCard } from '../../components/UserCard';
+import styles from './MainContent.module.css';
+
+const cx = classNames.bind(styles);
 
 export function MainContent() {
-  const [isOrderSummaryVisible, setIsOrderSummaryVisible] = useState(true);
+  const [isOrderSummaryVisible, setIsOrderSummaryVisible] = useState(false);
 
   return (
-    <>
-      <Sidebar />
-      <OrderSummaryProvider>
+    <div className={cx('main-content')}>
+      <div className={cx('main-content__sidebar')}>
+        <Sidebar />
+      </div>
+      <div className={cx('main-content__header')}>
+        <Header pageType="foodMenu" />
+      </div>
+      <div
+        className={cx('main-content__outlet', {
+          'main-content__outlet-full-col': !isOrderSummaryVisible,
+          hidden: isOrderSummaryVisible,
+        })}>
         <Outlet />
-        {isOrderSummaryVisible && (
-          <OrderSummary
-            visibilityHandler={() => {
-              setIsOrderSummaryVisible(false);
-            }}
-          />
-        )}
-        <header>
-          <UserCard toggleOrderSummary={() => alert('close order summary')} />
-        </header>
-      </OrderSummaryProvider>
-    </>
+      </div>
+      <div
+        className={cx('main-content__aside', {
+          'main-content__aside-position': isOrderSummaryVisible,
+        })}>
+        <div className={cx('main-content__user-card')}>
+          <UserCard toggleOrderSummary={() => setIsOrderSummaryVisible(true)} />
+        </div>
+        <div
+          className={cx('main-content__order-summary', {
+            'main-content__order-summary-visible': isOrderSummaryVisible,
+          })}>
+          <OrderSummaryProvider>
+            {isOrderSummaryVisible && (
+              <OrderSummary
+                visibilityHandler={() => {
+                  setIsOrderSummaryVisible(false);
+                }}
+              />
+            )}
+          </OrderSummaryProvider>
+        </div>
+      </div>
+      <div className={cx('main-content__footer')}>
+        <Footer />
+      </div>
+    </div>
   );
 }

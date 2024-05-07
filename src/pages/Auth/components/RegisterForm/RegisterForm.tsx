@@ -1,25 +1,11 @@
-import React, { useReducer, useState } from 'react';
+import React, { useReducer } from 'react';
 import classNames from 'classnames/bind';
-import { Input } from '../../../../components/Input';
-import { Checkbox } from '../../../../components/Checkbox';
 import { Button } from '../../../../components/Button';
 import { EMAIL_REGEX, PASSWORD_REGEX } from '../../../../constants';
+import { RegisterFieldActions, RegisterFields, RegisterState } from './RegisterFields';
 import styles from './RegisterForm.module.css';
 
 const cx = classNames.bind(styles);
-
-interface State {
-  email: string;
-  userName: string;
-  createPassword: string;
-  repeatPassword: string;
-  communityRules: boolean;
-  emailErrorMsg: string;
-  userNameErrorMsg: string;
-  createPasswordErrorMsg: string;
-  repeatPasswordErrorMsg: string;
-  communityRulesErrorMsg: string;
-}
 
 const initialState = {
   email: '',
@@ -34,18 +20,7 @@ const initialState = {
   communityRulesErrorMsg: '',
 };
 
-type Action =
-  | { type: 'SET_EMAIL'; payload: string }
-  | { type: 'SET_USER_NAME'; payload: string }
-  | { type: 'SET_CREATE_PASSWORD'; payload: string }
-  | { type: 'SET_REPEAT_PASSWORD'; payload: string }
-  | { type: 'SET_EMAIL_ERROR_MSG'; payload: string }
-  | { type: 'SET_USER_NAME_ERROR_MSG'; payload: string }
-  | { type: 'SET_CREATE_PASSWORD_ERROR_MSG'; payload: string }
-  | { type: 'SET_REPEAT_PASSWORD_ERROR_MSG'; payload: string }
-  | { type: 'SET_COMMUNITY_RULES_ERROR_MSG'; payload: string };
-
-const formReducer = (state: State, action: Action): State => {
+const formReducer = (state: RegisterState, action: RegisterFieldActions): RegisterState => {
   switch (action.type) {
     case 'SET_EMAIL':
       return { ...state, email: action.payload };
@@ -55,6 +30,12 @@ const formReducer = (state: State, action: Action): State => {
       return { ...state, createPassword: action.payload };
     case 'SET_REPEAT_PASSWORD':
       return { ...state, repeatPassword: action.payload };
+    case 'SET_COMMUNITY_RULES':
+      return {
+        ...state,
+        communityRules: !state.communityRules,
+        communityRulesErrorMsg: state.communityRules ? '' : state.communityRulesErrorMsg,
+      };
     case 'SET_EMAIL_ERROR_MSG':
       return { ...state, emailErrorMsg: action.payload };
     case 'SET_USER_NAME_ERROR_MSG':
@@ -73,48 +54,29 @@ interface RegisterFormProps {
   handleRegistration: () => void;
 }
 
-// eslint-disable-next-line max-lines-per-function
 export function RegisterForm({ handleRegistration }: RegisterFormProps) {
   const [state, dispatch] = useReducer(formReducer, initialState);
-  const {
-    email,
-    userName,
-    createPassword,
-    repeatPassword,
-    communityRules,
-    emailErrorMsg,
-    userNameErrorMsg,
-    createPasswordErrorMsg,
-    repeatPasswordErrorMsg,
-    communityRulesErrorMsg,
-  } = state;
-  const setReducerState = (type: Action['type'], value: string) =>
+  const { email, userName, createPassword, repeatPassword, communityRules } = state;
+  const setReducerState = (type: RegisterFieldActions['type'], value: string) =>
     dispatch({ type, payload: value });
-  const [isRulesChecked, setIsRulesChecked] = useState(communityRules);
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
-    valueType: Action['type'],
-    errorValueType: Action['type']
+    valueType: RegisterFieldActions['type'],
+    errorValueType: RegisterFieldActions['type']
   ) => {
     setReducerState(valueType, e.target.value);
     setReducerState(errorValueType, '');
   };
 
-  const handleCommunityRulesChange = () => {
-    setIsRulesChecked(!isRulesChecked);
-    if (isRulesChecked === false) {
-      setReducerState('SET_COMMUNITY_RULES_ERROR_MSG', '');
-    }
-  };
   const handleCreateAccount = () => {
     if (
       email &&
       EMAIL_REGEX.test(email) &&
       PASSWORD_REGEX.test(createPassword) &&
-      PASSWORD_REGEX.test(repeatPassword) &&
       createPassword === repeatPassword &&
       userName &&
-      isRulesChecked
+      communityRules
     ) {
       handleRegistration();
     } else {
@@ -144,10 +106,10 @@ export function RegisterForm({ handleRegistration }: RegisterFormProps) {
       } else {
         setReducerState('SET_REPEAT_PASSWORD_ERROR_MSG', '');
       }
-      if (isRulesChecked === true) {
-        setReducerState('SET_COMMUNITY_RULES_ERROR_MSG', '');
+      if (!communityRules) {
+        setReducerState('SET_COMMUNITY_RULES_ERROR_MSG', 'Please accept the rules');
       } else {
-        setReducerState('SET_COMMUNITY_RULES_ERROR_MSG', 'Please accept the rules.');
+        setReducerState('SET_COMMUNITY_RULES_ERROR_MSG', '');
       }
     }
   };
@@ -159,77 +121,9 @@ export function RegisterForm({ handleRegistration }: RegisterFormProps) {
           <p>Join our office foodies today!</p>
         </div>
         <div className={cx('register-form__input')}>
-          <Input
-            id="email"
-            textFieldType="email"
-            placeholder="Your email"
-            label="Your email"
-            value={email}
-            name="email"
-            onChange={(event) => handleChange(event, 'SET_EMAIL', 'SET_EMAIL_ERROR_MSG')}
-            aria-required="true"
-            aria-label="Email Input Field"
-            isError={!!emailErrorMsg}
-            errorMessage={emailErrorMsg}
-          />
-          <Input
-            id="userName"
-            textFieldType="text"
-            placeholder="User name"
-            label="Create user name"
-            value={userName}
-            name="userName"
-            onChange={(event) => handleChange(event, 'SET_USER_NAME', 'SET_USER_NAME_ERROR_MSG')}
-            aria-required="true"
-            aria-label="User name Input Field"
-            isError={!!userNameErrorMsg}
-            errorMessage={userNameErrorMsg}
-          />
-          <Input
-            id="createPassword"
-            textFieldType="password"
-            placeholder="Create your password"
-            label="Create Password"
-            value={createPassword}
-            name="createPassword"
-            onChange={(event) =>
-              handleChange(event, 'SET_CREATE_PASSWORD', 'SET_CREATE_PASSWORD_ERROR_MSG')
-            }
-            aria-required="true"
-            aria-label="Create password Input Field"
-            isError={!!createPasswordErrorMsg}
-            errorMessage={createPasswordErrorMsg}
-          />
-          <Input
-            id="repeatPassword"
-            textFieldType="password"
-            placeholder="Repeat your password"
-            label="Repeat Password"
-            value={repeatPassword}
-            name="repeatPassword"
-            onChange={(event) =>
-              handleChange(event, 'SET_REPEAT_PASSWORD', 'SET_REPEAT_PASSWORD_ERROR_MSG')
-            }
-            aria-required="true"
-            aria-label="Create password Input Field"
-            isError={!!repeatPasswordErrorMsg}
-            errorMessage={repeatPasswordErrorMsg}
-          />
-          <div className={cx('register-form__input-checkbox')}>
-            <Checkbox
-              label="I have read the"
-              id="Community Rules"
-              onChange={handleCommunityRulesChange}
-              isError={!!communityRulesErrorMsg}
-              errorMessage={communityRulesErrorMsg}
-            />
-            <button type="button" className={cx('community-rules')}>
-              Community Rules
-            </button>
-          </div>
+          <RegisterFields handleChange={handleChange} state={state} />
         </div>
       </div>
-
       <Button
         title="Create Account"
         buttonSize="md"

@@ -25,24 +25,5 @@
     & .register-form__input {
       @include flexbox($direction: column, $gap: $gap-Xlarge);
     }
-
-    & .register-form__input-checkbox {
-      @include flexbox($direction: row, $gap: $gap-regular);
-    }
-
-    & .community-rules {
-      @include label-text;
-
-      color: $color-orange-600;
-      text-decoration: underline;
-
-      &:hover {
-        text-decoration-color: $color-orange-300;
-      }
-
-      &:visited {
-        color: $color-purple-400;
-      }
-    }
   }
 }

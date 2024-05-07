@@ -104,8 +104,6 @@ export function RegisterForm({ handleRegistration }: RegisterFormProps) {
     setIsRulesChecked(!isRulesChecked);
     if (isRulesChecked === false) {
       setReducerState('SET_COMMUNITY_RULES_ERROR_MSG', '');
-    } else {
-      setReducerState('SET_COMMUNITY_RULES_ERROR_MSG', 'Please accept the rules.');
     }
   };
   const handleCreateAccount = () => {
@@ -143,6 +141,8 @@ export function RegisterForm({ handleRegistration }: RegisterFormProps) {
           'SET_REPEAT_PASSWORD_ERROR_MSG',
           "Password doesn't match. Please check it."
         );
+      } else {
+        setReducerState('SET_REPEAT_PASSWORD_ERROR_MSG', '');
       }
       if (isRulesChecked === true) {
         setReducerState('SET_COMMUNITY_RULES_ERROR_MSG', '');
@@ -223,7 +223,7 @@ export function RegisterForm({ handleRegistration }: RegisterFormProps) {
               isError={!!communityRulesErrorMsg}
               errorMessage={communityRulesErrorMsg}
             />
-            <button type="button" aria-label="Community Rules" className={cx('community-rules')}>
+            <button type="button" className={cx('community-rules')}>
               Community Rules
             </button>
           </div>

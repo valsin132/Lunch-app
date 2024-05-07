@@ -3,7 +3,10 @@
 .auth-card {
   @include flexbox($justifyContent: center, $direction: column, $gap: $gap-Xlarge);
 
-  min-width: 341px;
+  border-radius: $border-radius-regular;
+  box-shadow: inset 0 0 0 1px $color-grey-100;
+  min-width: 391px;
+  padding: $spacing-s;
 
   & .auth-card__logo {
     @include size(104px, 51px);

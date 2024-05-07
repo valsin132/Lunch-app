@@ -39,11 +39,13 @@ export function FoodMenu(): ReactElement {
     let filteredMealData = mealsData.filter((meal) => meal.weekDays.includes(selectedDay));
     if (mealTitleSearch) {
       filteredMealData = filteredMealData.filter((meal) =>
-        meal.title.toLowerCase().includes(mealTitleSearch)
+        meal.title.toLowerCase().includes(mealTitleSearch.toLowerCase())
       );
     }
     return filteredMealData;
   }, [mealsData, selectedDay, mealTitleSearch]);
+
+  const isMealsArrayEmpty = !!filteredMeals.length;
 
   const getRating = (id: number) => {
     const filteredRatings = ratingsData?.filter((rating) => rating.mealId === id) ?? [];
@@ -82,20 +84,24 @@ export function FoodMenu(): ReactElement {
         }}
       />
       <div className={cx('menu-wrapper')}>
-        {filteredMeals.map((meal) => (
-          <FoodCard
-            key={meal.id}
-            vendor={getVendorName(meal.vendorId)}
-            title={meal.title}
-            description={meal.description}
-            price={meal.price}
-            vegetarian={meal.vegetarian}
-            spicy={meal.spicy}
-            rating={getRating(Number(meal.id))}
-            dishType={meal.dishType}
-            onClick={onclick}
-          />
-        ))}
+        {isMealsArrayEmpty ? (
+          filteredMeals.map((meal) => (
+            <FoodCard
+              key={meal.id}
+              vendor={getVendorName(meal.vendorId)}
+              title={meal.title}
+              description={meal.description}
+              price={meal.price}
+              vegetarian={meal.vegetarian}
+              spicy={meal.spicy}
+              rating={getRating(Number(meal.id))}
+              dishType={meal.dishType}
+              onClick={onclick}
+            />
+          ))
+        ) : (
+          <div className={cx('menu-wrapper__no-results')}>No results found</div>
+        )}
       </div>
     </div>
   );

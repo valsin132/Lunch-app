@@ -2,6 +2,14 @@
 
 .menu-wrapper {
   @include flexbox($wrap: wrap, $gap: 32px);
+
+  & .menu-wrapper__no-results {
+    @include body-m;
+
+    color: $color-grey-500;
+    text-align: center;
+    width: 100%;
+  }
 }
 
 .tab-wrapper {

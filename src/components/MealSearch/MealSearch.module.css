@@ -15,6 +15,6 @@
   }
 
   & .meal-search__seperator {
-    border: solid 1px $color-grey-200;
+    border-top: solid 1px $color-grey-200;
   }
 }

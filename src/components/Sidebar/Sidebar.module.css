@@ -9,7 +9,7 @@ $sidebar-animation-duration: 300ms;
   background-color: $color-blue-800;
   border-radius: 0 $border-radius-regular $border-radius-regular 0;
   color: $color-white;
-  height: 100vh;
+  height: calc(100vh - 24px);
   padding: calc($spacing-4xs + 2px);
   position: sticky;
   text-align: left;

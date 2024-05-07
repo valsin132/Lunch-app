@@ -23,9 +23,9 @@ export function MainContent() {
         <Header pageType="foodMenu" />
       </div>
       <div
-        className={cx('main-content__outlet', {
-          'main-content__outlet-full-col': !isOrderSummaryVisible,
-        })}>
+        className={
+          isOrderSummaryVisible ? cx('main-content__outlet') : cx('main-content__outlet-full-col')
+        }>
         <Outlet />
       </div>
       <div

@@ -14,6 +14,7 @@ $sidebar-animation-duration: 300ms;
   position: sticky;
   text-align: left;
   top: 0;
+  z-index: 11;
   @include mobile-breakpoint {
     padding: calc($spacing-4xs + 2px) calc($spacing-5xs + 1px);
   }

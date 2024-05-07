@@ -1,1 +1,1 @@
-export type AuthMenus = 'LOGIN' | 'REGISTER';
+export type AuthMenu = 'LOGIN' | 'REGISTER';

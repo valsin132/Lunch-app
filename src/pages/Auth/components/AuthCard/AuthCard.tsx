@@ -6,19 +6,19 @@ import { LoginForm } from '../LoginForm/LoginForm';
 import { RegisterForm } from '../RegisterForm/RegisterForm';
 import { Tab } from '../../../../components/Tab';
 import { Toast } from '../../../../components/Toast';
-import { AuthMenus } from './AuthCard.types';
+import { AuthMenu } from './AuthCard.types';
 import styles from './AuthCard.module.css';
 
 const cx = classNames.bind(styles);
 
 export function AuthCard(): ReactElement {
-  const [activeTab, setActiveTab] = useState<AuthMenus>('LOGIN');
+  const [activeTab, setActiveTab] = useState<AuthMenu>('LOGIN');
   const [isToastShown, setIsToastShown] = useState(false);
   const handleRegistration = () => {
     setIsToastShown(true);
     setActiveTab('LOGIN');
   };
-  const handleTabSwitch = (tabName: AuthMenus) => {
+  const handleTabSwitch = (tabName: AuthMenu) => {
     setActiveTab(tabName);
     if (isToastShown) setIsToastShown(false);
   };

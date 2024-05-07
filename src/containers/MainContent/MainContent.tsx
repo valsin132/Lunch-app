@@ -25,7 +25,6 @@ export function MainContent() {
       <div
         className={cx('main-content__outlet', {
           'main-content__outlet-full-col': !isOrderSummaryVisible,
-          hidden: isOrderSummaryVisible,
         })}>
         <Outlet />
       </div>

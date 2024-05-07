@@ -28,8 +28,6 @@
 
   & .main-content__aside {
     @include flexbox($direction: column, $gap: $gap-3XXlarge);
-
-    grid-area: 1 / 5 / 5 / 5;
   }
 
   & .main-content__aside-position {

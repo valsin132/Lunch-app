@@ -26,19 +26,6 @@ export interface Vendor {
   name: string;
 }
 
-export interface UserData {
-  userName: string;
-  password: string;
-  name: string;
-  surname: string;
-  balance: number;
-  img: string;
-  orders: {
-    weekDay: string;
-    mealIds: number[];
-  }[];
-}
-
 export interface Order {
   weekDay: string;
   mealIds: number[];

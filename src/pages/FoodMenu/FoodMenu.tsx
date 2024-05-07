@@ -81,7 +81,9 @@ export function FoodMenu(): ReactElement {
       </div>
       <div className={cx('menu-wrapper')}>
         {isMealOrdered ? (
-          <p>You have already chosen meals for {selectedDay}.</p>
+          <div className={cx('menu-wrapper__meal-ordered')}>
+            You have already chosen meals for {selectedDay}.
+          </div>
         ) : (
           filteredMeals.map((meal) => (
             <FoodCard

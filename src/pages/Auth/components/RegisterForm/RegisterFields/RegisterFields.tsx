@@ -1,44 +1,26 @@
 import classNames from 'classnames/bind';
 import { Checkbox } from '../../../../../components/Checkbox';
 import { Input } from '../../../../../components/Input';
+import { RegisterFieldActions, RegisterState } from '../../../../../hooks/useRegisterData';
 import styles from './RegisterFields.module.css';
 
 const cx = classNames.bind(styles);
 
-export interface RegisterState {
-  email: string;
-  userName: string;
-  createPassword: string;
-  repeatPassword: string;
-  communityRules: boolean;
-  emailErrorMsg: string;
-  userNameErrorMsg: string;
-  createPasswordErrorMsg: string;
-  repeatPasswordErrorMsg: string;
-  communityRulesErrorMsg: string;
-}
-export type RegisterFieldActions =
-  | { type: 'SET_EMAIL'; payload: string }
-  | { type: 'SET_USER_NAME'; payload: string }
-  | { type: 'SET_CREATE_PASSWORD'; payload: string }
-  | { type: 'SET_REPEAT_PASSWORD'; payload: string }
-  | { type: 'SET_EMAIL_ERROR_MSG'; payload: string }
-  | { type: 'SET_USER_NAME_ERROR_MSG'; payload: string }
-  | { type: 'SET_CREATE_PASSWORD_ERROR_MSG'; payload: string }
-  | { type: 'SET_REPEAT_PASSWORD_ERROR_MSG'; payload: string }
-  | { type: 'SET_COMMUNITY_RULES_ERROR_MSG'; payload: string }
-  | { type: 'SET_COMMUNITY_RULES'; payload: string };
-
-type RegisterFieldsProps = {
+interface RegisterFieldsProps {
   state: RegisterState;
   handleChange: (
     e: React.ChangeEvent<HTMLInputElement>,
     valueType: RegisterFieldActions['type'],
     errorValueType: RegisterFieldActions['type']
   ) => void;
-};
+  handleCommunityRulesChange: () => void;
+}
 
-export function RegisterFields({ state, handleChange }: RegisterFieldsProps) {
+export function RegisterFields({
+  state,
+  handleChange,
+  handleCommunityRulesChange: handleCommunityRules,
+}: RegisterFieldsProps) {
   const {
     email,
     userName,
@@ -59,7 +41,7 @@ export function RegisterFields({ state, handleChange }: RegisterFieldsProps) {
         label="Your email"
         value={email}
         name="email"
-        onChange={(event) => handleChange(event, 'SET_EMAIL', 'SET_EMAIL_ERROR_MSG')}
+        onChange={(event) => handleChange(event, 'email', 'emailErrorMsg')}
         aria-required="true"
         aria-label="Email Input Field"
         isError={!!emailErrorMsg}
@@ -72,7 +54,7 @@ export function RegisterFields({ state, handleChange }: RegisterFieldsProps) {
         label="Create user name"
         value={userName}
         name="userName"
-        onChange={(event) => handleChange(event, 'SET_USER_NAME', 'SET_USER_NAME_ERROR_MSG')}
+        onChange={(event) => handleChange(event, 'userName', 'userNameErrorMsg')}
         aria-required="true"
         aria-label="User name Input Field"
         isError={!!userNameErrorMsg}
@@ -85,9 +67,7 @@ export function RegisterFields({ state, handleChange }: RegisterFieldsProps) {
         label="Create Password"
         value={createPassword}
         name="createPassword"
-        onChange={(event) =>
-          handleChange(event, 'SET_CREATE_PASSWORD', 'SET_CREATE_PASSWORD_ERROR_MSG')
-        }
+        onChange={(event) => handleChange(event, 'createPassword', 'createPasswordErrorMsg')}
         aria-required="true"
         aria-label="Create password Input Field"
         isError={!!createPasswordErrorMsg}
@@ -100,9 +80,7 @@ export function RegisterFields({ state, handleChange }: RegisterFieldsProps) {
         label="Repeat Password"
         value={repeatPassword}
         name="repeatPassword"
-        onChange={(event) =>
-          handleChange(event, 'SET_REPEAT_PASSWORD', 'SET_REPEAT_PASSWORD_ERROR_MSG')
-        }
+        onChange={(event) => handleChange(event, 'repeatPassword', 'repeatPasswordErrorMsg')}
         aria-required="true"
         aria-label="Create password Input Field"
         isError={!!repeatPasswordErrorMsg}
@@ -112,9 +90,7 @@ export function RegisterFields({ state, handleChange }: RegisterFieldsProps) {
         <Checkbox
           label="I have read the"
           id="Community Rules"
-          onChange={(event) => {
-            handleChange(event, 'SET_COMMUNITY_RULES', 'SET_COMMUNITY_RULES_ERROR_MSG');
-          }}
+          onChange={handleCommunityRules}
           isError={!!communityRulesErrorMsg}
           errorMessage={communityRulesErrorMsg}
         />

@@ -21,9 +21,5 @@
         color: $text-color-grey;
       }
     }
-
-    & .register-form__input {
-      @include flexbox($direction: column, $gap: $gap-Xlarge);
-    }
   }
 }

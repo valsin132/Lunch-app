@@ -33,7 +33,7 @@ export function RegisterFields({
     communityRulesErrorMsg,
   } = state;
   return (
-    <>
+    <div className={cx('register-inputs')}>
       <Input
         id="email"
         textFieldType="email"
@@ -86,7 +86,7 @@ export function RegisterFields({
         isError={!!repeatPasswordErrorMsg}
         errorMessage={repeatPasswordErrorMsg}
       />
-      <div className={cx('input-checkbox')}>
+      <div className={cx('register-inputs__checkbox')}>
         <Checkbox
           label="I have read the"
           id="Community Rules"
@@ -94,10 +94,10 @@ export function RegisterFields({
           isError={!!communityRulesErrorMsg}
           errorMessage={communityRulesErrorMsg}
         />
-        <button type="button" className={cx('community-rules')}>
+        <button type="button" className={cx('register-inputs__community-rules')}>
           Community Rules
         </button>
       </div>
-    </>
+    </div>
   );
 }

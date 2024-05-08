@@ -79,13 +79,11 @@ export function RegisterForm({ handleRegistration }: RegisterFormProps) {
           <h1>Register</h1>
           <p>Join our office foodies today!</p>
         </div>
-        <div className={cx('register-form__input')}>
-          <RegisterFields
-            handleCommunityRulesChange={handleCommunityRulesChange}
-            handleChange={handleChange}
-            state={state}
-          />
-        </div>
+        <RegisterFields
+          handleCommunityRulesChange={handleCommunityRulesChange}
+          handleChange={handleChange}
+          state={state}
+        />
       </div>
       <Button
         title="Create Account"

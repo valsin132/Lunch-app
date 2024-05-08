@@ -9,7 +9,7 @@
   max-width: 368px;
   padding: $spacing-2xs;
   position: absolute;
-  top: 64px;
+  top: 40px;
   transform: translate(-50%, -50%);
   z-index: 1;
 

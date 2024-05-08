@@ -2,7 +2,6 @@ import React, { useReducer, useState } from 'react';
 import classNames from 'classnames/bind';
 import { Input } from '../../../../components/Input';
 import { Button } from '../../../../components/Button';
-import { useAuth } from '../../../../helpers/AuthContext';
 import { EMAIL_REGEX } from '../../../../constants';
 import { useLogin } from '../../../../hooks/useLogin';
 import { Toast } from '../../../../components/Toast';
@@ -40,7 +39,6 @@ const formReducer = (state: State, action: Action): State => {
 
 // eslint-disable-next-line max-lines-per-function
 export function LoginForm() {
-  const { login } = useAuth();
   const { login: loginAction, isError } = useLogin();
   const initialState = {
     email: '',
@@ -83,8 +81,6 @@ export function LoginForm() {
       const success = await loginAction(email, password);
       if (!success) {
         setShowToast(true);
-      } else {
-        login();
       }
     }
   };

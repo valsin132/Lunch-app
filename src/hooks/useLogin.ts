@@ -26,6 +26,7 @@ export const useLogin = () => {
     try {
       if (userData?.email === email && userData?.password === password) {
         localStorage.setItem('userData', JSON.stringify(userData));
+        window.dispatchEvent(new Event('storage'));
         setIsLoading(false);
         return true;
       }

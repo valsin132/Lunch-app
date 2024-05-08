@@ -21,7 +21,7 @@ export const useAuth = (): AuthContextType => {
 };
 
 export function AuthProvider({ children }: AuthProviderProps) {
-  const [isLogged, setIsLogged] = useState(true);
+  const [isLogged, setIsLogged] = useState(false);
 
   const login = () => {
     setIsLogged(true);

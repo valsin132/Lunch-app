@@ -33,20 +33,21 @@ export function MainContent() {
           'main-content__aside-position': isOrderSummaryVisible,
         })}>
         <UserCard toggleOrderSummary={() => setIsOrderSummaryVisible(true)} />
-        <div
-          className={cx('main-content__order-summary', {
-            'main-content__order-summary-visible': isOrderSummaryVisible,
-          })}>
-          <OrderSummaryProvider>
-            {isOrderSummaryVisible && (
+
+        <OrderSummaryProvider>
+          {isOrderSummaryVisible && (
+            <div
+              className={cx('main-content__order-summary', {
+                'main-content__order-summary-visible': isOrderSummaryVisible,
+              })}>
               <OrderSummary
                 visibilityHandler={() => {
                   setIsOrderSummaryVisible(false);
                 }}
               />
-            )}
-          </OrderSummaryProvider>
-        </div>
+            </div>
+          )}
+        </OrderSummaryProvider>
       </div>
       <div className={cx('main-content__footer')}>
         <Footer />

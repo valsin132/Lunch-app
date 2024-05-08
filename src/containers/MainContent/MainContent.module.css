@@ -4,12 +4,11 @@
   display: grid;
   grid-template-columns: 0.1fr repeat(3, 1fr) 0.1fr;
   grid-template-rows: 0.1fr repeat(3, 1fr) 0.1fr;
-  padding-top: 24px;
+  padding-top: $spacing-s;
   width: 100%;
 
   & .main-content__sidebar {
     grid-area: 1 / 1 / 6 / 2;
-    width: 100%;
   }
 
   & .main-content__header {

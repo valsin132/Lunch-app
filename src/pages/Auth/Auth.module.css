@@ -1,25 +1,30 @@
 @import '../../styles/index.css';
 
 .auth {
-  @include flexbox($justifyContent: between, $alignItems: flex-start, $gap: $gap-Xlarge);
+  @include flexbox($direction: column, $gap: $gap-XXlarge: 1.75rem;);
 
-  margin-top: 80px;
   width: 100%;
 
-  & .auth__image {
-    width: 100%;
+  & .auth__content {
+    @include flexbox($justifyContent: between, $alignItems: flex-start, $gap: $gap-Xlarge);
 
-    & img {
-      border-radius: 0 $border-radius-large $border-radius-large 0;
-      height: auto;
-      max-height: 802px;
-      max-width: 100%;
-    }
-    @include tablet-breakpoint {
-      display: none;
-    }
-    @include mobile-breakpoint {
-      display: none;
+    margin-top: 80px;
+
+    & .auth__image {
+      width: 100%;
+
+      & img {
+        border-radius: 0 $border-radius-large $border-radius-large 0;
+        height: auto;
+        max-height: 802px;
+        max-width: 100%;
+      }
+      @include tablet-breakpoint {
+        display: none;
+      }
+      @include mobile-breakpoint {
+        display: none;
+      }
     }
   }
 

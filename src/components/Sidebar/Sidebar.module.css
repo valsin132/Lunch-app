@@ -9,11 +9,11 @@ $sidebar-animation-duration: 300ms;
   background-color: $color-blue-800;
   border-radius: 0 $border-radius-regular $border-radius-regular 0;
   color: $color-white;
-  height: calc(100vh - 24px);
+  height: calc(100vh - 48px);
   padding: calc($spacing-4xs + 2px);
   position: sticky;
   text-align: left;
-  top: 0;
+  top: 24px;
   @include mobile-breakpoint {
     padding: calc($spacing-4xs + 2px) calc($spacing-5xs + 1px);
   }

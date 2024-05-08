@@ -11,6 +11,10 @@
 
     & .meal-search__inputs {
       @include flexbox($gap: $gap-compact);
+
+      & .meal-search__input {
+        min-width: 323px;
+      }
     }
   }
 

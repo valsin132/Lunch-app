@@ -29,7 +29,8 @@ export function Card({
     <div
       className={cx(
         'card',
-        { 'card--no-border': isNoBorder, 'card--full-width': isFullWidth },
+        { 'card--no-border': isNoBorder },
+        { 'card--full-width': isFullWidth },
         [`card--spacing-${spacing}`],
         [`card--rounded-corners-${roundedCorners}`],
         [`card--box-shadow-${shadow}`]

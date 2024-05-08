@@ -45,7 +45,7 @@ export function FoodMenu(): ReactElement {
     return filteredMealData;
   }, [mealsData, selectedDay, mealTitleSearch]);
 
-  const isMealsArrayEmpty = !!filteredMeals.length;
+  const noMealsFound = !filteredMeals.length;
 
   const getRating = (id: number) => {
     const filteredRatings = ratingsData?.filter((rating) => rating.mealId === id) ?? [];
@@ -84,7 +84,9 @@ export function FoodMenu(): ReactElement {
         }}
       />
       <div className={cx('menu-wrapper')}>
-        {isMealsArrayEmpty ? (
+        {noMealsFound ? (
+          <div className={cx('menu-wrapper__no-results')}>No results found</div>
+        ) : (
           filteredMeals.map((meal) => (
             <FoodCard
               key={meal.id}
@@ -99,8 +101,6 @@ export function FoodMenu(): ReactElement {
               onClick={onclick}
             />
           ))
-        ) : (
-          <div className={cx('menu-wrapper__no-results')}>No results found</div>
         )}
       </div>
     </div>

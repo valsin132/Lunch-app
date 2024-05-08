@@ -7,11 +7,12 @@ import styles from './MealSearch.module.css';
 
 type MealSearchProps = {
   handleSearch: (title: string) => void;
+  isSortBy?: boolean;
 };
 
 const cx = classNames.bind(styles);
 
-export function MealSearch({ handleSearch }: MealSearchProps) {
+export function MealSearch({ handleSearch, isSortBy = false }: MealSearchProps) {
   const [mealTitle, setMealTitle] = useState('');
 
   return (
@@ -19,18 +20,20 @@ export function MealSearch({ handleSearch }: MealSearchProps) {
       <div className={cx('meal-search')}>
         <form className={cx('meal-search__form')}>
           <div className={cx('meal-search__inputs')}>
-            <Input
-              id="mealTitle"
-              label="What dish are you looking for?"
-              withIcon
-              name="mealTitle"
-              textFieldType="text"
-              placeholder="Enter a dish"
-              onChange={(e) => {
-                setMealTitle(e.target.value);
-              }}
-              value={mealTitle}
-            />
+            <div className={cx('meal-search__input')}>
+              <Input
+                id="mealTitle"
+                label="What dish are you looking for?"
+                withIcon
+                name="mealTitle"
+                textFieldType="text"
+                placeholder="Enter a dish"
+                onChange={(e) => {
+                  setMealTitle(e.target.value);
+                }}
+                value={mealTitle}
+              />
+            </div>
           </div>
           <Button
             buttonSize="md"
@@ -41,7 +44,7 @@ export function MealSearch({ handleSearch }: MealSearchProps) {
             }}
           />
         </form>
-        <div className={cx('meal-search__seperator')} />
+        {isSortBy && <div className={cx('meal-search__seperator')} />}
       </div>
     </Card>
   );

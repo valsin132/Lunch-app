@@ -81,12 +81,6 @@ export function LoginForm() {
     if (email && EMAIL_REGEX.test(email) && password) {
       login(email, password, setShowToast);
     }
-    if (isFetchError) {
-      setShowToast(true);
-    }
-    if (isLoginError) {
-      setShowToast(true);
-    }
   };
 
   return (

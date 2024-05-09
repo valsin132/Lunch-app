@@ -3,7 +3,7 @@ import { ReactElement, useState, useMemo } from 'react';
 import { useFetchData } from '../../hooks/useFetchData';
 import { FoodCard } from '../../components/FoodCard';
 import { Tab } from '../../components/Tab';
-import { Meal, Vendor, Rating, WeekDay } from './FoodMenu.types';
+import { Meal, Vendor, Rating, WeekDay, Order } from './FoodMenu.types';
 import styles from './FoodMenu.module.css';
 
 const cx = classNames.bind(styles);
@@ -28,6 +28,15 @@ export function FoodMenu(): ReactElement {
   const [selectedDay, setSelectedDay] = useState<WeekDay>('Monday');
 
   const dayLabels = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+
+  const isMealOrdered = useMemo(() => {
+    const storedData = localStorage.getItem('userData');
+    if (storedData) {
+      const { orders } = JSON.parse(storedData);
+      return orders.filter((order: Order) => order.weekDay === selectedDay)?.length > 0;
+    }
+    return false;
+  }, [selectedDay]);
 
   const getVendorName = (vendorId: number) =>
     vendorsData?.find((vendor) => Number(vendor.id) === vendorId)?.name ?? '';
@@ -69,20 +78,26 @@ export function FoodMenu(): ReactElement {
         ))}
       </div>
       <div className={cx('menu-wrapper')}>
-        {filteredMeals.map((meal) => (
-          <FoodCard
-            key={meal.id}
-            vendor={getVendorName(meal.vendorId)}
-            title={meal.title}
-            description={meal.description}
-            price={meal.price}
-            vegetarian={meal.vegetarian}
-            spicy={meal.spicy}
-            rating={getRating(Number(meal.id))}
-            dishType={meal.dishType}
-            onClick={onclick}
-          />
-        ))}
+        {isMealOrdered ? (
+          <div className={cx('menu-wrapper__meal-ordered')}>
+            You have already ordered meals for {selectedDay}.
+          </div>
+        ) : (
+          filteredMeals.map((meal) => (
+            <FoodCard
+              key={meal.id}
+              vendor={getVendorName(meal.vendorId)}
+              title={meal.title}
+              description={meal.description}
+              price={meal.price}
+              vegetarian={meal.vegetarian}
+              spicy={meal.spicy}
+              rating={getRating(Number(meal.id))}
+              dishType={meal.dishType}
+              onClick={onclick}
+            />
+          ))
+        )}
       </div>
     </div>
   );

@@ -36,10 +36,7 @@ export function MainContent() {
 
         <OrderSummaryProvider>
           {isOrderSummaryVisible && (
-            <div
-              className={cx('main-content__order-summary', {
-                'main-content__order-summary-visible': isOrderSummaryVisible,
-              })}>
+            <div className={cx('main-content__order-summary', { visible: isOrderSummaryVisible })}>
               <OrderSummary
                 visibilityHandler={() => {
                   setIsOrderSummaryVisible(false);

@@ -42,7 +42,7 @@
     transition: opacity 0.5s ease;
   }
 
-  & .main-content__order-summary-visible {
+  & .main-content__order-summary.visible {
     opacity: 1;
   }
 

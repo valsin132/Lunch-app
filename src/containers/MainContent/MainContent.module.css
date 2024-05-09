@@ -9,6 +9,7 @@
 
   & .main-content__sidebar {
     grid-area: 1 / 1 / 6 / 2;
+    padding-bottom: $spacing-s;
   }
 
   & .main-content__header {
@@ -38,15 +39,21 @@
   }
 
   & .main-content__order-summary {
-    opacity: 0;
-    transition: opacity 0.5s ease;
-  }
-
-  & .main-content__order-summary.visible {
-    opacity: 1;
+    animation: fadein 0.3s ease-in forwards;
   }
 
   & .main-content__footer {
     grid-area: 5 / 2 / 5 / 6;
+  }
+}
+
+@keyframes fadein {
+
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
   }
 }

@@ -65,7 +65,7 @@ export function LoginForm() {
     setPasswordErrorMsg('');
   };
 
-  const handleLogin = async () => {
+  const handleLogin = () => {
     if (!email) {
       setEmailErrorMsg('Please enter your email.');
     } else if (!EMAIL_REGEX.test(email)) {
@@ -79,7 +79,7 @@ export function LoginForm() {
       setPasswordErrorMsg('');
     }
     if (email && EMAIL_REGEX.test(email) && password) {
-      login(email, password);
+      login(email, password, setShowToast);
     }
     if (isLoginError) {
       setShowToast(true);

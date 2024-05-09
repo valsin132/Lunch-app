@@ -18,7 +18,7 @@ export const useLogin = () => {
   const { data: userData } = useFetchData<User>('http://localhost:3002/user');
   const [isError, setIsError] = useState<string>('');
 
-  const login = async (email: string, password: string): Promise<void> => {
+  const login = (email: string, password: string, setShowToast: (value: boolean) => void): void => {
     setIsError('');
 
     if (userData?.email === email && userData?.password === password) {
@@ -26,6 +26,7 @@ export const useLogin = () => {
       window.dispatchEvent(new Event('storage'));
     } else {
       setIsError('Incorrect email or password. Please try again.');
+      setShowToast(true);
     }
   };
 

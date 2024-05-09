@@ -37,7 +37,6 @@ const formReducer = (state: State, action: Action): State => {
   }
 };
 
-// eslint-disable-next-line max-lines-per-function
 export function LoginForm() {
   const { login, errorMsg } = useLogin();
   const initialState = {

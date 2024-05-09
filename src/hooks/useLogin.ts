@@ -14,29 +14,24 @@ interface User {
   }[];
 }
 
-export const useLogin = () => {
-  const { data: userData } = useFetchData<User>('http://localhost:3002/user');
-  const [isLoading, setIsLoading] = useState(false);
+interface UseLoginResult {
+  login: (email: string, password: string) => void;
+  isLoading: boolean;
+  isError: string;
+}
+
+export const useLogin = (): UseLoginResult => {
+  const { data: userData, isLoading } = useFetchData<User>('http://localhost:3002/user');
   const [isError, setIsError] = useState<string>('');
 
   const login = async (email: string, password: string) => {
-    setIsLoading(true);
     setIsError('');
 
-    try {
-      if (userData?.email === email && userData?.password === password) {
-        localStorage.setItem('userData', JSON.stringify(userData));
-        window.dispatchEvent(new Event('storage'));
-        setIsLoading(false);
-        return true;
-      }
+    if (userData?.email === email && userData?.password === password) {
+      window.localStorage.setItem('userData', JSON.stringify(userData));
+      window.dispatchEvent(new Event('storage'));
+    } else {
       setIsError('Incorrect email or password. Please try again.');
-      setIsLoading(false);
-      return false;
-    } catch (_isError) {
-      setIsError('Login failed. Please try again later.');
-      setIsLoading(false);
-      return false;
     }
   };
 

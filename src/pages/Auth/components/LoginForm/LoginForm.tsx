@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react';
+import React, { useReducer, useState, useEffect } from 'react';
 import classNames from 'classnames/bind';
 import { Input } from '../../../../components/Input';
 import { Button } from '../../../../components/Button';
@@ -39,7 +39,7 @@ const formReducer = (state: State, action: Action): State => {
 
 // eslint-disable-next-line max-lines-per-function
 export function LoginForm() {
-  const { login: loginAction, isError } = useLogin();
+  const { login, isError: isLoginError } = useLogin();
   const initialState = {
     email: '',
     password: '',
@@ -64,6 +64,13 @@ export function LoginForm() {
     setPassword(e.target.value);
     setPasswordErrorMsg('');
   };
+
+  useEffect(() => {
+    if (isLoginError) {
+      setShowToast(true);
+    }
+  }, [isLoginError]);
+
   const handleLogin = async () => {
     if (!email) {
       setEmailErrorMsg('Please enter your email.');
@@ -78,10 +85,7 @@ export function LoginForm() {
       setPasswordErrorMsg('');
     }
     if (email && EMAIL_REGEX.test(email) && password) {
-      const success = await loginAction(email, password);
-      if (!success) {
-        setShowToast(true);
-      }
+      login(email, password);
     }
   };
   return (
@@ -139,7 +143,11 @@ export function LoginForm() {
         />
       </form>
       {showToast && (
-        <Toast toastType="warning" content={isError} onClick={() => setShowToast(false)} />
+        <Toast
+          toastType="warning"
+          content="Incorrect email or password. Please try again."
+          onClick={() => setShowToast(false)}
+        />
       )}
     </>
   );

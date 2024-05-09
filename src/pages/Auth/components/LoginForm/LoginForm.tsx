@@ -1,4 +1,4 @@
-import React, { useReducer, useState, useEffect } from 'react';
+import React, { useReducer, useState } from 'react';
 import classNames from 'classnames/bind';
 import { Input } from '../../../../components/Input';
 import { Button } from '../../../../components/Button';
@@ -65,12 +65,6 @@ export function LoginForm() {
     setPasswordErrorMsg('');
   };
 
-  useEffect(() => {
-    if (isLoginError) {
-      setShowToast(true);
-    }
-  }, [isLoginError]);
-
   const handleLogin = async () => {
     if (!email) {
       setEmailErrorMsg('Please enter your email.');
@@ -87,7 +81,11 @@ export function LoginForm() {
     if (email && EMAIL_REGEX.test(email) && password) {
       login(email, password);
     }
+    if (isLoginError) {
+      setShowToast(true);
+    }
   };
+
   return (
     <>
       <form className={cx('login-form')} aria-label="Login Form">

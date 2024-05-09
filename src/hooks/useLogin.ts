@@ -14,17 +14,11 @@ interface User {
   }[];
 }
 
-interface UseLoginResult {
-  login: (email: string, password: string) => void;
-  isLoading: boolean;
-  isError: string;
-}
-
-export const useLogin = (): UseLoginResult => {
-  const { data: userData, isLoading } = useFetchData<User>('http://localhost:3002/user');
+export const useLogin = () => {
+  const { data: userData } = useFetchData<User>('http://localhost:3002/user');
   const [isError, setIsError] = useState<string>('');
 
-  const login = async (email: string, password: string) => {
+  const login = async (email: string, password: string): Promise<void> => {
     setIsError('');
 
     if (userData?.email === email && userData?.password === password) {
@@ -35,5 +29,5 @@ export const useLogin = (): UseLoginResult => {
     }
   };
 
-  return { login, isLoading, isError };
+  return { login, isError };
 };

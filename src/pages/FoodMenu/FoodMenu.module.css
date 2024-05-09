@@ -3,7 +3,7 @@
 .menu-wrapper {
   @include flexbox($wrap: wrap, $gap: 32px);
 
-  & .menu-wrapper__no-results {
+  & .menu-wrapper__empty-meals-text {
     @include body-m;
 
     color: $color-grey-500;

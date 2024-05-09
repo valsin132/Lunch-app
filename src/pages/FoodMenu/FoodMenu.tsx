@@ -3,12 +3,13 @@ import { ReactElement, useState, useMemo } from 'react';
 import { useFetchData } from '../../hooks/useFetchData';
 import { FoodCard } from '../../components/FoodCard';
 import { Tab } from '../../components/Tab';
-import { Meal, Vendor, Rating, WeekDay } from './FoodMenu.types';
+import { Meal, Vendor, Rating, WeekDay, Order } from './FoodMenu.types';
 import { MealSearch } from '../../components/MealSearch';
 import styles from './FoodMenu.module.css';
 
 const cx = classNames.bind(styles);
 
+// eslint-disable-next-line max-lines-per-function
 export function FoodMenu(): ReactElement {
   const {
     data: vendorsData,
@@ -30,6 +31,15 @@ export function FoodMenu(): ReactElement {
   const [mealTitleSearch, setMealTitleSearch] = useState('');
 
   const dayLabels = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+
+  const isMealOrdered = useMemo(() => {
+    const storedData = localStorage.getItem('userData');
+    if (storedData) {
+      const { orders } = JSON.parse(storedData);
+      return orders.filter((order: Order) => order.weekDay === selectedDay)?.length > 0;
+    }
+    return false;
+  }, [selectedDay]);
 
   const getVendorName = (vendorId: number) =>
     vendorsData?.find((vendor) => Number(vendor.id) === vendorId)?.name ?? '';
@@ -84,8 +94,10 @@ export function FoodMenu(): ReactElement {
         }}
       />
       <div className={cx('menu-wrapper')}>
-        {noMealsFound ? (
-          <div className={cx('menu-wrapper__no-results')}>No results found</div>
+        {noMealsFound || isMealOrdered ? (
+          <div className={cx('menu-wrapper__no-results')}>
+            No results found or You have already ordered meals for {selectedDay}
+          </div>
         ) : (
           filteredMeals.map((meal) => (
             <FoodCard

@@ -39,7 +39,7 @@ const formReducer = (state: State, action: Action): State => {
 
 // eslint-disable-next-line max-lines-per-function
 export function LoginForm() {
-  const { login, isError: isLoginError } = useLogin();
+  const { login, isError: isLoginError, isFetchError } = useLogin();
   const initialState = {
     email: '',
     password: '',
@@ -80,6 +80,9 @@ export function LoginForm() {
     }
     if (email && EMAIL_REGEX.test(email) && password) {
       login(email, password, setShowToast);
+    }
+    if (isFetchError) {
+      setShowToast(true);
     }
     if (isLoginError) {
       setShowToast(true);
@@ -143,7 +146,7 @@ export function LoginForm() {
       {showToast && (
         <Toast
           toastType="warning"
-          content="Incorrect email or password. Please try again."
+          content={isLoginError || isFetchError}
           onClick={() => setShowToast(false)}
         />
       )}

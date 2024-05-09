@@ -13,7 +13,7 @@ const cx = classNames.bind(styles);
 type ToastTypes = 'info' | 'success' | 'warning';
 
 interface ToastProps {
-  content: string;
+  content: string | boolean;
   toastType: ToastTypes;
   onClick: () => void;
 }

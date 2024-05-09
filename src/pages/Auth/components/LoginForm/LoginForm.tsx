@@ -39,7 +39,7 @@ const formReducer = (state: State, action: Action): State => {
 
 // eslint-disable-next-line max-lines-per-function
 export function LoginForm() {
-  const { login, isError: isLoginError, isFetchError } = useLogin();
+  const { login, errorMsg } = useLogin();
   const initialState = {
     email: '',
     password: '',
@@ -138,11 +138,7 @@ export function LoginForm() {
         />
       </form>
       {showToast && (
-        <Toast
-          toastType="warning"
-          content={isLoginError || isFetchError}
-          onClick={() => setShowToast(false)}
-        />
+        <Toast toastType="warning" content={errorMsg} onClick={() => setShowToast(false)} />
       )}
     </>
   );

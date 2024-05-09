@@ -37,9 +37,6 @@ export function FoodList({ selectedDay, mealTitleSearch }: FoodListProps) {
 
   const noMealsFound = useMemo(() => !filteredMeals.length, [filteredMeals]);
 
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error occurred while retrieving data</div>;
-
   const getVendorName = (vendorId: number) =>
     vendorsData?.find((vendor) => Number(vendor.id) === vendorId)?.name ?? '';
 
@@ -54,32 +51,31 @@ export function FoodList({ selectedDay, mealTitleSearch }: FoodListProps) {
     return 'Not rated';
   };
 
-  const mealList = () => {
-    if (isMealOrdered) {
-      return (
-        <div className={cx('menu-wrapper__empty-meals-text')}>
-          You have already ordered meals for {selectedDay}
-        </div>
-      );
-    }
-    if (noMealsFound) {
-      return <div className={cx('menu-wrapper__empty-meals-text')}>No results found</div>;
-    }
-    return filteredMeals.map((meal) => (
-      <FoodCard
-        key={meal.id}
-        vendor={getVendorName(meal.vendorId)}
-        title={meal.title}
-        description={meal.description}
-        price={meal.price}
-        vegetarian={meal.vegetarian}
-        spicy={meal.spicy}
-        rating={getRating(Number(meal.id))}
-        dishType={meal.dishType}
-        onClick={onclick}
-      />
-    ));
-  };
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error occurred while retrieving data</div>;
 
-  return <div className={cx('menu-wrapper')}>{mealList()}</div>;
+  return (
+    <div className={cx('menu-wrapper')}>
+      {isMealOrdered || noMealsFound ? (
+        <div className={cx('menu-wrapper__empty-meals-text')}>
+          {isMealOrdered ? `You have already ordered meals for ${selectedDay}` : 'No results found'}
+        </div>
+      ) : (
+        filteredMeals.map((meal) => (
+          <FoodCard
+            key={meal.id}
+            vendor={getVendorName(meal.vendorId)}
+            title={meal.title}
+            description={meal.description}
+            price={meal.price}
+            vegetarian={meal.vegetarian}
+            spicy={meal.spicy}
+            rating={getRating(Number(meal.id))}
+            dishType={meal.dishType}
+            onClick={onclick}
+          />
+        ))
+      )}
+    </div>
+  );
 }

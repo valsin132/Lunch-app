@@ -14,14 +14,14 @@ interface RegisterFormProps {
 
 export function RegisterForm({ handleRegistration }: RegisterFormProps) {
   const { state, dispatch } = useRegisterData();
-  const [communityRules, setCommunityRules] = useState(false);
+  const [isCommunityRulesChecked, setisCommunityRulesChecked] = useState(false);
 
   const { email, userName, createPassword, repeatPassword } = state;
 
   const setReducerState = (type: RegisterFieldActions['type'], value: string) =>
     dispatch({ type, payload: value });
 
-  const handleChange = (
+  const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     valueType: RegisterFieldActions['type'],
     errorValueType: RegisterFieldActions['type']
@@ -31,7 +31,7 @@ export function RegisterForm({ handleRegistration }: RegisterFormProps) {
   };
 
   const handleCommunityRulesChange = () => {
-    setCommunityRules(!communityRules);
+    setisCommunityRulesChecked(!isCommunityRulesChecked);
     setReducerState('communityRulesErrorMsg', '');
   };
 
@@ -41,7 +41,7 @@ export function RegisterForm({ handleRegistration }: RegisterFormProps) {
       PASSWORD_REGEX.test(createPassword) &&
       createPassword === repeatPassword &&
       userName &&
-      communityRules
+      isCommunityRulesChecked
     ) {
       handleRegistration();
     } else {
@@ -66,8 +66,7 @@ export function RegisterForm({ handleRegistration }: RegisterFormProps) {
       } else if (createPassword !== repeatPassword) {
         setReducerState('repeatPasswordErrorMsg', "Password doesn't match. Please check it.");
       }
-
-      if (!communityRules) {
+      if (!isCommunityRulesChecked) {
         setReducerState('communityRulesErrorMsg', 'Please accept the rules');
       }
     }
@@ -80,8 +79,8 @@ export function RegisterForm({ handleRegistration }: RegisterFormProps) {
           <p>Join our office foodies today!</p>
         </div>
         <RegisterFields
-          handleCommunityRulesChange={handleCommunityRulesChange}
-          handleChange={handleChange}
+          handleCheckboxChange={handleCommunityRulesChange}
+          handleInputChange={handleInputChange}
           state={state}
         />
       </div>

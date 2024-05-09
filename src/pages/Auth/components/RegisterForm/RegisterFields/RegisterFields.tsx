@@ -8,18 +8,18 @@ const cx = classNames.bind(styles);
 
 interface RegisterFieldsProps {
   state: RegisterState;
-  handleChange: (
+  handleInputChange: (
     e: React.ChangeEvent<HTMLInputElement>,
     valueType: RegisterFieldActions['type'],
     errorValueType: RegisterFieldActions['type']
   ) => void;
-  handleCommunityRulesChange: () => void;
+  handleCheckboxChange: () => void;
 }
 
 export function RegisterFields({
   state,
-  handleChange,
-  handleCommunityRulesChange: handleCommunityRules,
+  handleInputChange: handleChange,
+  handleCheckboxChange: handleCommunityRules,
 }: RegisterFieldsProps) {
   const {
     email,

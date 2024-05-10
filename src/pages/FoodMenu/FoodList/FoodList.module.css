@@ -1,7 +1,7 @@
 @import './../../../styles/index.css';
 
 .menu-wrapper {
-  @include flexbox($wrap: wrap, $gap: 32px);
+  @include flexbox($alignItems: center, $justifyContent: center, $wrap: wrap, $gap: $gap-2Xlarge);
 
   & .menu-wrapper__empty-meals-text {
     @include body-m;

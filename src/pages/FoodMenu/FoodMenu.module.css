@@ -4,7 +4,7 @@
   @include flexbox($direction: column, $gap: $gap-2Xlarge);
 
   & .menu-wrapper {
-    @include flexbox($alignItems: center, $justifyContent: center, $wrap: wrap, $gap: 32px);
+    @include flexbox($alignItems: center, $justifyContent: center, $wrap: wrap, $gap: $gap-2Xlarge);
   }
 
   & .tab-wrapper {

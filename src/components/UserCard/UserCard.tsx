@@ -9,7 +9,7 @@ import styles from './UserCard.module.css';
 const cx = classNames.bind(styles);
 
 interface UserData {
-  userName: string;
+  email: string;
   password: string;
   name: string;
   surname: string;

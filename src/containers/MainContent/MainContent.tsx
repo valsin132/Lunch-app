@@ -28,7 +28,7 @@ export function MainContent() {
         }>
         <Outlet />
       </main>
-      <aside
+      <nav
         className={cx('main-content__aside', {
           'main-content__aside-position': isOrderSummaryVisible,
         })}>
@@ -44,7 +44,7 @@ export function MainContent() {
             </div>
           )}
         </OrderSummaryProvider>
-      </aside>
+      </nav>
       <footer className={cx('main-content__footer')}>
         <Footer />
       </footer>

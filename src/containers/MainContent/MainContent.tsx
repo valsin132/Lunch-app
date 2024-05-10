@@ -16,9 +16,9 @@ export function MainContent() {
 
   return (
     <div className={cx('main-content')}>
-      <aside className={cx('main-content__sidebar')}>
+      <nav className={cx('main-content__sidebar')}>
         <Sidebar />
-      </aside>
+      </nav>
       <header className={cx('main-content__header')}>
         <Header pageType="foodMenu" />
       </header>
@@ -28,7 +28,7 @@ export function MainContent() {
         }>
         <Outlet />
       </main>
-      <nav
+      <aside
         className={cx('main-content__aside', {
           'main-content__aside-position': isOrderSummaryVisible,
         })}>
@@ -44,7 +44,7 @@ export function MainContent() {
             </div>
           )}
         </OrderSummaryProvider>
-      </nav>
+      </aside>
       <footer className={cx('main-content__footer')}>
         <Footer />
       </footer>

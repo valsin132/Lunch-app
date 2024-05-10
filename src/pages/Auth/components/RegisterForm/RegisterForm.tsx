@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import classNames from 'classnames/bind';
 import { Button } from '../../../../components/Button';
 import { EMAIL_REGEX, PASSWORD_REGEX } from '../../../../constants';
@@ -14,25 +14,23 @@ interface RegisterFormProps {
 
 export function RegisterForm({ handleRegistration }: RegisterFormProps) {
   const { state, dispatch } = useRegisterData();
-  const [isCommunityRulesChecked, setisCommunityRulesChecked] = useState(false);
 
-  const { email, userName, createPassword, repeatPassword } = state;
+  const { email, userName, createPassword, repeatPassword, communityRules } = state;
 
-  const setReducerState = (type: RegisterFieldActions['type'], value: string) =>
+  const setReducerState = (type: RegisterFieldActions['type'], value: string | boolean) =>
     dispatch({ type, payload: value });
 
-  const handleInputChange = (
+  const handleFormChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     valueType: RegisterFieldActions['type'],
     errorValueType: RegisterFieldActions['type']
   ) => {
-    setReducerState(valueType, e.target.value);
+    if (typeof state[valueType] === 'string') {
+      setReducerState(valueType, e.target.value);
+    } else if (typeof state[valueType] === 'boolean') {
+      setReducerState(valueType, e.target.checked);
+    }
     setReducerState(errorValueType, '');
-  };
-
-  const handleCommunityRulesChange = () => {
-    setisCommunityRulesChecked(!isCommunityRulesChecked);
-    setReducerState('communityRulesErrorMsg', '');
   };
 
   const handleCreateAccount = () => {
@@ -41,7 +39,7 @@ export function RegisterForm({ handleRegistration }: RegisterFormProps) {
       PASSWORD_REGEX.test(createPassword) &&
       createPassword === repeatPassword &&
       userName &&
-      isCommunityRulesChecked
+      communityRules
     ) {
       handleRegistration();
     } else {
@@ -66,7 +64,7 @@ export function RegisterForm({ handleRegistration }: RegisterFormProps) {
       } else if (createPassword !== repeatPassword) {
         setReducerState('repeatPasswordErrorMsg', "Password doesn't match. Please check it.");
       }
-      if (!isCommunityRulesChecked) {
+      if (!communityRules) {
         setReducerState('communityRulesErrorMsg', 'Please accept the rules');
       }
     }
@@ -78,11 +76,7 @@ export function RegisterForm({ handleRegistration }: RegisterFormProps) {
           <h1>Register</h1>
           <p>Join our office foodies today!</p>
         </div>
-        <RegisterFields
-          handleCheckboxChange={handleCommunityRulesChange}
-          handleInputChange={handleInputChange}
-          state={state}
-        />
+        <RegisterFields handleFormChange={handleFormChange} state={state} />
       </div>
       <Button
         title="Create Account"

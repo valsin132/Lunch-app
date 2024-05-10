@@ -5,6 +5,7 @@ export interface RegisterState {
   userName: string;
   createPassword: string;
   repeatPassword: string;
+  communityRules: boolean;
   emailErrorMsg: string;
   userNameErrorMsg: string;
   createPasswordErrorMsg: string;
@@ -12,7 +13,7 @@ export interface RegisterState {
   communityRulesErrorMsg: string;
 }
 
-export type RegisterFieldActions = { type: keyof RegisterState; payload: string };
+export type RegisterFieldActions = { type: keyof RegisterState; payload: string | boolean };
 
 const initialState = {
   email: '',
@@ -33,7 +34,10 @@ const registrationFormReducer = (
 ): RegisterState => {
   switch (action.type) {
     case 'createPassword':
-      return { ...state, [action.type]: action.payload, repeatPasswordErrorMsg: '' };
+      if (typeof action.payload === 'string') {
+        return { ...state, [action.type]: action.payload, repeatPasswordErrorMsg: '' };
+      }
+      return state;
     default:
       return { ...state, [action.type]: action.payload };
   }

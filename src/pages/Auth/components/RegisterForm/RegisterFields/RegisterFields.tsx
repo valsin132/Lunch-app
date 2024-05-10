@@ -8,24 +8,20 @@ const cx = classNames.bind(styles);
 
 interface RegisterFieldsProps {
   state: RegisterState;
-  handleInputChange: (
+  handleFormChange: (
     e: React.ChangeEvent<HTMLInputElement>,
     valueType: RegisterFieldActions['type'],
     errorValueType: RegisterFieldActions['type']
   ) => void;
-  handleCheckboxChange: () => void;
 }
 
-export function RegisterFields({
-  state,
-  handleInputChange: handleChange,
-  handleCheckboxChange: handleCommunityRules,
-}: RegisterFieldsProps) {
+export function RegisterFields({ state, handleFormChange }: RegisterFieldsProps) {
   const {
     email,
     userName,
     createPassword,
     repeatPassword,
+    communityRules,
     emailErrorMsg,
     userNameErrorMsg,
     createPasswordErrorMsg,
@@ -41,7 +37,7 @@ export function RegisterFields({
         label="Your email"
         value={email}
         name="email"
-        onChange={(event) => handleChange(event, 'email', 'emailErrorMsg')}
+        onChange={(event) => handleFormChange(event, 'email', 'emailErrorMsg')}
         aria-required="true"
         aria-label="Email Input Field"
         isError={!!emailErrorMsg}
@@ -54,7 +50,7 @@ export function RegisterFields({
         label="Create user name"
         value={userName}
         name="userName"
-        onChange={(event) => handleChange(event, 'userName', 'userNameErrorMsg')}
+        onChange={(event) => handleFormChange(event, 'userName', 'userNameErrorMsg')}
         aria-required="true"
         aria-label="User name Input Field"
         isError={!!userNameErrorMsg}
@@ -67,7 +63,7 @@ export function RegisterFields({
         label="Create Password"
         value={createPassword}
         name="createPassword"
-        onChange={(event) => handleChange(event, 'createPassword', 'createPasswordErrorMsg')}
+        onChange={(event) => handleFormChange(event, 'createPassword', 'createPasswordErrorMsg')}
         aria-required="true"
         aria-label="Create password Input Field"
         isError={!!createPasswordErrorMsg}
@@ -80,7 +76,7 @@ export function RegisterFields({
         label="Repeat Password"
         value={repeatPassword}
         name="repeatPassword"
-        onChange={(event) => handleChange(event, 'repeatPassword', 'repeatPasswordErrorMsg')}
+        onChange={(event) => handleFormChange(event, 'repeatPassword', 'repeatPasswordErrorMsg')}
         aria-required="true"
         aria-label="Create password Input Field"
         isError={!!repeatPasswordErrorMsg}
@@ -90,7 +86,8 @@ export function RegisterFields({
         <Checkbox
           label="I have read the"
           id="Community Rules"
-          onChange={handleCommunityRules}
+          checked={communityRules}
+          onChange={(event) => handleFormChange(event, 'communityRules', 'communityRulesErrorMsg')}
           isError={!!communityRulesErrorMsg}
           errorMessage={communityRulesErrorMsg}
         />

@@ -8,7 +8,7 @@
   & .auth__content {
     @include flexbox($justifyContent: between, $alignItems: flex-start, $gap: $gap-Xlarge);
 
-    margin-top: 80px;
+    margin-top: 5rem;
 
     & .auth__image {
       width: 100%;

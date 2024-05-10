@@ -12,7 +12,10 @@ export function Auth(): ReactElement {
     <div className={cx('auth')}>
       <div className={cx('auth__content')}>
         <div className={cx('auth__image')}>
-          <img src={loginIllustration1} alt="login illustration" />
+          <img
+            src={loginIllustration1}
+            alt="3D illustration of a man and a woman standing on a platform, thinking about food"
+          />
         </div>
         <div className={cx('auth__container')}>
           <AuthCard />

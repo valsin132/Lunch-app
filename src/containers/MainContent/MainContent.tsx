@@ -10,7 +10,6 @@ import { OrderSummaryProvider } from '../../helpers/OrderSummaryContext';
 import styles from './MainContent.module.css';
 
 const cx = classNames.bind(styles);
-
 export function MainContent() {
   const [isOrderSummaryVisible, setIsOrderSummaryVisible] = useState(false);
 

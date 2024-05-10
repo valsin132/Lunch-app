@@ -5,7 +5,7 @@ export interface RegisterState {
   userName: string;
   createPassword: string;
   repeatPassword: string;
-  communityRules: boolean;
+  isCommunityRulesChecked: boolean;
   emailErrorMsg: string;
   userNameErrorMsg: string;
   createPasswordErrorMsg: string;
@@ -20,7 +20,7 @@ const initialState = {
   userName: '',
   createPassword: '',
   repeatPassword: '',
-  communityRules: false,
+  isCommunityRulesChecked: false,
   emailErrorMsg: '',
   userNameErrorMsg: '',
   createPasswordErrorMsg: '',

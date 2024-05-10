@@ -21,7 +21,7 @@ export function RegisterFields({ state, handleFormChange }: RegisterFieldsProps)
     userName,
     createPassword,
     repeatPassword,
-    communityRules,
+    isCommunityRulesChecked,
     emailErrorMsg,
     userNameErrorMsg,
     createPasswordErrorMsg,
@@ -86,8 +86,10 @@ export function RegisterFields({ state, handleFormChange }: RegisterFieldsProps)
         <Checkbox
           label="I have read the"
           id="Community Rules"
-          checked={communityRules}
-          onChange={(event) => handleFormChange(event, 'communityRules', 'communityRulesErrorMsg')}
+          checked={isCommunityRulesChecked}
+          onChange={(event) =>
+            handleFormChange(event, 'isCommunityRulesChecked', 'communityRulesErrorMsg')
+          }
           isError={!!communityRulesErrorMsg}
           errorMessage={communityRulesErrorMsg}
         />

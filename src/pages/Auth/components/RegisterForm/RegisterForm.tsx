@@ -15,7 +15,7 @@ interface RegisterFormProps {
 export function RegisterForm({ handleRegistration }: RegisterFormProps) {
   const { state, dispatch } = useRegisterData();
 
-  const { email, userName, createPassword, repeatPassword, communityRules } = state;
+  const { email, userName, createPassword, repeatPassword, isCommunityRulesChecked } = state;
 
   const setReducerState = (type: RegisterFieldActions['type'], value: string | boolean) =>
     dispatch({ type, payload: value });
@@ -39,7 +39,7 @@ export function RegisterForm({ handleRegistration }: RegisterFormProps) {
       PASSWORD_REGEX.test(createPassword) &&
       createPassword === repeatPassword &&
       userName &&
-      communityRules
+      isCommunityRulesChecked
     ) {
       handleRegistration();
     } else {
@@ -64,7 +64,7 @@ export function RegisterForm({ handleRegistration }: RegisterFormProps) {
       } else if (createPassword !== repeatPassword) {
         setReducerState('repeatPasswordErrorMsg', "Password doesn't match. Please check it.");
       }
-      if (!communityRules) {
+      if (!isCommunityRulesChecked) {
         setReducerState('communityRulesErrorMsg', 'Please accept the rules');
       }
     }

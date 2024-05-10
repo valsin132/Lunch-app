@@ -24,7 +24,7 @@ module.exports = {
     'no-console': 'error',
     curly: 'warn',
     'arrow-body-style': ['error', 'as-needed'],
-    'max-lines-per-function': ['warn', 100],
+    'max-lines-per-function': ['warn', 200],
     'import/default': 'error',
     'import/export': 'error',
     'import/first': 'error',

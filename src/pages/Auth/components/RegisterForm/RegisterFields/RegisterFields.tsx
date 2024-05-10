@@ -86,7 +86,7 @@ export function RegisterFields({ state, handleFormChange }: RegisterFieldsProps)
         <Checkbox
           label="I have read the"
           id="Community Rules"
-          checked={isCommunityRulesChecked}
+          isChecked={isCommunityRulesChecked}
           onChange={(event) =>
             handleFormChange(event, 'isCommunityRulesChecked', 'communityRulesErrorMsg')
           }

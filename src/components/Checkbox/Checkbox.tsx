@@ -6,7 +6,7 @@ const cx = classNames.bind(styles);
 
 interface CheckboxProps {
   label: string;
-  checked: boolean;
+  isChecked: boolean;
   isError?: boolean;
   isDisabled?: boolean;
   errorMessage?: string;
@@ -16,7 +16,7 @@ interface CheckboxProps {
 
 export function Checkbox({
   label,
-  checked,
+  isChecked,
   id,
   isDisabled,
   isError,
@@ -33,7 +33,7 @@ export function Checkbox({
         })}
         disabled={isDisabled}
         onChange={onChange}
-        checked={checked}
+        checked={isChecked}
       />
       <label
         className={cx('checkbox__label', {

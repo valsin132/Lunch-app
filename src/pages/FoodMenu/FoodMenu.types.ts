@@ -26,4 +26,11 @@ export interface Vendor {
   name: string;
 }
 
+export interface Users {
+  id: string;
+  name: string;
+  surname: string;
+  img: string;
+}
+
 export type WeekDay = 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday';

@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react';
+import { ReactElement } from 'react';
 import classNames from 'classnames/bind';
 import { Card } from '../Card';
 import { Button } from '../Button';
@@ -29,7 +29,7 @@ interface FoodCardProps {
   onClick: () => void;
 }
 
-const getDishTypeImage = (dishType: DishType): string => {
+export const getDishTypeImage = (dishType: DishType): string => {
   switch (dishType) {
     case 'wrap':
       return kebabImage;
@@ -60,7 +60,7 @@ export function FoodCard({
   onClick,
 }: FoodCardProps): ReactElement {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [isOpenModal, setIsOpenModal] = useState(false);
+  // const [isOpenModal, setIsOpenModal] = useState(false);
 
   return (
     <div className={cx('food-card')}>
@@ -95,7 +95,7 @@ export function FoodCard({
                 iconType="arrow"
                 buttonType="tertiary"
                 buttonSize="sm"
-                onClick={() => setIsOpenModal(true)}
+                onClick={onClick}
               />
             </div>
           </div>

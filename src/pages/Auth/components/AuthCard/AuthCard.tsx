@@ -1,27 +1,55 @@
 import classNames from 'classnames/bind';
-import { ReactElement } from 'react';
+import { ReactElement, useState } from 'react';
 import { LogoHorizontal } from '../../../../utils/iconManager';
 import { Card } from '../../../../components/Card';
 import { LoginForm } from '../LoginForm/LoginForm';
+import { RegisterForm } from '../RegisterForm/RegisterForm';
 import { Tab } from '../../../../components/Tab';
+import { Toast } from '../../../../components/Toast';
+import { AuthMenu } from './AuthCard.types';
 import styles from './AuthCard.module.css';
 
 const cx = classNames.bind(styles);
 
 export function AuthCard(): ReactElement {
-  const handleTabClick = () => {};
-
+  const [activeTab, setActiveTab] = useState<AuthMenu>('LOGIN');
+  const [isToastShown, setIsToastShown] = useState(false);
+  const handleRegistration = () => {
+    setIsToastShown(true);
+    setActiveTab('LOGIN');
+  };
+  const handleTabSwitch = (tabName: AuthMenu) => {
+    setActiveTab(tabName);
+    if (isToastShown) setIsToastShown(false);
+  };
   return (
-    <Card spacing="s" shadow="m">
+    <Card spacing="none" shadow="m" isNoBorder>
+      {isToastShown && (
+        <Toast
+          content="Congratulations, your account has been succesfully created!"
+          toastType="success"
+          onClick={() => setIsToastShown(!isToastShown)}
+        />
+      )}
       <div className={cx('auth-card')}>
-        <div className={cx('auth-card__container')}>
-          <LogoHorizontal className={cx('auth-card__logo')} />
-          <div className={cx('auth-card__header')}>
-            <Tab label="Login" isActive onClick={() => handleTabClick} />
-            <Tab label="Register" isActive={false} onClick={() => handleTabClick} />
-          </div>
-          <LoginForm />
+        <LogoHorizontal className={cx('auth-card__logo')} />
+        <div className={cx('auth-card__header')}>
+          <Tab
+            label="LOGIN"
+            isActive={activeTab === 'LOGIN'}
+            onClick={() => handleTabSwitch('LOGIN')}
+          />
+          <Tab
+            label="REGISTER"
+            isActive={activeTab === 'REGISTER'}
+            onClick={() => handleTabSwitch('REGISTER')}
+          />
         </div>
+        {activeTab === 'LOGIN' ? (
+          <LoginForm />
+        ) : (
+          <RegisterForm handleRegistration={handleRegistration} />
+        )}
       </div>
     </Card>
   );

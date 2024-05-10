@@ -1,0 +1,24 @@
+@import './../../../../../styles/index.css';
+
+.register-inputs {
+  @include flexbox($direction: column, $gap: $gap-Xlarge);
+
+  & .register-inputs__checkbox {
+    @include flexbox($direction: row, $gap: $gap-regular);
+
+    & .register-inputs__community-rules {
+      @include label-text;
+
+      color: $color-orange-600;
+      text-decoration: underline;
+
+      &:hover {
+        text-decoration-color: $color-orange-300;
+      }
+
+      &:visited {
+        color: $color-purple-400;
+      }
+    }
+  }
+}

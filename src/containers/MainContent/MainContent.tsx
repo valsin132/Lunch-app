@@ -33,7 +33,6 @@ export function MainContent() {
           'main-content__aside-position': isOrderSummaryVisible,
         })}>
         <UserCard toggleOrderSummary={() => setIsOrderSummaryVisible(true)} />
-
         <OrderSummaryProvider>
           {isOrderSummaryVisible && (
             <div className={cx('main-content__order-summary')}>

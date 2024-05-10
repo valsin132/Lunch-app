@@ -16,19 +16,19 @@ export function MainContent() {
 
   return (
     <div className={cx('main-content')}>
-      <div className={cx('main-content__sidebar')}>
+      <aside className={cx('main-content__sidebar')}>
         <Sidebar />
-      </div>
-      <div className={cx('main-content__header')}>
+      </aside>
+      <header className={cx('main-content__header')}>
         <Header pageType="foodMenu" />
-      </div>
-      <div
+      </header>
+      <main
         className={
           isOrderSummaryVisible ? cx('main-content__outlet') : cx('main-content__outlet-full-col')
         }>
         <Outlet />
-      </div>
-      <div
+      </main>
+      <aside
         className={cx('main-content__aside', {
           'main-content__aside-position': isOrderSummaryVisible,
         })}>
@@ -45,10 +45,10 @@ export function MainContent() {
             </div>
           )}
         </OrderSummaryProvider>
-      </div>
-      <div className={cx('main-content__footer')}>
+      </aside>
+      <footer className={cx('main-content__footer')}>
         <Footer />
-      </div>
+      </footer>
     </div>
   );
 }

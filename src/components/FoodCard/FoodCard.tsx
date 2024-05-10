@@ -104,7 +104,7 @@ export function FoodCard({
               <p className={cx('food-card__footer-price')}>Price</p>
               <p className={cx('food-card__footer-euro')}>
                 &euro;
-                {price}
+                {price.toFixed(2)}
               </p>
             </div>
             <Button

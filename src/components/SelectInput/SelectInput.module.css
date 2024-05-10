@@ -71,7 +71,7 @@
     }
 
     & .select__list-item--selected {
-      background-color: $color-blue-selected;
+      background-color: $color-blue-800;
       color: $color-orange-600;
     }
   }

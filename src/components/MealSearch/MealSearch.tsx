@@ -1,19 +1,31 @@
 import classNames from 'classnames/bind';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Card } from '../Card';
 import { Input } from '../Input';
 import { Button } from '../Button';
+import { SelectInput, SelectInputOption } from '../SelectInput';
+import { useFoodData } from '../../hooks/useFoodData';
 import styles from './MealSearch.module.css';
 
 type MealSearchProps = {
-  handleSearch: (title: string) => void;
+  handleSearch: (title: string, vendor: string) => void;
   isSortBy?: boolean;
 };
 
 const cx = classNames.bind(styles);
 
 export function MealSearch({ handleSearch, isSortBy = false }: MealSearchProps) {
+  const { vendorsData, isLoading } = useFoodData();
+
   const [mealTitle, setMealTitle] = useState('');
+  const [selectedVendor, setSelectedVendor] = useState<SelectInputOption | undefined>();
+
+  const vendorOptions: SelectInputOption[] = useMemo(
+    () => vendorsData?.map((vendor) => ({ label: vendor.name, value: vendor.id })),
+    [vendorsData]
+  );
+
+  if (isLoading) return <div>Loading...</div>;
 
   return (
     <Card spacing="none" shadow="s" isFullWidth isNoBorder>
@@ -34,13 +46,23 @@ export function MealSearch({ handleSearch, isSortBy = false }: MealSearchProps) 
                 value={mealTitle}
               />
             </div>
+            <div className={cx('meal-search__input')}>
+              <SelectInput
+                label="Vendor"
+                value={selectedVendor}
+                options={vendorOptions}
+                onChange={(option) => {
+                  setSelectedVendor(option);
+                }}
+              />
+            </div>
           </div>
           <Button
             buttonSize="md"
             buttonType="primary"
             title="Search"
             onClick={() => {
-              handleSearch(mealTitle);
+              handleSearch(mealTitle, selectedVendor ? selectedVendor.label : '');
             }}
           />
         </form>

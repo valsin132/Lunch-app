@@ -2,18 +2,33 @@ import { useMemo } from 'react';
 import classNames from 'classnames/bind';
 import { FoodCard } from '../../../components/FoodCard';
 import { Order, WeekDay } from '../FoodMenu.types';
-import { useFoodListData } from '../../../hooks/useFoodListData';
+import { useFoodData } from '../../../hooks/useFoodData';
 import styles from './FoodList.module.css';
 
 interface FoodListProps {
   selectedDay: WeekDay;
   mealTitleSearch: string;
+  selectedVendor: string;
 }
 
 const cx = classNames.bind(styles);
 
-export function FoodList({ selectedDay, mealTitleSearch }: FoodListProps) {
-  const { vendorsData, mealsData, ratingsData, isLoading, isError } = useFoodListData();
+export function FoodList({ selectedDay, mealTitleSearch, selectedVendor }: FoodListProps) {
+  const { isError, isLoading, mealsData, ratingsData, vendorsData } = useFoodData();
+
+  const getVendorName = (vendorId: number) =>
+    vendorsData?.find((vendor) => Number(vendor.id) === vendorId)?.name ?? '';
+
+  const getRating = (id: number) => {
+    const filteredRatings = ratingsData?.filter((rating) => rating.mealId === id) ?? [];
+    if (filteredRatings.length > 0) {
+      const ratings = filteredRatings.map((rating) => rating.rating.rating);
+      const sum = ratings.reduce((total, rating) => total + rating, 0);
+      const averageRating = sum / ratings.length;
+      return averageRating.toFixed(1);
+    }
+    return 'Not rated';
+  };
 
   const isMealOrdered = useMemo(() => {
     const storedData = localStorage.getItem('userData');
@@ -32,24 +47,15 @@ export function FoodList({ selectedDay, mealTitleSearch }: FoodListProps) {
         meal.title.toLowerCase().includes(mealTitleSearch.toLowerCase())
       );
     }
+    if (selectedVendor) {
+      filteredMealData = filteredMealData.filter(
+        (meal) => getVendorName(meal.vendorId).toLowerCase() === selectedVendor.toLowerCase()
+      );
+    }
     return filteredMealData;
-  }, [mealsData, selectedDay, mealTitleSearch]);
+  }, [mealsData, selectedDay, mealTitleSearch, selectedVendor]);
 
   const noMealsFound = useMemo(() => !filteredMeals.length, [filteredMeals]);
-
-  const getVendorName = (vendorId: number) =>
-    vendorsData?.find((vendor) => Number(vendor.id) === vendorId)?.name ?? '';
-
-  const getRating = (id: number) => {
-    const filteredRatings = ratingsData?.filter((rating) => rating.mealId === id) ?? [];
-    if (filteredRatings.length > 0) {
-      const ratings = filteredRatings.map((rating) => rating.rating.rating);
-      const sum = ratings.reduce((total, rating) => total + rating, 0);
-      const averageRating = sum / ratings.length;
-      return averageRating.toFixed(1);
-    }
-    return 'Not rated';
-  };
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error occurred while retrieving data</div>;

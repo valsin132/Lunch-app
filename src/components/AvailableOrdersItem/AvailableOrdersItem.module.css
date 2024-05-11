@@ -1,0 +1,67 @@
+@import '../../styles/index.css';
+
+.available-dish {
+  box-shadow: inset 0 0 0 1px $color-grey-100;
+  min-height: 113px;
+
+  & .available-dish__content {
+    @include flexbox($gap: $gap-medium, $justifyContent: space-between);
+    @include title-s;
+
+    & .available-dish__1section {
+      padding: $spacing-2xs;
+
+      & .available-dish__1 {
+        @include flexbox($gap: $gap-compact, $alignItems: center);
+
+        & .available-dish__food-image1 {
+          @include size(40px, 40px);
+        }
+      }
+
+      & .available-dish__2 {
+        @include flexbox($gap: $gap-compact, $alignItems: center);
+
+        & .available-dish__food-image2 {
+          @include size(40px, 40px);
+        }
+      }
+    }
+
+    & .available-dish__2section {
+      padding: $spacing-2xs;
+
+      & .available-dish__vendor1 {
+        padding: 9px 0;
+      }
+
+      & .available-dish__vendor2 {
+        padding: 9px 0;
+      }
+    }
+
+    & .available-dish__3section {
+      padding: $spacing-2xs;
+
+      & .available-dish__avatar-container {
+        max-height: 40px;
+        padding: 9px 0;
+      }
+
+      & .available-dish__avatar-image {
+        @include size(22px, 22px);
+
+        border-radius: $border-radius-circle;
+        object-fit: cover;
+      }
+
+      & .available-dish__user-name {
+        padding: 9px 0;
+      }
+    }
+
+    & .available-dish__4section {
+      padding: $spacing-2xs;
+    }
+  }
+}

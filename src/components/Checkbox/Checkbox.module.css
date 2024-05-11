@@ -3,6 +3,8 @@
 .checkbox {
   @include flexbox($gap: $gap-regular, $alignItems: center);
 
+  position: relative;
+
   & .checkbox__input {
     @include size(1.25rem, 1.25rem);
 
@@ -42,5 +44,14 @@
   & .checkbox__label--error {
     border-color: $color-red-500;
     color: $color-red-500;
+  }
+
+  .input__error-message {
+    @include label-xxs;
+
+    color: $color-error-font;
+    left: 0;
+    position: absolute;
+    top: 20px;
   }
 }

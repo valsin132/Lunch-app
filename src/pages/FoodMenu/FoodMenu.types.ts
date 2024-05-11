@@ -32,5 +32,9 @@ export interface Users {
   surname: string;
   img: string;
 }
+export interface Order {
+  weekDay: string;
+  mealIds: number[];
+}
 
 export type WeekDay = 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday';

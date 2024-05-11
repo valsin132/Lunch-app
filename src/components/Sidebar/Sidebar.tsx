@@ -14,7 +14,7 @@ export function Sidebar() {
   };
 
   return (
-    <aside
+    <nav
       id="sidebar-nav"
       className={cx('sidebar', {
         'sidebar--collapsed': !isExpanded,
@@ -41,6 +41,6 @@ export function Sidebar() {
         onClick={handleExpand}>
         <ChevronIcon className={cx('sidebar__expand-icon')} />
       </button>
-    </aside>
+    </nav>
   );
 }

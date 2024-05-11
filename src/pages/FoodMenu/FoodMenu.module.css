@@ -1,9 +1,9 @@
 @import '../../styles/index.css';
 
-.menu-wrapper {
-  @include flexbox($wrap: wrap, $gap: 32px);
-}
+.food-menu__wrapper {
+  @include flexbox($direction: column, $gap: $gap-2Xlarge);
 
-.tab-wrapper {
-  box-shadow: inset 0 -4px 0 -2px $color-grey-300;
+  & .tab-wrapper {
+    box-shadow: inset 0 -4px 0 -2px $color-grey-300;
+  }
 }

@@ -50,4 +50,8 @@
   &.card--box-shadow-m {
     @include box-shadow-m;
   }
+
+  &.card--full-width {
+    width: 100%;
+  }
 }

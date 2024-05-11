@@ -1,0 +1,25 @@
+@import './../../../styles/index.css';
+
+.order-day {
+  @include flexbox($direction: column, $gap: $spacing-s);
+
+  & .order-day__header {
+    @include flexbox($direction: row, $alignItems: center, $gap: calc($spacing-3xs - 1px));
+    @include title-s;
+
+    color: $color-grey-500;
+    text-align: left;
+
+    &::after {
+      @include size($height: 1px, $width: 100%);
+
+      background-color: $color-grey-200;
+      content: '';
+      display: inline-block;
+    }
+  }
+
+  & .order-day__orders-container {
+    @include flexbox($direction: column, $gap: $spacing-4xs);
+  }
+}

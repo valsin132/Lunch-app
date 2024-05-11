@@ -1,0 +1,13 @@
+@import './../../../styles/index.css';
+
+.menu-wrapper {
+  @include flexbox($alignItems: center, $justifyContent: center, $wrap: wrap, $gap: $gap-2Xlarge);
+
+  & .menu-wrapper__empty-meals-text {
+    @include body-m;
+
+    color: $color-grey-500;
+    text-align: center;
+    width: 100%;
+  }
+}

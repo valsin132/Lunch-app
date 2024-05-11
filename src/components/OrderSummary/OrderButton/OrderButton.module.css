@@ -1,0 +1,61 @@
+@import './../../../styles/index.css';
+
+$transition-duration: 0.2s;
+
+.buy-button {
+  @include label-s;
+  @include flexbox($alignItems: center, $justifyContent: center, $gap: calc($spacing-5xs + 1px));
+
+  border: 2px solid $color-green-400;
+  border-radius: $border-radius-extra-large;
+  min-height: 48px;
+  overflow: hidden;
+  position: relative;
+  transition: $transition-duration color linear;
+  z-index: 1;
+
+  & .buy-button__background {
+    background-color: $color-green-400;
+    border-radius: $border-radius-extra-large;
+    content: '';
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transition: 0.9s width linear;
+    width: 0%;
+    z-index: -1;
+  }
+
+  &.buy-button--held .buy-button__background {
+    width: 100%;
+  }
+
+  &.buy-button--order-confirmed {
+    color: $color-white;
+
+    & svg {
+      @include size($width: 18px, $height: 18px);
+
+      path {
+        animation: change-icon forwards linear $transition-duration;
+      }
+    }
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+  }
+}
+
+@keyframes change-icon {
+
+  from {
+    fill: $color-blue-600;
+  }
+
+  to {
+    fill: $color-white;
+  }
+}

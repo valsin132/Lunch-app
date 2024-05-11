@@ -1,0 +1,93 @@
+@import './../../styles/index.css';
+
+.order-summary {
+  height: fit-content;
+  text-align: center;
+
+  & .order-summary__content-wrapper {
+    @include flexbox($direction: column, $gap: $spacing-s, $justifyContent: space-between);
+
+    box-shadow: inset 0 0 0 1px $color-grey-100;
+    min-height: 434px;
+    min-width: 283px;
+    padding: $spacing-xs;
+
+    & .order-summary__wrapper {
+      @include flexbox($direction: column, $gap: $spacing-s, $justifyContent: flex-start);
+
+      flex: 1;
+      max-height: 609px;
+      max-width: 243px;
+      position: relative;
+
+      &.order-summary__wrapper--empty {
+        justify-content: space-between;
+      }
+
+      &::after {
+        background-color: $color-grey-200;
+        content: '';
+        height: 1px;
+        transform: translateY(12px);
+        width: 100%;
+      }
+
+      &:not(&.order-summary__wrapper--empty)::after {
+        bottom: 0;
+        left: 0;
+        position: absolute;
+      }
+
+      & .order-summary__orders-wrapper {
+        @include flexbox($direction: column, $gap: $spacing-2xs);
+
+        overflow-y: scroll;
+        scrollbar-width: none;
+      }
+
+      & .order-summary__header {
+        @include flexbox($justifyContent: space-between, $alignItems: center);
+        @include headline-s;
+
+        color: $color-blue-600;
+
+        & .order-summary__close-button {
+          border-radius: $border-radius-regular;
+          padding: $spacing-5xs;
+
+          & svg {
+            display: block;
+          }
+        }
+      }
+    }
+
+    & .order-summary__footer {
+      @include flexbox($direction: column, $gap: $spacing-s);
+
+      position: relative;
+
+      & .order-summary__price-wrapper {
+        @include flexbox($direction: column, $alignItems: flex-end);
+
+        padding: 0 $spacing-2xs;
+
+        & .order-summary__price-title {
+          @include title-s;
+
+          color: $color-grey-500;
+        }
+
+        & .order-summary__price {
+          @include title-l;
+
+          color: $color-blue-600;
+
+          &::before {
+            content: '€';
+          }
+        }
+      }
+    }
+  }
+}

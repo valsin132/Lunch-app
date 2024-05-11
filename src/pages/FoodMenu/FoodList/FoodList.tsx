@@ -1,8 +1,9 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import classNames from 'classnames/bind';
 import { FoodCard } from '../../../components/FoodCard';
 import { Order, WeekDay } from '../FoodMenu.types';
 import { useFoodListData } from '../../../hooks/useFoodListData';
+import { DishDetailsModal, DishInfoProps } from '../../../components/DishDetails';
 import styles from './FoodList.module.css';
 
 interface FoodListProps {
@@ -13,7 +14,20 @@ interface FoodListProps {
 const cx = classNames.bind(styles);
 
 export function FoodList({ selectedDay, mealTitleSearch }: FoodListProps) {
-  const { vendorsData, mealsData, ratingsData, isLoading, isError } = useFoodListData();
+  const { vendorsData, mealsData, ratingsData, usersData, isLoading, isError } = useFoodListData();
+
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [dishDetails, setDishDetails] = useState<DishInfoProps>({
+    vendor: '',
+    title: '',
+    isVegetarian: false,
+    isSpicy: false,
+    rating: '',
+    description: '',
+    price: 0,
+    dishType: 'bowl',
+    comments: [{ id: 0, comment: '', name: '', surname: '', userIcon: '' }],
+  });
 
   const isMealOrdered = useMemo(() => {
     const storedData = localStorage.getItem('userData');
@@ -51,6 +65,34 @@ export function FoodList({ selectedDay, mealTitleSearch }: FoodListProps) {
     return 'Not rated';
   };
 
+  const getUser = (id: number) => {
+    const user = usersData?.find((users) => Number(users.id) === id);
+    return user;
+  };
+
+  const getComments = (id: number) => {
+    const filteredComments = ratingsData?.filter((rating) => rating.mealId === id) ?? [];
+    if (filteredComments.length > 0) {
+      const comments = filteredComments.map((rating) => ({
+        comment: rating.rating.comment,
+        user: rating.rating.userId,
+      }));
+      const getCommentDetails = comments.map((comment, commentId) => {
+        const userDetails = getUser(comment.user);
+        const fullComment = {
+          id: commentId + 1,
+          comment: comment.comment,
+          name: userDetails?.name,
+          surname: userDetails?.surname,
+          userIcon: userDetails?.img,
+        };
+        return fullComment;
+      });
+      return getCommentDetails;
+    }
+    return undefined;
+  };
+
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error occurred while retrieving data</div>;
 
@@ -72,10 +114,42 @@ export function FoodList({ selectedDay, mealTitleSearch }: FoodListProps) {
             spicy={meal.spicy}
             rating={getRating(Number(meal.id))}
             dishType={meal.dishType}
-            onClick={onclick}
+            onClick={() => {
+              setDishDetails({
+                vendor: getVendorName(meal.vendorId),
+                title: meal.title,
+                description: meal.description,
+                price: meal.price,
+                isVegetarian: meal.vegetarian,
+                isSpicy: meal.spicy,
+                rating: getRating(Number(meal.id)),
+                dishType: meal.dishType,
+                comments: getComments(Number(meal.id)),
+              });
+              setIsOpenModal(true);
+            }}
           />
         ))
       )}
+      <div>
+        {isOpenModal && (
+          <DishDetailsModal
+            vendor={dishDetails.vendor}
+            title={dishDetails.title}
+            description={dishDetails.description}
+            price={dishDetails.price}
+            isVegetarian={dishDetails.isVegetarian}
+            isSpicy={dishDetails.isSpicy}
+            rating={dishDetails.rating}
+            dishType={dishDetails.dishType}
+            comments={dishDetails.comments}
+            setIsOpen={() => {
+              setIsOpenModal(false);
+            }}
+            onClick={onclick}
+          />
+        )}
+      </div>
     </div>
   );
 }

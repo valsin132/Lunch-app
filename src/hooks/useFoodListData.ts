@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { Meal, Rating, Vendor } from '../pages/FoodMenu/FoodMenu.types';
+import { Meal, Rating, Vendor, Users } from '../pages/FoodMenu/FoodMenu.types';
 import { useFetchData } from './useFetchData';
 
 export const useFoodListData = () => {
@@ -18,16 +18,21 @@ export const useFoodListData = () => {
     isLoading: ratingsLoading,
     isError: ratingsError,
   } = useFetchData<Rating[]>('http://localhost:3002/ratings');
+  const {
+    data: usersData,
+    isLoading: usersLoading,
+    isError: usersError,
+  } = useFetchData<Users[]>('http://localhost:3002/users');
 
   const isLoading = useMemo(
-    () => vendorsLoading || mealsLoading || ratingsLoading,
-    [vendorsLoading, mealsLoading, ratingsLoading]
+    () => vendorsLoading || mealsLoading || ratingsLoading || usersLoading,
+    [vendorsLoading, mealsLoading, ratingsLoading, usersLoading]
   );
 
   const isError = useMemo(
-    () => vendorsError || mealsError || ratingsError,
-    [vendorsError, mealsError, ratingsError]
+    () => vendorsError || mealsError || ratingsError || usersError,
+    [vendorsError, mealsError, ratingsError, usersError]
   );
 
-  return { vendorsData, mealsData, ratingsData, isLoading, isError };
+  return { vendorsData, mealsData, ratingsData, usersData, isLoading, isError };
 };

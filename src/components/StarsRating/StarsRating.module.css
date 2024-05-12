@@ -1,0 +1,20 @@
+@import './../../styles/index.css';
+
+.stars-rating {
+  @include flexbox($gap: $gap-regular);
+
+  & path {
+    stroke: $color-orange-400;
+  }
+
+  & .stars-rating__icon {
+    @include size(16px, 16px);
+  }
+
+  & .stars-rating__icon-filled {
+
+    & path {
+      fill: $color-orange-400;
+    }
+  }
+}

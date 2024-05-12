@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 import { Modal } from '../Modal';
 import { ChilliIcon, PlantIcon } from '../../utils/iconManager';
 import { DishType, getDishTypeImage } from '../FoodCard';
+import { StarsRating } from '../StarsRating';
 import styles from './DishDetails.module.css';
 
 const cx = classNames.bind(styles);
@@ -70,6 +71,7 @@ export function DishDetailsModal({
                     {isSpicy && <ChilliIcon className={cx('dish-details__chilli-icon')} />}
                   </div>
                 </div>
+                <StarsRating rating={Number(rating)} />
                 <p className={cx('dish-details__rating')}>{rating}</p>
               </div>
               <p className={cx('dish-details__description')}>{description}</p>
@@ -81,7 +83,7 @@ export function DishDetailsModal({
           </div>
           <div className={cx('dish-details__comments')}>
             {comments && (
-              <p className={cx('dish-details__comments-number')}>COMMENTS: ({comments.length})</p>
+              <p className={cx('dish-details__comments-number')}>Comments: ({comments.length})</p>
             )}
             {comments ? (
               comments.map((comment) => (

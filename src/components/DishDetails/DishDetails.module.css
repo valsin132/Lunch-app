@@ -87,12 +87,15 @@
       @include flexbox($direction: column, $gap: $gap-large);
 
       border-top: 1px solid $color-grey-200;
+      max-height: 200px;
+      overflow-y: scroll;
       padding-top: $spacing-xs;
 
       & .dish-details__comments-number {
         @include title-s;
 
         color: $color-blue-600;
+        text-transform: uppercase;
       }
 
       & .dish-details__comment {
@@ -127,15 +130,3 @@
     }
   }
 }
-
-/* & .dish-details__plant-icon {
-  & path {
-    fill: $color-green-500;
-  } 
-} */
-
-/* .comments {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-} */

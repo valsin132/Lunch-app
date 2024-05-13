@@ -18,7 +18,7 @@ export function FoodMenu(): ReactElement {
 
   return (
     <FoodDataProvider>
-      <div>
+      <div className={cx('food-menu__wrapper')}>
         <div className={cx('tab-wrapper')}>
           {dayLabels.map((day) => (
             <Tab

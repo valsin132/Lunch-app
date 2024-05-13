@@ -6,17 +6,21 @@ const cx = classNames.bind(styles);
 
 interface CheckboxProps {
   label: string;
+  isChecked: boolean;
   isError?: boolean;
   isDisabled?: boolean;
+  errorMessage?: string;
   id: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export function Checkbox({
   label,
+  isChecked,
   id,
   isDisabled,
   isError,
+  errorMessage,
   onChange,
 }: CheckboxProps): ReactElement {
   return (
@@ -29,6 +33,7 @@ export function Checkbox({
         })}
         disabled={isDisabled}
         onChange={onChange}
+        checked={isChecked}
       />
       <label
         className={cx('checkbox__label', {
@@ -38,6 +43,7 @@ export function Checkbox({
         htmlFor={id}>
         {label}
       </label>
+      <p className={cx('input__error-message')}>{errorMessage}</p>
     </div>
   );
 }

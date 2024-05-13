@@ -8,6 +8,7 @@
   min-height: 113px;
 
   & .available-dish__meal-wrapper {
+    min-width: 409.5px;
     padding: $spacing-2xs;
 
     & .available-dish__wrapper {
@@ -20,6 +21,7 @@
   }
 
   & .available-dish__vendor-wrapper {
+    max-width: 266px;
     padding: $spacing-2xs;
 
     & .available-dish__vendor {

@@ -28,36 +28,35 @@ export function AvailableOrdersItem({
 }: AvailableOrdersItemProps): ReactElement {
   return (
     <Card isNoBorder isFullWidth shadow="xs" spacing="none">
-      <div className={cx('available-dish__content')}>
-        <div className={cx('available-dish__1section')}>
+      <div className={cx('available-dish__content-wrapper')}>
+        <div className={cx('available-dish__meal-wrapper')}>
           {title.map((mealTitle) => (
-            <div key={mealTitle} className={cx('available-dish__1')}>
+            <div key={mealTitle} className={cx('available-dish__wrapper')}>
               <img
                 src={getDishTypeImage(dishType)}
-                className={cx('available-dish__food-image1')}
+                className={cx('available-dish__food-image')}
                 alt={dishType}
               />
-              <h3 className={cx('available-dish__title1')}>{mealTitle}</h3>
+              <h3>{mealTitle}</h3>
             </div>
           ))}
         </div>
-        <div className={cx('available-dish__2section')}>
+        <div className={cx('available-dish__vendor-wrapper')}>
           {vendor.map((mealVendor, id) => (
-            <h4 key={mealVendor + title[id]} className={cx('available-dish__vendor1')}>
+            <h4 key={mealVendor + title[id]} className={cx('available-dish__vendor')}>
               {mealVendor}
             </h4>
           ))}
         </div>
-
-        <div className={cx('available-dish__3section')}>
-          <div className={cx('available-dish__avatar-container')}>
+        <div className={cx('available-dish__user-wrapper')}>
+          <div className={cx('available-dish__avatar-wrapper')}>
             <img src={img} className={cx('available-dish__avatar-image')} alt="profile avatar" />
           </div>
           <h5 className={cx('available-dish__user-name')}>
             {name} {surname}
           </h5>
         </div>
-        <div className={cx('available-dish__4section')}>
+        <div className={cx('available-dish__reserve-button')}>
           <Button title="Reserve" buttonType="secondary" buttonSize="sm" onClick={onClick} />
         </div>
       </div>

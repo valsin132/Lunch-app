@@ -1,36 +1,13 @@
-import { ReactElement } from 'react';
+import { ReactElement, useState } from 'react';
 import classNames from 'classnames/bind';
-import { Modal } from '../Modal';
-import { ChilliIcon, PlantIcon } from '../../utils/iconManager';
-import { DishType, getDishTypeImage } from '../FoodCard';
-import { StarsRating } from '../StarsRating';
-import styles from './DishDetails.module.css';
+import { Modal } from '../../../Modal';
+import { ChilliIcon, PlantIcon, UserProfile } from '../../../../utils/iconManager';
+import { StarsRating } from '../../../StarsRating';
+import { FoodCardProps } from '../../FoodCard.types';
+import { getDishTypeImage } from '../../getDishTypeImage';
+import styles from './DishDetailsModal.module.css';
 
 const cx = classNames.bind(styles);
-
-type CommentProps = {
-  id?: number;
-  userIcon?: string;
-  name?: string;
-  surname?: string;
-  comment?: string;
-};
-
-export type DishInfoProps = Omit<DishDetailsProps, 'setIsOpen' | 'onClick'>;
-
-interface DishDetailsProps {
-  vendor: string;
-  title: string;
-  isVegetarian: boolean;
-  isSpicy: boolean;
-  rating: string | number;
-  description: string;
-  price: number;
-  dishType: DishType;
-  setIsOpen: (isOpen: boolean) => void;
-  onClick: () => void;
-  comments?: CommentProps[];
-}
 
 export function DishDetailsModal({
   vendor,
@@ -44,7 +21,9 @@ export function DishDetailsModal({
   onClick,
   dishType,
   comments,
-}: DishDetailsProps): ReactElement {
+}: FoodCardProps): ReactElement {
+  const [imgLoadError, setImgLoadError] = useState(false);
+
   return (
     <div className={cx('dish-details')}>
       <Modal
@@ -66,10 +45,12 @@ export function DishDetailsModal({
                 <p className={cx('dish-details__vendor')}>{vendor}</p>
                 <div className={cx('dish-details__title-container')}>
                   <p className={cx('dish-details__title')}>{title}</p>
-                  <div className={cx('dish-details__icons')}>
-                    {isVegetarian && <PlantIcon className={cx('dish-details__plant-icon')} />}
-                    {isSpicy && <ChilliIcon className={cx('dish-details__chilli-icon')} />}
-                  </div>
+                  {(isVegetarian || isSpicy) && (
+                    <div className={cx('dish-details__icons')}>
+                      {isVegetarian && <PlantIcon className={cx('dish-details__plant-icon')} />}
+                      {isSpicy && <ChilliIcon className={cx('dish-details__chilli-icon')} />}
+                    </div>
+                  )}
                 </div>
                 <StarsRating rating={Number(rating)} />
                 <p className={cx('dish-details__rating')}>{rating}</p>
@@ -82,18 +63,25 @@ export function DishDetailsModal({
             </div>
           </div>
           <div className={cx('dish-details__comments')}>
-            {comments && (
+            {comments?.length ? (
               <p className={cx('dish-details__comments-number')}>Comments: ({comments.length})</p>
+            ) : (
+              ''
             )}
-            {comments ? (
+            {comments?.length ? (
               comments.map((comment) => (
-                <div className={cx('dish-details__comment')} key={comment.id}>
+                <div className={cx('dish-details__comment')} key={comment.comment}>
                   <div className={cx('dish-details__user')}>
-                    <img
-                      className={cx('dish-details__user-icon')}
-                      src={comment.userIcon}
-                      alt="user icon"
-                    />
+                    {!imgLoadError ? (
+                      <img
+                        className={cx('dish-details__user-icon')}
+                        src={comment.userIcon}
+                        alt="user icon"
+                        onError={() => setImgLoadError(true)}
+                      />
+                    ) : (
+                      <UserProfile className={cx('dish-details__user-icon')} />
+                    )}
                     <p className={cx('dish-details__user-name')}>
                       {comment.name} {comment.surname}
                     </p>

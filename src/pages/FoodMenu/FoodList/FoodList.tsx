@@ -110,8 +110,8 @@ export function FoodList({ selectedDay, mealTitleSearch }: FoodListProps) {
             title={meal.title}
             description={meal.description}
             price={meal.price}
-            vegetarian={meal.vegetarian}
-            spicy={meal.spicy}
+            isVegetarian={meal.vegetarian}
+            isSpicy={meal.spicy}
             rating={getRating(Number(meal.id))}
             dishType={meal.dishType}
             onClick={onclick}

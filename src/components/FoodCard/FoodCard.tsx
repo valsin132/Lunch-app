@@ -22,8 +22,8 @@ interface FoodCardProps {
   title: string;
   description: string;
   price: number;
-  vegetarian: boolean;
-  spicy: boolean;
+  isVegetarian: boolean;
+  isSpicy: boolean;
   rating: number | string;
   dishType: DishType;
   openModal: () => void;
@@ -54,8 +54,8 @@ export function FoodCard({
   title,
   description,
   price,
-  vegetarian,
-  spicy,
+  isVegetarian,
+  isSpicy,
   rating,
   dishType,
   onClick,
@@ -77,8 +77,8 @@ export function FoodCard({
               <h4 className={cx('food-card__vendor')}>{vendor}</h4>
               <h3 className={cx('food-card__title')}>{title}</h3>
               <div className={cx('food-card__header-icons')}>
-                {vegetarian && <PlantIcon className={cx('food-card__plant-icon')} />}
-                {spicy && <ChilliIcon className={cx('food-card__chilli-icon')} />}
+                {isVegetarian && <PlantIcon className={cx('food-card__plant-icon')} />}
+                {isSpicy && <ChilliIcon className={cx('food-card__chilli-icon')} />}
               </div>
             </div>
           </div>

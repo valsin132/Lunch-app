@@ -13,7 +13,7 @@ interface AvailableOrdersItemProps {
   name: string;
   surname: string;
   img: string;
-  dishType: DishType;
+  dishType: DishType[];
   onClick: () => void;
 }
 
@@ -30,12 +30,12 @@ export function AvailableOrdersItem({
     <Card isNoBorder isFullWidth shadow="xs" spacing="none">
       <div className={cx('available-dish__content-wrapper')}>
         <div className={cx('available-dish__meal-wrapper')}>
-          {title.map((mealTitle) => (
+          {title.map((mealTitle, index) => (
             <div key={mealTitle} className={cx('available-dish__wrapper')}>
               <img
-                src={getDishTypeImage(dishType)}
+                src={getDishTypeImage(dishType[index])}
                 className={cx('available-dish__food-image')}
-                alt={dishType}
+                alt={dishType[index]}
               />
               <h3>{mealTitle}</h3>
             </div>

@@ -1,8 +1,9 @@
 import classNames from 'classnames/bind';
-import { ReactElement } from 'react';
+import { ReactElement, useState } from 'react';
 import { DishType, getDishTypeImage } from '../FoodCard';
 import { Button } from '../Button';
 import { Card } from '../Card';
+import { UserProfile } from '../../utils/iconManager';
 import styles from './AvailableOrdersItem.module.css';
 
 const cx = classNames.bind(styles);
@@ -26,6 +27,8 @@ export function AvailableOrdersItem({
   dishType,
   onClick,
 }: AvailableOrdersItemProps): ReactElement {
+  const [imgLoadError, setImgLoadError] = useState(false);
+
   return (
     <Card isNoBorder isFullWidth shadow="xs" spacing="none">
       <div className={cx('available-dish__content-wrapper')}>
@@ -50,7 +53,16 @@ export function AvailableOrdersItem({
         </div>
         <div className={cx('available-dish__user-wrapper')}>
           <div className={cx('available-dish__avatar-wrapper')}>
-            <img src={img} className={cx('available-dish__avatar-image')} alt="profile avatar" />
+            {!imgLoadError ? (
+              <img
+                src={img}
+                className={cx('available-dish__avatar-image')}
+                alt="profile avatar"
+                onError={() => setImgLoadError(true)}
+              />
+            ) : (
+              <UserProfile className={cx('available-dish__avatar-image')} />
+            )}
           </div>
           <h5 className={cx('available-dish__user-name')}>
             {name} {surname}

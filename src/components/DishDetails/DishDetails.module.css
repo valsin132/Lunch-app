@@ -9,7 +9,7 @@
       @include flexbox($gap: $gap-medium);
 
       & .dish-details__image {
-        @include size(223px, 222px);
+        @include size(222px, 223px);
 
         background: $color-orange-gradient;
         border-radius: $border-radius-regular;

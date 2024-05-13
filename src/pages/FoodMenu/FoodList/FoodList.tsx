@@ -114,7 +114,8 @@ export function FoodList({ selectedDay, mealTitleSearch }: FoodListProps) {
             spicy={meal.spicy}
             rating={getRating(Number(meal.id))}
             dishType={meal.dishType}
-            onClick={() => {
+            onClick={onclick}
+            openModal={() => {
               setDishDetails({
                 vendor: getVendorName(meal.vendorId),
                 title: meal.title,

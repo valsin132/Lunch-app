@@ -26,6 +26,7 @@ interface FoodCardProps {
   spicy: boolean;
   rating: number | string;
   dishType: DishType;
+  openModal: () => void;
   onClick: () => void;
 }
 
@@ -58,10 +59,8 @@ export function FoodCard({
   rating,
   dishType,
   onClick,
+  openModal,
 }: FoodCardProps): ReactElement {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  // const [isOpenModal, setIsOpenModal] = useState(false);
-
   return (
     <div className={cx('food-card')}>
       <Card isNoBorder shadow="m" spacing="none">
@@ -95,7 +94,7 @@ export function FoodCard({
                 iconType="arrow"
                 buttonType="tertiary"
                 buttonSize="sm"
-                onClick={onClick}
+                onClick={openModal}
               />
             </div>
           </div>

@@ -1,8 +1,9 @@
 import { useMemo } from 'react';
 import classNames from 'classnames/bind';
 import { FoodCard } from '../../../components/FoodCard';
-import { Order, WeekDay } from '../FoodMenu.types';
+import { Order, WeekDay, Meal } from '../FoodMenu.types';
 import { useFoodListData } from '../../../hooks/useFoodListData';
+import { useOrderSummary, Workdays } from '../../../helpers/OrderSummaryContext';
 import styles from './FoodList.module.css';
 
 interface FoodListProps {
@@ -15,11 +16,16 @@ const cx = classNames.bind(styles);
 export function FoodList({ selectedDay, mealTitleSearch }: FoodListProps) {
   const { vendorsData, mealsData, ratingsData, isLoading, isError } = useFoodListData();
 
+  const orderSummaryContext = useOrderSummary();
+  const { orders } = orderSummaryContext;
+
+  const dayLowerCase = selectedDay.toLowerCase() as Workdays;
+
   const isMealOrdered = useMemo(() => {
     const storedData = localStorage.getItem('userData');
     if (storedData) {
-      const { orders } = JSON.parse(storedData);
-      return orders.filter((order: Order) => order.weekDay === selectedDay)?.length > 0;
+      const { orders: storedOrders } = JSON.parse(storedData);
+      return storedOrders.filter((order: Order) => order.weekDay === selectedDay)?.length > 0;
     }
     return false;
   }, [selectedDay]);
@@ -51,6 +57,29 @@ export function FoodList({ selectedDay, mealTitleSearch }: FoodListProps) {
     return 'Not rated';
   };
 
+  const isMealTypeAddedForDay = (mealType: string) => {
+    const ordersForSelectedDay = orders.find((order) => order.day === dayLowerCase);
+    if (!ordersForSelectedDay) {
+      return false;
+    }
+    return ordersForSelectedDay.orders.some((orderItem) => orderItem.mealType === mealType);
+  };
+
+  const handleAddToOrderSummary = (meal: Meal): void => {
+    orderSummaryContext.modifyOrders({
+      action: 'ADD_ORDER',
+      day: dayLowerCase,
+      meal: {
+        dishType: meal.dishType,
+        mealId: meal.id,
+        mealType: meal.mealType,
+        price: meal.price,
+        title: meal.title,
+        vendor: getVendorName(meal.vendorId),
+      },
+    });
+  };
+
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error occurred while retrieving data</div>;
 
@@ -72,7 +101,8 @@ export function FoodList({ selectedDay, mealTitleSearch }: FoodListProps) {
             spicy={meal.spicy}
             rating={getRating(Number(meal.id))}
             dishType={meal.dishType}
-            onClick={onclick}
+            onClick={() => handleAddToOrderSummary(meal)}
+            isDisabled={isMealTypeAddedForDay(meal.mealType)}
           />
         ))
       )}

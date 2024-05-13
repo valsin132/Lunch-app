@@ -11,7 +11,6 @@ const cx = classNames.bind(styles);
 export function FoodMenu(): ReactElement {
   const [selectedDay, setSelectedDay] = useState<WeekDay>('Monday');
   const [mealTitleSearch, setMealTitleSearch] = useState('');
-
   const dayLabels = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 
   return (

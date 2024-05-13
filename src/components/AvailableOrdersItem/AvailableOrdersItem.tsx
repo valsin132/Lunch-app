@@ -8,8 +8,8 @@ import styles from './AvailableOrdersItem.module.css';
 const cx = classNames.bind(styles);
 
 interface AvailableOrdersItemProps {
-  title: string;
-  vendor: string;
+  title: string[];
+  vendor: string[];
   name: string;
   surname: string;
   img: string;
@@ -27,44 +27,40 @@ export function AvailableOrdersItem({
   onClick,
 }: AvailableOrdersItemProps): ReactElement {
   return (
-    <div className={cx('available-dish')}>
-      <Card isNoBorder isFullWidth shadow="xs" spacing="none">
-        <div className={cx('available-dish__content')}>
-          <div className={cx('available-dish__1section')}>
-            <div className={cx('available-dish__1')}>
+    <Card isNoBorder isFullWidth shadow="xs" spacing="none">
+      <div className={cx('available-dish__content')}>
+        <div className={cx('available-dish__1section')}>
+          {title.map((mealTitle) => (
+            <div key={mealTitle} className={cx('available-dish__1')}>
               <img
                 src={getDishTypeImage(dishType)}
                 className={cx('available-dish__food-image1')}
                 alt={dishType}
               />
-              <h3 className={cx('available-dish__title1')}>{title}</h3>
+              <h3 className={cx('available-dish__title1')}>{mealTitle}</h3>
             </div>
-            <div className={cx('available-dish__2')}>
-              <img
-                src={getDishTypeImage(dishType)}
-                className={cx('available-dish__food-image2')}
-                alt={dishType}
-              />
-              <h3 className={cx('available-dish__title2')}>{title}</h3>
-            </div>
-          </div>
-          <div className={cx('available-dish__2section')}>
-            <h4 className={cx('available-dish__vendor1')}>{vendor}</h4>
-            <h4 className={cx('available-dish__vendor2')}>{vendor}</h4>
-          </div>
-          <div className={cx('available-dish__3section')}>
-            <div className={cx('available-dish__avatar-container')}>
-              <img src={img} className={cx('available-dish__avatar-image')} alt="profile avatar" />
-            </div>
-            <h5 className={cx('available-dish__user-name')}>
-              {name} {surname}
-            </h5>
-          </div>
-          <div className={cx('available-dish__4section')}>
-            <Button title="Reserve" buttonType="secondary" buttonSize="sm" onClick={onClick} />
-          </div>
+          ))}
         </div>
-      </Card>
-    </div>
+        <div className={cx('available-dish__2section')}>
+          {vendor.map((mealVendor, id) => (
+            <h4 key={mealVendor + title[id]} className={cx('available-dish__vendor1')}>
+              {mealVendor}
+            </h4>
+          ))}
+        </div>
+
+        <div className={cx('available-dish__3section')}>
+          <div className={cx('available-dish__avatar-container')}>
+            <img src={img} className={cx('available-dish__avatar-image')} alt="profile avatar" />
+          </div>
+          <h5 className={cx('available-dish__user-name')}>
+            {name} {surname}
+          </h5>
+        </div>
+        <div className={cx('available-dish__4section')}>
+          <Button title="Reserve" buttonType="secondary" buttonSize="sm" onClick={onClick} />
+        </div>
+      </div>
+    </Card>
   );
 }

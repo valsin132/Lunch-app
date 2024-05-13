@@ -1,4 +1,4 @@
-import { DishType } from '../../components/FoodCard';
+import { DishType } from '../../components/FoodCard/FoodCard.types';
 
 export interface Meal {
   id: string;
@@ -32,6 +32,7 @@ export interface Users {
   surname: string;
   img: string;
 }
+
 export interface Order {
   weekDay: string;
   mealIds: number[];

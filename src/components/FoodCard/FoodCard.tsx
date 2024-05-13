@@ -1,53 +1,14 @@
-import { ReactElement } from 'react';
+import { ReactElement, useState } from 'react';
 import classNames from 'classnames/bind';
 import { Card } from '../Card';
 import { Button } from '../Button';
 import { ChilliIcon, PlantIcon, StarFullIcon } from '../../utils/iconManager';
-import {
-  kebabImage,
-  soupImage,
-  pizzaImage,
-  sandwichImage,
-  burgerImage,
-  logoWithoutText,
-} from '../../utils/imageManager';
+import { DishDetailsModal } from './components/DishDetailsModal';
+import { getDishTypeImage } from './getDishTypeImage';
+import { FoodCardProps } from './FoodCard.types';
 import styles from './FoodCard.module.css';
 
 const cx = classNames.bind(styles);
-
-export type DishType = 'wrap' | 'soup' | 'pizza' | 'sandwich' | 'burger' | 'bowl';
-
-interface FoodCardProps {
-  vendor: string;
-  title: string;
-  description: string;
-  price: number;
-  isVegetarian: boolean;
-  isSpicy: boolean;
-  rating: number | string;
-  dishType: DishType;
-  openModal: () => void;
-  onClick: () => void;
-}
-
-export const getDishTypeImage = (dishType: DishType): string => {
-  switch (dishType) {
-    case 'wrap':
-      return kebabImage;
-    case 'soup':
-      return soupImage;
-    case 'pizza':
-      return pizzaImage;
-    case 'sandwich':
-      return sandwichImage;
-    case 'burger':
-      return burgerImage;
-    case 'bowl':
-      return soupImage;
-    default:
-      return logoWithoutText;
-  }
-};
 
 export function FoodCard({
   vendor,
@@ -59,8 +20,10 @@ export function FoodCard({
   rating,
   dishType,
   onClick,
-  openModal,
+  comments,
 }: FoodCardProps): ReactElement {
+  const [isOpenModal, setIsOpenModal] = useState(false);
+
   return (
     <div className={cx('food-card')}>
       <Card isNoBorder shadow="m" spacing="none">
@@ -94,7 +57,7 @@ export function FoodCard({
                 iconType="arrow"
                 buttonType="tertiary"
                 buttonSize="sm"
-                onClick={openModal}
+                onClick={() => setIsOpenModal(true)}
               />
             </div>
           </div>
@@ -116,6 +79,23 @@ export function FoodCard({
           </div>
         </div>
       </Card>
+      {isOpenModal && (
+        <DishDetailsModal
+          vendor={vendor}
+          title={title}
+          description={description}
+          price={price}
+          isVegetarian={isVegetarian}
+          isSpicy={isSpicy}
+          rating={rating}
+          dishType={dishType}
+          comments={comments}
+          setIsOpen={() => {
+            setIsOpenModal(false);
+          }}
+          onClick={onclick}
+        />
+      )}
     </div>
   );
 }

@@ -1,0 +1,25 @@
+@import '../../../../styles/index.css';
+
+.register-form {
+  @include flexbox($direction: column, $gap: $gap-6Xlarge);
+
+  & .register-form__container {
+    @include flexbox($direction: column, $gap: $gap-2Xlarge);
+
+    & .register-form__head {
+      @include flexbox($direction: column, $gap: $gap-regular);
+
+      & h1 {
+        @include headline-l;
+
+        color: $text-color-blue;
+      }
+
+      & p {
+        @include body-l;
+
+        color: $text-color-grey;
+      }
+    }
+  }
+}

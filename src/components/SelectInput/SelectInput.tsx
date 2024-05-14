@@ -15,6 +15,7 @@ interface SelectInputProps {
   value?: SelectInputOption;
   placeholder?: string;
   label: string;
+  isBoxShadowDisabled?: boolean;
   onChange: (option: SelectInputOption | undefined) => void;
 }
 
@@ -23,6 +24,7 @@ export function SelectInput({
   placeholder,
   value,
   label,
+  isBoxShadowDisabled,
   onChange,
 }: SelectInputProps): ReactElement {
   const [isOpen, setIsOpen] = useState(false);
@@ -36,6 +38,7 @@ export function SelectInput({
         type="button"
         className={cx('select__input', {
           'select__input--focused': isOpen,
+          'select__input-disabled-box-shadow': isBoxShadowDisabled,
         })}
         onClick={() => setIsOpen((prev) => !prev)}>
         <div>

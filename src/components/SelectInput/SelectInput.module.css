@@ -3,6 +3,8 @@
 .select {
   @include flexbox($direction: column, $gap: $gap-small);
 
+  position: relative;
+
   & .select__label {
     @include label-s;
 
@@ -45,9 +47,14 @@
     @include flexbox($direction: column);
     @include box-shadow-m;
 
+    background-color: $color-white;
     border: 1px solid $color-grey-200;
     border-radius: $border-radius-regular;
     outline: none;
+    position: absolute;
+    top: 70px;
+    width: 100%;
+    z-index: 2;
 
     & .select__list-item {
       @include title-s;

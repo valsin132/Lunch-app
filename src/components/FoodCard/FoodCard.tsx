@@ -4,8 +4,8 @@ import { Card } from '../Card';
 import { Button } from '../Button';
 import { ChilliIcon, PlantIcon, StarFullIcon } from '../../utils/iconManager';
 import { DishDetailsModal } from './components/DishDetailsModal';
-import { getDishTypeImage } from './getDishTypeImage';
 import { FoodCardProps } from './FoodCard.types';
+import { getDishTypeImage } from '../../helpers/helperFunctions/getDishTypeImage';
 import styles from './FoodCard.module.css';
 
 const cx = classNames.bind(styles);
@@ -39,10 +39,12 @@ export function FoodCard({
             <div className={cx('food-card__header-content')}>
               <h4 className={cx('food-card__vendor')}>{vendor}</h4>
               <h3 className={cx('food-card__title')}>{title}</h3>
-              <div className={cx('food-card__header-icons')}>
-                {isVegetarian && <PlantIcon className={cx('food-card__plant-icon')} />}
-                {isSpicy && <ChilliIcon className={cx('food-card__chilli-icon')} />}
-              </div>
+              {(isVegetarian || isSpicy) && (
+                <div className={cx('food-card__header-icons')}>
+                  {isVegetarian && <PlantIcon className={cx('food-card__plant-icon')} />}
+                  {isSpicy && <ChilliIcon className={cx('food-card__chilli-icon')} />}
+                </div>
+              )}
             </div>
           </div>
           <div className={cx('food-card__body')}>
@@ -93,7 +95,7 @@ export function FoodCard({
           setIsOpen={() => {
             setIsOpenModal(false);
           }}
-          onClick={onclick}
+          onClick={onClick}
         />
       )}
     </div>

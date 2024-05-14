@@ -12,7 +12,7 @@ const cx = classNames.bind(styles);
 export function FoodMenu(): ReactElement {
   const { isLoading, isError, vendorsData } = useFoodData();
   const [selectedDay, setSelectedDay] = useState<WeekDay>('Monday');
-  const [mealTitleSearch, setMealTitleSearch] = useState('');
+  const [searchedMealTitle, setSearchedMealTitle] = useState('');
   const [selectedVendor, setSelectedVendor] = useState('');
 
   const dayLabels = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
@@ -35,13 +35,13 @@ export function FoodMenu(): ReactElement {
       <MealSearch
         vendorsData={vendorsData}
         handleSearch={(title, vendor) => {
-          setMealTitleSearch(title);
+          setSearchedMealTitle(title);
           setSelectedVendor(vendor);
         }}
       />
       <FoodList
         selectedDay={selectedDay}
-        seachedMealTitle={mealTitleSearch}
+        searchedMealTitle={searchedMealTitle}
         selectedVendor={selectedVendor}
       />
     </div>

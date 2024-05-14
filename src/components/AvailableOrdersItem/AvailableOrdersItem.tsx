@@ -9,22 +9,24 @@ import styles from './AvailableOrdersItem.module.css';
 const cx = classNames.bind(styles);
 
 interface AvailableOrdersItemProps {
-  title: string[];
-  vendor: string[];
   name: string;
   surname: string;
   img: string;
-  dishType: DishType[];
+  orders: OrderInfo[];
   onClick: () => void;
 }
 
+interface OrderInfo {
+  title: string;
+  vendor: string;
+  dishType: DishType;
+}
+
 export function AvailableOrdersItem({
-  title,
-  vendor,
   name,
   surname,
   img,
-  dishType,
+  orders,
   onClick,
 }: AvailableOrdersItemProps): ReactElement {
   const [imgLoadError, setImgLoadError] = useState(false);
@@ -33,22 +35,22 @@ export function AvailableOrdersItem({
     <Card isNoBorder isFullWidth shadow="xs" spacing="none">
       <div className={cx('available-dish__content-wrapper')}>
         <div className={cx('available-dish__meal-wrapper')}>
-          {title.map((mealTitle, index) => (
-            <div key={mealTitle} className={cx('available-dish__wrapper')}>
+          {orders.map((order, id) => (
+            <div key={order + order.title[id]} className={cx('available-dish__wrapper')}>
               <img
-                src={getDishTypeImage(dishType[index])}
+                src={getDishTypeImage(order.dishType)}
                 className={cx('available-dish__food-image')}
-                alt={dishType[index]}
+                alt={order.dishType}
               />
-              <h3>{mealTitle}</h3>
+              <p>{order.title}</p>
             </div>
           ))}
         </div>
         <div className={cx('available-dish__vendor-wrapper')}>
-          {vendor.map((mealVendor, id) => (
-            <h4 key={mealVendor + title[id]} className={cx('available-dish__vendor')}>
-              {mealVendor}
-            </h4>
+          {orders.map((order, id) => (
+            <p key={order + order.vendor[id]} className={cx('available-dish__vendor')}>
+              {order.vendor}
+            </p>
           ))}
         </div>
         <div className={cx('available-dish__user-wrapper')}>
@@ -64,9 +66,9 @@ export function AvailableOrdersItem({
               <UserProfile className={cx('available-dish__avatar-image')} />
             )}
           </div>
-          <h5 className={cx('available-dish__user-name')}>
+          <p className={cx('available-dish__user-name')}>
             {name} {surname}
-          </h5>
+          </p>
         </div>
         <div className={cx('available-dish__reserve-button')}>
           <Button title="Reserve" buttonType="secondary" buttonSize="sm" onClick={onClick} />

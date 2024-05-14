@@ -40,9 +40,9 @@ export function FoodMenu(): ReactElement {
         }}
       />
       <FoodList
-        selectedVendor={selectedVendor}
         selectedDay={selectedDay}
-        mealTitleSearch={mealTitleSearch}
+        seachedMealTitle={mealTitleSearch}
+        selectedVendor={selectedVendor}
       />
     </div>
   );

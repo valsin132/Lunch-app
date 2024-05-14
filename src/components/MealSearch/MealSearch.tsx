@@ -15,7 +15,7 @@ type MealSearchProps = {
 
 const cx = classNames.bind(styles);
 
-export function MealSearch({ handleSearch, isSortBy = false, vendorsData }: MealSearchProps) {
+export function MealSearch({ vendorsData, handleSearch, isSortBy = false }: MealSearchProps) {
   const [mealTitle, setMealTitle] = useState('');
   const [selectedVendor, setSelectedVendor] = useState<SelectInputOption | undefined>();
 

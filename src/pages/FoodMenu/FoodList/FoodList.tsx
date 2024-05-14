@@ -7,13 +7,13 @@ import styles from './FoodList.module.css';
 
 interface FoodListProps {
   selectedDay: WeekDay;
-  mealTitleSearch: string;
+  seachedMealTitle: string;
   selectedVendor: string;
 }
 
 const cx = classNames.bind(styles);
 
-export function FoodList({ selectedDay, mealTitleSearch, selectedVendor }: FoodListProps) {
+export function FoodList({ selectedDay, seachedMealTitle, selectedVendor }: FoodListProps) {
   const { mealsData, ratingsData, vendorsData } = useFoodData();
 
   const getVendorName = useCallback(
@@ -44,9 +44,9 @@ export function FoodList({ selectedDay, mealTitleSearch, selectedVendor }: FoodL
   const filteredMeals = useMemo(() => {
     if (!mealsData) return [];
     let filteredMealData = mealsData.filter((meal) => meal.weekDays.includes(selectedDay));
-    if (mealTitleSearch) {
+    if (seachedMealTitle) {
       filteredMealData = filteredMealData.filter((meal) =>
-        meal.title.toLowerCase().includes(mealTitleSearch.toLowerCase())
+        meal.title.toLowerCase().includes(seachedMealTitle.toLowerCase())
       );
     }
     if (selectedVendor) {
@@ -55,7 +55,7 @@ export function FoodList({ selectedDay, mealTitleSearch, selectedVendor }: FoodL
       );
     }
     return filteredMealData;
-  }, [mealsData, selectedDay, mealTitleSearch, selectedVendor, getVendorName]);
+  }, [mealsData, selectedDay, seachedMealTitle, selectedVendor, getVendorName]);
 
   const noMealsFound = useMemo(() => !filteredMeals.length, [filteredMeals]);
 

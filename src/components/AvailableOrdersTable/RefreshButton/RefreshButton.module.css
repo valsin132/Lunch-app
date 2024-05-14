@@ -18,6 +18,10 @@
       background-color: $color-orange-100;
     }
 
+    &:active {
+      background-color: $color-orange-200;
+    }
+
     & .date-wrapper__restart-icon {
       @include size(24px, 24px);
     }

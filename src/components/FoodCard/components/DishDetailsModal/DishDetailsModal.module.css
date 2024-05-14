@@ -16,7 +16,7 @@
       }
 
       & .dish-details__information {
-        @include flexbox($direction: column, $justifyContent: space-between);
+        @include flexbox($direction: column, $gap: calc($gap-compact - 1px));
 
         & .dish-details__header {
 
@@ -36,7 +36,7 @@
             }
 
             & .dish-details__icons {
-              @include flexbox($alignItems: center);
+              @include flexbox($alignItems: center, $gap: $gap-small);
 
               & .dish-details__plant-icon {
                 @include size(16px, 16px);
@@ -56,35 +56,43 @@
             }
           }
 
-          & .dish-details__rating {
-            @include label-xs;
+          & .dish-details__rating-container {
+            @include flexbox($direction: column, $gap: $gap-Xsmall);
 
+            & .dish-details__rating {
+              @include label-text-xs;
+
+              color: $color-blue-600;
+            }
+          }
+        }
+
+        & .dish-details__description-container {
+          @include flexbox($direction: column, $gap: $gap-large);
+
+          & .dish-details__description {
+            @include body-m;
+
+            color: $text-color-grey;
+          }
+
+          & .dish-details__price {
             color: $color-blue-600;
-          }
-        }
 
-        & .dish-details__description {
-          @include body-m;
+            & .dish-details__price-title {
+              @include title-s;
+            }
 
-          color: $text-color-grey;
-        }
-
-        & .dish-details__price {
-          color: $color-blue-600;
-
-          & .dish-details__price-title {
-            @include body-s;
-          }
-
-          & .dish-details__price-value {
-            @include title-l;
+            & .dish-details__price-value {
+              @include title-l;
+            }
           }
         }
       }
     }
 
-    & .dish-details__comments {
-      @include flexbox($direction: column, $gap: $gap-large);
+    & .dish-details__comments-section {
+      @include flexbox($direction: column, $gap: $gap-medium);
 
       border-top: 1px solid $color-grey-200;
       max-height: 200px;
@@ -92,7 +100,7 @@
       padding-top: $spacing-xs;
 
       ::-webkit-scrollbar-thumb {
-        background-color: rgb(0 0 0 / 50%);
+        background-color: $color-scrollbar;
         border-radius: 10px;
       }
 
@@ -108,33 +116,36 @@
         text-transform: uppercase;
       }
 
-      & .dish-details__comment {
-        @include flexbox($direction: column, $gap: $gap-regular);
+      & .dish-details__comments-container {
+        @include flexbox($direction: column, $gap: $gap-large);
 
-        & .dish-details__user {
-          @include flexbox($gap: $gap-compact);
+        & .dish-details__comment {
+          @include flexbox($direction: column, $gap: $gap-regular);
 
-          & .dish-details__user-icon {
-            @include size(22px, 22px);
+          & .dish-details__user {
+            @include flexbox($gap: $gap-compact, $alignItems: center);
 
-            border-radius: $border-radius-circle;
-            object-fit: cover;
+            & .dish-details__user-icon {
+              @include size(22px, 22px);
+
+              border-radius: $border-radius-circle;
+              object-fit: cover;
+            }
+
+            & .dish-details__user-name {
+              @include title-xs;
+
+              color: $color-blue-600;
+              text-transform: uppercase;
+            }
           }
 
-          & .dish-details__user-name {
-            @include title-xs;
+          & .dish-details__comment-text {
+            @include body-s;
 
-            align-self: center;
-            color: $color-blue-600;
-            text-transform: uppercase;
+            color: $text-color-darker-grey;
+            padding-left: $gap-2Xlarge;
           }
-        }
-
-        & .dish-details__comment-text {
-          @include body-s;
-
-          color: $color-text-grey;
-          padding-left: $gap-2Xlarge;
         }
       }
     }

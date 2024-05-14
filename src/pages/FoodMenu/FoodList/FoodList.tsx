@@ -1,9 +1,10 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import classNames from 'classnames/bind';
 import { FoodCard } from '../../../components/FoodCard';
 import { Order, WeekDay, Meal } from '../FoodMenu.types';
 import { useFoodListData } from '../../../hooks/useFoodListData';
 import { useOrderSummary, Workdays } from '../../../helpers/OrderSummaryContext';
+import { Toast } from '../../../components/Toast';
 import styles from './FoodList.module.css';
 
 interface FoodListProps {
@@ -18,6 +19,8 @@ export function FoodList({ selectedDay, mealTitleSearch }: FoodListProps) {
   const orderSummaryContext = useOrderSummary();
   const { orders } = orderSummaryContext;
   const dayToLowerCase = selectedDay.toLowerCase() as Workdays;
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
 
   const isMealOrdered = useMemo(() => {
     const storedData = localStorage.getItem('userData');
@@ -76,6 +79,9 @@ export function FoodList({ selectedDay, mealTitleSearch }: FoodListProps) {
         vendor: getVendorName(meal.vendorId),
       },
     });
+    setShowToast(true);
+    setToastMessage(`"${meal.title}"has been added to your cart. Excellent Choice!`);
+    setTimeout(() => setShowToast(false), 4000);
   };
 
   if (isLoading) return <div>Loading...</div>;
@@ -103,6 +109,9 @@ export function FoodList({ selectedDay, mealTitleSearch }: FoodListProps) {
             isDisabled={isMealTypeAddedForDay(meal.mealType)}
           />
         ))
+      )}
+      {showToast && (
+        <Toast toastType="info" content={toastMessage} onClick={() => setShowToast(false)} />
       )}
     </div>
   );

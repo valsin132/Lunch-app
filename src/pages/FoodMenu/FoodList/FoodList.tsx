@@ -16,9 +16,7 @@ const cx = classNames.bind(styles);
 
 export function FoodList({ selectedDay, mealTitleSearch }: FoodListProps) {
   const { vendorsData, mealsData, ratingsData, isLoading, isError } = useFoodListData();
-  const orderSummaryContext = useOrderSummary();
-  const { orders } = orderSummaryContext;
-  const dayToLowerCase = selectedDay.toLowerCase() as Workdays;
+  const { orders, modifyOrders } = useOrderSummary();
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
 
@@ -43,6 +41,7 @@ export function FoodList({ selectedDay, mealTitleSearch }: FoodListProps) {
   }, [mealsData, selectedDay, mealTitleSearch]);
 
   const noMealsFound = useMemo(() => !filteredMeals.length, [filteredMeals]);
+  const dayToLowerCase = selectedDay.toLowerCase() as Workdays;
 
   const getVendorName = (vendorId: number) =>
     vendorsData?.find((vendor) => Number(vendor.id) === vendorId)?.name ?? '';
@@ -67,7 +66,7 @@ export function FoodList({ selectedDay, mealTitleSearch }: FoodListProps) {
   };
 
   const handleAddToOrderSummary = (meal: Meal): void => {
-    orderSummaryContext.modifyOrders({
+    modifyOrders({
       action: 'ADD_ORDER',
       day: dayToLowerCase,
       meal: {
@@ -80,8 +79,7 @@ export function FoodList({ selectedDay, mealTitleSearch }: FoodListProps) {
       },
     });
     setShowToast(true);
-    setToastMessage(`"${meal.title}"has been added to your cart. Excellent Choice!`);
-    setTimeout(() => setShowToast(false), 4000);
+    setToastMessage(`${meal.title} has been added to your cart. Excellent Choice!`);
   };
 
   if (isLoading) return <div>Loading...</div>;

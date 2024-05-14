@@ -15,11 +15,9 @@ const cx = classNames.bind(styles);
 
 export function FoodList({ selectedDay, mealTitleSearch }: FoodListProps) {
   const { vendorsData, mealsData, ratingsData, isLoading, isError } = useFoodListData();
-
   const orderSummaryContext = useOrderSummary();
   const { orders } = orderSummaryContext;
-
-  const dayLowerCase = selectedDay.toLowerCase() as Workdays;
+  const dayToLowerCase = selectedDay.toLowerCase() as Workdays;
 
   const isMealOrdered = useMemo(() => {
     const storedData = localStorage.getItem('userData');
@@ -58,7 +56,7 @@ export function FoodList({ selectedDay, mealTitleSearch }: FoodListProps) {
   };
 
   const isMealTypeAddedForDay = (mealType: string) => {
-    const ordersForSelectedDay = orders.find((order) => order.day === dayLowerCase);
+    const ordersForSelectedDay = orders.find((order) => order.day === dayToLowerCase);
     if (!ordersForSelectedDay) {
       return false;
     }
@@ -68,7 +66,7 @@ export function FoodList({ selectedDay, mealTitleSearch }: FoodListProps) {
   const handleAddToOrderSummary = (meal: Meal): void => {
     orderSummaryContext.modifyOrders({
       action: 'ADD_ORDER',
-      day: dayLowerCase,
+      day: dayToLowerCase,
       meal: {
         dishType: meal.dishType,
         mealId: meal.id,

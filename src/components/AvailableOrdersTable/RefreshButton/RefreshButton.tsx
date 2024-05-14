@@ -1,39 +1,25 @@
 import { useState } from 'react';
 import classNames from 'classnames/bind';
 import { RestartIcon } from '../../../utils/iconManager';
+import { MONTHS } from '../../../constants';
 import styles from './RefreshButton.module.css';
 
 const cx = classNames.bind(styles);
 
 export function RefreshButton() {
-  function getDate() {
+  const formatTime = (number: number) => (number < 10 ? `0${number}` : number);
+
+  const getDate = () => {
     const now = new Date();
-    const months = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-    ];
     const currentMonth = now.getMonth();
-    const currentDay = now.getDate();
-    const currentHours = now.getHours();
-    const currentMinutes = now.getMinutes();
-    return `${currentHours}:${currentMinutes}, ${months[currentMonth]} ${currentDay}`;
-  }
+    const currentDay = formatTime(now.getDate());
+    const currentHours = formatTime(now.getHours());
+    const currentMinutes = formatTime(now.getMinutes());
+
+    return `${currentHours}:${currentMinutes}, ${MONTHS[currentMonth]} ${currentDay}`;
+  };
 
   const [currentDateTime, setCurrentDateTime] = useState(getDate());
-
-  function handleClick() {
-    setCurrentDateTime(getDate());
-  }
 
   return (
     <div className={cx('date-wrapper')}>
@@ -43,7 +29,7 @@ export function RefreshButton() {
         className={cx('date-wrapper__restart-button')}
         type="button"
         aria-label="Refresh"
-        onClick={handleClick}>
+        onClick={() => setCurrentDateTime(getDate())}>
         <RestartIcon className={cx('date-wrapper__restart-icon')} />
       </button>
     </div>

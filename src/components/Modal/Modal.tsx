@@ -7,12 +7,14 @@ import styles from './Modal.module.css';
 
 const cx = classNames.bind(styles);
 
+type Gap = 'm' | 'xl';
 type ModalSize = 'md' | 'sm' | 'xs';
 
 interface ModalProps {
   children: ReactNode;
   title: string;
   modalSize: ModalSize;
+  gap: Gap;
   primaryButtonLabel?: string;
   secondaryButtonLabel?: string;
   setIsOpenModal: (isOpenModal: boolean) => void;
@@ -23,6 +25,7 @@ export function Modal({
   children,
   title,
   modalSize,
+  gap,
   primaryButtonLabel,
   secondaryButtonLabel,
   onClick,
@@ -31,18 +34,25 @@ export function Modal({
   return (
     <div className={cx('modal-overlay')}>
       <Card isNoBorder>
-        <div className={cx('modal__wrapper', [`modal__wrapper--size-${modalSize}`])}>
-          <div className={cx('modal__header')}>
-            <p>{title}</p>
-            <div className={cx('modal__close')}>
-              <CloseIcon
-                onClick={() => {
-                  setIsOpenModal(false);
-                }}
-              />
+        <div
+          className={cx(
+            'modal__wrapper',
+            [`modal__wrapper--size-${modalSize}`],
+            [`modal__wrapper--gap-${gap}`]
+          )}>
+          <div className={cx('modal__header-wrapper', [`modal__header-wrapper--gap-${gap}`])}>
+            <div className={cx('modal__header')}>
+              <p>{title}</p>
+              <div className={cx('modal__close')}>
+                <CloseIcon
+                  onClick={() => {
+                    setIsOpenModal(false);
+                  }}
+                />
+              </div>
             </div>
+            {children}
           </div>
-          {children}
           <div className={cx('modal__buttons')}>
             {primaryButtonLabel && (
               <Button

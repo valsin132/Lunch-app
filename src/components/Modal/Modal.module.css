@@ -26,18 +26,29 @@
       max-width: 642px;
     }
 
-    & .modal__header {
-      @include flexbox($justifyContent: space-between, $alignItems: flex-start);
-      @include headline-s;
+    & .modal__header-wrapper {
 
-      color: $color-blue-600;
-    }
+      &.modal__header-wrapper--gap-xl {
+        @include flexbox($direction: column, $gap: $gap-Xlarge);
+      }
 
-    & .modal__close {
-      @include flexbox($justifyContent: center, $alignItems: center);
+      &.modal__header-wrapper--gap-m {
+        @include flexbox($direction: column, $gap: $gap-medium);
+      }
 
-      cursor: pointer;
-      padding: $spacing-5xs;
+      & .modal__header {
+        @include flexbox($justifyContent: space-between, $alignItems: flex-start);
+        @include headline-s;
+
+        color: $color-blue-600;
+
+        & .modal__close {
+          @include flexbox($justifyContent: center, $alignItems: center);
+
+          cursor: pointer;
+          padding: $spacing-5xs;
+        }
+      }
     }
 
     & .modal__buttons {

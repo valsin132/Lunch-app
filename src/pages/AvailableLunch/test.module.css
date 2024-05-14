@@ -1,0 +1,6 @@
+@import '../../styles/index.css';
+
+.test-div {
+  background-color: $color-blue-600;
+  padding: 1rem;
+}

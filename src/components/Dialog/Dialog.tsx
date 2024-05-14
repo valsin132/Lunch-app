@@ -47,6 +47,7 @@ export function Dialog({
         primaryButtonLabel={primaryButtonLabel}
         secondaryButtonLabel={secondaryButtonLabel}
         modalSize="xs"
+        gap="xl"
         onClick={onClick}
         setIsOpenModal={setIsOpen}>
         <div className={cx('dialog__picture-and-content')}>

@@ -10,6 +10,8 @@
 
 #root {
   @include flexbox;
+
+  min-height: 100dvh;
 }
 
 body {

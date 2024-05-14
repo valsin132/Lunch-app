@@ -4,28 +4,28 @@ import { Card } from '../Card';
 import { Input } from '../Input';
 import { Button } from '../Button';
 import { SelectInput, SelectInputOption } from '../SelectInput';
-import { useFoodData } from '../../hooks/useFoodData';
+import { Vendor } from '../../pages/FoodMenu/FoodMenu.types';
 import styles from './MealSearch.module.css';
 
 type MealSearchProps = {
+  vendorsData: Vendor[] | null;
   handleSearch: (title: string, vendor: string) => void;
   isSortBy?: boolean;
 };
 
 const cx = classNames.bind(styles);
 
-export function MealSearch({ handleSearch, isSortBy = false }: MealSearchProps) {
-  const { vendorsData, isLoading } = useFoodData();
-
+export function MealSearch({ handleSearch, isSortBy = false, vendorsData }: MealSearchProps) {
   const [mealTitle, setMealTitle] = useState('');
   const [selectedVendor, setSelectedVendor] = useState<SelectInputOption | undefined>();
 
-  const vendorOptions: SelectInputOption[] = useMemo(
-    () => vendorsData?.map((vendor) => ({ label: vendor.name, value: vendor.id })),
-    [vendorsData]
-  );
-
-  if (isLoading) return <div>Loading...</div>;
+  const vendorOptions: SelectInputOption[] | undefined = useMemo(() => {
+    if (!vendorsData) return [];
+    return vendorsData?.map((vendor) => {
+      const selectOption: SelectInputOption = { label: vendor.name, value: Number(vendor.id) };
+      return selectOption;
+    });
+  }, [vendorsData]);
 
   return (
     <Card spacing="none" shadow="s" isFullWidth isNoBorder>
@@ -49,6 +49,7 @@ export function MealSearch({ handleSearch, isSortBy = false }: MealSearchProps) 
             <div className={cx('meal-search__input')}>
               <SelectInput
                 label="Vendor"
+                placeholder="All vendors"
                 value={selectedVendor}
                 options={vendorOptions}
                 onChange={(option) => {

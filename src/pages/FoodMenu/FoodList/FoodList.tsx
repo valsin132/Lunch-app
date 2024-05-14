@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import classNames from 'classnames/bind';
 import { FoodCard } from '../../../components/FoodCard';
 import { Order, WeekDay } from '../FoodMenu.types';
@@ -14,10 +14,12 @@ interface FoodListProps {
 const cx = classNames.bind(styles);
 
 export function FoodList({ selectedDay, mealTitleSearch, selectedVendor }: FoodListProps) {
-  const { isError, isLoading, mealsData, ratingsData, vendorsData } = useFoodData();
+  const { mealsData, ratingsData, vendorsData } = useFoodData();
 
-  const getVendorName = (vendorId: number) =>
-    vendorsData?.find((vendor) => Number(vendor.id) === vendorId)?.name ?? '';
+  const getVendorName = useCallback(
+    (vendorId: number) => vendorsData?.find((vendor) => Number(vendor.id) === vendorId)?.name ?? '',
+    [vendorsData]
+  );
 
   const getRating = (id: number) => {
     const filteredRatings = ratingsData?.filter((rating) => rating.mealId === id) ?? [];
@@ -53,12 +55,9 @@ export function FoodList({ selectedDay, mealTitleSearch, selectedVendor }: FoodL
       );
     }
     return filteredMealData;
-  }, [mealsData, selectedDay, mealTitleSearch, selectedVendor]);
+  }, [mealsData, selectedDay, mealTitleSearch, selectedVendor, getVendorName]);
 
   const noMealsFound = useMemo(() => !filteredMeals.length, [filteredMeals]);
-
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error occurred while retrieving data</div>;
 
   return (
     <div className={cx('menu-wrapper')}>
@@ -78,7 +77,7 @@ export function FoodList({ selectedDay, mealTitleSearch, selectedVendor }: FoodL
             spicy={meal.spicy}
             rating={getRating(Number(meal.id))}
             dishType={meal.dishType}
-            onClick={onclick}
+            onClick={() => {}}
           />
         ))
       )}

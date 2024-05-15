@@ -8,6 +8,7 @@ import { Auth } from './pages/Auth';
 import { MainContent } from './containers/MainContent';
 import { ProtectedRoute } from './containers/ProtectedRoute';
 import { NotFoundPage } from './pages/NotFoundPage';
+import { OrderSummaryProvider } from './helpers/OrderSummaryContext';
 import { useAuth, AuthProvider } from './helpers/AuthContext';
 import { FoodDataProvider } from './helpers/FoodDataContext';
 
@@ -43,7 +44,9 @@ export function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <AppRoutes />
+        <OrderSummaryProvider>
+          <AppRoutes />
+        </OrderSummaryProvider>
       </AuthProvider>
     </BrowserRouter>
   );

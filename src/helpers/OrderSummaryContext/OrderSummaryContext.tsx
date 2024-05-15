@@ -1,5 +1,6 @@
-import { ReactNode, createContext, useContext, useMemo, useReducer } from 'react';
+import { ReactNode, createContext, useMemo, useReducer } from 'react';
 import { DishType } from '../../components/FoodCard';
+import { MealType } from '../../pages/FoodMenu/FoodMenu.types';
 
 type OrderActions = 'REMOVE_ORDER' | 'ADD_ORDER' | 'CLEAR_ORDERS';
 
@@ -9,6 +10,7 @@ export type Order = {
   title: string;
   price: number;
   mealId: number;
+  mealType: MealType;
 };
 
 export type OrderDayType = {
@@ -34,12 +36,12 @@ type OrderIdentifier = {
   meal?: Order;
 };
 
-type OrderSummaryContextType = {
+export type OrderSummaryContextType = {
   orders: Orders;
   modifyOrders: (order: OrderIdentifier) => void;
 };
 
-const OrderSummaryContext = createContext<OrderSummaryContextType | null>(null);
+export const OrderSummaryContext = createContext<OrderSummaryContextType | null>(null);
 
 function orderReducer(state: Orders, payload: OrderIdentifier): Orders {
   const { action, day, meal, mealId } = payload;
@@ -74,7 +76,13 @@ function orderReducer(state: Orders, payload: OrderIdentifier): Orders {
         return [...newState];
       }
 
-      if (state[dayIndex].orders.some((order) => order.mealId === meal.mealId)) {
+      const isMainDish = meal.mealType === 'main';
+      const isSoup = meal.mealType === 'soup';
+
+      const hasMainDish = state[dayIndex].orders.some((order) => order.mealType === 'main');
+      const hasSoup = state[dayIndex].orders.some((order) => order.mealType === 'soup');
+
+      if ((isMainDish && hasMainDish) || (isSoup && hasSoup)) {
         return state;
       }
 
@@ -91,14 +99,6 @@ function orderReducer(state: Orders, payload: OrderIdentifier): Orders {
       return state;
   }
 }
-
-export const useOrderSummary = (): OrderSummaryContextType => {
-  const context = useContext(OrderSummaryContext);
-  if (!context) {
-    throw new Error('useOrderSummary must be used within an OrderSummary provider');
-  }
-  return context;
-};
 
 type OrderSummaryProviderProps = {
   children: ReactNode;

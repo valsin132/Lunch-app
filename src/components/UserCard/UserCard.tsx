@@ -31,8 +31,7 @@ export function UserCard({ toggleOrderSummary }: UserCardProps): ReactElement {
   const [showLogoutButton, setShowLogoutButton] = useState(false);
   const [imgLoadError, setImgLoadError] = useState(false);
   const { logout } = useAuth();
-  const orderSummaryContext = useOrderSummary();
-  const { orders } = orderSummaryContext;
+  const { orders } = useOrderSummary();
 
   useEffect(() => {
     const storedUserData = localStorage.getItem('userData');

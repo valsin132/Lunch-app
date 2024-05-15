@@ -34,6 +34,7 @@ export function Button({
 }: ButtonProps): ReactElement {
   return (
     <button
+      disabled={isDisabled}
       type="button"
       className={cx(
         'button',
@@ -45,8 +46,7 @@ export function Button({
           'button--icon-right': iconType === 'arrow',
         }
       )}
-      onClick={onClick}
-      disabled={isDisabled}>
+      onClick={onClick}>
       {iconType === 'plus' && <AddIcon className={cx('button__icon')} />}
       {title}
       {iconType === 'arrow' && (

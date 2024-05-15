@@ -26,6 +26,7 @@ interface FoodCardProps {
   spicy: boolean;
   rating: number | string;
   dishType: DishType;
+  isDisabled: boolean;
   onClick: () => void;
 }
 
@@ -58,6 +59,7 @@ export function FoodCard({
   rating,
   dishType,
   onClick,
+  isDisabled,
 }: FoodCardProps): ReactElement {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -113,6 +115,7 @@ export function FoodCard({
               buttonType="secondary"
               buttonSize="sm"
               onClick={onClick}
+              isDisabled={isDisabled}
             />
           </div>
         </div>

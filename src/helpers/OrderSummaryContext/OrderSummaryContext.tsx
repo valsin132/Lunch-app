@@ -1,5 +1,6 @@
 import { ReactNode, createContext, useEffect, useMemo, useState } from 'react';
 import { DishType } from '../../components/FoodCard';
+import { MealType } from '../../pages/FoodMenu/FoodMenu.types';
 
 type OrderActions = 'REMOVE_ORDER' | 'ADD_ORDER' | 'CLEAR_ORDERS';
 
@@ -9,6 +10,7 @@ export type Order = {
   title: string;
   price: number;
   mealId: number;
+  mealType: MealType;
 };
 
 export type OrderDayType = {
@@ -95,7 +97,15 @@ function orderStorageUpdate(payload: OrderIdentifier) {
         break;
       }
 
-      if (orderStorageItems[dayIndex].orders.some((order) => order.mealId === meal.mealId)) {
+      if (orderStorageItems[dayIndex].orders.some((order) => order.mealId === meal.mealId)) break;
+
+      const dishType = meal.mealType;
+
+      const alreadyHasDishType = orderStorageItems[dayIndex].orders.some(
+        (order) => order.mealType === dishType
+      );
+
+      if (alreadyHasDishType) {
         break;
       }
 

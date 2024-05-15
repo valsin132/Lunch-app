@@ -6,7 +6,6 @@ import { Header } from '../../components/Header';
 import { UserCard } from '../../components/UserCard';
 import { Footer } from '../../components/Footer';
 import { OrderSummary } from '../../components/OrderSummary';
-import { OrderSummaryProvider } from '../../helpers/OrderSummaryContext';
 import styles from './MainContent.module.css';
 
 const cx = classNames.bind(styles);
@@ -32,17 +31,15 @@ export function MainContent() {
           'main-content__aside-position': isOrderSummaryVisible,
         })}>
         <UserCard toggleOrderSummary={() => setIsOrderSummaryVisible(true)} />
-        <OrderSummaryProvider>
-          {isOrderSummaryVisible && (
-            <div className={cx('main-content__order-summary')}>
-              <OrderSummary
-                visibilityHandler={() => {
-                  setIsOrderSummaryVisible(false);
-                }}
-              />
-            </div>
-          )}
-        </OrderSummaryProvider>
+        {isOrderSummaryVisible && (
+          <div className={cx('main-content__order-summary')}>
+            <OrderSummary
+              visibilityHandler={() => {
+                setIsOrderSummaryVisible(false);
+              }}
+            />
+          </div>
+        )}
       </aside>
       <footer className={cx('main-content__footer')}>
         <Footer />

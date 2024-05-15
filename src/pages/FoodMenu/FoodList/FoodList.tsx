@@ -1,7 +1,10 @@
-import { useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import classNames from 'classnames/bind';
 import { FoodCard } from '../../../components/FoodCard';
-import { Order, WeekDay } from '../FoodMenu.types';
+import { Order, WeekDay, Meal } from '../FoodMenu.types';
+import { Workdays } from '../../../helpers/OrderSummaryContext';
+import { useOrderSummary } from '../../../hooks/useOrderSummary';
+import { Toast } from '../../../components/Toast';
 import { useFoodData } from '../../../hooks/useFoodData';
 import styles from './FoodList.module.css';
 
@@ -15,7 +18,9 @@ const cx = classNames.bind(styles);
 
 export function FoodList({ selectedDay, searchedMealTitle, selectedVendor }: FoodListProps) {
   const { mealsData, ratingsData, vendorsData } = useFoodData();
-
+  const { orders, modifyOrders } = useOrderSummary();
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
   const getVendorName = useCallback(
     (vendorId: number) => vendorsData?.find((vendor) => Number(vendor.id) === vendorId)?.name ?? '',
     [vendorsData]
@@ -35,8 +40,8 @@ export function FoodList({ selectedDay, searchedMealTitle, selectedVendor }: Foo
   const isMealOrdered = useMemo(() => {
     const storedData = localStorage.getItem('userData');
     if (storedData) {
-      const { orders } = JSON.parse(storedData);
-      return orders.filter((order: Order) => order.weekDay === selectedDay)?.length > 0;
+      const { orders: storedOrders } = JSON.parse(storedData);
+      return storedOrders.filter((order: Order) => order.weekDay === selectedDay)?.length > 0;
     }
     return false;
   }, [selectedDay]);
@@ -58,6 +63,32 @@ export function FoodList({ selectedDay, searchedMealTitle, selectedVendor }: Foo
   }, [mealsData, selectedDay, searchedMealTitle, selectedVendor, getVendorName]);
 
   const noMealsFound = useMemo(() => !filteredMeals.length, [filteredMeals]);
+  const dayToLowerCase = selectedDay.toLowerCase() as Workdays;
+
+  const isMealTypeAddedForDay = (mealType: string) => {
+    const ordersForSelectedDay = orders.find((order) => order.day === dayToLowerCase);
+    if (!ordersForSelectedDay) {
+      return false;
+    }
+    return ordersForSelectedDay.orders.some((orderItem) => orderItem.mealType === mealType);
+  };
+
+  const handleAddToOrderSummary = (meal: Meal): void => {
+    modifyOrders({
+      action: 'ADD_ORDER',
+      day: dayToLowerCase,
+      meal: {
+        dishType: meal.dishType,
+        mealId: meal.id,
+        mealType: meal.mealType,
+        price: meal.price,
+        title: meal.title,
+        vendor: getVendorName(meal.vendorId),
+      },
+    });
+    setShowToast(true);
+    setToastMessage(`${meal.title} has been added to your cart. Excellent Choice!`);
+  };
 
   return (
     <div className={cx('menu-wrapper')}>
@@ -77,9 +108,13 @@ export function FoodList({ selectedDay, searchedMealTitle, selectedVendor }: Foo
             spicy={meal.spicy}
             rating={getRating(Number(meal.id))}
             dishType={meal.dishType}
-            onClick={() => {}}
+            onClick={() => handleAddToOrderSummary(meal)}
+            isDisabled={isMealTypeAddedForDay(meal.mealType)}
           />
         ))
+      )}
+      {showToast && (
+        <Toast toastType="info" content={toastMessage} onClick={() => setShowToast(false)} />
       )}
     </div>
   );

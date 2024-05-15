@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { OrderSummaryContext, OrderSummaryContextType } from '../helpers/OrderSummaryContext';
+import { OrderSummaryContextType, OrderSummaryContext } from '../helpers/OrderSummaryContext';
 
 export const useOrderSummary = (): OrderSummaryContextType => {
   const context = useContext(OrderSummaryContext);

@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useEffect, useMemo, useReducer } from 'react';
+import { ReactNode, createContext, useEffect, useMemo, useState } from 'react';
 import { DishType } from '../../components/FoodCard';
 
 type OrderActions = 'REMOVE_ORDER' | 'ADD_ORDER' | 'CLEAR_ORDERS';
@@ -41,7 +41,7 @@ export type OrderSummaryContextType = {
 
 export const OrderSummaryContext = createContext<OrderSummaryContextType | null>(null);
 
-function orderSummaryReducer() {
+function getOrderSummaryItemsFromStorage() {
   const ordersStorageValue = localStorage.getItem('order-summary-items');
 
   const orderStorageItems = (JSON.parse(ordersStorageValue as string) as Orders) ?? [];
@@ -49,9 +49,7 @@ function orderSummaryReducer() {
 }
 
 function orderStorageUpdate(payload: OrderIdentifier) {
-  const ordersStorageValue = localStorage.getItem('order-summary-items');
-
-  let orderStorageItems = (JSON.parse(ordersStorageValue as string) as Orders) ?? [];
+  let orderStorageItems = getOrderSummaryItemsFromStorage();
   const { action, day, meal, mealId } = payload;
 
   switch (action) {
@@ -121,18 +119,23 @@ type OrderSummaryProviderProps = {
 };
 
 export function OrderSummaryProvider({ children }: OrderSummaryProviderProps) {
-  const [state, dispatch] = useReducer(orderSummaryReducer, orderSummaryReducer());
+  const [orderSummaryItems, setOrderSummaryItems] = useState<Orders>(
+    getOrderSummaryItemsFromStorage()
+  );
 
   useEffect(() => {
-    window.addEventListener('storage', dispatch);
-    return () => {
-      window.removeEventListener('storage', dispatch);
+    const handleOrderSummaryItemsChange = () => {
+      setOrderSummaryItems(getOrderSummaryItemsFromStorage());
     };
-  }, [state]);
+    window.addEventListener('storage', handleOrderSummaryItemsChange);
+    return () => {
+      window.removeEventListener('storage', handleOrderSummaryItemsChange);
+    };
+  }, [orderSummaryItems]);
 
   const orderSummaryValue = useMemo(
-    () => ({ orders: state, modifyOrders: orderStorageUpdate }),
-    [state]
+    () => ({ orders: orderSummaryItems, modifyOrders: orderStorageUpdate }),
+    [orderSummaryItems]
   );
 
   return (

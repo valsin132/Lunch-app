@@ -1,0 +1,29 @@
+@import './../../../../styles/index.css';
+
+.date-wrapper {
+  @include flexbox($gap: calc($gap-regular + 2px), $alignItems: center);
+  @include body-s;
+
+  color: $color-grey-500;
+
+  & .date-wrapper__restart-button {
+    @include flexbox($alignItems: center, $justifyContent: center);
+    @include size(32px, 32px);
+
+    border: 1px solid $color-orange-300;
+    border-radius: $border-radius-regular;
+    padding: $spacing-5xs;
+
+    &:hover {
+      background-color: $color-orange-100;
+    }
+
+    &:active {
+      background-color: $color-orange-200;
+    }
+
+    & .date-wrapper__restart-icon {
+      @include size(24px, 24px);
+    }
+  }
+}

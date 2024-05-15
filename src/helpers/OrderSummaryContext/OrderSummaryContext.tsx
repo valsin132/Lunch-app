@@ -110,8 +110,7 @@ export function OrderSummaryProvider({ children }: OrderSummaryProviderProps) {
   const orderSummaryValue = useMemo(() => ({ orders: state, modifyOrders: dispatch }), [state]);
   return (
     <OrderSummaryContext.Provider value={orderSummaryValue}>
-      {' '}
-      {children}{' '}
+      {children}
     </OrderSummaryContext.Provider>
   );
 }

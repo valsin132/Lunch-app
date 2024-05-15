@@ -18,6 +18,7 @@ interface ModalProps {
   secondaryButtonLabel?: string;
   setIsOpenModal: (isOpenModal: boolean) => void;
   onClick: () => void;
+  isDisabled?: boolean;
 }
 
 export function Modal({
@@ -29,6 +30,7 @@ export function Modal({
   secondaryButtonLabel,
   onClick,
   setIsOpenModal,
+  isDisabled,
 }: ModalProps): ReactElement {
   return (
     <div className={cx('modal-overlay')}>
@@ -57,6 +59,7 @@ export function Modal({
                 buttonType="primary"
                 title={primaryButtonLabel}
                 onClick={onClick}
+                isDisabled={isDisabled}
               />
             )}
             {secondaryButtonLabel && (

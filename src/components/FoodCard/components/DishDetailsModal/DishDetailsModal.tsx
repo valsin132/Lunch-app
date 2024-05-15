@@ -20,6 +20,7 @@ export function DishDetailsModal({
   setIsOpen,
   onClick,
   dishType,
+  isDisabled,
   comments,
 }: FoodCardProps): ReactElement {
   const [imgLoadError, setImgLoadError] = useState(false);
@@ -33,7 +34,8 @@ export function DishDetailsModal({
         primaryButtonLabel="Add to Cart"
         secondaryButtonLabel="Close"
         setIsOpenModal={setIsOpen}
-        onClick={onClick}>
+        onClick={onClick}
+        isDisabled={isDisabled}>
         <div className={cx('dish-details__container')}>
           <div className={cx('dish-details__content')}>
             <img

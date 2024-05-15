@@ -29,7 +29,7 @@ export function DishDetailsModal({
       <Modal
         title="Dish Details"
         modalSize="md"
-        gap="m"
+        isSmallerUpperGap
         primaryButtonLabel="Add to Cart"
         secondaryButtonLabel="Close"
         setIsOpenModal={setIsOpen}

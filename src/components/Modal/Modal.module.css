@@ -28,11 +28,11 @@
 
     & .modal__header-wrapper {
 
-      &.modal__header-wrapper--gap-xl {
+      &.modal__header-wrapper--gap {
         @include flexbox($direction: column, $gap: $gap-Xlarge);
       }
 
-      &.modal__header-wrapper--gap-m {
+      &.modal__header-wrapper--gap-smaller {
         @include flexbox($direction: column, $gap: $gap-medium);
       }
 

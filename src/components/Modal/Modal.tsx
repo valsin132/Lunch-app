@@ -7,14 +7,13 @@ import styles from './Modal.module.css';
 
 const cx = classNames.bind(styles);
 
-type Gap = 'm' | 'xl';
 type ModalSize = 'md' | 'sm' | 'xs';
 
 interface ModalProps {
   children: ReactNode;
   title: string;
   modalSize: ModalSize;
-  gap: Gap;
+  isSmallerUpperGap?: boolean;
   primaryButtonLabel?: string;
   secondaryButtonLabel?: string;
   setIsOpenModal: (isOpenModal: boolean) => void;
@@ -25,7 +24,7 @@ export function Modal({
   children,
   title,
   modalSize,
-  gap,
+  isSmallerUpperGap,
   primaryButtonLabel,
   secondaryButtonLabel,
   onClick,
@@ -35,7 +34,10 @@ export function Modal({
     <div className={cx('modal-overlay')}>
       <Card isNoBorder>
         <div className={cx('modal__wrapper', [`modal__wrapper--size-${modalSize}`])}>
-          <div className={cx('modal__header-wrapper', [`modal__header-wrapper--gap-${gap}`])}>
+          <div
+            className={cx('modal__header-wrapper', `modal__header-wrapper--gap`, {
+              'modal__header-wrapper--gap-smaller': isSmallerUpperGap,
+            })}>
             <div className={cx('modal__header')}>
               <p>{title}</p>
               <div className={cx('modal__close')}>

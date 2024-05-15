@@ -1,72 +1,75 @@
-import { ReactElement, useState } from 'react';
-// import classNames from 'classnames/bind';
-// import styles from './Pagination.module.css';
+import { ReactElement } from 'react';
+import classNames from 'classnames/bind';
 import { SelectInput, SelectInputOption } from '../SelectInput';
+import { ChevronIcon } from '../../utils/iconManager';
+import styles from './Pagination.module.css';
 
+const cx = classNames.bind(styles);
 interface PaginationProps {
-  items: string[];
+  currentPage: number;
+  totalPages: number;
+  itemsPerPage: number;
+  onPageChange: (page: number) => void;
+  onItemsPerPageChange: (itemsPerPage: number) => void;
 }
 
-export function Pagination({ items }: PaginationProps): ReactElement {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(10);
-  const totalPages = Math.ceil(items.length / itemsPerPage);
-
-  const handlePrev = () => {
-    setCurrentPage((prev) => Math.max(1, prev - 1));
-  };
-
-  const options: SelectInputOption[] = [
-    {
-      label: '10',
-      value: 10,
-    },
-    {
-      label: '20',
-      value: 20,
-    },
-    {
-      label: '30',
-      value: 30,
-    },
-  ];
-
-  const handleNext = () => {
-    setCurrentPage((prev) => Math.min(totalPages, prev + 1));
+export function Pagination({
+  currentPage,
+  totalPages,
+  itemsPerPage,
+  onPageChange,
+  onItemsPerPageChange,
+}: PaginationProps): ReactElement {
+  const handlePageChange = (page: number) => {
+    if (page < 1 || page > totalPages) return;
+    onPageChange(page);
   };
 
   const handleItemsPerPageChange = (option: SelectInputOption | undefined) => {
     if (option) {
-      setItemsPerPage(option.value);
-      setCurrentPage(1);
+      onItemsPerPageChange(option.value);
     }
   };
 
-  const indexOfFirstItem = (currentPage - 1) * itemsPerPage;
-  const currentItems = items.slice(indexOfFirstItem, indexOfFirstItem + itemsPerPage);
+  const itemsPerPageOptions: SelectInputOption[] = [
+    { label: '5', value: 5 },
+    { label: '10', value: 10 },
+    { label: '15', value: 15 },
+    { label: '20', value: 20 },
+  ];
 
   return (
-    <div>
-      <div>
-        {currentItems.map((item) => (
-          <div>{item}</div>
-        ))}
-      </div>
-      <SelectInput
-        label="Rows per page:"
-        options={options}
-        value={options.find((option) => option.value === itemsPerPage)}
-        isBoxShadowDisabled
-        onChange={handleItemsPerPageChange}
-      />
-      <div>
+    <div className={cx('')}>
+      <div className={cx('pagination__container')}>
+        <div className={cx('pagination__container-select-input')}>
+          <p>Rows per page:</p>
+          <SelectInput
+            options={itemsPerPageOptions}
+            isBoxShadowDisabled
+            isSelectListTop
+            value={itemsPerPageOptions.find((option) => option.value === itemsPerPage)}
+            onChange={handleItemsPerPageChange}
+          />
+        </div>
         <span>{`${currentPage} of ${totalPages}`}</span>
-        <button type="button" onClick={handlePrev} disabled={currentPage === 1}>
-          {'<'}
-        </button>
-        <button type="button" onClick={handleNext} disabled={currentPage === totalPages}>
-          {'>'}
-        </button>
+        <div>
+          <button
+            type="button"
+            className={cx('pagination__button', 'pagination__button-left')}
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+            aria-label="Previous page">
+            <ChevronIcon />
+          </button>
+          <button
+            type="button"
+            className={cx('pagination__button', 'pagination__button-right')}
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            aria-label="Next page">
+            <ChevronIcon />
+          </button>
+        </div>
       </div>
     </div>
   );

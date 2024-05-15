@@ -1,1 +1,34 @@
 @import '../../styles/index.css';
+
+.pagination__container {
+  @include flexbox(
+    $direction: row,
+    $alignItems: center,
+    $justifyContent: flex-end,
+    $gap: $gap-Xlarge
+  );
+
+  & .pagination__container-select-input {
+    @include flexbox($direction: row, $alignItems: center, $gap: $gap-regular);
+
+    p {
+      @include title-s;
+    }
+  }
+
+  & .pagination__button {
+    @include size(32px, 32px);
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+
+  & .pagination__button-left {
+    transform: rotate(0.25turn);
+  }
+
+  & .pagination__button-right {
+    transform: rotate(-0.25turn);
+  }
+}

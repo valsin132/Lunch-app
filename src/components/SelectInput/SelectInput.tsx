@@ -14,8 +14,9 @@ interface SelectInputProps {
   options: SelectInputOption[];
   value?: SelectInputOption;
   placeholder?: string;
-  label: string;
+  label?: string;
   isBoxShadowDisabled?: boolean;
+  isSelectListTop?: boolean;
   onChange: (option: SelectInputOption | undefined) => void;
 }
 
@@ -24,6 +25,7 @@ export function SelectInput({
   placeholder,
   value,
   label,
+  isSelectListTop,
   isBoxShadowDisabled,
   onChange,
 }: SelectInputProps): ReactElement {
@@ -51,7 +53,7 @@ export function SelectInput({
         <ChevronIcon className={cx({ 'select__icon--rotated': isOpen })} />
       </button>
       {isOpen && (
-        <div className={cx('select__list')}>
+        <div className={cx('select__list', { 'select__list--top': isSelectListTop })}>
           {options.map((option) => (
             <button
               type="button"

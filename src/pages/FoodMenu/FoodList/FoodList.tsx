@@ -1,44 +1,30 @@
-import { useMemo } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import classNames from 'classnames/bind';
 import { FoodCard } from '../../../components/FoodCard';
-import { Order, WeekDay } from '../FoodMenu.types';
-import { useFoodListData } from '../../../hooks/useFoodListData';
+import { Order, WeekDay, Meal } from '../FoodMenu.types';
+import { Workdays } from '../../../helpers/OrderSummaryContext';
+import { useOrderSummary } from '../../../hooks/useOrderSummary';
+import { Toast } from '../../../components/Toast';
+import { useFoodData } from '../../../hooks/useFoodData';
 import styles from './FoodList.module.css';
 
 interface FoodListProps {
   selectedDay: WeekDay;
-  mealTitleSearch: string;
+  searchedMealTitle: string;
+  selectedVendor: string;
 }
 
 const cx = classNames.bind(styles);
 
-export function FoodList({ selectedDay, mealTitleSearch }: FoodListProps) {
-  const { vendorsData, mealsData, ratingsData, usersData, isLoading, isError } = useFoodListData();
-
-  const isMealOrdered = useMemo(() => {
-    const storedData = localStorage.getItem('userData');
-    if (storedData) {
-      const { orders } = JSON.parse(storedData);
-      return orders.filter((order: Order) => order.weekDay === selectedDay)?.length > 0;
-    }
-    return false;
-  }, [selectedDay]);
-
-  const filteredMeals = useMemo(() => {
-    if (!mealsData) return [];
-    let filteredMealData = mealsData.filter((meal) => meal.weekDays.includes(selectedDay));
-    if (mealTitleSearch) {
-      filteredMealData = filteredMealData.filter((meal) =>
-        meal.title.toLowerCase().includes(mealTitleSearch.toLowerCase())
-      );
-    }
-    return filteredMealData;
-  }, [mealsData, selectedDay, mealTitleSearch]);
-
-  const noMealsFound = useMemo(() => !filteredMeals.length, [filteredMeals]);
-
-  const getVendorName = (vendorId: number) =>
-    vendorsData?.find((vendor) => Number(vendor.id) === vendorId)?.name ?? '';
+export function FoodList({ selectedDay, searchedMealTitle, selectedVendor }: FoodListProps) {
+  const { mealsData, ratingsData, vendorsData, usersData } = useFoodData();
+  const { orders, modifyOrders } = useOrderSummary();
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
+  const getVendorName = useCallback(
+    (vendorId: number) => vendorsData?.find((vendor) => Number(vendor.id) === vendorId)?.name ?? '',
+    [vendorsData]
+  );
 
   const getRating = (id: number) => {
     const filteredRatings = ratingsData?.filter((rating) => rating.mealId === id) ?? [];
@@ -49,6 +35,59 @@ export function FoodList({ selectedDay, mealTitleSearch }: FoodListProps) {
       return averageRating.toFixed(1);
     }
     return 'Not rated';
+  };
+
+  const isMealOrdered = useMemo(() => {
+    const storedData = localStorage.getItem('userData');
+    if (storedData) {
+      const { orders: storedOrders } = JSON.parse(storedData);
+      return storedOrders.filter((order: Order) => order.weekDay === selectedDay)?.length > 0;
+    }
+    return false;
+  }, [selectedDay]);
+
+  const filteredMeals = useMemo(() => {
+    if (!mealsData) return [];
+    let filteredMealData = mealsData.filter((meal) => meal.weekDays.includes(selectedDay));
+    if (searchedMealTitle) {
+      filteredMealData = filteredMealData.filter((meal) =>
+        meal.title.toLowerCase().includes(searchedMealTitle.toLowerCase())
+      );
+    }
+    if (selectedVendor) {
+      filteredMealData = filteredMealData.filter(
+        (meal) => getVendorName(meal.vendorId).toLowerCase() === selectedVendor.toLowerCase()
+      );
+    }
+    return filteredMealData;
+  }, [mealsData, selectedDay, searchedMealTitle, selectedVendor, getVendorName]);
+
+  const noMealsFound = useMemo(() => !filteredMeals.length, [filteredMeals]);
+  const dayToLowerCase = selectedDay.toLowerCase() as Workdays;
+
+  const isMealTypeAddedForDay = (mealType: string) => {
+    const ordersForSelectedDay = orders.find((order) => order.day === dayToLowerCase);
+    if (!ordersForSelectedDay) {
+      return false;
+    }
+    return ordersForSelectedDay.orders.some((orderItem) => orderItem.mealType === mealType);
+  };
+
+  const handleAddToOrderSummary = (meal: Meal): void => {
+    modifyOrders({
+      action: 'ADD_ORDER',
+      day: dayToLowerCase,
+      meal: {
+        dishType: meal.dishType,
+        mealId: meal.id,
+        mealType: meal.mealType,
+        price: meal.price,
+        title: meal.title,
+        vendor: getVendorName(meal.vendorId),
+      },
+    });
+    setShowToast(true);
+    setToastMessage(`${meal.title} has been added to your cart. Excellent Choice!`);
   };
 
   const getUser = (id: number) => usersData?.find((users) => Number(users.id) === id);
@@ -65,9 +104,6 @@ export function FoodList({ selectedDay, mealTitleSearch }: FoodListProps) {
       };
     });
   };
-
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error occurred while retrieving data</div>;
 
   return (
     <div className={cx('menu-wrapper')}>
@@ -87,10 +123,14 @@ export function FoodList({ selectedDay, mealTitleSearch }: FoodListProps) {
             isSpicy={meal.spicy}
             rating={getRating(Number(meal.id))}
             dishType={meal.dishType}
+            onClick={() => handleAddToOrderSummary(meal)}
+            isDisabled={isMealTypeAddedForDay(meal.mealType)}
             comments={getComments(Number(meal.id))}
-            onClick={onclick}
           />
         ))
+      )}
+      {showToast && (
+        <Toast toastType="info" content={toastMessage} onClick={() => setShowToast(false)} />
       )}
     </div>
   );

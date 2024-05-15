@@ -21,6 +21,7 @@ export function FoodCard({
   dishType,
   onClick,
   comments,
+  isDisabled,
 }: FoodCardProps): ReactElement {
   const [isOpenModal, setIsOpenModal] = useState(false);
 
@@ -77,6 +78,7 @@ export function FoodCard({
               buttonType="secondary"
               buttonSize="sm"
               onClick={onClick}
+              isDisabled={isDisabled}
             />
           </div>
         </div>
@@ -96,6 +98,7 @@ export function FoodCard({
             setIsOpenModal(false);
           }}
           onClick={onClick}
+          isDisabled={isDisabled}
         />
       )}
     </div>

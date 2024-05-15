@@ -48,11 +48,11 @@
     background-color: $color-blue-800;
     color: $text-color-white;
 
-    &:hover {
+    &:hover:enabled {
       background-color: $color-blue-600;
     }
 
-    &:active {
+    &:active:enabled {
       background-color: $color-blue-400;
     }
 
@@ -66,11 +66,11 @@
     box-shadow: inset 0 0 0 1px $color-orange-300;
     color: $text-color-blue;
 
-    &:hover {
+    &:hover:enabled {
       background-color: $color-orange-100;
     }
 
-    &:active {
+    &:active:enabled {
       background-color: $color-orange-200;
     }
 
@@ -83,11 +83,11 @@
     background-color: $color-white;
     color: $text-color-blue;
 
-    &:hover {
+    &:hover:enabled {
       background-color: $color-orange-100;
     }
 
-    &:active {
+    &:active:enabled {
       background-color: $color-orange-200;
     }
   }
@@ -107,6 +107,5 @@
   &:disabled {
     cursor: not-allowed;
     opacity: 0.4;
-    pointer-events: none;
   }
 }

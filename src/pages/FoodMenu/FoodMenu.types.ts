@@ -1,7 +1,7 @@
 import { DishType } from '../../components/FoodCard/FoodCard.types';
 
 export interface Meal {
-  id: string;
+  id: number;
   vendorId: number;
   title: string;
   description: string;
@@ -10,6 +10,7 @@ export interface Meal {
   spicy: boolean;
   weekDays: string[];
   dishType: DishType;
+  mealType: MealType;
 }
 
 export interface Rating {
@@ -39,3 +40,5 @@ export interface Order {
 }
 
 export type WeekDay = 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday';
+
+export type MealType = 'main' | 'soup';

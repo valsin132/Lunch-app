@@ -1,5 +1,6 @@
 import classNames from 'classnames/bind';
 import { ReactElement } from 'react';
+import { MONTHS } from '../../constants';
 import styles from './Header.module.css';
 
 const cx = classNames.bind(styles);
@@ -28,21 +29,6 @@ const getTitle = (pageType: PageTypes): string => {
 const getSubtitle = (pageType: PageTypes): string => {
   const curr = new Date();
 
-  const months = [
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'Jun',
-    'Jul',
-    'Aug',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dec',
-  ];
-
   const weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
   const weekDay = weekDays[curr.getDay()];
@@ -57,11 +43,11 @@ const getSubtitle = (pageType: PageTypes): string => {
 
   switch (pageType) {
     case 'foodMenu':
-      return `Lunch menu for the week of ${months[firstDayMonth]} ${firstDay} - ${firstDayMonth !== lastDayMonth ? months[lastDayMonth] : ''} ${lastDay}`;
+      return `Lunch menu for the week of ${MONTHS[firstDayMonth]} ${firstDay} - ${firstDayMonth !== lastDayMonth ? MONTHS[lastDayMonth] : ''} ${lastDay}`;
     case 'availableLunch':
       return `${weekDay} dishes that are up for grabs, from your colleagues.`;
     default:
-      return `Week of ${firstDay} ${months[firstDayMonth]} - ${lastDay} ${months[lastDayMonth]} `;
+      return `Week of ${firstDay} ${MONTHS[firstDayMonth]} - ${lastDay} ${MONTHS[lastDayMonth]} `;
   }
 };
 

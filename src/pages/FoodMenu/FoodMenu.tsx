@@ -4,14 +4,21 @@ import { Tab } from '../../components/Tab';
 import { WeekDay } from './FoodMenu.types';
 import { MealSearch } from '../../components/MealSearch';
 import { FoodList } from './FoodList';
+import { useFoodData } from '../../hooks/useFoodData';
 import styles from './FoodMenu.module.css';
 
 const cx = classNames.bind(styles);
 
 export function FoodMenu(): ReactElement {
+  const { isLoading, isError, vendorsData } = useFoodData();
   const [selectedDay, setSelectedDay] = useState<WeekDay>('Monday');
-  const [mealTitleSearch, setMealTitleSearch] = useState('');
+  const [searchedMealTitle, setSearchedMealTitle] = useState('');
+  const [selectedVendor, setSelectedVendor] = useState('');
+
   const dayLabels = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error occurred while retrieving data</div>;
 
   return (
     <div className={cx('food-menu__wrapper')}>
@@ -26,11 +33,17 @@ export function FoodMenu(): ReactElement {
         ))}
       </div>
       <MealSearch
-        handleSearch={(title) => {
-          setMealTitleSearch(title);
+        vendorsData={vendorsData}
+        handleSearch={(title, vendor) => {
+          setSearchedMealTitle(title);
+          setSelectedVendor(vendor);
         }}
       />
-      <FoodList selectedDay={selectedDay} mealTitleSearch={mealTitleSearch} />
+      <FoodList
+        selectedDay={selectedDay}
+        searchedMealTitle={searchedMealTitle}
+        selectedVendor={selectedVendor}
+      />
     </div>
   );
 }

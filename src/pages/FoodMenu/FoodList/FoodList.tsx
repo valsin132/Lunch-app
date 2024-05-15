@@ -1,25 +1,41 @@
-import { useMemo, useState } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import classNames from 'classnames/bind';
 import { FoodCard } from '../../../components/FoodCard';
 import { Order, WeekDay, Meal } from '../FoodMenu.types';
-import { useFoodListData } from '../../../hooks/useFoodListData';
 import { Workdays } from '../../../helpers/OrderSummaryContext';
 import { useOrderSummary } from '../../../hooks/useOrderSummary';
 import { Toast } from '../../../components/Toast';
+import { useFoodData } from '../../../hooks/useFoodData';
 import styles from './FoodList.module.css';
 
 interface FoodListProps {
   selectedDay: WeekDay;
-  mealTitleSearch: string;
+  searchedMealTitle: string;
+  selectedVendor: string;
 }
 
 const cx = classNames.bind(styles);
 
-export function FoodList({ selectedDay, mealTitleSearch }: FoodListProps) {
-  const { vendorsData, mealsData, ratingsData, isLoading, isError } = useFoodListData();
+export function FoodList({ selectedDay, searchedMealTitle, selectedVendor }: FoodListProps) {
+  const { mealsData, ratingsData, vendorsData } = useFoodData();
   const { orders, modifyOrders } = useOrderSummary();
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
+  const getVendorName = useCallback(
+    (vendorId: number) => vendorsData?.find((vendor) => Number(vendor.id) === vendorId)?.name ?? '',
+    [vendorsData]
+  );
+
+  const getRating = (id: number) => {
+    const filteredRatings = ratingsData?.filter((rating) => rating.mealId === id) ?? [];
+    if (filteredRatings.length > 0) {
+      const ratings = filteredRatings.map((rating) => rating.rating.rating);
+      const sum = ratings.reduce((total, rating) => total + rating, 0);
+      const averageRating = sum / ratings.length;
+      return averageRating.toFixed(1);
+    }
+    return 'Not rated';
+  };
 
   const isMealOrdered = useMemo(() => {
     const storedData = localStorage.getItem('userData');
@@ -33,30 +49,21 @@ export function FoodList({ selectedDay, mealTitleSearch }: FoodListProps) {
   const filteredMeals = useMemo(() => {
     if (!mealsData) return [];
     let filteredMealData = mealsData.filter((meal) => meal.weekDays.includes(selectedDay));
-    if (mealTitleSearch) {
+    if (searchedMealTitle) {
       filteredMealData = filteredMealData.filter((meal) =>
-        meal.title.toLowerCase().includes(mealTitleSearch.toLowerCase())
+        meal.title.toLowerCase().includes(searchedMealTitle.toLowerCase())
+      );
+    }
+    if (selectedVendor) {
+      filteredMealData = filteredMealData.filter(
+        (meal) => getVendorName(meal.vendorId).toLowerCase() === selectedVendor.toLowerCase()
       );
     }
     return filteredMealData;
-  }, [mealsData, selectedDay, mealTitleSearch]);
+  }, [mealsData, selectedDay, searchedMealTitle, selectedVendor, getVendorName]);
 
   const noMealsFound = useMemo(() => !filteredMeals.length, [filteredMeals]);
   const dayToLowerCase = selectedDay.toLowerCase() as Workdays;
-
-  const getVendorName = (vendorId: number) =>
-    vendorsData?.find((vendor) => Number(vendor.id) === vendorId)?.name ?? '';
-
-  const getRating = (id: number) => {
-    const filteredRatings = ratingsData?.filter((rating) => rating.mealId === id) ?? [];
-    if (filteredRatings.length > 0) {
-      const ratings = filteredRatings.map((rating) => rating.rating.rating);
-      const sum = ratings.reduce((total, rating) => total + rating, 0);
-      const averageRating = sum / ratings.length;
-      return averageRating.toFixed(1);
-    }
-    return 'Not rated';
-  };
 
   const isMealTypeAddedForDay = (mealType: string) => {
     const ordersForSelectedDay = orders.find((order) => order.day === dayToLowerCase);
@@ -82,9 +89,6 @@ export function FoodList({ selectedDay, mealTitleSearch }: FoodListProps) {
     setShowToast(true);
     setToastMessage(`${meal.title} has been added to your cart. Excellent Choice!`);
   };
-
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error occurred while retrieving data</div>;
 
   return (
     <div className={cx('menu-wrapper')}>

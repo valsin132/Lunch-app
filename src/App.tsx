@@ -10,6 +10,7 @@ import { ProtectedRoute } from './containers/ProtectedRoute';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { OrderSummaryProvider } from './helpers/OrderSummaryContext';
 import { useAuth, AuthProvider } from './helpers/AuthContext';
+import { FoodDataProvider } from './helpers/FoodDataContext';
 
 function AppRoutes() {
   const { isLogged } = useAuth();
@@ -21,7 +22,14 @@ function AppRoutes() {
       </Route>
       <Route element={<ProtectedRoute isLoggedIn={isLogged} pageType="main" />}>
         <Route element={<MainContent />}>
-          <Route path={MAIN_PAGES_ROUTES.FoodMenu} element={<FoodMenu />} />
+          <Route
+            path={MAIN_PAGES_ROUTES.FoodMenu}
+            element={
+              <FoodDataProvider>
+                <FoodMenu />
+              </FoodDataProvider>
+            }
+          />
           <Route path={MAIN_PAGES_ROUTES.AvailableLunch} element={<AvailableLunch />} />
           <Route path={MAIN_PAGES_ROUTES.YourOrders} element={<YourOrders />} />
           <Route path={MAIN_PAGES_ROUTES.Ratings} element={<Ratings />} />

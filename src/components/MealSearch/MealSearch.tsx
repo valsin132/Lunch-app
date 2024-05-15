@@ -19,9 +19,9 @@ export function MealSearch({ vendorsData, handleSearch, isSortBy = false }: Meal
   const [mealTitle, setMealTitle] = useState('');
   const [selectedVendor, setSelectedVendor] = useState<SelectInputOption | undefined>();
 
-  const vendorOptions: SelectInputOption[] | undefined = useMemo(() => {
+  const vendorOptions: SelectInputOption[] = useMemo(() => {
     if (!vendorsData) return [];
-    return vendorsData?.map((vendor) => {
+    return vendorsData.map((vendor) => {
       const selectOption: SelectInputOption = { label: vendor.name, value: Number(vendor.id) };
       return selectOption;
     });
@@ -63,7 +63,7 @@ export function MealSearch({ vendorsData, handleSearch, isSortBy = false }: Meal
             buttonType="primary"
             title="Search"
             onClick={() => {
-              handleSearch(mealTitle, selectedVendor ? selectedVendor.label : '');
+              handleSearch(mealTitle, selectedVendor?.label ?? '');
             }}
           />
         </form>

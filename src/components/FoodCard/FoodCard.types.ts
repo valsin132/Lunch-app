@@ -19,7 +19,6 @@ export interface FoodCardProps {
   comments?: CommentProps[];
   dishType: DishType;
   isDisabled: boolean;
-  // setIsOpen: () => void;
   onClick: () => void;
 }
 

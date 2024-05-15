@@ -35,7 +35,7 @@ export function Modal({
       <Card isNoBorder>
         <div className={cx('modal__wrapper', [`modal__wrapper--size-${modalSize}`])}>
           <div
-            className={cx('modal__header-wrapper', `modal__header-wrapper--gap`, {
+            className={cx('modal__header-wrapper', {
               'modal__header-wrapper--gap-smaller': isSmallerUpperGap,
             })}>
             <div className={cx('modal__header')}>

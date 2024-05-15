@@ -27,13 +27,10 @@
     }
 
     & .modal__header-wrapper {
-
-      &.modal__header-wrapper--gap {
-        @include flexbox($direction: column, $gap: $gap-Xlarge);
-      }
+      @include flexbox($direction: column, $gap: $gap-Xlarge);
 
       &.modal__header-wrapper--gap-smaller {
-        @include flexbox($direction: column, $gap: $gap-medium);
+        gap: $gap-medium;
       }
 
       & .modal__header {

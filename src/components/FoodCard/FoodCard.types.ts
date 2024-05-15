@@ -19,6 +19,10 @@ export interface FoodCardProps {
   comments?: CommentProps[];
   dishType: DishType;
   isDisabled: boolean;
-  setIsOpen: () => void;
+  // setIsOpen: () => void;
   onClick: () => void;
+}
+
+export interface DishDetailProps extends FoodCardProps {
+  setIsOpen: () => void;
 }

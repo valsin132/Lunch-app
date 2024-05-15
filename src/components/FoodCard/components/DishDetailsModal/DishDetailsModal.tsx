@@ -4,7 +4,7 @@ import { Modal } from '../../../Modal';
 import { ChilliIcon, PlantIcon, UserProfile } from '../../../../utils/iconManager';
 import { getDishTypeImage } from '../../../../helpers/helperFunctions/getDishTypeImage';
 import { StarsRating } from '../../../StarsRating';
-import { FoodCardProps } from '../../FoodCard.types';
+import { DishDetailProps } from '../../FoodCard.types';
 import styles from './DishDetailsModal.module.css';
 
 const cx = classNames.bind(styles);
@@ -22,7 +22,7 @@ export function DishDetailsModal({
   dishType,
   isDisabled,
   comments,
-}: FoodCardProps): ReactElement {
+}: DishDetailProps): ReactElement {
   const [imgLoadError, setImgLoadError] = useState(false);
 
   return (

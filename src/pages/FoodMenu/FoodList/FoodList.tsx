@@ -3,7 +3,8 @@ import classNames from 'classnames/bind';
 import { FoodCard } from '../../../components/FoodCard';
 import { Order, WeekDay, Meal } from '../FoodMenu.types';
 import { useFoodListData } from '../../../hooks/useFoodListData';
-import { useOrderSummary, Workdays } from '../../../helpers/OrderSummaryContext';
+import { Workdays } from '../../../helpers/OrderSummaryContext';
+import { useOrderSummary } from '../../../hooks/useOrderSummary';
 import { Toast } from '../../../components/Toast';
 import styles from './FoodList.module.css';
 

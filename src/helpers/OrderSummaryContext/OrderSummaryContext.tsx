@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useContext, useMemo, useReducer } from 'react';
+import { ReactNode, createContext, useMemo, useReducer } from 'react';
 import { DishType } from '../../components/FoodCard';
 import { MealType } from '../../pages/FoodMenu/FoodMenu.types';
 
@@ -36,12 +36,12 @@ type OrderIdentifier = {
   meal?: Order;
 };
 
-type OrderSummaryContextType = {
+export type OrderSummaryContextType = {
   orders: Orders;
   modifyOrders: (order: OrderIdentifier) => void;
 };
 
-const OrderSummaryContext = createContext<OrderSummaryContextType | null>(null);
+export const OrderSummaryContext = createContext<OrderSummaryContextType | null>(null);
 
 function orderReducer(state: Orders, payload: OrderIdentifier): Orders {
   const { action, day, meal, mealId } = payload;
@@ -100,13 +100,13 @@ function orderReducer(state: Orders, payload: OrderIdentifier): Orders {
   }
 }
 
-export const useOrderSummary = (): OrderSummaryContextType => {
-  const context = useContext(OrderSummaryContext);
-  if (!context) {
-    throw new Error('useOrderSummary must be used within an OrderSummary provider');
-  }
-  return context;
-};
+// export const useOrderSummary = (): OrderSummaryContextType => {
+//   const context = useContext(OrderSummaryContext);
+//   if (!context) {
+//     throw new Error('useOrderSummary must be used within an OrderSummary provider');
+//   }
+//   return context;
+// };
 
 type OrderSummaryProviderProps = {
   children: ReactNode;
@@ -118,7 +118,8 @@ export function OrderSummaryProvider({ children }: OrderSummaryProviderProps) {
   const orderSummaryValue = useMemo(() => ({ orders: state, modifyOrders: dispatch }), [state]);
   return (
     <OrderSummaryContext.Provider value={orderSummaryValue}>
-      {children}
+      {' '}
+      {children}{' '}
     </OrderSummaryContext.Provider>
   );
 }

@@ -4,7 +4,7 @@ import { Card } from '../Card';
 import { BadgeCount } from '../Badge';
 import { ShoppingBasketIcon, Logout, ArrowFilledIcon, UserProfile } from '../../utils/iconManager';
 import { useAuth } from '../../helpers/AuthContext';
-import { useOrderSummary } from '../../helpers/OrderSummaryContext';
+import { useOrderSummary } from '../../hooks/useOrderSummary';
 import styles from './UserCard.module.css';
 
 const cx = classNames.bind(styles);

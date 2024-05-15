@@ -4,9 +4,11 @@ import { CloseIcon } from '../../utils/iconManager';
 import { OrderDay } from './OrderDay';
 import { Card } from '../Card';
 import { OrderButton } from './OrderButton';
-import { OrderDayType, useOrderSummary } from '../../helpers/OrderSummaryContext';
+import { OrderDayType, Workdays } from '../../helpers/OrderSummaryContext';
 import { EmptyCart } from './EmptyCart';
 import { Dialog } from '../Dialog';
+import { useOrderSummary } from '../../hooks/useOrderSummary';
+import { Button } from '../Button';
 import styles from './OrderSummary.module.css';
 
 const cx = classNames.bind(styles);
@@ -17,6 +19,8 @@ type OrderSummaryProps = {
 
 export function OrderSummary({ visibilityHandler }: OrderSummaryProps) {
   const [isConfirmationDialogOpen, setIsConfirmationDialogOpen] = useState(false);
+  const [mealId, setMealId] = useState(1);
+  const [day, setDay] = useState<Workdays>('friday');
   const orderSummaryContext = useOrderSummary();
 
   const isOrderCartEmpty = orderSummaryContext.orders.length < 1;
@@ -38,8 +42,32 @@ export function OrderSummary({ visibilityHandler }: OrderSummaryProps) {
       orderSummaryContext.modifyOrders({ action: 'CLEAR_ORDERS' });
     }
   };
+
   return (
     <aside className={cx('order-summary')}>
+      <Button
+        buttonSize="md"
+        buttonType="primary"
+        title="Hello"
+        onClick={() => {
+          orderSummaryContext.modifyOrders({
+            action: 'ADD_ORDER',
+            day,
+            meal: {
+              dishType: 'bowl',
+              mealId,
+              price: 4 + mealId,
+              title: 'Wardas',
+              vendor: `Chiga${mealId}`,
+            },
+          });
+          if (mealId === 2) setDay('monday');
+          if (mealId === 3) setDay('thursday');
+          if (mealId === 5) setDay('wednesday');
+          if (mealId === 7) setDay('tuesday');
+          setMealId((cur) => cur + 1);
+        }}
+      />
       <Card spacing="none" shadow="s" roundedCorners="left" isNoBorder>
         <div className={cx('order-summary__content-wrapper')}>
           <div

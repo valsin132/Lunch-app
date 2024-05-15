@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useContext, useMemo, useReducer } from 'react';
+import { ReactNode, createContext, useEffect, useMemo, useReducer } from 'react';
 import { DishType } from '../../components/FoodCard';
 
 type OrderActions = 'REMOVE_ORDER' | 'ADD_ORDER' | 'CLEAR_ORDERS';
@@ -34,80 +34,107 @@ type OrderIdentifier = {
   meal?: Order;
 };
 
-type OrderSummaryContextType = {
+export type OrderSummaryContextType = {
   orders: Orders;
   modifyOrders: (order: OrderIdentifier) => void;
 };
 
-const OrderSummaryContext = createContext<OrderSummaryContextType | null>(null);
+export const OrderSummaryContext = createContext<OrderSummaryContextType | null>(null);
 
-function orderReducer(state: Orders, payload: OrderIdentifier): Orders {
+function orderSummaryReducer() {
+  const ordersStorageValue = localStorage.getItem('order-summary-items');
+
+  const orderStorageItems = (JSON.parse(ordersStorageValue as string) as Orders) ?? [];
+  return orderStorageItems;
+}
+
+function orderStorageUpdate(payload: OrderIdentifier) {
+  const ordersStorageValue = localStorage.getItem('order-summary-items');
+
+  let orderStorageItems = (JSON.parse(ordersStorageValue as string) as Orders) ?? [];
   const { action, day, meal, mealId } = payload;
+
   switch (action) {
     case 'REMOVE_ORDER': {
       if (!day || !mealId) {
-        return state;
+        break;
       }
-      const dayIndex = state.findIndex((ordersForDay) => ordersForDay.day === day);
+
+      const dayIndex = orderStorageItems.findIndex((ordersForDay) => ordersForDay.day === day);
+
       if (dayIndex === -1) {
-        return state;
+        break;
       }
-      const newState = [...state];
-      newState[dayIndex].orders = newState[dayIndex].orders.filter(
+
+      orderStorageItems[dayIndex].orders = orderStorageItems[dayIndex].orders.filter(
         (order) => order.mealId !== mealId
       );
-      if (newState[dayIndex].orders.length === 0) newState.splice(dayIndex, 1);
-      return [...newState];
+
+      if (orderStorageItems[dayIndex].orders.length === 0) orderStorageItems.splice(dayIndex, 1);
+
+      if (orderStorageItems.length) {
+        localStorage.setItem('order-summary-items', JSON.stringify(orderStorageItems));
+      } else {
+        localStorage.removeItem('order-summary-items');
+      }
+      window.dispatchEvent(new Event('storage'));
+      break;
     }
     case 'ADD_ORDER': {
       if (!day || !meal) {
-        return state;
+        break;
       }
 
-      const dayIndex = state.findIndex((ordersForDay) => ordersForDay.day === day);
+      const dayIndex = orderStorageItems.findIndex((ordersForDay) => ordersForDay.day === day);
 
       if (dayIndex === -1) {
-        const newState = [...state, { day, orders: [meal] }].sort(
+        orderStorageItems = [...orderStorageItems, { day, orders: [meal] }].sort(
           (aOrderDay, bOrderDay) => workdayToIndex[aOrderDay.day] - workdayToIndex[bOrderDay.day]
         );
 
-        return [...newState];
+        localStorage.setItem('order-summary-items', JSON.stringify(orderStorageItems));
+        window.dispatchEvent(new Event('storage'));
+        break;
       }
 
-      if (state[dayIndex].orders.some((order) => order.mealId === meal.mealId)) {
-        return state;
+      if (orderStorageItems[dayIndex].orders.some((order) => order.mealId === meal.mealId)) {
+        break;
       }
 
-      const newState = [...state];
-      newState[dayIndex] = {
-        ...newState[dayIndex],
-        orders: [...newState[dayIndex].orders, meal],
-      };
-      return [...newState];
+      orderStorageItems[dayIndex].orders.push(meal);
+      localStorage.setItem('order-summary-items', JSON.stringify(orderStorageItems));
+      window.dispatchEvent(new Event('storage'));
+      break;
     }
-    case 'CLEAR_ORDERS':
-      return [];
+    case 'CLEAR_ORDERS': {
+      localStorage.removeItem('order-summary-items');
+      window.dispatchEvent(new Event('storage'));
+      break;
+    }
     default:
-      return state;
+      break;
   }
 }
-
-export const useOrderSummary = (): OrderSummaryContextType => {
-  const context = useContext(OrderSummaryContext);
-  if (!context) {
-    throw new Error('useOrderSummary must be used within an OrderSummary provider');
-  }
-  return context;
-};
 
 type OrderSummaryProviderProps = {
   children: ReactNode;
 };
 
 export function OrderSummaryProvider({ children }: OrderSummaryProviderProps) {
-  const [state, dispatch] = useReducer(orderReducer, []);
+  const [state, dispatch] = useReducer(orderSummaryReducer, orderSummaryReducer());
 
-  const orderSummaryValue = useMemo(() => ({ orders: state, modifyOrders: dispatch }), [state]);
+  useEffect(() => {
+    window.addEventListener('storage', dispatch);
+    return () => {
+      window.removeEventListener('storage', dispatch);
+    };
+  }, [state]);
+
+  const orderSummaryValue = useMemo(
+    () => ({ orders: state, modifyOrders: orderStorageUpdate }),
+    [state]
+  );
+
   return (
     <OrderSummaryContext.Provider value={orderSummaryValue}>
       {children}

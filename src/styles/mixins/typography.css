@@ -90,7 +90,7 @@
   @include create-text-style(
     $font-weight-medium,
     $font-size-xs,
-    $line-height-xs,
+    $line-height-ratio-l,
     $letter-spacing-xs
   );
 }

@@ -121,6 +121,13 @@
 
   & .dish-details__comment {
     @include flexbox($direction: column, $gap: $gap-regular);
+
+    & .dish-details__comment-text {
+      @include body-s;
+
+      color: $text-color-darker-grey;
+      padding-left: $gap-2Xlarge;
+    }
   }
 
   & .dish-details__user {
@@ -139,12 +146,5 @@
       color: $color-blue-600;
       text-transform: uppercase;
     }
-  }
-
-  & .dish-details__comment-text {
-    @include body-s;
-
-    color: $text-color-darker-grey;
-    padding-left: $gap-2Xlarge;
   }
 }

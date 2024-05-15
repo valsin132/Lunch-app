@@ -34,12 +34,7 @@ export function Modal({
   return (
     <div className={cx('modal-overlay')}>
       <Card isNoBorder>
-        <div
-          className={cx(
-            'modal__wrapper',
-            [`modal__wrapper--size-${modalSize}`],
-            [`modal__wrapper--gap-${gap}`]
-          )}>
+        <div className={cx('modal__wrapper', [`modal__wrapper--size-${modalSize}`])}>
           <div className={cx('modal__header-wrapper', [`modal__header-wrapper--gap-${gap}`])}>
             <div className={cx('modal__header')}>
               <p>{title}</p>

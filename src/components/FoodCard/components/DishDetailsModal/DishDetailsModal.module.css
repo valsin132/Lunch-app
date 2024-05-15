@@ -109,7 +109,7 @@
         width: 8px;
       }
 
-      & .dish-details__comments-number {
+      & .dish-details__comments-title {
         @include title-s;
 
         color: $color-blue-600;

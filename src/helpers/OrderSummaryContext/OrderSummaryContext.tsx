@@ -21,6 +21,7 @@ export type OrderDayType = {
 export type Orders = OrderDayType[];
 
 export type Workdays = 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday';
+
 const workdayToIndex: { [keyof in Workdays]: number } = {
   monday: 1,
   tuesday: 2,
@@ -43,15 +44,17 @@ export type OrderSummaryContextType = {
 
 export const OrderSummaryContext = createContext<OrderSummaryContextType | null>(null);
 
-function getOrderSummaryItemsFromStorage() {
+const orderSummaryEventName = 'ordersummarystorage';
+
+const getOrderSummaryItems = () => {
   const ordersStorageValue = localStorage.getItem('order-summary-items');
 
   const orderStorageItems = (JSON.parse(ordersStorageValue as string) as Orders) ?? [];
   return orderStorageItems;
-}
+};
 
-function orderStorageUpdate(payload: OrderIdentifier) {
-  let orderStorageItems = getOrderSummaryItemsFromStorage();
+const setOrderSummaryItems = (payload: OrderIdentifier) => {
+  let orderStorageItems = getOrderSummaryItems();
   const { action, day, meal, mealId } = payload;
 
   switch (action) {
@@ -70,14 +73,17 @@ function orderStorageUpdate(payload: OrderIdentifier) {
         (order) => order.mealId !== mealId
       );
 
-      if (orderStorageItems[dayIndex].orders.length === 0) orderStorageItems.splice(dayIndex, 1);
+      if (orderStorageItems[dayIndex].orders.length === 0) {
+        orderStorageItems.splice(dayIndex, 1);
+      }
 
       if (orderStorageItems.length) {
         localStorage.setItem('order-summary-items', JSON.stringify(orderStorageItems));
       } else {
         localStorage.removeItem('order-summary-items');
       }
-      window.dispatchEvent(new Event('storage'));
+
+      window.dispatchEvent(new Event(orderSummaryEventName));
       break;
     }
     case 'ADD_ORDER': {
@@ -93,11 +99,13 @@ function orderStorageUpdate(payload: OrderIdentifier) {
         );
 
         localStorage.setItem('order-summary-items', JSON.stringify(orderStorageItems));
-        window.dispatchEvent(new Event('storage'));
+        window.dispatchEvent(new Event(orderSummaryEventName));
         break;
       }
 
-      if (orderStorageItems[dayIndex].orders.some((order) => order.mealId === meal.mealId)) break;
+      if (orderStorageItems[dayIndex].orders.some((order) => order.mealId === meal.mealId)) {
+        break;
+      }
 
       const dishType = meal.mealType;
 
@@ -111,41 +119,39 @@ function orderStorageUpdate(payload: OrderIdentifier) {
 
       orderStorageItems[dayIndex].orders.push(meal);
       localStorage.setItem('order-summary-items', JSON.stringify(orderStorageItems));
-      window.dispatchEvent(new Event('storage'));
+      window.dispatchEvent(new Event(orderSummaryEventName));
       break;
     }
     case 'CLEAR_ORDERS': {
       localStorage.removeItem('order-summary-items');
-      window.dispatchEvent(new Event('storage'));
+      window.dispatchEvent(new Event(orderSummaryEventName));
       break;
     }
     default:
       break;
   }
-}
+};
 
 type OrderSummaryProviderProps = {
   children: ReactNode;
 };
 
 export function OrderSummaryProvider({ children }: OrderSummaryProviderProps) {
-  const [orderSummaryItems, setOrderSummaryItems] = useState<Orders>(
-    getOrderSummaryItemsFromStorage()
-  );
+  const [state, setState] = useState<Orders>(getOrderSummaryItems());
 
   useEffect(() => {
     const handleOrderSummaryItemsChange = () => {
-      setOrderSummaryItems(getOrderSummaryItemsFromStorage());
+      setState(getOrderSummaryItems());
     };
-    window.addEventListener('storage', handleOrderSummaryItemsChange);
+    window.addEventListener(orderSummaryEventName, handleOrderSummaryItemsChange);
     return () => {
-      window.removeEventListener('storage', handleOrderSummaryItemsChange);
+      window.removeEventListener(orderSummaryEventName, handleOrderSummaryItemsChange);
     };
-  }, [orderSummaryItems]);
+  }, []);
 
   const orderSummaryValue = useMemo(
-    () => ({ orders: orderSummaryItems, modifyOrders: orderStorageUpdate }),
-    [orderSummaryItems]
+    () => ({ orders: state, modifyOrders: setOrderSummaryItems }),
+    [state]
   );
 
   return (

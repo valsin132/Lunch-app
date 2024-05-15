@@ -68,12 +68,12 @@
   }
 
   & .dish-details__description-container {
-    @include flexbox($direction: column, $gap: $gap-large);
+    @include flexbox($direction: column, $gap: calc($gap-large + 2px));
 
     & .dish-details__description {
       @include body-m;
 
-      color: $text-color-grey;
+      color: $text-color-darker-grey;
     }
   }
 

@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import { ChevronIcon } from '../../utils/iconManager';
 import styles from './SelectInput.module.css';
@@ -28,6 +28,18 @@ export function SelectInput({
   const [isOpen, setIsOpen] = useState(false);
   const isSelected = (option: SelectInputOption): boolean => value?.value === option.value;
 
+  useEffect(() => {
+    const handleClickOutside = () => {
+      if (isOpen) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [isOpen]);
+
   return (
     <div className={cx('select')}>
       <p className={cx('select__label')}>{label}</p>
@@ -37,7 +49,10 @@ export function SelectInput({
         className={cx('select__input', {
           'select__input--focused': isOpen,
         })}
-        onClick={() => setIsOpen((prev) => !prev)}>
+        onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+          e.stopPropagation();
+          setIsOpen((prev) => !prev);
+        }}>
         <div>
           {value ? (
             <p className={cx('select__value')}>{value.label}</p>
@@ -62,7 +77,6 @@ export function SelectInput({
                   onChange(undefined);
                 } else {
                   onChange(option);
-                  setIsOpen((prev) => !prev);
                 }
               }}>
               {option.label}

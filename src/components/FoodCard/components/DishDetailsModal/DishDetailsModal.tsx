@@ -2,9 +2,9 @@ import { ReactElement, useState } from 'react';
 import classNames from 'classnames/bind';
 import { Modal } from '../../../Modal';
 import { ChilliIcon, PlantIcon, UserProfile } from '../../../../utils/iconManager';
+import { getDishTypeImage } from '../../../../helpers/helperFunctions/getDishTypeImage';
 import { StarsRating } from '../../../StarsRating';
 import { FoodCardProps } from '../../FoodCard.types';
-import { getDishTypeImage } from '../../../../helpers/helperFunctions/getDishTypeImage';
 import styles from './DishDetailsModal.module.css';
 
 const cx = classNames.bind(styles);

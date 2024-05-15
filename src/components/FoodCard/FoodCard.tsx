@@ -3,9 +3,9 @@ import classNames from 'classnames/bind';
 import { Card } from '../Card';
 import { Button } from '../Button';
 import { ChilliIcon, PlantIcon, StarFullIcon } from '../../utils/iconManager';
+import { getDishTypeImage } from '../../helpers/helperFunctions/getDishTypeImage';
 import { DishDetailsModal } from './components/DishDetailsModal';
 import { FoodCardProps } from './FoodCard.types';
-import { getDishTypeImage } from '../../helpers/helperFunctions/getDishTypeImage';
 import styles from './FoodCard.module.css';
 
 const cx = classNames.bind(styles);

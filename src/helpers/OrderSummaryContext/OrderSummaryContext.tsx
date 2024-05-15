@@ -100,14 +100,6 @@ function orderReducer(state: Orders, payload: OrderIdentifier): Orders {
   }
 }
 
-// export const useOrderSummary = (): OrderSummaryContextType => {
-//   const context = useContext(OrderSummaryContext);
-//   if (!context) {
-//     throw new Error('useOrderSummary must be used within an OrderSummary provider');
-//   }
-//   return context;
-// };
-
 type OrderSummaryProviderProps = {
   children: ReactNode;
 };

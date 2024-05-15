@@ -1,6 +1,7 @@
-import { ReactElement, useEffect, useState } from 'react';
+import { ReactElement, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
 import { ChevronIcon } from '../../utils/iconManager';
+import { useOutsideAlerter } from '../../hooks/useOutsideAlerter';
 import styles from './SelectInput.module.css';
 
 const cx = classNames.bind(styles);
@@ -26,22 +27,14 @@ export function SelectInput({
   onChange,
 }: SelectInputProps): ReactElement {
   const [isOpen, setIsOpen] = useState(false);
+  const selectInputRef = useRef<HTMLDivElement>(null);
+  useOutsideAlerter<HTMLDivElement>(selectInputRef, () => {
+    if (isOpen) setIsOpen(false);
+  });
   const isSelected = (option: SelectInputOption): boolean => value?.value === option.value;
 
-  useEffect(() => {
-    const handleClickOutside = () => {
-      if (isOpen) {
-        setIsOpen(false);
-      }
-    };
-    document.addEventListener('click', handleClickOutside);
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  }, [isOpen]);
-
   return (
-    <div className={cx('select')}>
+    <div ref={selectInputRef} className={cx('select')}>
       <p className={cx('select__label')}>{label}</p>
       <button
         tabIndex={0}
@@ -49,8 +42,7 @@ export function SelectInput({
         className={cx('select__input', {
           'select__input--focused': isOpen,
         })}
-        onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-          e.stopPropagation();
+        onClick={() => {
           setIsOpen((prev) => !prev);
         }}>
         <div>
@@ -77,6 +69,7 @@ export function SelectInput({
                   onChange(undefined);
                 } else {
                   onChange(option);
+                  setIsOpen((prev) => !prev);
                 }
               }}>
               {option.label}

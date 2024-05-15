@@ -1,7 +1,7 @@
 @import '../../styles/index.css';
 
 .auth {
-  @include flexbox($direction: column, $gap: $gap-XXlarge: 1.75rem;);
+  @include flexbox($direction: column, $justifyContent: space-between);
 
   width: 100%;
 

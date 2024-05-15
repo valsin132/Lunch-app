@@ -69,36 +69,34 @@ export function DishDetailsModal({
           </div>
           <div className={cx('dish-details__comments-section')}>
             {comments?.length ? (
-              <p className={cx('dish-details__comments-number')}>Comments: ({comments.length})</p>
-            ) : (
-              ''
-            )}
-            <div className={cx('dish-details__comments-container')}>
-              {comments?.length ? (
-                comments.map((comment) => (
-                  <div className={cx('dish-details__comment')} key={comment.comment}>
-                    <div className={cx('dish-details__user')}>
-                      {imgLoadError ? (
-                        <UserProfile className={cx('dish-details__user-icon')} />
-                      ) : (
-                        <img
-                          className={cx('dish-details__user-icon')}
-                          src={comment.userIcon}
-                          alt="user icon"
-                          onError={() => setImgLoadError(true)}
-                        />
-                      )}
-                      <p className={cx('dish-details__user-name')}>
-                        {comment.name} {comment.surname}
-                      </p>
+              <>
+                <p className={cx('dish-details__comments-number')}>Comments ({comments.length})</p>
+                <div className={cx('dish-details__comments-container')}>
+                  {comments.map((comment) => (
+                    <div className={cx('dish-details__comment')} key={comment.comment}>
+                      <div className={cx('dish-details__user')}>
+                        {imgLoadError ? (
+                          <UserProfile className={cx('dish-details__user-icon')} />
+                        ) : (
+                          <img
+                            className={cx('dish-details__user-icon')}
+                            src={comment.userIcon}
+                            alt="user icon"
+                            onError={() => setImgLoadError(true)}
+                          />
+                        )}
+                        <p className={cx('dish-details__user-name')}>
+                          {comment.name} {comment.surname}
+                        </p>
+                      </div>
+                      <p className={cx('dish-details__comment-text')}>{comment.comment}</p>
                     </div>
-                    <p className={cx('dish-details__comment-text')}>{comment.comment}</p>
-                  </div>
-                ))
-              ) : (
-                <p className={cx('dish-details__comments-number')}>No comments yet</p>
-              )}
-            </div>
+                  ))}
+                </div>
+              </>
+            ) : (
+              <p className={cx('dish-details__comments-number')}>No comments yet</p>
+            )}
           </div>
         </div>
       </Modal>

@@ -1,4 +1,4 @@
-import { DishType } from '../../components/FoodCard';
+import { DishType } from '../../components/FoodCard/FoodCard.types';
 
 export interface Meal {
   id: number;
@@ -25,6 +25,13 @@ export interface Rating {
 export interface Vendor {
   id: string;
   name: string;
+}
+
+export interface Users {
+  id: string;
+  name: string;
+  surname: string;
+  img: string;
 }
 
 export interface Order {

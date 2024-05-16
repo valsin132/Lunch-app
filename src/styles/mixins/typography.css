@@ -86,6 +86,15 @@
   @include create-text-style($font-weight-regular, $font-size-m, $line-height-ratio-m);
 }
 
+@mixin label-text-xs {
+  @include create-text-style(
+    $font-weight-medium,
+    $font-size-xs,
+    $line-height-ratio-l,
+    $letter-spacing-xs
+  );
+}
+
 @mixin body-l {
   @include create-text-style($font-weight-regular, $font-size-m, $line-height-ratio-l);
 }

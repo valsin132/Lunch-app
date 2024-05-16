@@ -17,7 +17,7 @@ interface FoodListProps {
 const cx = classNames.bind(styles);
 
 export function FoodList({ selectedDay, searchedMealTitle, selectedVendor }: FoodListProps) {
-  const { mealsData, ratingsData, vendorsData } = useFoodData();
+  const { mealsData, ratingsData, vendorsData, usersData } = useFoodData();
   const { orders, modifyOrders } = useOrderSummary();
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
@@ -90,6 +90,21 @@ export function FoodList({ selectedDay, searchedMealTitle, selectedVendor }: Foo
     setToastMessage(`${meal.title} has been added to your cart. Excellent Choice!`);
   };
 
+  const getUser = (id: number) => usersData?.find((users) => Number(users.id) === id);
+
+  const getComments = (id: number) => {
+    const filteredComments = ratingsData?.filter((rating) => rating.mealId === id);
+    return filteredComments?.map((comment) => {
+      const userDetails = getUser(comment.rating.userId);
+      return {
+        comment: comment.rating.comment,
+        name: userDetails?.name,
+        surname: userDetails?.surname,
+        userIcon: userDetails?.img,
+      };
+    });
+  };
+
   return (
     <div className={cx('menu-wrapper')}>
       {isMealOrdered || noMealsFound ? (
@@ -104,12 +119,13 @@ export function FoodList({ selectedDay, searchedMealTitle, selectedVendor }: Foo
             title={meal.title}
             description={meal.description}
             price={meal.price}
-            vegetarian={meal.vegetarian}
-            spicy={meal.spicy}
+            isVegetarian={meal.vegetarian}
+            isSpicy={meal.spicy}
             rating={getRating(Number(meal.id))}
             dishType={meal.dishType}
             onClick={() => handleAddToOrderSummary(meal)}
             isDisabled={isMealTypeAddedForDay(meal.mealType)}
+            comments={getComments(Number(meal.id))}
           />
         ))
       )}

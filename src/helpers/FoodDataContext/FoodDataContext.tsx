@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useMemo } from 'react';
-import { Meal, Rating, Vendor } from '../../pages/FoodMenu/FoodMenu.types';
+import { Meal, Rating, Vendor, Users } from '../../pages/FoodMenu/FoodMenu.types';
 import { useFetchData } from '../../hooks/useFetchData';
 
 export interface FoodDataContextType {
@@ -8,6 +8,7 @@ export interface FoodDataContextType {
   vendorsData: Vendor[] | null;
   mealsData: Meal[] | null;
   ratingsData: Rating[] | null;
+  usersData: Users[] | null;
 }
 
 const initialFoodData: FoodDataContextType = {
@@ -16,6 +17,7 @@ const initialFoodData: FoodDataContextType = {
   vendorsData: null,
   mealsData: null,
   ratingsData: null,
+  usersData: null,
 };
 
 interface FoodDataProviderProps {
@@ -40,15 +42,20 @@ export function FoodDataProvider({ children }: FoodDataProviderProps) {
     isLoading: ratingsLoading,
     isError: ratingsError,
   } = useFetchData<Rating[]>('http://localhost:3002/ratings');
+  const {
+    data: usersData,
+    isLoading: usersLoading,
+    isError: usersError,
+  } = useFetchData<Users[]>('http://localhost:3002/users');
 
   const isLoading = useMemo(
-    () => vendorsLoading || mealsLoading || ratingsLoading,
-    [vendorsLoading, mealsLoading, ratingsLoading]
+    () => vendorsLoading || mealsLoading || ratingsLoading || usersLoading,
+    [vendorsLoading, mealsLoading, ratingsLoading, usersLoading]
   );
 
   const isError = useMemo(
-    () => vendorsError || mealsError || ratingsError,
-    [vendorsError, mealsError, ratingsError]
+    () => vendorsError || mealsError || ratingsError || usersError,
+    [vendorsError, mealsError, ratingsError, usersError]
   );
 
   const foodData: FoodDataContextType = useMemo(
@@ -56,10 +63,11 @@ export function FoodDataProvider({ children }: FoodDataProviderProps) {
       vendorsData,
       mealsData,
       ratingsData,
+      usersData,
       isError,
       isLoading,
     }),
-    [vendorsData, mealsData, ratingsData, isError, isLoading]
+    [vendorsData, mealsData, ratingsData, usersData, isError, isLoading]
   );
   return <FoodDataContext.Provider value={foodData}>{children}</FoodDataContext.Provider>;
 }

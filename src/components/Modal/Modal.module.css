@@ -26,18 +26,26 @@
       max-width: 642px;
     }
 
-    & .modal__header {
-      @include flexbox($justifyContent: space-between, $alignItems: flex-start);
-      @include headline-s;
+    & .modal__header-wrapper {
+      @include flexbox($direction: column, $gap: $gap-Xlarge);
 
-      color: $color-blue-600;
-    }
+      &.modal__header-wrapper--gap-smaller {
+        gap: $gap-medium;
+      }
 
-    & .modal__close {
-      @include flexbox($justifyContent: center, $alignItems: center);
+      & .modal__header {
+        @include flexbox($justifyContent: space-between, $alignItems: flex-start);
+        @include headline-s;
 
-      cursor: pointer;
-      padding: $spacing-5xs;
+        color: $color-blue-600;
+
+        & .modal__close {
+          @include flexbox($justifyContent: center, $alignItems: center);
+
+          cursor: pointer;
+          padding: $spacing-5xs;
+        }
+      }
     }
 
     & .modal__buttons {

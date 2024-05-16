@@ -9,7 +9,7 @@
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 3;
+  z-index: 2;
 
   & .modal__wrapper {
     @include flexbox($direction: column, $gap: $gap-Xlarge);

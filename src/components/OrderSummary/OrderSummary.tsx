@@ -5,9 +5,9 @@ import { OrderDay } from './OrderDay';
 import { Card } from '../Card';
 import { OrderButton } from './OrderButton';
 import { OrderDayType } from '../../helpers/OrderSummaryContext';
-import { useOrderSummary } from '../../hooks/useOrderSummary';
 import { EmptyCart } from './EmptyCart';
 import { Dialog } from '../Dialog';
+import { useOrderSummary } from '../../hooks/useOrderSummary';
 import styles from './OrderSummary.module.css';
 
 const cx = classNames.bind(styles);

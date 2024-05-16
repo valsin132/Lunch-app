@@ -1,6 +1,6 @@
-import { ReactNode, createContext, useEffect, useMemo, useState } from 'react';
-import { DishType } from '../../components/FoodCard';
+import { ReactNode, createContext, useMemo, useState } from 'react';
 import { MealType } from '../../pages/FoodMenu/FoodMenu.types';
+import { DishType } from '../../components/FoodCard/FoodCard.types';
 
 type OrderActions = 'REMOVE_ORDER' | 'ADD_ORDER' | 'CLEAR_ORDERS';
 
@@ -139,15 +139,9 @@ type OrderSummaryProviderProps = {
 export function OrderSummaryProvider({ children }: OrderSummaryProviderProps) {
   const [state, setState] = useState<Orders>(getOrderSummaryItems());
 
-  useEffect(() => {
-    const handleOrderSummaryItemsChange = () => {
-      setState(getOrderSummaryItems());
-    };
-    window.addEventListener(orderSummaryEventName, handleOrderSummaryItemsChange);
-    return () => {
-      window.removeEventListener(orderSummaryEventName, handleOrderSummaryItemsChange);
-    };
-  }, []);
+  window.addEventListener(orderSummaryEventName, () => {
+    setState(getOrderSummaryItems());
+  });
 
   const orderSummaryValue = useMemo(
     () => ({ orders: state, modifyOrders: setOrderSummaryItems }),

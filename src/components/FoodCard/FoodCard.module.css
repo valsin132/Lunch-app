@@ -21,7 +21,6 @@
         position: absolute;
         top: -8px;
         width: 103px;
-        z-index: 1;
 
         & .food-card__food-image {
           @include size(90px, 90px);

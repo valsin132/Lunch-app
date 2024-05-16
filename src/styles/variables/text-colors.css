@@ -1,6 +1,7 @@
-@import "./colors.css";
+@import './colors.css';
 
 $text-color-blue: $color-blue-600;
+$text-color-darker-grey: $color-grey-600;
 $text-color-grey: $color-grey-500;
 $text-color-orange: $color-orange-600;
 $text-color-purple: $color-purple-500;

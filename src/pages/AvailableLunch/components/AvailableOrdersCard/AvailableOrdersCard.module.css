@@ -3,10 +3,6 @@
 .available-lunch {
   @include flexbox($direction: column, $gap: $gap-2Xlarge);
 
-  & .available-lunch__container {
-    min-height: 100vh;
-  }
-
   & .available-lunch__header {
     @include flexbox($direction: row, $justifyContent: space-between, $gap: $gap-2Xlarge);
     @include headline-s;

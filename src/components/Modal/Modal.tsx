@@ -13,36 +13,45 @@ interface ModalProps {
   children: ReactNode;
   title: string;
   modalSize: ModalSize;
+  isSmallerUpperGap?: boolean;
   primaryButtonLabel?: string;
   secondaryButtonLabel?: string;
   setIsOpenModal: (isOpenModal: boolean) => void;
   onClick: () => void;
+  isDisabled?: boolean;
 }
 
 export function Modal({
   children,
   title,
   modalSize,
+  isSmallerUpperGap,
   primaryButtonLabel,
   secondaryButtonLabel,
   onClick,
   setIsOpenModal,
+  isDisabled,
 }: ModalProps): ReactElement {
   return (
     <div className={cx('modal-overlay')}>
       <Card isNoBorder>
         <div className={cx('modal__wrapper', [`modal__wrapper--size-${modalSize}`])}>
-          <div className={cx('modal__header')}>
-            <p>{title}</p>
-            <div className={cx('modal__close')}>
-              <CloseIcon
-                onClick={() => {
-                  setIsOpenModal(false);
-                }}
-              />
+          <div
+            className={cx('modal__header-wrapper', {
+              'modal__header-wrapper--gap-smaller': isSmallerUpperGap,
+            })}>
+            <div className={cx('modal__header')}>
+              <p>{title}</p>
+              <div className={cx('modal__close')}>
+                <CloseIcon
+                  onClick={() => {
+                    setIsOpenModal(false);
+                  }}
+                />
+              </div>
             </div>
+            {children}
           </div>
-          {children}
           <div className={cx('modal__buttons')}>
             {primaryButtonLabel && (
               <Button
@@ -50,6 +59,7 @@ export function Modal({
                 buttonType="primary"
                 title={primaryButtonLabel}
                 onClick={onClick}
+                isDisabled={isDisabled}
               />
             )}
             {secondaryButtonLabel && (

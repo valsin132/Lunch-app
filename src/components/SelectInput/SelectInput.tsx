@@ -1,6 +1,7 @@
-import { ReactElement, useState } from 'react';
+import { ReactElement, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
 import { ChevronIcon } from '../../utils/iconManager';
+import { useOutsideAlerter } from '../../hooks/useOutsideAlerter';
 import styles from './SelectInput.module.css';
 
 const cx = classNames.bind(styles);
@@ -30,10 +31,14 @@ export function SelectInput({
   onChange,
 }: SelectInputProps): ReactElement {
   const [isOpen, setIsOpen] = useState(false);
+  const selectInputRef = useRef<HTMLDivElement>(null);
+  useOutsideAlerter<HTMLDivElement>(selectInputRef, () => {
+    if (isOpen) setIsOpen(false);
+  });
   const isSelected = (option: SelectInputOption): boolean => value?.value === option.value;
 
   return (
-    <div className={cx('select')}>
+    <div ref={selectInputRef} className={cx('select')}>
       <p className={cx('select__label')}>{label}</p>
       <button
         tabIndex={0}
@@ -42,7 +47,9 @@ export function SelectInput({
           'select__input--focused': isOpen,
           'select__input-disabled-box-shadow': isBoxShadowDisabled,
         })}
-        onClick={() => setIsOpen((prev) => !prev)}>
+        onClick={() => {
+          setIsOpen((prev) => !prev);
+        }}>
         <div>
           {value ? (
             <p className={cx('select__value')}>{value.label}</p>

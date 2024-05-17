@@ -9,19 +9,19 @@ const cx = classNames.bind(styles);
 
 export function Auth(): ReactElement {
   return (
-    <div className={cx('auth')}>
+    <main className={cx('auth')}>
       <div className={cx('auth__content')}>
-        <div className={cx('auth__image')}>
+        <figure className={cx('auth__image')}>
           <img
             src={loginIllustration1}
             alt="3D illustration of a man and a woman standing on a platform, thinking about food"
           />
-        </div>
-        <div className={cx('auth__container')}>
+        </figure>
+        <section className={cx('auth__container')}>
           <AuthCard />
-        </div>
+        </section>
       </div>
       <Footer />
-    </div>
+    </main>
   );
 }

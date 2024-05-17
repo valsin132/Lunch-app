@@ -33,7 +33,7 @@ export function AuthCard(): ReactElement {
       )}
       <div className={cx('auth-card')}>
         <LogoHorizontal className={cx('auth-card__logo')} />
-        <div className={cx('auth-card__header')}>
+        <nav className={cx('auth-card__header')}>
           <Tab
             label="LOGIN"
             isActive={activeTab === 'LOGIN'}
@@ -44,7 +44,7 @@ export function AuthCard(): ReactElement {
             isActive={activeTab === 'REGISTER'}
             onClick={() => handleTabSwitch('REGISTER')}
           />
-        </div>
+        </nav>
         {activeTab === 'LOGIN' ? (
           <LoginForm />
         ) : (

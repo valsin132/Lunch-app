@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { CloseIcon } from '../../utils/iconManager';
 import { OrderDay } from './OrderDay';
 import { Card } from '../Card';
+import { Order } from '../../pages/FoodMenu/FoodMenu.types';
 import { OrderButton } from './OrderButton';
 import { OrderDayType } from '../../helpers/OrderSummaryContext';
 import { EmptyCart } from './EmptyCart';
@@ -19,7 +20,7 @@ type OrderSummaryProps = {
 export function OrderSummary({ visibilityHandler }: OrderSummaryProps) {
   const [isConfirmationDialogOpen, setIsConfirmationDialogOpen] = useState(false);
   const orderSummaryContext = useOrderSummary();
-
+  let userBalance = 0;
   const isOrderCartEmpty = orderSummaryContext.orders.length < 1;
 
   const calculateDayTotal = ({ orders }: OrderDayType) =>
@@ -32,10 +33,44 @@ export function OrderSummary({ visibilityHandler }: OrderSummaryProps) {
     );
 
   const totalPrice = calculateTotalPrice();
+  const userData = localStorage.getItem('userData');
+  if (userData) {
+    const userDataObject = JSON.parse(userData);
+    userBalance = userDataObject.balance;
+  }
 
   const handleOrderSubmit = (isDialogOpen: boolean) => {
     setIsConfirmationDialogOpen(isDialogOpen);
     if (!isDialogOpen) {
+      const userDataStored = localStorage.getItem('userData');
+      if (userDataStored) {
+        const userDataObject = JSON.parse(userDataStored);
+        userBalance = userDataObject.balance;
+        for (let i = 0; i <= orderSummaryContext.orders.length - 1; i += 1) {
+          const newOrder: Order = { weekDay: '', mealIds: [] };
+          const orderWeekDay =
+            orderSummaryContext.orders[i].day.charAt(0).toUpperCase() +
+            orderSummaryContext.orders[i].day.slice(1);
+          userDataObject.orders.push(newOrder);
+          newOrder.weekDay = orderWeekDay;
+          for (let j = 0; j <= orderSummaryContext.orders[i].orders.length - 1; j += 1) {
+            const mealIdsByDay = orderSummaryContext.orders[i].orders[j].mealId;
+            newOrder.mealIds.push(mealIdsByDay);
+          }
+        }
+        const newBalance = userDataObject.balance - Number(totalPrice.toFixed(2));
+        userDataObject.balance = newBalance.toFixed(2);
+        localStorage.setItem('userData', JSON.stringify(userDataObject));
+        window.dispatchEvent(new Event('localStorageUpdate'));
+        fetch('http://localhost:3002/user', {
+          method: 'PUT',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(userDataObject),
+        });
+      }
       orderSummaryContext.modifyOrders({ action: 'CLEAR_ORDERS' });
     }
   };
@@ -75,12 +110,17 @@ export function OrderSummary({ visibilityHandler }: OrderSummaryProps) {
             <div className={cx('order-summary__price-wrapper')}>
               <span className={cx('order-summary__price-title')}>Total price</span>
               <span className={cx('order-summary__price')}>{totalPrice.toFixed(2)}</span>
+              {Number(totalPrice.toFixed(2)) >= userBalance && (
+                <span className={cx('order-summary__error-message')}>
+                  Not enough money in your account
+                </span>
+              )}
             </div>
             <OrderButton
               onSubmit={() => {
                 setIsConfirmationDialogOpen(true);
               }}
-              isDisabled={isOrderCartEmpty}
+              isDisabled={isOrderCartEmpty || Number(totalPrice.toFixed(2)) >= userBalance}
             />
           </div>
         </div>

@@ -4,6 +4,7 @@ import { Button } from '../../../../components/Button';
 import { EMAIL_REGEX, PASSWORD_REGEX } from '../../../../constants';
 import { RegisterFields } from './RegisterFields';
 import { RegisterFieldActions, useRegisterData } from '../../../../hooks/useRegisterData';
+import { useRegister } from '../../../../hooks/useRegister';
 import styles from './RegisterForm.module.css';
 
 const cx = classNames.bind(styles);
@@ -14,6 +15,7 @@ interface RegisterFormProps {
 
 export function RegisterForm({ handleRegistration }: RegisterFormProps) {
   const { state, dispatch } = useRegisterData();
+  const { updateUser } = useRegister();
 
   const { email, userName, createPassword, repeatPassword, isCommunityRulesChecked } = state;
 
@@ -41,6 +43,7 @@ export function RegisterForm({ handleRegistration }: RegisterFormProps) {
       userName &&
       isCommunityRulesChecked
     ) {
+      updateUser(email, createPassword);
       handleRegistration();
     } else {
       if (!email) {

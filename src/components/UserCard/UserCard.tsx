@@ -32,15 +32,14 @@ export function UserCard({ toggleOrderSummary }: UserCardProps): ReactElement {
   const [imgLoadError, setImgLoadError] = useState(false);
   const { logout } = useAuth();
   const { orders } = useOrderSummary();
-  const balanceChange = JSON.parse(localStorage.getItem('userData')!).balance;
+  const storedUserData = localStorage.getItem('userData');
 
   useEffect(() => {
-    const storedUserData = localStorage.getItem('userData');
     if (storedUserData) {
       const parsedUserData: UserData = JSON.parse(storedUserData);
       setUserData(parsedUserData);
     }
-  }, [balanceChange]);
+  }, [storedUserData]);
 
   if (!userData) {
     return <div>Loading...</div>;

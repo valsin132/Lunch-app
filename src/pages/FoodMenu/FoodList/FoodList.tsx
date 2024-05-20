@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo, useEffect } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import classNames from 'classnames/bind';
 import { FoodCard } from '../../../components/FoodCard';
 import { Order, WeekDay, Meal } from '../FoodMenu.types';
@@ -21,7 +21,6 @@ export function FoodList({ selectedDay, searchedMealTitle, selectedVendor }: Foo
   const { orders, modifyOrders } = useOrderSummary();
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
-  const [foodOrderChanged, setFoodOrderChanged] = useState(false);
   const getVendorName = useCallback(
     (vendorId: number) => vendorsData?.find((vendor) => Number(vendor.id) === vendorId)?.name ?? '',
     [vendorsData]
@@ -38,24 +37,15 @@ export function FoodList({ selectedDay, searchedMealTitle, selectedVendor }: Foo
     return 'Not rated';
   };
 
-  useEffect(() => {
-    const handleStorageChange = () => {
-      setFoodOrderChanged((prev) => !prev);
-    };
-    window.addEventListener('localStorageUpdate', handleStorageChange);
-    return () => {
-      window.removeEventListener('localStorageUpdate', handleStorageChange);
-    };
-  }, []);
+  const userData = localStorage.getItem('userData');
 
   const isMealOrdered = useMemo(() => {
-    const storedData = localStorage.getItem('userData');
-    if (storedData) {
-      const { orders: storedOrders } = JSON.parse(storedData);
+    if (userData) {
+      const { orders: storedOrders } = JSON.parse(userData);
       return storedOrders.filter((order: Order) => order.weekDay === selectedDay)?.length > 0;
     }
     return false;
-  }, [selectedDay, foodOrderChanged]);
+  }, [selectedDay, userData]);
 
   const filteredMeals = useMemo(() => {
     if (!mealsData) return [];

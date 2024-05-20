@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useState } from 'react';
+import { ReactElement, useState, useEffect } from 'react';
 import classNames from 'classnames/bind';
 import { Card } from '../Card';
 import { BadgeCount } from '../Badge';
@@ -32,25 +32,15 @@ export function UserCard({ toggleOrderSummary }: UserCardProps): ReactElement {
   const [imgLoadError, setImgLoadError] = useState(false);
   const { logout } = useAuth();
   const { orders } = useOrderSummary();
-  const [balanceDataChanged, setBalanceDataChanged] = useState(localStorage.getItem('userData'));
+
+  const storedUserData = localStorage.getItem('userData');
 
   useEffect(() => {
-    const handleStorageChange = () => {
-      setBalanceDataChanged(localStorage.getItem('userData'));
-    };
-    window.addEventListener('localStorageUpdate', handleStorageChange);
-    return () => {
-      window.removeEventListener('localStorageUpdate', handleStorageChange);
-    };
-  }, []);
-
-  useEffect(() => {
-    const storedUserData = balanceDataChanged;
     if (storedUserData) {
       const parsedUserData: UserData = JSON.parse(storedUserData);
       setUserData(parsedUserData);
     }
-  }, [balanceDataChanged]);
+  }, [storedUserData]);
 
   if (!userData) {
     return <div>Loading...</div>;

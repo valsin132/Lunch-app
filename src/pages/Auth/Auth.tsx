@@ -9,8 +9,8 @@ const cx = classNames.bind(styles);
 
 export function Auth(): ReactElement {
   return (
-    <main className={cx('auth')}>
-      <div className={cx('auth__content')}>
+    <div className={cx('auth')}>
+      <main className={cx('auth__content')}>
         <figure className={cx('auth__image')}>
           <img
             src={loginIllustration1}
@@ -20,8 +20,8 @@ export function Auth(): ReactElement {
         <section className={cx('auth__container')}>
           <AuthCard />
         </section>
-      </div>
+      </main>
       <Footer />
-    </main>
+    </div>
   );
 }

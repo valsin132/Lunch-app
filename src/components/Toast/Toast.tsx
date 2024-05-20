@@ -33,7 +33,7 @@ const getIcon = (toastType: ToastTypes): ReactElement | null => {
 
 export function Toast({ content, toastType, onClick }: ToastProps): ReactElement {
   return (
-    <div className={cx('toast', `toast--color-${toastType}`)}>
+    <div className={cx('toast', `toast--color-${toastType}`)} role="alert">
       <div className={cx('toast__icon')}>{getIcon(toastType)}</div>
       <p className={cx('toast__text')}>{content}</p>
       <div className={cx('toast__close')}>

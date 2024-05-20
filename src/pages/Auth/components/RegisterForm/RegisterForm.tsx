@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import classNames from 'classnames/bind';
 import { Button } from '../../../../components/Button';
 import { EMAIL_REGEX, PASSWORD_REGEX } from '../../../../constants';
 import { RegisterFields } from './RegisterFields';
 import { RegisterFieldActions, useRegisterData } from '../../../../hooks/useRegisterData';
 import { useRegister } from '../../../../hooks/useRegister';
+import { Toast } from '../../../../components/Toast';
 import styles from './RegisterForm.module.css';
 
 const cx = classNames.bind(styles);
@@ -15,9 +16,11 @@ interface RegisterFormProps {
 
 export function RegisterForm({ handleRegistration }: RegisterFormProps) {
   const { state, dispatch } = useRegisterData();
-  const { updateUser } = useRegister();
+  const { updateUser, errMsg } = useRegister();
 
   const { email, userName, createPassword, repeatPassword, isCommunityRulesChecked } = state;
+
+  const [showToast, setShowToast] = useState(false);
 
   const setReducerState = (type: RegisterFieldActions['type'], value: string | boolean) =>
     dispatch({ type, payload: value });
@@ -35,7 +38,7 @@ export function RegisterForm({ handleRegistration }: RegisterFormProps) {
     setReducerState(errorValueType, '');
   };
 
-  const handleCreateAccount = () => {
+  const handleCreateAccount = async () => {
     if (
       EMAIL_REGEX.test(email) &&
       PASSWORD_REGEX.test(createPassword) &&
@@ -43,8 +46,8 @@ export function RegisterForm({ handleRegistration }: RegisterFormProps) {
       userName &&
       isCommunityRulesChecked
     ) {
-      updateUser(email, createPassword);
-      handleRegistration();
+      const userUpdated = await updateUser(email, createPassword, setShowToast);
+      if (userUpdated) handleRegistration();
     } else {
       if (!email) {
         setReducerState('emailErrorMsg', 'Please enter your email.');
@@ -73,21 +76,26 @@ export function RegisterForm({ handleRegistration }: RegisterFormProps) {
     }
   };
   return (
-    <form className={cx('register-form')} aria-label="Register Form">
-      <div className={cx('register-form__container')}>
-        <div className={cx('register-form__head')}>
-          <h1>Register</h1>
-          <p>Join our office foodies today!</p>
+    <>
+      <form className={cx('register-form')} aria-label="Register Form">
+        <div className={cx('register-form__container')}>
+          <div className={cx('register-form__head')}>
+            <h1>Register</h1>
+            <p>Join our office foodies today!</p>
+          </div>
+          <RegisterFields handleFormChange={handleFormChange} state={state} />
         </div>
-        <RegisterFields handleFormChange={handleFormChange} state={state} />
-      </div>
-      <Button
-        title="Create Account"
-        buttonSize="md"
-        buttonType="primary"
-        buttonWidth="full"
-        onClick={handleCreateAccount}
-      />
-    </form>
+        <Button
+          title="Create Account"
+          buttonSize="md"
+          buttonType="primary"
+          buttonWidth="full"
+          onClick={handleCreateAccount}
+        />
+      </form>
+      {showToast && (
+        <Toast toastType="warning" content={errMsg} onClick={() => setShowToast(false)} />
+      )}
+    </>
   );
 }

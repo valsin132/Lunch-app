@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import {
   CheckOutlinedIcon,
@@ -32,12 +32,33 @@ const getIcon = (toastType: ToastTypes): ReactElement | null => {
 };
 
 export function Toast({ content, toastType, onClick }: ToastProps): ReactElement {
+  const [isClosing, setIsClosing] = useState(false);
+
+  useEffect(() => {
+    const startCloseTimeoutId = setTimeout(() => {
+      setIsClosing(true);
+    }, 2700);
+    const closeTimeoutId = setTimeout(() => {
+      onClick();
+    }, 3000);
+    return () => {
+      clearTimeout(startCloseTimeoutId);
+      clearTimeout(closeTimeoutId);
+      setIsClosing(false);
+    };
+  }, [onClick]);
+
   return (
-    <div className={cx('toast', `toast--color-${toastType}`)}>
-      <div className={cx('toast__icon')}>{getIcon(toastType)}</div>
-      <p className={cx('toast__text')}>{content}</p>
-      <div className={cx('toast__close')}>
-        <CloseIcon className={cx('toast__icon-close')} onClick={onClick} />
+    <div className={cx('toast-container')}>
+      <div
+        className={cx('toast-container__toast', `toast-container__toast--color-${toastType}`, {
+          'toast-container__toast--closing': isClosing,
+        })}>
+        <div className={cx('toast-container__icon')}>{getIcon(toastType)}</div>
+        <p className={cx('toast-container__text')}>{content}</p>
+        <div className={cx('toast-container__close')}>
+          <CloseIcon className={cx('toast-container__icon-close')} onClick={onClick} />
+        </div>
       </div>
     </div>
   );

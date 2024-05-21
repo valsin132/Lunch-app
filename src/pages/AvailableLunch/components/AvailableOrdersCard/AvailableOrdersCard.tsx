@@ -37,7 +37,7 @@ export function AvailableOrdersCard() {
       <Card>
         <div className={cx('available-lunch__container')}>
           <div className={cx('available-lunch__header')}>
-            <h3>Available Orders</h3>
+            <h2>Available Orders</h2>
             <RefreshButton />
           </div>
           <table className={cx('available-lunch__table')}>

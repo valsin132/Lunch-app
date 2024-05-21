@@ -11,16 +11,16 @@
   & .pagination__container-select-input {
     @include flexbox($direction: row, $alignItems: center, $gap: $gap-regular);
 
-    p {
-      @include title-s;
-    }
-
     span {
+      @include title-s;
+
       color: $text-color-grey;
     }
   }
 
   span {
+    @include title-s;
+
     color: $text-color-grey;
   }
 

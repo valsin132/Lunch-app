@@ -6,7 +6,7 @@
   & .available-lunch__header {
     @include flexbox($direction: row, $justifyContent: space-between, $alignItems: center);
 
-    h3 {
+    h2 {
       @include headline-s;
 
       color: $text-color-blue;
@@ -23,7 +23,7 @@
 
   & .available-lunch__table {
     border-collapse: separate;
-    border-spacing: 1rem;
+    border-spacing: 0 1rem;
     width: 100%;
 
     & .available-lunch__table-header {

@@ -20,7 +20,7 @@ export const useLogin = () => {
   );
   const [errorMsg, setErrorMsg] = useState<string>('');
 
-  const login = (email: string, password: string, setShowToast: (value: boolean) => void): void => {
+  const login = (email: string, password: string): void => {
     setErrorMsg('');
 
     if (userData?.email === email && userData?.password === password) {
@@ -32,7 +32,6 @@ export const useLogin = () => {
           ? 'Login failed. Please try again later.'
           : 'Incorrect email or password. Please try again.'
       );
-      setShowToast(true);
     }
   };
 

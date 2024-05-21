@@ -5,7 +5,7 @@ import styles from './Header.module.css';
 
 const cx = classNames.bind(styles);
 
-type PageTypes = 'foodMenu' | 'availableLunch' | 'yourOrders' | 'ratings';
+export type PageTypes = 'foodMenu' | 'availableLunch' | 'yourOrders' | 'ratings';
 
 interface PageProp {
   pageType: PageTypes;

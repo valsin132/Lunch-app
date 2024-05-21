@@ -39,37 +39,35 @@ export function Pagination({
   ];
 
   return (
-    <div className={cx('')}>
-      <div className={cx('pagination__container')}>
-        <div className={cx('pagination__container-select-input')}>
-          <p>Rows per page:</p>
-          <SelectInput
-            options={itemsPerPageOptions}
-            isBoxShadowDisabled
-            isSelectListTop
-            value={itemsPerPageOptions.find((option) => option.value === itemsPerPage)}
-            onChange={handleItemsPerPageChange}
-          />
-        </div>
-        <span>{`${currentPage} of ${totalPages}`}</span>
-        <div>
-          <button
-            type="button"
-            className={cx('pagination__button', 'pagination__button-left')}
-            onClick={() => handlePageChange(currentPage - 1)}
-            disabled={currentPage === 1}
-            aria-label="Previous page">
-            <ChevronIcon />
-          </button>
-          <button
-            type="button"
-            className={cx('pagination__button', 'pagination__button-right')}
-            onClick={() => handlePageChange(currentPage + 1)}
-            disabled={currentPage === totalPages}
-            aria-label="Next page">
-            <ChevronIcon />
-          </button>
-        </div>
+    <div className={cx('pagination')}>
+      <div className={cx('pagination__container-select-input')}>
+        <span>Rows per page:</span>
+        <SelectInput
+          options={itemsPerPageOptions}
+          isBoxShadowDisabled
+          isSelectListTop
+          value={itemsPerPageOptions.find((option) => option.value === itemsPerPage)}
+          onChange={handleItemsPerPageChange}
+        />
+      </div>
+      <span>{`${currentPage} of ${totalPages}`}</span>
+      <div className={cx('pagination__button-container')}>
+        <button
+          type="button"
+          className={cx('pagination__button', 'pagination__button-left')}
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+          aria-label="Previous page">
+          <ChevronIcon />
+        </button>
+        <button
+          type="button"
+          className={cx('pagination__button', 'pagination__button-right')}
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          aria-label="Next page">
+          <ChevronIcon />
+        </button>
       </div>
     </div>
   );

@@ -4,15 +4,19 @@
   @include flexbox($direction: column, $gap: $gap-2Xlarge);
 
   & .available-lunch__header {
-    @include flexbox($direction: row, $justifyContent: space-between, $gap: $gap-2Xlarge);
-    @include headline-s;
+    @include flexbox($direction: row, $justifyContent: space-between, $alignItems: center);
 
-    color: $text-color-blue;
+    h3 {
+      @include headline-s;
+
+      color: $text-color-blue;
+    }
   }
 
   th {
     @include label-s;
 
+    color: $color-grey-500;
     padding: $spacing-5xs $spacing-2xs;
     text-align: left;
   }
@@ -23,7 +27,7 @@
     width: 100%;
 
     & .available-lunch__table-header {
-      box-shadow: inset 0 -4px 4px -4px $color-grey-200;
+      box-shadow: 0 1px 0 $color-grey-200;
     }
   }
 }

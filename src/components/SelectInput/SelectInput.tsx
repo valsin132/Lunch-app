@@ -45,7 +45,7 @@ export function SelectInput({
         type="button"
         className={cx('select__input', {
           'select__input--focused': isOpen,
-          'select__input-disabled-box-shadow': isBoxShadowDisabled,
+          'select__input--none-box-shadow': isBoxShadowDisabled,
         })}
         onClick={() => {
           setIsOpen((prev) => !prev);

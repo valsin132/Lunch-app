@@ -41,24 +41,28 @@ export function AvailableOrdersCard() {
             <RefreshButton />
           </div>
           <table className={cx('available-lunch__table')}>
-            <tr className={cx('available-lunch__table-header')}>
-              <th>Order Summary</th>
-              <th>Vendor</th>
-              <th>Take It From</th>
-            </tr>
-            {currentItems.length > 0 ? (
-              currentItems.map((item) => (
-                <tr>
-                  <td>{item.name}</td>
-                  <td>{item.age}</td>
-                  <td>{item.test}</td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td>No available orders</td>
+            <thead>
+              <tr className={cx('available-lunch__table-header')}>
+                <th>Order Summary</th>
+                <th>Vendor</th>
+                <th>Take It From</th>
               </tr>
-            )}
+            </thead>
+            <tbody>
+              {currentItems.length > 0 ? (
+                currentItems.map((item) => (
+                  <tr>
+                    <td>{item.name}</td>
+                    <td>{item.age}</td>
+                    <td>{item.test}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td>No available orders</td>
+                </tr>
+              )}
+            </tbody>
           </table>
         </div>
         <Pagination

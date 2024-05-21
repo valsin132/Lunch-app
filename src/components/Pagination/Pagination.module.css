@@ -1,11 +1,11 @@
 @import '../../styles/index.css';
 
-.pagination__container {
+.pagination {
   @include flexbox(
     $direction: row,
     $alignItems: center,
     $justifyContent: flex-end,
-    $gap: $gap-Xlarge
+    $gap: calc($gap-Xlarge + 2px)
   );
 
   & .pagination__container-select-input {
@@ -14,13 +14,29 @@
     p {
       @include title-s;
     }
+
+    span {
+      color: $text-color-grey;
+    }
   }
 
-  & .pagination__button {
-    @include size(32px, 32px);
+  span {
+    color: $text-color-grey;
+  }
 
-    &:disabled {
-      cursor: not-allowed;
+  & .pagination__button-container {
+    @include flexbox($direction: row, $alignItems: center, $justifyContent: center);
+
+    & .pagination__button {
+      @include size(32px, 32px);
+
+      & path {
+        fill: $color-grey-500;
+      }
+
+      &:disabled {
+        cursor: not-allowed;
+      }
     }
   }
 

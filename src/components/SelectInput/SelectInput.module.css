@@ -38,7 +38,7 @@
       transform: rotate(0.5turn);
     }
 
-    &.select__input-disabled-box-shadow {
+    &.select__input--none-box-shadow {
       box-shadow: none;
     }
   }

@@ -11,31 +11,30 @@ import styles from './AuthCard.module.css';
 
 const cx = classNames.bind(styles);
 
+const initialToastState: ToastState = {
+  message: '',
+  type: 'info',
+};
+
 export function AuthCard(): ReactElement {
   const [activeTab, setActiveTab] = useState<AuthMenu>('LOGIN');
-  const [toastState, setToastState] = useState<ToastState>('NONE');
-  const handleRegistration = () => {
-    setToastState('REGISTER_SUCCESS');
+  const [toastState, setToastState] = useState<ToastState>(initialToastState);
+  const handleRegistration = (message: string) => {
+    setToastState({ message, type: 'success' });
     setActiveTab('LOGIN');
   };
   const handleTabSwitch = (tabName: AuthMenu) => {
     setActiveTab(tabName);
-    if (toastState !== 'NONE') setToastState('NONE');
+    if (toastState.message) setToastState(initialToastState);
   };
   return (
     <Card spacing="none" shadow="m" isNoBorder>
-      {toastState === 'REGISTER_SUCCESS' && (
+      {toastState.message && (
         <Toast
-          content="Congratulations, your account has been succesfully created!"
-          toastType="success"
-          onClick={() => setToastState('NONE')}
-        />
-      )}
-      {toastState === 'LOGIN_WARNING' && (
-        <Toast
-          toastType="warning"
-          content="Incorrect email or password. Please try again."
-          onClick={() => setToastState('NONE')}
+          key={toastState.type}
+          content={toastState.message}
+          toastType={toastState.type}
+          onClick={() => setToastState(initialToastState)}
         />
       )}
       <div className={cx('auth-card')}>
@@ -54,8 +53,8 @@ export function AuthCard(): ReactElement {
         </div>
         {activeTab === 'LOGIN' ? (
           <LoginForm
-            handleUnsuccessfulLogin={() => {
-              setToastState('LOGIN_WARNING');
+            handleUnsuccessfulLogin={(message: string) => {
+              setToastState({ message, type: 'warning' });
             }}
           />
         ) : (

@@ -9,7 +9,7 @@ import styles from './RegisterForm.module.css';
 const cx = classNames.bind(styles);
 
 interface RegisterFormProps {
-  handleRegistration: () => void;
+  handleRegistration: (message: string) => void;
 }
 
 export function RegisterForm({ handleRegistration }: RegisterFormProps) {
@@ -41,7 +41,7 @@ export function RegisterForm({ handleRegistration }: RegisterFormProps) {
       userName &&
       isCommunityRulesChecked
     ) {
-      handleRegistration();
+      handleRegistration('Congratulations, your account has been succesfully created!');
     } else {
       if (!email) {
         setReducerState('emailErrorMsg', 'Please enter your email.');

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useFetchData } from './useFetchData';
 
 interface User {
@@ -18,16 +17,13 @@ export const useLogin = () => {
   const { data: userData, isError: isFetchError } = useFetchData<User>(
     'http://localhost:3002/user'
   );
-  const [errorMsg, setErrorMsg] = useState<string>('');
 
-  const login = (email: string, password: string): void => {
-    setErrorMsg('');
-
+  const login = async (email: string, password: string) => {
     if (userData?.email === email && userData?.password === password) {
       window.localStorage.setItem('userData', JSON.stringify(userData));
       window.dispatchEvent(new Event('storage'));
     } else {
-      setErrorMsg(
+      throw new Error(
         isFetchError
           ? 'Login failed. Please try again later.'
           : 'Incorrect email or password. Please try again.'
@@ -35,5 +31,5 @@ export const useLogin = () => {
     }
   };
 
-  return { login, errorMsg };
+  return { login };
 };

@@ -9,7 +9,7 @@ import styles from './LoginForm.module.css';
 const cx = classNames.bind(styles);
 
 interface LoginFormProps {
-  handleUnsuccessfulLogin: () => void;
+  handleUnsuccessfulLogin: (message: string) => void;
 }
 
 interface State {
@@ -67,7 +67,7 @@ export function LoginForm({ handleUnsuccessfulLogin }: LoginFormProps) {
     setPasswordErrorMsg('');
   };
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!email) {
       setEmailErrorMsg('Please enter your email.');
     } else if (!EMAIL_REGEX.test(email)) {
@@ -81,8 +81,13 @@ export function LoginForm({ handleUnsuccessfulLogin }: LoginFormProps) {
       setPasswordErrorMsg('');
     }
     if (email && EMAIL_REGEX.test(email) && password) {
-      login(email, password);
-      handleUnsuccessfulLogin();
+      try {
+        await login(email, password);
+      } catch (e) {
+        if (e instanceof Error) {
+          handleUnsuccessfulLogin(e?.message ?? '');
+        }
+      }
     }
   };
 

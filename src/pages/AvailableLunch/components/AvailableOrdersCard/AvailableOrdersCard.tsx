@@ -31,8 +31,7 @@ export function AvailableOrdersCard() {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = items.slice(indexOfFirstItem, indexOfLastItem);
-
-  return (
+  return currentItems.length > 0 ? (
     <div className={cx('available-lunch')}>
       <Card>
         <div className={cx('available-lunch__container')}>
@@ -49,19 +48,13 @@ export function AvailableOrdersCard() {
               </tr>
             </thead>
             <tbody>
-              {currentItems.length > 0 ? (
-                currentItems.map((item) => (
-                  <tr>
-                    <td>{item.name}</td>
-                    <td>{item.age}</td>
-                    <td>{item.test}</td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td>No available orders</td>
+              {currentItems.map((item) => (
+                <tr key={item.name}>
+                  <td>{item.name}</td>
+                  <td>{item.age}</td>
+                  <td>{item.test}</td>
                 </tr>
-              )}
+              ))}
             </tbody>
           </table>
         </div>
@@ -74,5 +67,7 @@ export function AvailableOrdersCard() {
         />
       </Card>
     </div>
+  ) : (
+    <div className={cx('available-lunch__empty-lunch-text')}>No available lunches</div>
   );
 }

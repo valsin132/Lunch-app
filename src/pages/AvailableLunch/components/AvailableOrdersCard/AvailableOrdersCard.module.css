@@ -18,7 +18,6 @@
 
     color: $color-grey-500;
     padding: $spacing-5xs $spacing-2xs;
-    text-align: left;
   }
 
   & .available-lunch__table {
@@ -30,4 +29,12 @@
       box-shadow: 0 1px 0 $color-grey-200;
     }
   }
+}
+
+.available-lunch__empty-lunch-text {
+  @include body-m;
+
+  color: $color-grey-500;
+  text-align: center;
+  width: 100%;
 }

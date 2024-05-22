@@ -18,6 +18,8 @@ interface SelectInputProps {
   label?: string;
   isBoxShadowDisabled?: boolean;
   isSelectListTop?: boolean;
+  isSelectListItemCentered?: boolean;
+  isSelectListItemPadding?: boolean;
   onChange: (option: SelectInputOption | undefined) => void;
 }
 
@@ -28,6 +30,8 @@ export function SelectInput({
   label,
   isSelectListTop,
   isBoxShadowDisabled,
+  isSelectListItemCentered,
+  isSelectListItemPadding,
   onChange,
 }: SelectInputProps): ReactElement {
   const [isOpen, setIsOpen] = useState(false);
@@ -39,7 +43,7 @@ export function SelectInput({
 
   return (
     <div ref={selectInputRef} className={cx('select')}>
-      <p className={cx('select__label')}>{label}</p>
+      {label && <p className={cx('select__label')}>{label}</p>}
       <button
         tabIndex={0}
         type="button"
@@ -66,6 +70,8 @@ export function SelectInput({
               type="button"
               className={cx('select__list-item', {
                 'select__list-item--selected': isSelected(option),
+                'select__list-item--text-centered': isSelectListItemCentered,
+                'select__list-item--padding-centered': isSelectListItemPadding,
               })}
               key={option.value}
               value={option.label}

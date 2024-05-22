@@ -10,12 +10,6 @@
 
   & .pagination__container-select-input {
     @include flexbox($direction: row, $alignItems: center, $gap: $gap-regular);
-
-    span {
-      @include title-s;
-
-      color: $text-color-grey;
-    }
   }
 
   span {
@@ -28,6 +22,7 @@
     @include flexbox($direction: row, $alignItems: center, $justifyContent: center);
 
     & .pagination__button {
+      @include flexbox($alignItems: center, $justifyContent: center);
       @include size(32px, 32px);
 
       & path {

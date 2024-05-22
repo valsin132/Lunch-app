@@ -73,6 +73,14 @@
       text-align: left;
       width: 100%;
 
+      &.select__list-item--text-centered {
+        text-align: center;
+      }
+
+      &.select__list-item--padding-centered {
+        padding: calc($spacing-4xs + 2px) $spacing-2xs;
+      }
+
       &:first-child {
         border-radius: $border-radius-regular $border-radius-regular 0 0;
       }

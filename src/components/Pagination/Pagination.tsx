@@ -46,6 +46,8 @@ export function Pagination({
           options={itemsPerPageOptions}
           isBoxShadowDisabled
           isSelectListTop
+          isSelectListItemPadding
+          isSelectListItemCentered
           value={itemsPerPageOptions.find((option) => option.value === itemsPerPage)}
           onChange={handleItemsPerPageChange}
         />

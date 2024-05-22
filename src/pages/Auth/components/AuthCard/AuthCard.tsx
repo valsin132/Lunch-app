@@ -7,19 +7,19 @@ import { RegisterForm } from '../RegisterForm/RegisterForm';
 import { Tab } from '../../../../components/Tab';
 import { Toast } from '../../../../components/Toast';
 import { AuthMenu } from './AuthCard.types';
-import { ToastState } from '../Auth.types';
+import { AuthToastState } from '../Auth.types';
 import styles from './AuthCard.module.css';
 
 const cx = classNames.bind(styles);
 
-const initialToastState: ToastState = {
+const initialToastState: AuthToastState = {
   message: '',
   type: 'info',
 };
 
 export function AuthCard(): ReactElement {
   const [activeTab, setActiveTab] = useState<AuthMenu>('LOGIN');
-  const [toastState, setToastState] = useState<ToastState>(initialToastState);
+  const [toastState, setToastState] = useState<AuthToastState>(initialToastState);
 
   const handleTabSwitch = (tabName: AuthMenu) => {
     setActiveTab(tabName);

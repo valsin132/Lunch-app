@@ -4,13 +4,13 @@ import { Input } from '../../../../components/Input';
 import { Button } from '../../../../components/Button';
 import { EMAIL_REGEX } from '../../../../constants';
 import { useLogin } from '../../../../hooks/useLogin';
-import { ToastState } from '../Auth.types';
+import { AuthToastState } from '../Auth.types';
 import styles from './LoginForm.module.css';
 
 const cx = classNames.bind(styles);
 
 interface LoginFormProps {
-  handleToast: (toastState: ToastState) => void;
+  handleToast: (toastState: AuthToastState) => void;
 }
 
 interface State {

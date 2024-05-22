@@ -4,13 +4,13 @@ import { Button } from '../../../../components/Button';
 import { EMAIL_REGEX, PASSWORD_REGEX } from '../../../../constants';
 import { RegisterFields } from './RegisterFields';
 import { RegisterFieldActions, useRegisterData } from '../../../../hooks/useRegisterData';
-import { ToastState } from '../Auth.types';
+import { AuthToastState } from '../Auth.types';
 import styles from './RegisterForm.module.css';
 
 const cx = classNames.bind(styles);
 
 interface RegisterFormProps {
-  handleToast: (toastState: ToastState) => void;
+  handleToast: (toastState: AuthToastState) => void;
   onRegister: () => void;
 }
 

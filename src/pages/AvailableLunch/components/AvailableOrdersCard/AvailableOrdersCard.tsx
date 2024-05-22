@@ -34,7 +34,7 @@ export function AvailableOrdersCard() {
 
   return (
     <div className={cx('available-lunch')}>
-      <Card>
+      <Card shadow="s">
         <div className={cx('available-lunch__container')}>
           <div className={cx('available-lunch__header')}>
             <h2>Available Orders</h2>

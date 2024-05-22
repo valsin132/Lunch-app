@@ -4,7 +4,7 @@
     "password": "securepass123",
     "name": "Stanton",
     "surname": "Richardson",
-    "balance": 55.55,
+    "balance": "42.07",
     "img": "https://lh3.googleusercontent.com/pw/AP1GczOPmz6MNqqTx2YZekmxppn88NfHDX4qSdH1foq865siphuhKlwTKyqxXhvYmbi28KleHbRtQYEuTSeKP4ib0BTwGKAtCvhw-gBgUxktYziqlh5u9EI-pyYi2cLlaGPXBlTkfRvZJSlDttN7cFAvD03H=w612-h323-s-no-gm",
     "orders": [
       {
@@ -18,6 +18,10 @@
       {
         "weekDay": "Thursday",
         "mealIds": [21]
+      },
+      {
+        "weekDay": "Tuesday",
+        "mealIds": ["5", "6"]
       }
     ],
     "orderHistory": [
@@ -101,31 +105,31 @@
   },
   "users": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Burton",
       "surname": "Whitaker",
       "img": "https://lh3.googleusercontent.com/pw/AP1GczPd86eTOZysL0WAf9veGe6WIkEfvgX2zA1gKY65ylS64iQW5kK7ppYKO8uUBJkQZh5UNxDN-E9aJgvQFsS28YzQHREL4rU5_2TXUKd0xjZTd7tu8fCMKANM28tMIHhyD3KnhvA_s0gcvbkK447oLT9E=w611-h321-s-no-gm"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Dorsey",
       "surname": "Shepherd",
       "img": "https://lh3.googleusercontent.com/pw/AP1GczN8h4gHh3CU2rbqTQ32im-ZGQFJh6_8pH_xZjX_xTjOGVgqgbuUfZzhgnraPvh3j3blvhsMqRh4vNss9jCxpA-hy8zllx3ffEsehoeYmSzNtlRrk4e30qOV-61y28NHCFjnPQvLFiAVRPsQyUQ_8z80=w613-h407-s-no-gm"
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Amalia",
       "surname": "Clements",
       "img": "https://lh3.googleusercontent.com/pw/AP1GczNxx7hUZVWjQXfi9axHa9kNC0oldSfSJsw0M2Gccn1yK480_Dd5VcvqeQ0weKo6tsqbbbqYMYVR8flDccmrqrFEU0mnOK9ixVzQgx1ao7ZPZ-h8skuWIA_bzoGqwXVvyuRVWZfip4FHawhfZ7u4d_VK=w610-h407-s-no-gm"
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Addie",
       "surname": "Horton",
       "img": "https://lh3.googleusercontent.com/pw/AP1GczMpmk11zhuVZ2G_UB4GexN9phSuaDZ4JSEMgk9l2FKavowvTv9mkElxB-eem33gEj49tFZUDn1XaI_bkEXVp7ZdEOpDbTeK8EjGdhtPDJxCc5ymDuMvVRwZTA6Oca6ID1nGQA2o36zBGz_jgknVovdw=w609-h344-s-no-gm"
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "Lacey",
       "surname": "Combs",
       "img": "https://lh3.googleusercontent.com/pw/AP1GczMEFyPtgHzU4U-kLNuyb9FES-wKXPYvvGp3BoRTJKfKIWb6tirHkbx0QMba_-C96oNzFGmi6_45WHx_E0SfkI-zZQeCB0t5iMv-Kp3ZTJ2EeAlBJUPo9yiOv8gvbz-3TpuscIQMvTV5GkmAY6_Xy-Lo=w611-h407-s-no-gm"
@@ -133,25 +137,25 @@
   ],
   "vendors": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Tasty Bites"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Spice Haven"
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Pizza Deliziosa"
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Smash Burgers"
     }
   ],
   "meals": [
     {
-      "id": 1,
+      "id": "1",
       "vendorId": 1,
       "title": "Veggie Supreme Wrap",
       "description": "Wrap filled with a variety of fresh vegetables and a mild cilantro-lime topping.",
@@ -164,7 +168,7 @@
       "dishType": "wrap"
     },
     {
-      "id": 2,
+      "id": "2",
       "vendorId": 1,
       "title": "Creamy Tomato Basil Soup",
       "description": "Tomatoes, fresh basil, and cream, blended to perfection.",
@@ -177,7 +181,7 @@
       "dishType": "soup"
     },
     {
-      "id": 3,
+      "id": "3",
       "vendorId": 1,
       "title": "Chicken Alfredo Pasta",
       "description": "Grilled chicken, fettuccine pasta, and creamy Alfredo sauce.",
@@ -190,7 +194,7 @@
       "dishType": "pasta"
     },
     {
-      "id": 4,
+      "id": "4",
       "vendorId": 2,
       "title": "Vegetarian Pad Thai",
       "description": "Stir-fried rice noodles with tofu, bean sprouts, and peanuts.",
@@ -203,7 +207,7 @@
       "dishType": "thai"
     },
     {
-      "id": 5,
+      "id": "5",
       "vendorId": 2,
       "title": "Spicy Chicken Curry",
       "description": "Tender chicken pieces in a rich and spicy curry sauce. Perfect for spice lovers.",
@@ -216,7 +220,7 @@
       "dishType": "thai"
     },
     {
-      "id": 6,
+      "id": "6",
       "vendorId": 2,
       "title": "Hearty Beef and Vegetable Soup",
       "description": "Soup featuring tender beef, assorted vegetables, and a rich broth.",
@@ -229,7 +233,7 @@
       "dishType": "soup"
     },
     {
-      "id": 7,
+      "id": "7",
       "vendorId": 3,
       "title": "Pepperoni Lover's Pizza",
       "description": "Loaded with spicy pepperoni, mozzarella, and tomato sauce.",
@@ -242,7 +246,7 @@
       "dishType": "pizza"
     },
     {
-      "id": 8,
+      "id": "8",
       "vendorId": 1,
       "title": "Vegetable Minestrone Soup",
       "description": "A hearty soup with a variety of fresh vegetables and pasta.",
@@ -255,7 +259,7 @@
       "dishType": "soup"
     },
     {
-      "id": 9,
+      "id": "9",
       "vendorId": 2,
       "title": "Shrimp Pad Thai",
       "description": "Wok-fried rice noodles with shrimp, bean sprouts, and peanuts.",
@@ -268,7 +272,7 @@
       "dishType": "thai"
     },
     {
-      "id": 10,
+      "id": "10",
       "vendorId": 1,
       "title": "Beef and Broccoli Stir-Fry",
       "description": "Sliced beef, broccoli, and soy-based sauce served over rice.",
@@ -281,7 +285,7 @@
       "dishType": "thai"
     },
     {
-      "id": 11,
+      "id": "11",
       "vendorId": 3,
       "title": "Classic Margherita Pizza",
       "description": "Fresh mozzarella, tomatoes, and basil on a crispy crust.",
@@ -294,7 +298,7 @@
       "dishType": "pizza"
     },
     {
-      "id": 12,
+      "id": "12",
       "vendorId": 2,
       "title": "Tom Yum Soup",
       "description": "Hot and sour Thai soup with shrimp, lemongrass, and mushrooms.",
@@ -307,7 +311,7 @@
       "dishType": "soup"
     },
     {
-      "id": 13,
+      "id": "13",
       "vendorId": 3,
       "title": "Meat Lover's Pizza",
       "description": "Combination of savory Italian sausage, crispy bacon, pepperoni slices, and ham, all atop a bed of melted mozzarella cheese and tangy tomato sauce.",
@@ -320,7 +324,7 @@
       "dishType": "pizza"
     },
     {
-      "id": 14,
+      "id": "14",
       "vendorId": 1,
       "title": "Mediterranean Grilled Chicken Salad",
       "description": "Fresh mixed greens topped with grilled chicken breast, cherry tomatoes, cucumbers, olives, feta cheese, and a tangy Mediterranean dressing.",
@@ -333,7 +337,7 @@
       "dishType": "salad"
     },
     {
-      "id": 15,
+      "id": "15",
       "vendorId": 1,
       "title": "Beef Tacos with Salsa and Guacamole",
       "description": "Two soft corn tortillas filled with seasoned ground beef, served with fresh salsa, guacamole, and a wedge of lime.",
@@ -346,7 +350,7 @@
       "dishType": "tacos"
     },
     {
-      "id": 16,
+      "id": "16",
       "vendorId": 2,
       "title": "Grilled Steak with Roasted Potatoes",
       "description": "Tender grilled steak served with seasoned roasted potatoes and a side of fresh vegetables.",
@@ -359,7 +363,7 @@
       "dishType": "steak"
     },
     {
-      "id": 17,
+      "id": "17",
       "vendorId": 3,
       "title": "Club Sandwich",
       "description": "Triple-decker sandwich with turkey, bacon, lettuce, and tomato",
@@ -372,7 +376,7 @@
       "dishType": "sandwich"
     },
     {
-      "id": 18,
+      "id": "18",
       "vendorId": 2,
       "title": "Veg Grilled Cheese Sandwich",
       "description": "Indian Veg Grilled Cheese Sandwich that is made with cucumbers, tomatoes, onions, butter, cheese, green chutney, and chat masala on sandwich bread.",
@@ -385,7 +389,7 @@
       "dishType": "sandwich"
     },
     {
-      "id": 19,
+      "id": "19",
       "vendorId": 1,
       "title": "Vegan Mango Black Bean Green Rice Burrito Bowl",
       "description": "Beautiful vegan green rice bowl made with homemade green rice, black beans, grilled chicken and a rainbow of fruits and veggies.",
@@ -398,7 +402,7 @@
       "dishType": "bowl"
     },
     {
-      "id": 20,
+      "id": "20",
       "vendorId": 1,
       "title": "Salmon Rice Crunch Bowl",
       "description": "This salmon rice bowl made out of marinated salmon, fresh veggies, spicy mayo and crunchy bits of fried onion! It is irresistible.",
@@ -411,7 +415,7 @@
       "dishType": "bowl"
     },
     {
-      "id": 21,
+      "id": "21",
       "vendorId": 4,
       "title": "Southern BBQ Burger with Nectarines",
       "description": "You deserve to eat the best BBQ Beef Burger! This amped-up version features tender beef, tasty BBQ sauce, sweet nectarines and crumbly goat cheese.",
@@ -424,7 +428,7 @@
       "dishType": "burger"
     },
     {
-      "id": 22,
+      "id": "22",
       "vendorId": 4,
       "title": "Japanese-Style Chili Burger with Yuzu Mayo",
       "description": "This burger is a two-hander, topped with Japanese-spiced chili, tomatoes, and shredded iceberg lettuce.",
@@ -444,7 +448,8 @@
         "userId": 2,
         "rating": 3,
         "comment": "Flavorful, but I did not like the consistency, it was not creamy."
-      }
+      },
+      "id": "9abe"
     },
     {
       "mealId": 17,
@@ -452,7 +457,8 @@
         "userId": 3,
         "rating": 5,
         "comment": "Best sandwich I have ever had! No doubt."
-      }
+      },
+      "id": "e9f8"
     },
     {
       "mealId": 17,
@@ -460,7 +466,8 @@
         "userId": 1,
         "rating": 3,
         "comment": "Did not like turkey so much... On the other hand everything else was pretty fine."
-      }
+      },
+      "id": "e768"
     },
     {
       "mealId": 18,
@@ -468,7 +475,8 @@
         "userId": 4,
         "rating": 5,
         "comment": "Tastes like heaven... Will order again!"
-      }
+      },
+      "id": "34d9"
     },
     {
       "mealId": 18,
@@ -476,7 +484,8 @@
         "userId": 5,
         "rating": 5,
         "comment": "So glad I decided to try it out - I highly recommend it! That cheese... Omg no comments, You have to try it by yourself."
-      }
+      },
+      "id": "2058"
     },
     {
       "mealId": 20,
@@ -484,7 +493,8 @@
         "userId": 3,
         "rating": 5,
         "comment": "Really delicious. The taste of salmon is something out of this world."
-      }
+      },
+      "id": "2812"
     },
     {
       "mealId": 21,
@@ -492,7 +502,8 @@
         "userId": 3,
         "rating": 4,
         "comment": "Not so sure about this BBQ and nectarines mix. Something seems missing here. Maybe just personal preferences tho."
-      }
+      },
+      "id": "5e38"
     },
     {
       "mealId": 22,
@@ -500,7 +511,8 @@
         "userId": 4,
         "rating": 5,
         "comment": "Something I have been waiting for so long. Can not get enought of it. Never disappoints."
-      }
+      },
+      "id": "2e00"
     },
     {
       "mealId": 22,
@@ -508,7 +520,8 @@
         "userId": 5,
         "rating": 4,
         "comment": "A bit too spicy for my taste. Nevertheless tastes really good!"
-      }
+      },
+      "id": "1f92"
     },
     {
       "mealId": 22,
@@ -516,7 +529,8 @@
         "userId": 3,
         "rating": 3,
         "comment": "Omg that spicy! Would prefer something more milder in terms of taste. Greens helps a bit, but still could not feel anything after my lunch..."
-      }
+      },
+      "id": "32df"
     },
     {
       "mealId": 4,
@@ -524,7 +538,8 @@
         "userId": 1,
         "rating": 4,
         "comment": "Great vegetarian option with a nice kick."
-      }
+      },
+      "id": "fc26"
     },
     {
       "mealId": 5,
@@ -532,7 +547,8 @@
         "userId": 1,
         "rating": 5,
         "comment": "Spicy chicken curry is a must-try!"
-      }
+      },
+      "id": "6c3d"
     },
     {
       "mealId": 14,
@@ -540,7 +556,8 @@
         "userId": 1,
         "rating": 3,
         "comment": "Salad was okay. The grilled chicken was flavorful, but I felt the salad lacked some taste overall."
-      }
+      },
+      "id": "8fd8"
     },
     {
       "mealId": 2,
@@ -548,7 +565,8 @@
         "userId": 2,
         "rating": 4,
         "comment": "This time the soup was good, pureed to the perfect creamy consistency."
-      }
+      },
+      "id": "95f2"
     },
     {
       "mealId": 6,
@@ -556,7 +574,8 @@
         "userId": 2,
         "rating": 4,
         "comment": "Really enjoyed the beef soup! The meat was soft, and the variety of vegetables made it wholesome and delicious."
-      }
+      },
+      "id": "c7e9"
     },
     {
       "mealId": 8,
@@ -564,7 +583,8 @@
         "userId": 1,
         "rating": 4,
         "comment": "Comforting choice. Loved the variety of vegetables."
-      }
+      },
+      "id": "bbeb"
     },
     {
       "mealId": 9,
@@ -572,7 +592,8 @@
         "userId": 1,
         "rating": 5,
         "comment": "Shrimp Pad Thai is absolutely delicious! Perfectly balanced flavors."
-      }
+      },
+      "id": "175c"
     },
     {
       "mealId": 14,
@@ -580,7 +601,8 @@
         "userId": 4,
         "rating": 4,
         "comment": "The chicken was juicy, and the combination of other ingredients made for a satisfying meal. The dressing tied everything together nicely."
-      }
+      },
+      "id": "75da"
     },
     {
       "mealId": 14,
@@ -588,7 +610,8 @@
         "userId": 2,
         "rating": 4,
         "comment": "This is a great choice for a healthy and delicious meal."
-      }
+      },
+      "id": "25a7"
     },
     {
       "mealId": 10,
@@ -596,7 +619,8 @@
         "userId": 5,
         "rating": 4,
         "comment": "Savory and satisfying. Generous portions of beef and broccoli."
-      }
+      },
+      "id": "da93"
     },
     {
       "mealId": 12,
@@ -604,7 +628,8 @@
         "userId": 2,
         "rating": 5,
         "comment": "One of my favorite spicy soups."
-      }
+      },
+      "id": "c112"
     },
     {
       "mealId": 15,
@@ -612,7 +637,8 @@
         "userId": 2,
         "rating": 2,
         "comment": "The beef was too tough. Not spicy at all."
-      }
+      },
+      "id": "b33c"
     },
     {
       "mealId": 16,
@@ -620,7 +646,8 @@
         "userId": 5,
         "rating": 5,
         "comment": "Absolutely delicious! The steak was cooked to perfection, tender and juicy, while the roasted potatoes were seasoned just right."
-      }
+      },
+      "id": "1ebf"
     },
     {
       "mealId": 16,
@@ -628,7 +655,8 @@
         "userId": 1,
         "rating": 5,
         "comment": "Really enjoyed the steak! It never disappoints me."
-      }
+      },
+      "id": "85b4"
     },
     {
       "mealId": 10,
@@ -636,7 +664,8 @@
         "userId": 5,
         "rating": 5,
         "comment": "I highly recommend it to anyone looking for a delicious and satisfying meal. The sliced beef was tender and juicy, perfectly complemented by the crisp broccoli florets."
-      }
+      },
+      "id": "fb86"
     },
     {
       "mealId": 2,
@@ -644,7 +673,8 @@
         "userId": 4,
         "rating": 3,
         "comment": "Not a big fan."
-      }
+      },
+      "id": "c43d"
     },
     {
       "mealId": 12,
@@ -652,7 +682,8 @@
         "userId": 1,
         "rating": 5,
         "comment": "The Tom Yum soup was perfect, the spiciness perfectly balanced with the other flavors."
-      }
+      },
+      "id": "4fd4"
     },
     {
       "mealId": 13,
@@ -660,7 +691,8 @@
         "userId": 1,
         "rating": 4,
         "comment": "Tasty and satisfying option. I love the amount and taste of different kinds of meat on this pizza."
-      }
+      },
+      "id": "8b90"
     },
     {
       "mealId": 11,
@@ -668,7 +700,8 @@
         "userId": 1,
         "rating": 4,
         "comment": "Delicious, fresh ingredients. Loved the crispy crust!"
-      }
+      },
+      "id": "33be"
     },
     {
       "mealId": 14,
@@ -676,29 +709,35 @@
         "userId": 1,
         "rating": 4,
         "comment": "Fresh and refreshing salads."
-      }
+      },
+      "id": "f5c9"
     }
   ],
   "availableLunch": [
     {
       "userId": 1,
-      "mealIds": [2]
+      "mealIds": [2],
+      "id": "6c73"
     },
     {
       "userId": 2,
-      "mealIds": [10]
+      "mealIds": [10],
+      "id": "7e0a"
     },
     {
       "userId": 3,
-      "mealIds": [2, 7]
+      "mealIds": [2, 7],
+      "id": "6ad6"
     },
     {
       "userId": 4,
-      "mealIds": [12, 19]
+      "mealIds": [12, 19],
+      "id": "1a25"
     },
     {
       "userId": 5,
-      "mealIds": [22]
+      "mealIds": [22],
+      "id": "9358"
     }
   ]
 }

@@ -23,18 +23,17 @@ export function AuthCard(): ReactElement {
 
   const handleTabSwitch = (tabName: AuthMenu) => {
     setActiveTab(tabName);
-    if (toastState.message) setToastState(initialToastState);
+    if (toastState.message) setToastState((prev) => ({ ...prev, message: '' }));
   };
   return (
     <Card spacing="none" shadow="m" isNoBorder>
-      {toastState.message && (
-        <Toast
-          key={toastState.type}
-          content={toastState.message}
-          toastType={toastState.type}
-          onClick={() => setToastState(initialToastState)}
-        />
-      )}
+      <Toast
+        key={toastState.type}
+        isVisible={!!toastState.message}
+        content={toastState.message}
+        toastType={toastState.type}
+        onClick={() => setToastState((prev) => ({ ...prev, message: '' }))}
+      />
       <div className={cx('auth-card')}>
         <LogoHorizontal className={cx('auth-card__logo')} />
         <div className={cx('auth-card__header')}>

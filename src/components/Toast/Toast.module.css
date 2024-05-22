@@ -4,19 +4,13 @@
   @include box-shadow-m;
   @include flexbox($gap: $spacing-2xs);
 
-  animation: drop-in forwards 300ms cubic-bezier(0.06, 0.14, 0.49, 1.6);
   border-radius: $border-radius-regular;
   left: 50%;
   max-width: 368px;
   padding: $spacing-2xs;
   position: fixed;
   top: 24px;
-  transform: translate(-50%, -100%);
   z-index: 1;
-
-  &.toast--closing {
-    animation: drop-out reverse 300ms cubic-bezier(0.06, 0.14, 0.49, 1.6);
-  }
 
   &.toast--color-info {
     background-color: $color-purple-500;
@@ -61,27 +55,5 @@
     & path {
       fill: $color-white;
     }
-  }
-}
-
-@keyframes drop-in {
-
-  from {
-    transform: translate(-50%, -100%);
-  }
-
-  to {
-    transform: translate(-50%, 0);
-  }
-}
-
-@keyframes drop-out {
-
-  from {
-    transform: translate(-50%, -100%);
-  }
-
-  to {
-    transform: translate(-50%, 0);
   }
 }

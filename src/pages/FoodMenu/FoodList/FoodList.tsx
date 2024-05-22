@@ -130,9 +130,14 @@ export function FoodList({ selectedDay, searchedMealTitle, selectedVendor }: Foo
           />
         ))
       )}
-      {showToast && (
-        <Toast toastType="info" content={toastMessage} onClick={() => setShowToast(false)} />
-      )}
+
+      <Toast
+        key={toastMessage}
+        isVisible={showToast}
+        toastType="info"
+        content={toastMessage}
+        onClick={() => setShowToast(false)}
+      />
     </div>
   );
 }

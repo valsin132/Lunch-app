@@ -1,6 +1,6 @@
 @import '../../styles/index.css';
 
-& .toast {
+.toast {
   @include box-shadow-m;
   @include flexbox($gap: $spacing-2xs);
 
@@ -9,9 +9,8 @@
   left: 50%;
   max-width: 368px;
   padding: $spacing-2xs;
-  pointer-events: all;
   position: fixed;
-  top: 0;
+  top: 24px;
   transform: translate(-50%, -100%);
   z-index: 1;
 

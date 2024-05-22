@@ -4,12 +4,13 @@ import { Input } from '../../../../components/Input';
 import { Button } from '../../../../components/Button';
 import { EMAIL_REGEX } from '../../../../constants';
 import { useLogin } from '../../../../hooks/useLogin';
+import { ToastState } from '../Auth.types';
 import styles from './LoginForm.module.css';
 
 const cx = classNames.bind(styles);
 
 interface LoginFormProps {
-  handleUnsuccessfulLogin: (message: string) => void;
+  handleToast: (toastState: ToastState) => void;
 }
 
 interface State {
@@ -47,7 +48,7 @@ const initialState = {
   passwordErrorMsg: '',
 };
 
-export function LoginForm({ handleUnsuccessfulLogin }: LoginFormProps) {
+export function LoginForm({ handleToast }: LoginFormProps) {
   const { login } = useLogin();
   const [state, dispatch] = useReducer(formReducer, initialState);
   const { email, password, emailErrorMsg, passwordErrorMsg } = state;
@@ -85,7 +86,7 @@ export function LoginForm({ handleUnsuccessfulLogin }: LoginFormProps) {
         await login(email, password);
       } catch (e) {
         if (e instanceof Error) {
-          handleUnsuccessfulLogin(e?.message ?? '');
+          handleToast({ message: e.message, type: 'warning' });
         }
       }
     }

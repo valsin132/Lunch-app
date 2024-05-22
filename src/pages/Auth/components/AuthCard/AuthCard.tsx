@@ -6,7 +6,8 @@ import { LoginForm } from '../LoginForm/LoginForm';
 import { RegisterForm } from '../RegisterForm/RegisterForm';
 import { Tab } from '../../../../components/Tab';
 import { Toast } from '../../../../components/Toast';
-import { AuthMenu, ToastState } from './AuthCard.types';
+import { AuthMenu } from './AuthCard.types';
+import { ToastState } from '../Auth.types';
 import styles from './AuthCard.module.css';
 
 const cx = classNames.bind(styles);
@@ -19,10 +20,7 @@ const initialToastState: ToastState = {
 export function AuthCard(): ReactElement {
   const [activeTab, setActiveTab] = useState<AuthMenu>('LOGIN');
   const [toastState, setToastState] = useState<ToastState>(initialToastState);
-  const handleRegistration = (message: string) => {
-    setToastState({ message, type: 'success' });
-    setActiveTab('LOGIN');
-  };
+
   const handleTabSwitch = (tabName: AuthMenu) => {
     setActiveTab(tabName);
     if (toastState.message) setToastState(initialToastState);
@@ -52,13 +50,14 @@ export function AuthCard(): ReactElement {
           />
         </div>
         {activeTab === 'LOGIN' ? (
-          <LoginForm
-            handleUnsuccessfulLogin={(message: string) => {
-              setToastState({ message, type: 'warning' });
+          <LoginForm handleToast={setToastState} />
+        ) : (
+          <RegisterForm
+            handleToast={setToastState}
+            onRegister={() => {
+              setActiveTab('LOGIN');
             }}
           />
-        ) : (
-          <RegisterForm handleRegistration={handleRegistration} />
         )}
       </div>
     </Card>

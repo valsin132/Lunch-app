@@ -4,8 +4,7 @@
   display: grid;
   grid-template-columns: 0.1fr repeat(3, 1fr) 0.1fr;
   grid-template-rows: 0.1fr repeat(3, 1fr) 0.1fr;
-  margin-top: $spacing-s;
-  position: relative;
+  padding-top: $spacing-s;
   width: 100%;
 
   & .main-content__sidebar {

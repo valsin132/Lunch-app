@@ -2,7 +2,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import classNames from 'classnames/bind';
 import { Sidebar } from '../../components/Sidebar';
-import { Header, PageTypes } from '../../components/Header';
+import { Header, PageType } from '../../components/Header';
 import { UserCard } from '../../components/UserCard';
 import { Footer } from '../../components/Footer';
 import { OrderSummary } from '../../components/OrderSummary';
@@ -10,7 +10,7 @@ import styles from './MainContent.module.css';
 
 const cx = classNames.bind(styles);
 
-const getPageTypeFromPath = (pathname: string): PageTypes => {
+const getPageTypeFromPath = (pathname: string): PageType => {
   if (pathname.includes('menu')) return 'foodMenu';
   if (pathname.includes('lunches')) return 'availableLunch';
   if (pathname.includes('orders')) return 'yourOrders';

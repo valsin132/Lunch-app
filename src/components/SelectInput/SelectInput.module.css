@@ -87,7 +87,7 @@
 
       color: $color-blue-600;
       padding: calc($spacing-4xs + 2px) 0 calc($spacing-4xs + 2px) $spacing-2xs;
-      text-align: center;
+      text-align: left;
       width: 100%;
 
       &.select__list-item--text-centered {

@@ -1,6 +1,6 @@
 import { ReactElement, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
-import { ChevronIcon } from '../../utils/iconManager';
+import { ChevronIcon, ArrowFilledIcon } from '../../utils/iconManager';
 import { useOutsideAlerter } from '../../hooks/useOutsideAlerter';
 import styles from './SelectInput.module.css';
 
@@ -16,10 +16,7 @@ interface SelectInputProps {
   value?: SelectInputOption;
   placeholder?: string;
   label?: string;
-  isBoxShadowDisabled?: boolean;
-  isSelectListTop?: boolean;
-  isSelectListItemCentered?: boolean;
-  isSelectListItemPadding?: boolean;
+  isPaginationSelect: boolean;
   onChange: (option: SelectInputOption | undefined) => void;
 }
 
@@ -28,10 +25,7 @@ export function SelectInput({
   placeholder,
   value,
   label,
-  isSelectListTop,
-  isBoxShadowDisabled,
-  isSelectListItemCentered,
-  isSelectListItemPadding,
+  isPaginationSelect,
   onChange,
 }: SelectInputProps): ReactElement {
   const [isOpen, setIsOpen] = useState(false);
@@ -49,29 +43,39 @@ export function SelectInput({
         type="button"
         className={cx('select__input', {
           'select__input--focused': isOpen,
-          'select__input--none-box-shadow': isBoxShadowDisabled,
+          'select__input--none-box-shadow': isPaginationSelect,
         })}
         onClick={() => {
           setIsOpen((prev) => !prev);
         }}>
         <div>
           {value ? (
-            <p className={cx('select__value')}>{value.label}</p>
+            <p
+              className={cx('select__value', {
+                'selecet__value--pagination-text': isPaginationSelect,
+              })}>
+              {value.label}
+            </p>
           ) : (
             <p className={cx('select__placeholder')}>{placeholder}</p>
           )}
         </div>
-        <ChevronIcon className={cx({ 'select__icon--rotated': isOpen })} />
+
+        {!isPaginationSelect ? (
+          <ChevronIcon className={cx('select__icon', { 'select__icon--rotated': isOpen })} />
+        ) : (
+          <ArrowFilledIcon className={cx('select__icon', { 'select__icon--rotated': isOpen })} />
+        )}
       </button>
       {isOpen && (
-        <div className={cx('select__list', { 'select__list--top': isSelectListTop })}>
+        <div className={cx('select__list', { 'select__list--top': isPaginationSelect })}>
           {options.map((option) => (
             <button
               type="button"
               className={cx('select__list-item', {
                 'select__list-item--selected': isSelected(option),
-                'select__list-item--text-centered': isSelectListItemCentered,
-                'select__list-item--padding-centered': isSelectListItemPadding,
+                'select__list-item--text-centered': isPaginationSelect,
+                'select__list-item--padding-centered': isPaginationSelect,
               })}
               key={option.value}
               value={option.label}

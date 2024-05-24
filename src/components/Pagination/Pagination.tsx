@@ -44,10 +44,7 @@ export function Pagination({
         <span>Rows per page:</span>
         <SelectInput
           options={itemsPerPageOptions}
-          isBoxShadowDisabled
-          isSelectListTop
-          isSelectListItemPadding
-          isSelectListItemCentered
+          isPaginationSelect
           value={itemsPerPageOptions.find((option) => option.value === itemsPerPage)}
           onChange={handleItemsPerPageChange}
         />

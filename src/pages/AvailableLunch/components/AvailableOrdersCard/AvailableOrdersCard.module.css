@@ -13,21 +13,27 @@
     }
   }
 
+  & .available-lunch__table-header {
+    box-shadow: 0 1px 0 $color-grey-200;
+  }
+
+  th:nth-child(1) {
+    flex-grow: 0.344;
+  }
+
+  th:nth-child(2) {
+    flex-grow: 0.24;
+  }
+
+  th:nth-child(3) {
+    flex-grow: 0.412;
+  }
+
   th {
     @include label-s;
 
     color: $color-grey-500;
     padding: $spacing-5xs $spacing-2xs;
-  }
-
-  & .available-lunch__table {
-    border-collapse: separate;
-    border-spacing: 0 1rem;
-    width: 100%;
-
-    & .available-lunch__table-header {
-      box-shadow: 0 1px 0 $color-grey-200;
-    }
   }
 }
 

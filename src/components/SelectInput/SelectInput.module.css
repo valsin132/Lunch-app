@@ -26,6 +26,12 @@
       align-self: center;
       color: $color-blue-600;
       user-select: none;
+
+      &.selecet__value--pagination-text {
+        @include title-s;
+
+        color: $color-grey-500;
+      }
     }
 
     & .select__placeholder {

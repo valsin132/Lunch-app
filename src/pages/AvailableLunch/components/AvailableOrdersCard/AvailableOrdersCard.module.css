@@ -7,9 +7,14 @@
     @include flexbox($direction: column, $gap: $gap-large);
 
     & .available-lunch__header {
-      @include flexbox($direction: row, $justifyContent: space-between, $alignItems: center);
+      @include flexbox(
+        $direction: row,
+        $justifyContent: space-between,
+        $alignItems: center,
+        $gap: $gap-large
+      );
 
-      h2 {
+      & .available-lunch__header-heading {
         @include headline-s;
 
         color: $text-color-blue;
@@ -20,19 +25,19 @@
       box-shadow: 0 1px 0 $color-grey-200;
     }
 
-    th:nth-child(1) {
+    & .available-lunch__head-text:nth-child(1) {
       flex-grow: 0.344;
     }
 
-    th:nth-child(2) {
+    & .available-lunch__head-text:nth-child(2) {
       flex-grow: 0.24;
     }
 
-    th:nth-child(3) {
+    & .available-lunch__head-text:nth-child(3) {
       flex-grow: 0.412;
     }
 
-    th {
+    & .available-lunch__head-text {
       @include label-s;
 
       color: $color-grey-500;

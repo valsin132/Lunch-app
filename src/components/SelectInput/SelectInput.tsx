@@ -16,7 +16,7 @@ interface SelectInputProps {
   value?: SelectInputOption;
   placeholder?: string;
   label?: string;
-  isPaginationSelect: boolean;
+  isPaginationSelect?: boolean;
   onChange: (option: SelectInputOption | undefined) => void;
 }
 

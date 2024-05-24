@@ -36,15 +36,15 @@ export function AvailableOrdersCard() {
       <Card>
         <div className={cx('available-lunch__container')}>
           <div className={cx('available-lunch__header')}>
-            <h2>Available Orders</h2>
+            <h2 className={cx('available-lunch__header-heading')}>Available Orders</h2>
             <RefreshButton />
           </div>
           <table>
             <thead>
               <tr className={cx('available-lunch__table-header')}>
-                <th className={cx('available-lunch__table-one')}>Order Summary</th>
-                <th>Vendor</th>
-                <th>Take It From</th>
+                <th className={cx('available-lunch__head-text')}>Order Summary</th>
+                <th className={cx('available-lunch__head-text')}>Vendor</th>
+                <th className={cx('available-lunch__head-text')}>Take It From</th>
               </tr>
             </thead>
             <tbody>

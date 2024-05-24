@@ -92,7 +92,7 @@ export function OrderSummary({ visibilityHandler }: OrderSummaryProps) {
           <div className={cx('order-summary__footer')}>
             <div className={cx('order-summary__price-wrapper')}>
               <span className={cx('order-summary__price-title')}>Total price</span>
-              <span className={cx('order-summary__price')}>{totalPrice}</span>
+              <span className={cx('order-summary__price')}>{totalPrice.toFixed(2)}</span>
               {isDeficitBalance && (
                 <span className={cx('order-summary__error-message')}>
                   Not enough money in your account

@@ -37,14 +37,15 @@ export function FoodList({ selectedDay, searchedMealTitle, selectedVendor }: Foo
     return 'Not rated';
   };
 
+  const userData = localStorage.getItem('userData');
+
   const isMealOrdered = useMemo(() => {
-    const storedData = localStorage.getItem('userData');
-    if (storedData) {
-      const { orders: storedOrders } = JSON.parse(storedData);
+    if (userData) {
+      const { orders: storedOrders } = JSON.parse(userData);
       return storedOrders.filter((order: Order) => order.weekDay === selectedDay)?.length > 0;
     }
     return false;
-  }, [selectedDay]);
+  }, [selectedDay, userData]);
 
   const filteredMeals = useMemo(() => {
     if (!mealsData) return [];
@@ -129,9 +130,14 @@ export function FoodList({ selectedDay, searchedMealTitle, selectedVendor }: Foo
           />
         ))
       )}
-      {showToast && (
-        <Toast toastType="info" content={toastMessage} onClick={() => setShowToast(false)} />
-      )}
+
+      <Toast
+        key={toastMessage}
+        isVisible={showToast}
+        toastType="info"
+        content={toastMessage}
+        onClick={() => setShowToast(false)}
+      />
     </div>
   );
 }

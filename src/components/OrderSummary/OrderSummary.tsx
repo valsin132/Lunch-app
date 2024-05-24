@@ -19,7 +19,8 @@ type OrderSummaryProps = {
 export function OrderSummary({ visibilityHandler }: OrderSummaryProps) {
   const [isConfirmationDialogOpen, setIsConfirmationDialogOpen] = useState(false);
   const orderSummaryContext = useOrderSummary();
-
+  const userData = JSON.parse(localStorage.getItem('userData')!);
+  const userBalance = userData.balance;
   const isOrderCartEmpty = orderSummaryContext.orders.length < 1;
 
   const calculateDayTotal = ({ orders }: OrderDayType) =>
@@ -32,12 +33,29 @@ export function OrderSummary({ visibilityHandler }: OrderSummaryProps) {
     );
 
   const totalPrice = calculateTotalPrice();
+  const isDeficitBalance = totalPrice > userBalance;
 
   const handleOrderSubmit = (isDialogOpen: boolean) => {
     setIsConfirmationDialogOpen(isDialogOpen);
-    if (!isDialogOpen) {
-      orderSummaryContext.modifyOrders({ action: 'CLEAR_ORDERS' });
-    }
+    const modifiedOrders = orderSummaryContext.orders.map((order) => ({
+      weekDay: order.day[0].toUpperCase() + order.day.slice(1),
+      mealIds: order.orders.map((meal) => meal.mealId),
+    }));
+    const modifiedUserData = {
+      ...userData,
+      balance: (userBalance - totalPrice).toFixed(2),
+      orders: [...userData.orders, ...modifiedOrders],
+    };
+    localStorage.setItem('userData', JSON.stringify(modifiedUserData));
+    fetch('http://localhost:3002/user', {
+      method: 'PUT',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(modifiedUserData),
+    });
+    orderSummaryContext.modifyOrders({ action: 'CLEAR_ORDERS' });
   };
   return (
     <aside className={cx('order-summary')}>
@@ -75,12 +93,17 @@ export function OrderSummary({ visibilityHandler }: OrderSummaryProps) {
             <div className={cx('order-summary__price-wrapper')}>
               <span className={cx('order-summary__price-title')}>Total price</span>
               <span className={cx('order-summary__price')}>{totalPrice.toFixed(2)}</span>
+              {isDeficitBalance && (
+                <span className={cx('order-summary__error-message')}>
+                  Not enough money in your account
+                </span>
+              )}
             </div>
             <OrderButton
               onSubmit={() => {
                 setIsConfirmationDialogOpen(true);
               }}
-              isDisabled={isOrderCartEmpty}
+              isDisabled={isOrderCartEmpty || isDeficitBalance}
             />
           </div>
         </div>

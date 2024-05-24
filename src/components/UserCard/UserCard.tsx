@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useState } from 'react';
+import { ReactElement, useState, useEffect } from 'react';
 import classNames from 'classnames/bind';
 import { Card } from '../Card';
 import { BadgeCount } from '../Badge';
@@ -32,14 +32,14 @@ export function UserCard({ toggleOrderSummary }: UserCardProps): ReactElement {
   const [imgLoadError, setImgLoadError] = useState(false);
   const { logout } = useAuth();
   const { orders } = useOrderSummary();
+  const storedUserData = localStorage.getItem('userData');
 
   useEffect(() => {
-    const storedUserData = localStorage.getItem('userData');
     if (storedUserData) {
       const parsedUserData: UserData = JSON.parse(storedUserData);
       setUserData(parsedUserData);
     }
-  }, []);
+  }, [storedUserData]);
 
   if (!userData) {
     return <div>Loading...</div>;

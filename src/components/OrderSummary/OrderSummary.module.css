@@ -87,6 +87,12 @@
             content: '€';
           }
         }
+
+        & .order-summary__error-message {
+          @include label-xxs;
+
+          color: $color-error-font;
+        }
       }
     }
   }

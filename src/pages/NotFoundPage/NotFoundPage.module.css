@@ -10,7 +10,7 @@
     @include title-l;
 
     color: $color-blue-600;
-    margin-top: 8rem;
+    margin: auto;
 
     & .not-found-page__header {
       @include headline-l;

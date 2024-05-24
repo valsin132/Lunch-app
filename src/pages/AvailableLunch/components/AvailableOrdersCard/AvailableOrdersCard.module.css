@@ -1,10 +1,10 @@
 @import '../../../../styles/index.css';
 
 .available-lunch {
-  @include flexbox($direction: column, $gap: $gap-2Xlarge);
+  @include flexbox($direction: column);
 
   & .available-lunch__container {
-    @include flexbox($direction: column, $gap: 20px);
+    @include flexbox($direction: column, $gap: $gap-large);
 
     & .available-lunch__header {
       @include flexbox($direction: row, $justifyContent: space-between, $alignItems: center);

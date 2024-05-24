@@ -20,6 +20,10 @@
     box-shadow: inset 0 0 0 1px $color-grey-300;
     padding: $spacing-4xs $spacing-3xs;
 
+    &.select__input--remove-padding {
+      padding: 0;
+    }
+
     & .select__value {
       @include body-m;
 
@@ -27,7 +31,7 @@
       color: $color-blue-600;
       user-select: none;
 
-      &.selecet__value--pagination-text {
+      &.select__value--pagination-text {
         @include title-s;
 
         color: $color-grey-500;
@@ -83,7 +87,7 @@
 
       color: $color-blue-600;
       padding: calc($spacing-4xs + 2px) 0 calc($spacing-4xs + 2px) $spacing-2xs;
-      text-align: left;
+      text-align: center;
       width: 100%;
 
       &.select__list-item--text-centered {
@@ -91,7 +95,7 @@
       }
 
       &.select__list-item--padding-centered {
-        padding: calc($spacing-4xs + 2px) $spacing-2xs;
+        padding: $spacing-2xs $spacing-4xs;
       }
 
       &:first-child {

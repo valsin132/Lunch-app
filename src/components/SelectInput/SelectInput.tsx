@@ -44,25 +44,23 @@ export function SelectInput({
         className={cx('select__input', {
           'select__input--focused': isOpen,
           'select__input--none-box-shadow': isPaginationSelect,
+          'select__input--remove-padding': isPaginationSelect,
         })}
         onClick={() => {
           setIsOpen((prev) => !prev);
         }}>
-        <div>
-          {value ? (
-            <p
-              className={cx('select__value', {
-                'selecet__value--pagination-text': isPaginationSelect,
-              })}>
-              {value.label}
-            </p>
-          ) : (
-            <p className={cx('select__placeholder')}>{placeholder}</p>
-          )}
-        </div>
-
+        {value ? (
+          <p
+            className={cx('select__value', {
+              'select__value--pagination-text': isPaginationSelect,
+            })}>
+            {value.label}
+          </p>
+        ) : (
+          <p className={cx('select__placeholder')}>{placeholder}</p>
+        )}
         {!isPaginationSelect ? (
-          <ChevronIcon className={cx('select__icon', { 'select__icon--rotated': isOpen })} />
+          <ChevronIcon className={cx({ 'select__icon--rotated': isOpen })} />
         ) : (
           <ArrowFilledIcon
             className={cx('select__icon-arrow-filled', { 'select__icon--rotated': isOpen })}

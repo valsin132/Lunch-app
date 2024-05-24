@@ -40,6 +40,13 @@
       color: $color-grey-500;
     }
 
+    & .select__icon-arrow-filled {
+
+      & path {
+        fill: $color-grey-500;
+      }
+    }
+
     & .select__icon--rotated {
       transform: rotate(0.5turn);
     }

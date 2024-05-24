@@ -3,37 +3,41 @@
 .available-lunch {
   @include flexbox($direction: column, $gap: $gap-2Xlarge);
 
-  & .available-lunch__header {
-    @include flexbox($direction: row, $justifyContent: space-between, $alignItems: center);
+  & .available-lunch__container {
+    @include flexbox($direction: column, $gap: 20px);
 
-    h2 {
-      @include headline-s;
+    & .available-lunch__header {
+      @include flexbox($direction: row, $justifyContent: space-between, $alignItems: center);
 
-      color: $text-color-blue;
+      h2 {
+        @include headline-s;
+
+        color: $text-color-blue;
+      }
     }
-  }
 
-  & .available-lunch__table-header {
-    box-shadow: 0 1px 0 $color-grey-200;
-  }
+    & .available-lunch__table-header {
+      box-shadow: 0 1px 0 $color-grey-200;
+    }
 
-  th:nth-child(1) {
-    flex-grow: 0.344;
-  }
+    th:nth-child(1) {
+      flex-grow: 0.344;
+    }
 
-  th:nth-child(2) {
-    flex-grow: 0.24;
-  }
+    th:nth-child(2) {
+      flex-grow: 0.24;
+    }
 
-  th:nth-child(3) {
-    flex-grow: 0.412;
-  }
+    th:nth-child(3) {
+      flex-grow: 0.412;
+    }
 
-  th {
-    @include label-s;
+    th {
+      @include label-s;
 
-    color: $color-grey-500;
-    padding: $spacing-5xs $spacing-2xs;
+      color: $color-grey-500;
+      padding: $spacing-5xs $spacing-2xs;
+    }
   }
 }
 

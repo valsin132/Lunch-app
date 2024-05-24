@@ -64,7 +64,9 @@ export function SelectInput({
         {!isPaginationSelect ? (
           <ChevronIcon className={cx('select__icon', { 'select__icon--rotated': isOpen })} />
         ) : (
-          <ArrowFilledIcon className={cx('select__icon', { 'select__icon--rotated': isOpen })} />
+          <ArrowFilledIcon
+            className={cx('select__icon-arrow-filled', { 'select__icon--rotated': isOpen })}
+          />
         )}
       </button>
       {isOpen && (

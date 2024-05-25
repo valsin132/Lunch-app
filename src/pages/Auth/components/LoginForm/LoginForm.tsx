@@ -1,10 +1,11 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useState } from 'react';
 import classNames from 'classnames/bind';
 import { Input } from '../../../../components/Input';
 import { Button } from '../../../../components/Button';
 import { EMAIL_REGEX } from '../../../../constants';
 import { useLogin } from '../../../../hooks/useLogin';
 import { AuthToastState } from '../Auth.types';
+import { Loader } from '../../../../components/Loader';
 import styles from './LoginForm.module.css';
 
 const cx = classNames.bind(styles);
@@ -52,6 +53,7 @@ export function LoginForm({ handleToast }: LoginFormProps) {
   const { login } = useLogin();
   const [state, dispatch] = useReducer(formReducer, initialState);
   const { email, password, emailErrorMsg, passwordErrorMsg } = state;
+  const [LoaderOff, setLoaderOff] = useState(true);
 
   const setEmail = (value: string) => dispatch({ type: 'SET_EMAIL', payload: value });
   const setPassword = (value: string) => dispatch({ type: 'SET_PASSWORD', payload: value });
@@ -82,13 +84,16 @@ export function LoginForm({ handleToast }: LoginFormProps) {
       setPasswordErrorMsg('');
     }
     if (email && EMAIL_REGEX.test(email) && password) {
-      try {
-        await login(email, password);
-      } catch (e) {
-        if (e instanceof Error) {
-          handleToast({ message: e.message, type: 'warning' });
+      setLoaderOff(false);
+      setTimeout(async () => {
+        try {
+          await login(email, password);
+        } catch (e) {
+          if (e instanceof Error) {
+            handleToast({ message: e.message, type: 'warning' });
+          }
         }
-      }
+      }, 5000);
     }
   };
 
@@ -141,6 +146,7 @@ export function LoginForm({ handleToast }: LoginFormProps) {
         iconType="arrow"
         onClick={handleLogin}
       />
+      <Loader isHidden={LoaderOff} />
     </form>
   );
 }

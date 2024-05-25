@@ -90,10 +90,11 @@ export function LoginForm({ handleToast }: LoginFormProps) {
           await login(email, password);
         } catch (e) {
           if (e instanceof Error) {
+            setLoaderOff(true);
             handleToast({ message: e.message, type: 'warning' });
           }
         }
-      }, 5000);
+      }, 4000);
     }
   };
 

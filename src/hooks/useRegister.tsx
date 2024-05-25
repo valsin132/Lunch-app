@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useFetchData } from './useFetchData';
 
 interface User {
@@ -15,14 +14,12 @@ interface User {
 }
 
 export const useRegister = () => {
-  const { data: userData } = useFetchData<User>('http://localhost:3002/user');
-  const [errMsg, setErrorMsg] = useState('');
+  const { data: userData, isError } = useFetchData<User>('http://localhost:3002/user');
 
-  const updateUser = async (
-    email: string,
-    password: string,
-    setShowToast: (value: boolean) => void
-  ): Promise<boolean> => {
+  const updateUser = async (email: string, password: string): Promise<void> => {
+    if (isError) {
+      throw new Error('Registration failed');
+    }
     try {
       const response = await fetch('http://localhost:3002/user', {
         headers: {
@@ -33,12 +30,9 @@ export const useRegister = () => {
         body: JSON.stringify({ ...userData, email, password }),
       });
       await response.json();
-      return true;
     } catch (error) {
-      setErrorMsg('Register failed. Please try again later.');
-      setShowToast(true);
-      return false;
+      throw new Error('Registration failed. Please try again later.');
     }
   };
-  return { updateUser, errMsg };
+  return { updateUser };
 };

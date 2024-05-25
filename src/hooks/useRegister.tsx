@@ -18,7 +18,7 @@ export const useRegister = () => {
 
   const updateUser = async (email: string, password: string): Promise<void> => {
     if (isError) {
-      throw new Error('Registration failed');
+      throw new Error('Registration failed. Please try again later');
     }
     try {
       const response = await fetch('http://localhost:3002/user', {

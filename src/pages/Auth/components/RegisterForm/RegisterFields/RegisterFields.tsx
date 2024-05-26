@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Checkbox } from '../../../../../components/Checkbox';
 import { Input } from '../../../../../components/Input';
 import { RegisterFieldActions, RegisterState } from '../../../../../hooks/useRegisterData';
-import { Modal } from '../../../../../components/Modal';
+import { CommunityRulesModal } from '../CommunityRulesModal';
 import styles from './RegisterFields.module.css';
 
 const cx = classNames.bind(styles);
@@ -30,7 +30,7 @@ export function RegisterFields({ state, handleFormChange }: RegisterFieldsProps)
     repeatPasswordErrorMsg,
     communityRulesErrorMsg,
   } = state;
-  const [modalOpen, setModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <div className={cx('register-inputs')}>
@@ -100,35 +100,15 @@ export function RegisterFields({ state, handleFormChange }: RegisterFieldsProps)
         <button
           type="button"
           className={cx('register-inputs__community-rules')}
-          onClick={() => setModalOpen(true)}>
+          onClick={() => setIsModalOpen(true)}>
           Community Rules
         </button>
       </div>
-      {modalOpen && (
-        <Modal
-          title="Community rules"
-          modalSize="md"
-          setIsOpenModal={setModalOpen}
-          primaryButtonLabel="Close"
-          onClick={() => setModalOpen(false)}
-          isSmallerUpperGap>
-          <p className={cx('register-inputs__modal')}>
-            Cognizant Technology Solutions Corporation and its affiliated companies (“Cognizant”
-            “we” or “us”) are firmly committed to protecting your privacy. You should understand
-            what we do with data relating to you (“personal information”) which we collect when you
-            visit this website (cognizant.com), our country-specific sites or any other websites to
-            which this Cognizant Website Privacy Notice (“Privacy Notice”) applies (collectively,
-            the “Sites”). As a global company, Cognizant has a number of legal entities in different
-            jurisdictions which are responsible for the personal information which they collect
-            independently and which may be processed on their behalf by Cognizant Technology
-            Solutions U.S. Corporation and its affiliates. The data controller for personal
-            information collected from a visitor to the Sites is Cognizant Technology Solutions U.S.
-            Corporation, 211 Quality Circle, College Station, Texas, United States of America or the
-            affiliate specified on the Site that references this Privacy Notice. <br /> <br /> We
-            may supplement this Privacy Notice to address specific situations. All supplemental
-            notices should be read together with this Privacy Notice.
-          </p>
-        </Modal>
+      {isModalOpen && (
+        <CommunityRulesModal
+          setIsOpen={() => setIsModalOpen(false)}
+          onClick={() => setIsModalOpen(false)}
+        />
       )}
     </div>
   );

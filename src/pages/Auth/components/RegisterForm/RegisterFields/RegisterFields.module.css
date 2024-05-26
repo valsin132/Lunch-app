@@ -21,10 +21,4 @@
       }
     }
   }
-
-  & .register-inputs__modal {
-    @include body-l;
-
-    color: $text-color-blue;
-  }
 }

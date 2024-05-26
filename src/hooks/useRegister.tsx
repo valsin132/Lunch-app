@@ -18,21 +18,17 @@ export const useRegister = () => {
 
   const updateUser = async (email: string, password: string): Promise<void> => {
     if (isError) {
-      throw new Error('Registration failed. Please try again later');
+      throw new Error();
     }
-    try {
-      const response = await fetch('http://localhost:3002/user', {
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-        method: 'PUT',
-        body: JSON.stringify({ ...userData, email, password }),
-      });
-      await response.json();
-    } catch (error) {
-      throw new Error('Registration failed. Please try again later.');
-    }
+    const response = await fetch('http://localhost:3002/user', {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      method: 'PUT',
+      body: JSON.stringify({ ...userData, email, password }),
+    });
+    await response.json();
   };
   return { updateUser };
 };

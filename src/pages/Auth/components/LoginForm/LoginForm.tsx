@@ -85,16 +85,14 @@ export function LoginForm({ handleToast }: LoginFormProps) {
     }
     if (email && EMAIL_REGEX.test(email) && password) {
       setLoaderOff(false);
-      setTimeout(async () => {
-        try {
-          await login(email, password);
-        } catch (e) {
-          if (e instanceof Error) {
-            setLoaderOff(true);
-            handleToast({ message: e.message, type: 'warning' });
-          }
+      try {
+        await login(email, password);
+      } catch (e) {
+        if (e instanceof Error) {
+          setLoaderOff(true);
+          handleToast({ message: e.message, type: 'warning' });
         }
-      }, 4000);
+      }
     }
   };
 

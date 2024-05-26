@@ -13,7 +13,7 @@
 
   & .timer {
     @include flexbox($alignItems: center, $gap: $gap-medium);
-    @include title-s;
+    @include title-m;
 
     color: $color-orange-300;
 

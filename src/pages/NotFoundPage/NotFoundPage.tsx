@@ -19,6 +19,7 @@ export function NotFoundPage() {
           title="Go back"
           buttonType="primary"
           buttonSize="md"
+          aria-label="go back"
           onClick={() => navigate('/')}
         />
       </div>

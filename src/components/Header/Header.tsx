@@ -5,13 +5,13 @@ import styles from './Header.module.css';
 
 const cx = classNames.bind(styles);
 
-type PageTypes = 'foodMenu' | 'availableLunch' | 'yourOrders' | 'ratings';
+export type PageType = 'foodMenu' | 'availableLunch' | 'yourOrders' | 'ratings';
 
 interface PageProp {
-  pageType: PageTypes;
+  pageType: PageType;
 }
 
-const getTitle = (pageType: PageTypes): string => {
+const getTitle = (pageType: PageType): string => {
   switch (pageType) {
     case 'foodMenu':
       return 'Lunch Menu';
@@ -26,7 +26,7 @@ const getTitle = (pageType: PageTypes): string => {
   }
 };
 
-const getSubtitle = (pageType: PageTypes): string => {
+const getSubtitle = (pageType: PageType): string => {
   const curr = new Date();
 
   const weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];

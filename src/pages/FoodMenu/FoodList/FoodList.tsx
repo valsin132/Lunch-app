@@ -12,11 +12,17 @@ interface FoodListProps {
   selectedDay: WeekDay;
   searchedMealTitle: string;
   selectedVendor: string;
+  sortButtonValue: string;
 }
 
 const cx = classNames.bind(styles);
 
-export function FoodList({ selectedDay, searchedMealTitle, selectedVendor }: FoodListProps) {
+export function FoodList({
+  selectedDay,
+  searchedMealTitle,
+  selectedVendor,
+  sortButtonValue,
+}: FoodListProps) {
   const { mealsData, ratingsData, vendorsData, usersData } = useFoodData();
   const { orders, modifyOrders } = useOrderSummary();
   const [showToast, setShowToast] = useState(false);
@@ -26,13 +32,16 @@ export function FoodList({ selectedDay, searchedMealTitle, selectedVendor }: Foo
     [vendorsData]
   );
 
-  const getRating = (id: number) => {
+  const getRating = (id: number, isForSort: boolean) => {
     const filteredRatings = ratingsData?.filter((rating) => rating.mealId === id) ?? [];
     if (filteredRatings.length > 0) {
       const ratings = filteredRatings.map((rating) => rating.rating.rating);
       const sum = ratings.reduce((total, rating) => total + rating, 0);
       const averageRating = sum / ratings.length;
       return averageRating.toFixed(1);
+    }
+    if (isForSort === true) {
+      return 0;
     }
     return 'Not rated';
   };
@@ -105,6 +114,19 @@ export function FoodList({ selectedDay, searchedMealTitle, selectedVendor }: Foo
       };
     });
   };
+  const sortMethod = (() => {
+    if (sortButtonValue === 'POPULARITY') {
+      return (a: Meal, b: Meal) => b.ordersCount - a.ordersCount;
+    }
+    if (sortButtonValue === 'PRICE') {
+      return (a: Meal, b: Meal) => a.price - b.price;
+    }
+    if (sortButtonValue === 'RATING') {
+      return (a: Meal, b: Meal) =>
+        Number(getRating(Number(b.id), true)) - Number(getRating(Number(a.id), true));
+    }
+    return (a: Meal, b: Meal) => b.ordersCount - a.ordersCount;
+  })();
 
   return (
     <div className={cx('menu-wrapper')}>
@@ -113,22 +135,24 @@ export function FoodList({ selectedDay, searchedMealTitle, selectedVendor }: Foo
           {isMealOrdered ? `You have already ordered meals for ${selectedDay}` : 'No results found'}
         </div>
       ) : (
-        filteredMeals.map((meal) => (
-          <FoodCard
-            key={meal.id}
-            vendor={getVendorName(meal.vendorId)}
-            title={meal.title}
-            description={meal.description}
-            price={meal.price}
-            isVegetarian={meal.vegetarian}
-            isSpicy={meal.spicy}
-            rating={getRating(Number(meal.id))}
-            dishType={meal.dishType}
-            onClick={() => handleAddToOrderSummary(meal)}
-            isDisabled={isMealTypeAddedForDay(meal.mealType)}
-            comments={getComments(Number(meal.id))}
-          />
-        ))
+        filteredMeals
+          .sort(sortMethod)
+          .map((meal) => (
+            <FoodCard
+              key={meal.id}
+              vendor={getVendorName(meal.vendorId)}
+              title={meal.title}
+              description={meal.description}
+              price={meal.price}
+              isVegetarian={meal.vegetarian}
+              isSpicy={meal.spicy}
+              rating={getRating(Number(meal.id), false)}
+              dishType={meal.dishType}
+              onClick={() => handleAddToOrderSummary(meal)}
+              isDisabled={isMealTypeAddedForDay(meal.mealType)}
+              comments={getComments(Number(meal.id))}
+            />
+          ))
       )}
 
       <Toast

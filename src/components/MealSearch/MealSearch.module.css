@@ -26,4 +26,13 @@
   & .meal-search__seperator {
     border-top: solid 1px $color-grey-200;
   }
+
+  & .meal-search__sort-by {
+    @include flexbox($gap: $gap-aBitLarger);
+
+    & .meal-search__button-sort-by {
+      @include title-s;
+      @include flexbox($alignItems: center);
+    }
+  }
 }

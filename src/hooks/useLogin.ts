@@ -20,8 +20,10 @@ export const useLogin = () => {
 
   const login = async (email: string, password: string) => {
     if (userData?.email === email && userData?.password === password) {
+      setTimeout(() => {
+        window.dispatchEvent(new Event('storage'));
+      }, 5000);
       window.localStorage.setItem('userData', JSON.stringify(userData));
-      window.dispatchEvent(new Event('storage'));
     } else {
       throw new Error(
         isFetchError

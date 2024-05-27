@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import classNames from 'classnames/bind';
-import { Pagination } from '../../../../components/Pagination';
+import { RefreshButton } from './components/RefreshButton';
 import { Card } from '../../../../components/Card';
-import { RefreshButton } from '../../../../components/AvailableOrdersTable/components/RefreshButton';
+import { Pagination } from './components/Pagination';
 import styles from './AvailableOrdersCard.module.css';
 
 const cx = classNames.bind(styles);
@@ -28,9 +28,15 @@ export function AvailableOrdersCard() {
   };
 
   const totalPages = Math.max(1, Math.ceil(items.length / itemsPerPage));
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = items.slice(indexOfFirstItem, indexOfLastItem);
+
+  const getCurrentPageItems = () => {
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    return items.slice(indexOfFirstItem, indexOfLastItem);
+  };
+
+  const currentItems = getCurrentPageItems();
+
   return currentItems.length > 0 ? (
     <div className={cx('available-lunch')}>
       <Card>
@@ -42,9 +48,9 @@ export function AvailableOrdersCard() {
           <table>
             <thead>
               <tr className={cx('available-lunch__table-header')}>
-                <th className={cx('available-lunch__head-text')}>Order Summary</th>
-                <th className={cx('available-lunch__head-text')}>Vendor</th>
-                <th className={cx('available-lunch__head-text')}>Take It From</th>
+                <th>Order Summary</th>
+                <th>Vendor</th>
+                <th>Take It From</th>
               </tr>
             </thead>
             <tbody>

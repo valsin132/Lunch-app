@@ -25,15 +25,15 @@
       box-shadow: 0 1px 0 $color-grey-200;
     }
 
-    & .available-lunch__head-text:nth-child(1) {
+    & th:nth-child(1) {
       flex-grow: 0.344;
     }
 
-    & .available-lunch__head-text:nth-child(2) {
+    & th:nth-child(2) {
       flex-grow: 0.24;
     }
 
-    & .available-lunch__head-text:nth-child(3) {
+    & th:nth-child(3) {
       flex-grow: 0.412;
     }
 
@@ -41,7 +41,7 @@
       @include label-s;
 
       color: $color-grey-500;
-      padding: $spacing-5xs $spacing-2xs;
+      padding: calc($spacing-5xs + 2px) $spacing-2xs;
     }
   }
 }

@@ -1,4 +1,4 @@
-@import '../../styles/index.css';
+@import '../../../../../../styles/index.css';
 
 .pagination {
   @include flexbox(
@@ -30,6 +30,7 @@
       }
 
       &:disabled {
+        background-color: $color-grey-100;
         cursor: not-allowed;
       }
     }

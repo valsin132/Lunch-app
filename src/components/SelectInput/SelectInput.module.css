@@ -78,7 +78,7 @@
     z-index: 2;
 
     &.select__list--top {
-      bottom: 45px;
+      bottom: 30px;
       top: auto;
     }
 
@@ -95,7 +95,7 @@
       }
 
       &.select__list-item--padding-centered {
-        padding: $spacing-2xs $spacing-4xs;
+        padding: $spacing-4xs;
       }
 
       &:first-child {

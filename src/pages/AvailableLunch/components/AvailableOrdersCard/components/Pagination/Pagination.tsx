@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import classNames from 'classnames/bind';
-import { SelectInput, SelectInputOption } from '../SelectInput';
-import { ChevronIcon } from '../../utils/iconManager';
+import { SelectInput, SelectInputOption } from '../../../../../../components/SelectInput';
+import { ChevronIcon } from '../../../../../../utils/iconManager';
 import styles from './Pagination.module.css';
 
 const cx = classNames.bind(styles);

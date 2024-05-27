@@ -1,0 +1,28 @@
+@import '../../styles/index.css';
+
+.coming-soon-container {
+  @include flexbox($alignItems: center, $direction: column, $gap: $gap-large);
+  @include headline-m;
+
+  color: $color-blue-600;
+  padding: $spacing-2xs;
+
+  & .coming-soon-container__img {
+    border-radius: $border-radius-medium;
+  }
+
+  & .timer {
+    @include flexbox($alignItems: center, $gap: $gap-medium);
+    @include title-m;
+
+    color: $color-orange-300;
+
+    .timer__display {
+      @include flexbox($gap: $gap-regular, $alignItems: center);
+    }
+
+    & .timer__time {
+      @include flexbox($justifyContent: center);
+    }
+  }
+}

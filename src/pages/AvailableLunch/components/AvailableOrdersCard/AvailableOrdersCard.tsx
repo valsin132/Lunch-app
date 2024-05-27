@@ -39,7 +39,7 @@ export function AvailableOrdersCard() {
 
   return currentItems.length > 0 ? (
     <div className={cx('available-lunch')}>
-      <Card>
+      <Card shadow="s">
         <div className={cx('available-lunch__container')}>
           <div className={cx('available-lunch__header')}>
             <h2 className={cx('available-lunch__header-heading')}>Available Orders</h2>

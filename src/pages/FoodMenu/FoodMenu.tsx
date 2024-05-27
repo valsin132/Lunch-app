@@ -14,7 +14,7 @@ export function FoodMenu(): ReactElement {
   const [selectedDay, setSelectedDay] = useState<WeekDay>('Monday');
   const [searchedMealTitle, setSearchedMealTitle] = useState('');
   const [selectedVendor, setSelectedVendor] = useState('');
-
+  const [sortByValue, setSortByValue] = useState('POPULARITY');
   const dayLabels = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 
   if (isLoading) return <div>Loading...</div>;
@@ -38,11 +38,15 @@ export function FoodMenu(): ReactElement {
           setSearchedMealTitle(title);
           setSelectedVendor(vendor);
         }}
+        handleSort={(sortBy) => {
+          setSortByValue(sortBy);
+        }}
       />
       <FoodList
         selectedDay={selectedDay}
         searchedMealTitle={searchedMealTitle}
         selectedVendor={selectedVendor}
+        sortByValue={sortByValue}
       />
     </div>
   );

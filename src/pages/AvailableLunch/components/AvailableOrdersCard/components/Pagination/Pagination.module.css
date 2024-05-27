@@ -1,0 +1,47 @@
+@import '../../../../../../styles/index.css';
+
+.pagination {
+  @include flexbox(
+    $direction: row,
+    $alignItems: center,
+    $justifyContent: flex-end,
+    $gap: calc($gap-Xlarge + 2px)
+  );
+
+  & .pagination__container-select-input {
+    @include flexbox($direction: row, $alignItems: center, $gap: $gap-regular);
+  }
+
+  span {
+    @include title-s;
+
+    color: $text-color-grey;
+  }
+
+  & .pagination__button-container {
+    @include flexbox($direction: row, $alignItems: center, $justifyContent: center);
+
+    & .pagination__button {
+      @include flexbox($alignItems: center, $justifyContent: center);
+      @include size(32px, 32px);
+
+      & path {
+        fill: $color-grey-500;
+      }
+
+      &:disabled {
+        border-radius: $border-radius-regular;
+        cursor: not-allowed;
+        opacity: 0.4;
+      }
+    }
+  }
+
+  & .pagination__button-left {
+    transform: rotate(0.25turn);
+  }
+
+  & .pagination__button-right {
+    transform: rotate(-0.25turn);
+  }
+}

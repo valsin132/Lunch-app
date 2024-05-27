@@ -10,17 +10,17 @@ const cx = classNames.bind(styles);
 export function Auth(): ReactElement {
   return (
     <div className={cx('auth')}>
-      <div className={cx('auth__content')}>
-        <div className={cx('auth__image')}>
+      <main className={cx('auth__content')}>
+        <figure className={cx('auth__image')}>
           <img
             src={loginIllustration1}
             alt="3D illustration of a man and a woman standing on a platform, thinking about food"
           />
-        </div>
-        <div className={cx('auth__container')}>
+        </figure>
+        <section className={cx('auth__container')}>
           <AuthCard />
-        </div>
-      </div>
+        </section>
+      </main>
       <Footer />
     </div>
   );

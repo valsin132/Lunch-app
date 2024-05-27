@@ -1,4 +1,4 @@
-@import './../../../../styles/index.css';
+@import '../../../../../../styles/index.css';
 
 .date-wrapper {
   @include flexbox($gap: calc($gap-regular + 2px), $alignItems: center);

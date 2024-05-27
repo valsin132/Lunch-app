@@ -37,7 +37,8 @@ export function Toast({ isVisible, content, toastType, onClick }: ToastProps): R
           className={cx('toast', `toast--color-${toastType}`)}
           initial={{ y: 'calc(-100% - 24px)', x: '-50%' }}
           animate={{ y: 0, x: '-50%' }}
-          exit={{ y: 'calc(-100% - 24px)', transition: { easings: toastCubicBezier } }}>
+          exit={{ y: 'calc(-100% - 24px)', transition: { easings: toastCubicBezier } }}
+          role="alert">
           <div className={cx('toast__icon')}>{getIcon(toastType)}</div>
           <p className={cx('toast__text')}>{content}</p>
           <div className={cx('toast__close')}>

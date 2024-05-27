@@ -1,4 +1,4 @@
-@import '../../styles/index.css';
+@import '../../../../../../styles/index.css';
 
 .available-dish__content-wrapper {
   @include flexbox($gap: $gap-medium, $justifyContent: space-between);
@@ -6,10 +6,20 @@
 
   box-shadow: inset 0 0 0 1px $color-grey-100;
   color: $color-blue-600;
-  min-height: 113px;
+
+  & td:nth-child(1) {
+    flex-grow: 0.344;
+  }
+
+  & td:nth-child(2) {
+    flex-grow: 0.24;
+  }
+
+  & td:nth-child(3) {
+    flex-grow: 0.412;
+  }
 
   & .available-dish__meal-wrapper {
-    min-width: 409.5px;
     padding: $spacing-2xs;
 
     & .available-dish__wrapper {
@@ -22,7 +32,6 @@
   }
 
   & .available-dish__vendor-wrapper {
-    max-width: 266px;
     padding: $spacing-2xs;
 
     & .available-dish__vendor {
@@ -35,7 +44,6 @@
     padding: $spacing-2xs;
 
     & .available-dish__avatar-wrapper {
-      max-height: 40px;
       padding: calc($spacing-4xs + 1px) 0;
     }
 

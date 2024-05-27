@@ -1,9 +1,10 @@
 import classNames from 'classnames/bind';
 import { ReactElement, useState } from 'react';
-import { DishType, getDishTypeImage } from '../FoodCard';
-import { Button } from '../Button';
-import { Card } from '../Card';
-import { UserProfile } from '../../utils/iconManager';
+import { Button } from '../../../../../../components/Button';
+import { Card } from '../../../../../../components/Card';
+import { UserProfile } from '../../../../../../utils/iconManager';
+import { DishType } from '../../../../../../components/FoodCard/FoodCard.types';
+import { getDishTypeImage } from '../../../../../../helpers/helperFunctions/getDishTypeImage';
 import styles from './AvailableOrdersItem.module.css';
 
 const cx = classNames.bind(styles);
@@ -33,8 +34,8 @@ export function AvailableOrdersItem({
 
   return (
     <Card isNoBorder isFullWidth shadow="xs" spacing="none">
-      <div className={cx('available-dish__content-wrapper')}>
-        <div className={cx('available-dish__meal-wrapper')}>
+      <tr className={cx('available-dish__content-wrapper')}>
+        <td className={cx('available-dish__meal-wrapper')}>
           {orders.map((order, id) => (
             <div key={order + order.title[id]} className={cx('available-dish__wrapper')}>
               <img
@@ -45,15 +46,15 @@ export function AvailableOrdersItem({
               <p>{order.title}</p>
             </div>
           ))}
-        </div>
-        <div className={cx('available-dish__vendor-wrapper')}>
+        </td>
+        <td className={cx('available-dish__vendor-wrapper')}>
           {orders.map((order, id) => (
             <p key={order + order.vendor[id]} className={cx('available-dish__vendor')}>
               {order.vendor}
             </p>
           ))}
-        </div>
-        <div className={cx('available-dish__user-wrapper')}>
+        </td>
+        <td className={cx('available-dish__user-wrapper')}>
           <div className={cx('available-dish__avatar-wrapper')}>
             {!imgLoadError ? (
               <img
@@ -69,11 +70,11 @@ export function AvailableOrdersItem({
           <p className={cx('available-dish__user-name')}>
             {name} {surname}
           </p>
-        </div>
-        <div className={cx('available-dish__reserve-button')}>
-          <Button title="Reserve" buttonType="secondary" buttonSize="sm" onClick={onClick} />
-        </div>
-      </div>
+          <div className={cx('available-dish__reserve-button')}>
+            <Button title="Reserve" buttonType="secondary" buttonSize="sm" onClick={onClick} />
+          </div>
+        </td>
+      </tr>
     </Card>
   );
 }

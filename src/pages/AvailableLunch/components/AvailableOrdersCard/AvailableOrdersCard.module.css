@@ -21,8 +21,16 @@
       }
     }
 
+    & .available-lunch__table {
+      @include flexbox($direction: column, $gap: $gap-large);
+    }
+
     & .available-lunch__table-header {
       box-shadow: 0 1px 0 $color-grey-200;
+    }
+
+    & .available-lunch__table-body {
+      @include flexbox($direction: column, $gap: $gap-large);
     }
 
     & th:nth-child(1) {

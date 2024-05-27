@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 import { RefreshButton } from './components/RefreshButton';
 import { Card } from '../../../../components/Card';
 import { Pagination } from './components/Pagination';
+import { AvailableOrdersItem } from './components/AvailableOrdersItem';
 import styles from './AvailableOrdersCard.module.css';
 
 const cx = classNames.bind(styles);
@@ -11,7 +12,7 @@ export function AvailableOrdersCard() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(5);
   // eslint-disable-next-line
-  const items = Array.from({ length: 0 }, (_, index) => ({}));
+  const items = Array.from({ length: 1 }, (_, index) => ({}));
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -40,7 +41,7 @@ export function AvailableOrdersCard() {
             <h2 className={cx('available-lunch__header-heading')}>Available Orders</h2>
             <RefreshButton />
           </div>
-          <table>
+          <table className={cx('available-lunch__table')}>
             <thead>
               <tr className={cx('available-lunch__table-header')}>
                 <th>Order Summary</th>
@@ -48,7 +49,17 @@ export function AvailableOrdersCard() {
                 <th>Take It From</th>
               </tr>
             </thead>
-            <tbody />
+            <tbody className={cx('available-lunch__table-body')}>
+              <AvailableOrdersItem
+                img="https://i1.sndcdn.com/artworks-ov36HLyQWdSRZyVI-0R0DpA-t500x500.jpg"
+                name="Gregory"
+                surname="Lawls"
+                onClick={() => {
+                  alert('Food is reserved');
+                }}
+                orders={[{ dishType: 'burger', title: 'Burgir', vendor: 'Jeuss' }]}
+              />
+            </tbody>
           </table>
           <Pagination
             currentPage={currentPage}

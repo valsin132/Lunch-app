@@ -21,7 +21,6 @@ interface ButtonProps {
   buttonWidth?: ButtonWidth;
   onClick: () => void;
   isDisabled?: boolean;
-  isActive?: boolean;
 }
 
 export function Button({
@@ -30,7 +29,6 @@ export function Button({
   title,
   buttonWidth = 'auto',
   isDisabled,
-  isActive,
   iconType,
   onClick,
 }: ButtonProps): ReactElement {
@@ -46,8 +44,7 @@ export function Button({
         {
           'button--icon-left': iconType === 'plus',
           'button--icon-right': iconType === 'arrow',
-        },
-        { 'button--active': isActive }
+        }
       )}
       onClick={onClick}>
       {iconType === 'plus' && <AddIcon className={cx('button__icon')} />}

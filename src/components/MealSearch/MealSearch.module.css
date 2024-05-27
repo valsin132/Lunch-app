@@ -28,11 +28,13 @@
   }
 
   & .meal-search__sort-by {
-    @include flexbox($gap: $gap-aBitLarger);
+    @include flexbox($gap: 1.375rem);
 
-    & .meal-search__button-sort-by {
+    & .meal-search__label-sort-by {
       @include title-s;
       @include flexbox($alignItems: center);
+
+      color: $color-blue-600;
     }
   }
 }

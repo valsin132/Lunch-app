@@ -12,7 +12,7 @@ interface FoodListProps {
   selectedDay: WeekDay;
   searchedMealTitle: string;
   selectedVendor: string;
-  sortButtonValue: string;
+  sortByValue: string;
 }
 
 const cx = classNames.bind(styles);
@@ -21,7 +21,7 @@ export function FoodList({
   selectedDay,
   searchedMealTitle,
   selectedVendor,
-  sortButtonValue,
+  sortByValue,
 }: FoodListProps) {
   const { mealsData, ratingsData, vendorsData, usersData } = useFoodData();
   const { orders, modifyOrders } = useOrderSummary();
@@ -69,8 +69,24 @@ export function FoodList({
         (meal) => getVendorName(meal.vendorId).toLowerCase() === selectedVendor.toLowerCase()
       );
     }
+    if (sortByValue) {
+      if (sortByValue === 'POPULARITY') {
+        filteredMealData = filteredMealData.sort(
+          (a: Meal, b: Meal) => b.ordersCount - a.ordersCount
+        );
+      }
+      if (sortByValue === 'PRICE') {
+        filteredMealData = filteredMealData.sort((a: Meal, b: Meal) => a.price - b.price);
+      }
+      if (sortByValue === 'RATING') {
+        filteredMealData = filteredMealData.sort(
+          (a: Meal, b: Meal) =>
+            Number(getRating(Number(b.id), true)) - Number(getRating(Number(a.id), true))
+        );
+      }
+    }
     return filteredMealData;
-  }, [mealsData, selectedDay, searchedMealTitle, selectedVendor, getVendorName]);
+  }, [mealsData, selectedDay, searchedMealTitle, selectedVendor, getVendorName, sortByValue]);
 
   const noMealsFound = useMemo(() => !filteredMeals.length, [filteredMeals]);
   const dayToLowerCase = selectedDay.toLowerCase() as Workdays;
@@ -114,19 +130,6 @@ export function FoodList({
       };
     });
   };
-  const sortMethod = (() => {
-    if (sortButtonValue === 'POPULARITY') {
-      return (a: Meal, b: Meal) => b.ordersCount - a.ordersCount;
-    }
-    if (sortButtonValue === 'PRICE') {
-      return (a: Meal, b: Meal) => a.price - b.price;
-    }
-    if (sortButtonValue === 'RATING') {
-      return (a: Meal, b: Meal) =>
-        Number(getRating(Number(b.id), true)) - Number(getRating(Number(a.id), true));
-    }
-    return (a: Meal, b: Meal) => b.ordersCount - a.ordersCount;
-  })();
 
   return (
     <div className={cx('menu-wrapper')}>
@@ -135,24 +138,22 @@ export function FoodList({
           {isMealOrdered ? `You have already ordered meals for ${selectedDay}` : 'No results found'}
         </div>
       ) : (
-        filteredMeals
-          .sort(sortMethod)
-          .map((meal) => (
-            <FoodCard
-              key={meal.id}
-              vendor={getVendorName(meal.vendorId)}
-              title={meal.title}
-              description={meal.description}
-              price={meal.price}
-              isVegetarian={meal.vegetarian}
-              isSpicy={meal.spicy}
-              rating={getRating(Number(meal.id), false)}
-              dishType={meal.dishType}
-              onClick={() => handleAddToOrderSummary(meal)}
-              isDisabled={isMealTypeAddedForDay(meal.mealType)}
-              comments={getComments(Number(meal.id))}
-            />
-          ))
+        filteredMeals.map((meal) => (
+          <FoodCard
+            key={meal.id}
+            vendor={getVendorName(meal.vendorId)}
+            title={meal.title}
+            description={meal.description}
+            price={meal.price}
+            isVegetarian={meal.vegetarian}
+            isSpicy={meal.spicy}
+            rating={getRating(Number(meal.id), false)}
+            dishType={meal.dishType}
+            onClick={() => handleAddToOrderSummary(meal)}
+            isDisabled={isMealTypeAddedForDay(meal.mealType)}
+            comments={getComments(Number(meal.id))}
+          />
+        ))
       )}
 
       <Toast

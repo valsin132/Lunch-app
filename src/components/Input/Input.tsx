@@ -57,13 +57,17 @@ export function Input({
           disabled={isDisabled}
           onChange={onChange}
           value={value}
+          aria-invalid={isError}
+          aria-errormessage={`${id}-error`}
         />
         {withIcon && (
           <i className={cx('input__field-icon')}>
             <SearchIcon className={cx('icon')} />
           </i>
         )}
-        <p className={cx('input__error-message')}>{errorMessage}</p>
+        <p id={`${id}-error`} aria-live="polite" className={cx('input__error-message')}>
+          {errorMessage}
+        </p>
       </div>
     </div>
   );

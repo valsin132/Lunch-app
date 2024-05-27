@@ -3,6 +3,8 @@
 .select {
   @include flexbox($direction: column, $gap: $gap-small);
 
+  position: relative;
+
   & .select__label {
     @include label-s;
 
@@ -18,12 +20,22 @@
     box-shadow: inset 0 0 0 1px $color-grey-300;
     padding: $spacing-4xs $spacing-3xs;
 
+    &.select__input--remove-padding {
+      padding: 0;
+    }
+
     & .select__value {
       @include body-m;
 
       align-self: center;
       color: $color-blue-600;
       user-select: none;
+
+      &.select__value--pagination-text {
+        @include title-s;
+
+        color: $color-grey-500;
+      }
     }
 
     & .select__placeholder {
@@ -32,8 +44,19 @@
       color: $color-grey-500;
     }
 
+    & .select__icon-arrow-filled {
+
+      & path {
+        fill: $color-grey-500;
+      }
+    }
+
     & .select__icon--rotated {
       transform: rotate(0.5turn);
+    }
+
+    &.select__input--none-box-shadow {
+      box-shadow: none;
     }
   }
 
@@ -41,13 +64,23 @@
     box-shadow: inset 0 0 0 2px $color-purple-500;
   }
 
-  .select__list {
+  & .select__list {
     @include flexbox($direction: column);
     @include box-shadow-m;
 
+    background-color: $color-white;
     border: 1px solid $color-grey-200;
     border-radius: $border-radius-regular;
     outline: none;
+    position: absolute;
+    top: 70px;
+    width: 100%;
+    z-index: 2;
+
+    &.select__list--top {
+      bottom: 30px;
+      top: auto;
+    }
 
     & .select__list-item {
       @include title-s;
@@ -56,6 +89,14 @@
       padding: calc($spacing-4xs + 2px) 0 calc($spacing-4xs + 2px) $spacing-2xs;
       text-align: left;
       width: 100%;
+
+      &.select__list-item--text-centered {
+        text-align: center;
+      }
+
+      &.select__list-item--padding-centered {
+        padding: $spacing-4xs;
+      }
 
       &:first-child {
         border-radius: $border-radius-regular $border-radius-regular 0 0;
@@ -71,7 +112,7 @@
     }
 
     & .select__list-item--selected {
-      background-color: $color-blue-selected;
+      background-color: $color-light-blue;
       color: $color-orange-600;
     }
   }

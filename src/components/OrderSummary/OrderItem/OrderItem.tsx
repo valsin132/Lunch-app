@@ -1,7 +1,8 @@
 import classNames from 'classnames/bind';
-import { getDishTypeImage } from '../../FoodCard';
 import { DeleteBinIcon } from '../../../utils/iconManager';
-import { Order, Workdays, useOrderSummary } from '../../../helpers/OrderSummaryContext';
+import { Order, Workdays } from '../../../helpers/OrderSummaryContext';
+import { useOrderSummary } from '../../../hooks/useOrderSummary';
+import { getDishTypeImage } from '../../../helpers/helperFunctions/getDishTypeImage';
 import styles from './OrderItem.module.css';
 
 const cx = classNames.bind(styles);

@@ -1,17 +1,26 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import classNames from 'classnames/bind';
 import { Sidebar } from '../../components/Sidebar';
-import { Header } from '../../components/Header';
+import { Header, PageType } from '../../components/Header';
 import { UserCard } from '../../components/UserCard';
 import { Footer } from '../../components/Footer';
 import { OrderSummary } from '../../components/OrderSummary';
-import { OrderSummaryProvider } from '../../helpers/OrderSummaryContext';
 import styles from './MainContent.module.css';
 
 const cx = classNames.bind(styles);
+
+const getPageTypeFromPath = (pathname: string): PageType => {
+  if (pathname.includes('menu')) return 'foodMenu';
+  if (pathname.includes('lunches')) return 'availableLunch';
+  if (pathname.includes('orders')) return 'yourOrders';
+  return 'ratings';
+};
+
 export function MainContent() {
   const [isOrderSummaryVisible, setIsOrderSummaryVisible] = useState(false);
+  const location = useLocation();
+  const pageType = getPageTypeFromPath(location.pathname);
 
   return (
     <div className={cx('main-content')}>
@@ -19,7 +28,7 @@ export function MainContent() {
         <Sidebar />
       </aside>
       <header className={cx('main-content__header')}>
-        <Header pageType="foodMenu" />
+        <Header pageType={pageType} />
       </header>
       <main
         className={
@@ -32,17 +41,15 @@ export function MainContent() {
           'main-content__aside-position': isOrderSummaryVisible,
         })}>
         <UserCard toggleOrderSummary={() => setIsOrderSummaryVisible(true)} />
-        <OrderSummaryProvider>
-          {isOrderSummaryVisible && (
-            <div className={cx('main-content__order-summary')}>
-              <OrderSummary
-                visibilityHandler={() => {
-                  setIsOrderSummaryVisible(false);
-                }}
-              />
-            </div>
-          )}
-        </OrderSummaryProvider>
+        {isOrderSummaryVisible && (
+          <div className={cx('main-content__order-summary')}>
+            <OrderSummary
+              visibilityHandler={() => {
+                setIsOrderSummaryVisible(false);
+              }}
+            />
+          </div>
+        )}
       </aside>
       <footer className={cx('main-content__footer')}>
         <Footer />

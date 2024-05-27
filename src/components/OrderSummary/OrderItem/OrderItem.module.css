@@ -24,7 +24,6 @@
       display: -webkit-box;
       -webkit-line-clamp: 2;
       overflow: hidden;
-      word-break: break-all;
     }
 
     & .order-item__info-vendor {

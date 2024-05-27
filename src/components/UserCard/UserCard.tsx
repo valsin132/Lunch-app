@@ -1,9 +1,10 @@
-import { ReactElement, useEffect, useState } from 'react';
+import { ReactElement, useState, useEffect } from 'react';
 import classNames from 'classnames/bind';
 import { Card } from '../Card';
 import { BadgeCount } from '../Badge';
 import { ShoppingBasketIcon, Logout, ArrowFilledIcon, UserProfile } from '../../utils/iconManager';
 import { useAuth } from '../../helpers/AuthContext';
+import { useOrderSummary } from '../../hooks/useOrderSummary';
 import styles from './UserCard.module.css';
 
 const cx = classNames.bind(styles);
@@ -30,19 +31,20 @@ export function UserCard({ toggleOrderSummary }: UserCardProps): ReactElement {
   const [showLogoutButton, setShowLogoutButton] = useState(false);
   const [imgLoadError, setImgLoadError] = useState(false);
   const { logout } = useAuth();
+  const { orders } = useOrderSummary();
+  const storedUserData = localStorage.getItem('userData');
 
   useEffect(() => {
-    const storedUserData = localStorage.getItem('userData');
     if (storedUserData) {
       const parsedUserData: UserData = JSON.parse(storedUserData);
       setUserData(parsedUserData);
     }
-  }, []);
+  }, [storedUserData]);
 
   if (!userData) {
     return <div>Loading...</div>;
   }
-  const { name, surname, balance, img, orders } = userData!;
+  const { name, surname, balance, img } = userData!;
   const numberOfOrders = orders.length;
 
   return (

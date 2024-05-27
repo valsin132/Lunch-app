@@ -8,9 +8,8 @@
   left: 50%;
   max-width: 368px;
   padding: $spacing-2xs;
-  position: absolute;
-  top: 64px;
-  transform: translate(-50%, -50%);
+  position: fixed;
+  top: 24px;
   z-index: 1;
 
   &.toast--color-info {

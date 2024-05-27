@@ -1,14 +1,16 @@
 $color-blue-800: #0d1f2e;
 $color-blue-600: #143149;
 $color-blue-400: #1a4264;
+$color-light-blue: #2196f30a;
 $color-label-dark: #272930;
-
+$color-blue-selected: #272930;
 $color-orange-600: #e26a00;
 $color-orange-400: #ff7f0f;
 $color-orange-300: #ffa631;
 $color-orange-200: #ffe9d6;
 $color-orange-100: #fef5ed;
 
+$color-grey-600: #646872;
 $color-grey-500: #636363;
 $color-grey-400: #8d8d8d;
 $color-grey-300: #c8c8c8;
@@ -42,6 +44,7 @@ $color-page-background: #f7f7f7;
 $color-orange-gradient: linear-gradient(318.11deg, #ffcb86 -5.31%, #fff5e8 122.02%);
 
 $color-modal-overlay: rgba(13 31 46 / 15%);
+$color-scrollbar: rgb(0 0 0 / 50%);
 
 $color-white: #fff;
 $color-black: #000;

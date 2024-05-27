@@ -53,9 +53,9 @@ const getSubtitle = (pageType: PageType): string => {
 
 export function Header({ pageType }: PageProp): ReactElement {
   return (
-    <header className={cx('header')}>
+    <div className={cx('header')}>
       <h1 className={cx('header__title')}>{getTitle(pageType)}</h1>
       <p className={cx('header__subtitle')}>{getSubtitle(pageType)}</p>
-    </header>
+    </div>
   );
 }

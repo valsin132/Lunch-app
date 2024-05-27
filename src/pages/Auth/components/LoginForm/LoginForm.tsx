@@ -53,7 +53,7 @@ export function LoginForm({ handleToast }: LoginFormProps) {
   const { login } = useLogin();
   const [state, dispatch] = useReducer(formReducer, initialState);
   const { email, password, emailErrorMsg, passwordErrorMsg } = state;
-  const [isHidden, setisHidden] = useState(true);
+  const [isHidden, setIsHidden] = useState(true);
 
   const setEmail = (value: string) => dispatch({ type: 'SET_EMAIL', payload: value });
   const setPassword = (value: string) => dispatch({ type: 'SET_PASSWORD', payload: value });
@@ -84,12 +84,12 @@ export function LoginForm({ handleToast }: LoginFormProps) {
       setPasswordErrorMsg('');
     }
     if (email && EMAIL_REGEX.test(email) && password) {
-      setisHidden(false);
+      setIsHidden(false);
       try {
         await login(email, password);
       } catch (e) {
         if (e instanceof Error) {
-          setisHidden(true);
+          setIsHidden(true);
           handleToast({ message: e.message, type: 'warning' });
         }
       }

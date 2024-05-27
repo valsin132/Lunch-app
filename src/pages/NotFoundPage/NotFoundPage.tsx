@@ -12,14 +12,14 @@ export function NotFoundPage() {
   return (
     <div className={cx('not-found-page__wrapper')}>
       <div className={cx('not-found-page__content')}>
-        <p className={cx('not-found-page__header')}>Oops!</p>
+        <h2 className={cx('not-found-page__header')}>Oops!</h2>
         <p>Page not found!</p>
         <p>The page you are looking for might have been removed or is temporarily unavailable.</p>
         <Button
-          title="Go back"
+          title="Go to Home page"
           buttonType="primary"
           buttonSize="md"
-          aria-label="go back"
+          aria-label="go to home page"
           onClick={() => navigate('/')}
         />
       </div>

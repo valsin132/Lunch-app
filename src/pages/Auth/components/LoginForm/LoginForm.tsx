@@ -4,10 +4,15 @@ import { Input } from '../../../../components/Input';
 import { Button } from '../../../../components/Button';
 import { EMAIL_REGEX } from '../../../../constants';
 import { useLogin } from '../../../../hooks/useLogin';
-import { Toast } from '../../../../components/Toast';
+import { AuthToastState } from '../Auth.types';
+import { Loader } from '../../../../components/Loader';
 import styles from './LoginForm.module.css';
 
 const cx = classNames.bind(styles);
+
+interface LoginFormProps {
+  handleToast: (toastState: AuthToastState) => void;
+}
 
 interface State {
   email: string;
@@ -37,17 +42,18 @@ const formReducer = (state: State, action: Action): State => {
   }
 };
 
-export function LoginForm() {
-  const { login, errorMsg } = useLogin();
-  const initialState = {
-    email: '',
-    password: '',
-    emailErrorMsg: '',
-    passwordErrorMsg: '',
-  };
+const initialState = {
+  email: '',
+  password: '',
+  emailErrorMsg: '',
+  passwordErrorMsg: '',
+};
+
+export function LoginForm({ handleToast }: LoginFormProps) {
+  const { login } = useLogin();
   const [state, dispatch] = useReducer(formReducer, initialState);
   const { email, password, emailErrorMsg, passwordErrorMsg } = state;
-  const [showToast, setShowToast] = useState(false);
+  const [isHidden, setIsHidden] = useState(true);
 
   const setEmail = (value: string) => dispatch({ type: 'SET_EMAIL', payload: value });
   const setPassword = (value: string) => dispatch({ type: 'SET_PASSWORD', payload: value });
@@ -64,7 +70,7 @@ export function LoginForm() {
     setPasswordErrorMsg('');
   };
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!email) {
       setEmailErrorMsg('Please enter your email.');
     } else if (!EMAIL_REGEX.test(email)) {
@@ -78,67 +84,68 @@ export function LoginForm() {
       setPasswordErrorMsg('');
     }
     if (email && EMAIL_REGEX.test(email) && password) {
-      login(email, password, setShowToast);
+      setIsHidden(false);
+      try {
+        await login(email, password);
+      } catch (e) {
+        if (e instanceof Error) {
+          setIsHidden(true);
+          handleToast({ message: e.message, type: 'warning' });
+        }
+      }
     }
   };
 
   return (
-    <>
-      <form className={cx('login-form')} aria-label="Login Form">
-        <div className={cx('login-form__container')}>
-          <div className={cx('login-form__head')}>
-            <h1>Login</h1>
-            <p>Lunch won’t order itself</p>
-          </div>
-          <div className={cx('login-form__input')}>
+    <form className={cx('login-form')} aria-label="Login Form">
+      <div className={cx('login-form__container')}>
+        <div className={cx('login-form__head')}>
+          <h1>Login</h1>
+          <p>Lunch won’t order itself</p>
+        </div>
+        <div className={cx('login-form__input')}>
+          <Input
+            id="email"
+            textFieldType="email"
+            placeholder="Email"
+            label="Email"
+            value={email}
+            name="email"
+            onChange={handleEmailChange}
+            aria-required="true"
+            aria-label="Email Input Field"
+            isError={!!emailErrorMsg}
+            errorMessage={emailErrorMsg}
+          />
+          <div className={cx('login-form__password-container')}>
             <Input
-              id="email"
-              textFieldType="email"
-              placeholder="Email"
-              label="Email"
-              value={email}
-              name="email"
-              onChange={handleEmailChange}
+              id="password"
+              textFieldType="password"
+              placeholder="Password"
+              label="Password"
+              value={password}
+              name="password"
+              onChange={handlePasswordChange}
               aria-required="true"
-              aria-label="Email Input Field"
-              isError={!!emailErrorMsg}
-              errorMessage={emailErrorMsg}
+              aria-label="Password Input Field"
+              isError={!!passwordErrorMsg}
+              errorMessage={passwordErrorMsg}
             />
-            <div className={cx('login-form__password-container')}>
-              <Input
-                id="password"
-                textFieldType="password"
-                placeholder="Password"
-                label="Password"
-                value={password}
-                name="password"
-                onChange={handlePasswordChange}
-                aria-required="true"
-                aria-label="Password Input Field"
-                isError={!!passwordErrorMsg}
-                errorMessage={passwordErrorMsg}
-              />
-              <button
-                aria-label="Forgot Password"
-                className={cx('login-form__button')}
-                type="button">
-                Forgot Password?
-              </button>
-            </div>
+            <button aria-label="Forgot Password" className={cx('login-form__button')} type="button">
+              Forgot Password?
+            </button>
           </div>
         </div>
-        <Button
-          title="Log in"
-          buttonSize="md"
-          buttonType="primary"
-          buttonWidth="full"
-          iconType="arrow"
-          onClick={handleLogin}
-        />
-      </form>
-      {showToast && (
-        <Toast toastType="warning" content={errorMsg} onClick={() => setShowToast(false)} />
-      )}
-    </>
+      </div>
+      <Button
+        title="Log in"
+        buttonSize="md"
+        buttonType="primary"
+        buttonWidth="full"
+        iconType="arrow"
+        onClick={handleLogin}
+      />
+      <Loader isHidden={isHidden} />
+    </form>
   );
 }

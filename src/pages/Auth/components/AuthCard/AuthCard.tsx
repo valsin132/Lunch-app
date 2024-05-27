@@ -7,30 +7,33 @@ import { RegisterForm } from '../RegisterForm/RegisterForm';
 import { Tab } from '../../../../components/Tab';
 import { Toast } from '../../../../components/Toast';
 import { AuthMenu } from './AuthCard.types';
+import { AuthToastState } from '../Auth.types';
 import styles from './AuthCard.module.css';
 
 const cx = classNames.bind(styles);
 
+const initialToastState: AuthToastState = {
+  message: '',
+  type: 'info',
+};
+
 export function AuthCard(): ReactElement {
   const [activeTab, setActiveTab] = useState<AuthMenu>('LOGIN');
-  const [isToastShown, setIsToastShown] = useState(false);
-  const handleRegistration = () => {
-    setIsToastShown(true);
-    setActiveTab('LOGIN');
-  };
+  const [toastState, setToastState] = useState<AuthToastState>(initialToastState);
+
   const handleTabSwitch = (tabName: AuthMenu) => {
     setActiveTab(tabName);
-    if (isToastShown) setIsToastShown(false);
+    if (toastState.message) setToastState((prev) => ({ ...prev, message: '' }));
   };
   return (
     <Card spacing="none" shadow="m" isNoBorder>
-      {isToastShown && (
-        <Toast
-          content="Congratulations, your account has been succesfully created!"
-          toastType="success"
-          onClick={() => setIsToastShown(!isToastShown)}
-        />
-      )}
+      <Toast
+        key={toastState.type}
+        isVisible={!!toastState.message}
+        content={toastState.message}
+        toastType={toastState.type}
+        onClick={() => setToastState((prev) => ({ ...prev, message: '' }))}
+      />
       <div className={cx('auth-card')}>
         <LogoHorizontal className={cx('auth-card__logo')} />
         <nav className={cx('auth-card__header')}>
@@ -46,9 +49,14 @@ export function AuthCard(): ReactElement {
           />
         </nav>
         {activeTab === 'LOGIN' ? (
-          <LoginForm />
+          <LoginForm handleToast={setToastState} />
         ) : (
-          <RegisterForm handleRegistration={handleRegistration} />
+          <RegisterForm
+            handleToast={setToastState}
+            onRegister={() => {
+              setActiveTab('LOGIN');
+            }}
+          />
         )}
       </div>
     </Card>

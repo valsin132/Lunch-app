@@ -4,16 +4,20 @@ import { Button } from '../../../../components/Button';
 import { EMAIL_REGEX, PASSWORD_REGEX } from '../../../../constants';
 import { RegisterFields } from './RegisterFields';
 import { RegisterFieldActions, useRegisterData } from '../../../../hooks/useRegisterData';
+import { AuthToastState } from '../Auth.types';
+import { useRegister } from '../../../../hooks/useRegister';
 import styles from './RegisterForm.module.css';
 
 const cx = classNames.bind(styles);
 
 interface RegisterFormProps {
-  handleRegistration: () => void;
+  handleToast: (toastState: AuthToastState) => void;
+  onRegister: () => void;
 }
 
-export function RegisterForm({ handleRegistration }: RegisterFormProps) {
+export function RegisterForm({ handleToast, onRegister }: RegisterFormProps) {
   const { state, dispatch } = useRegisterData();
+  const { updateUser } = useRegister();
 
   const { email, userName, createPassword, repeatPassword, isCommunityRulesChecked } = state;
 
@@ -33,7 +37,7 @@ export function RegisterForm({ handleRegistration }: RegisterFormProps) {
     setReducerState(errorValueType, '');
   };
 
-  const handleCreateAccount = () => {
+  const handleCreateAccount = async () => {
     if (
       EMAIL_REGEX.test(email) &&
       PASSWORD_REGEX.test(createPassword) &&
@@ -41,7 +45,19 @@ export function RegisterForm({ handleRegistration }: RegisterFormProps) {
       userName &&
       isCommunityRulesChecked
     ) {
-      handleRegistration();
+      try {
+        await updateUser(email, createPassword);
+        onRegister();
+        handleToast({
+          message: 'Congratulations, your account has been succesfully created!',
+          type: 'success',
+        });
+      } catch (error) {
+        handleToast({
+          message: 'Registration failed. Please try again later.',
+          type: 'warning',
+        });
+      }
     } else {
       if (!email) {
         setReducerState('emailErrorMsg', 'Please enter your email.');

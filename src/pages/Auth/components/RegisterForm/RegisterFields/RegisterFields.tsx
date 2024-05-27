@@ -1,7 +1,9 @@
 import classNames from 'classnames/bind';
+import { useState } from 'react';
 import { Checkbox } from '../../../../../components/Checkbox';
 import { Input } from '../../../../../components/Input';
 import { RegisterFieldActions, RegisterState } from '../../../../../hooks/useRegisterData';
+import { CommunityRulesModal } from '../CommunityRulesModal';
 import styles from './RegisterFields.module.css';
 
 const cx = classNames.bind(styles);
@@ -28,6 +30,8 @@ export function RegisterFields({ state, handleFormChange }: RegisterFieldsProps)
     repeatPasswordErrorMsg,
     communityRulesErrorMsg,
   } = state;
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <div className={cx('register-inputs')}>
       <Input
@@ -97,11 +101,18 @@ export function RegisterFields({ state, handleFormChange }: RegisterFieldsProps)
         <button
           type="button"
           className={cx('register-inputs__community-rules')}
+          onClick={() => setIsModalOpen(true)}
           aria-haspopup="dialog"
           aria-label="Read community rules">
           Community Rules
         </button>
       </div>
+      {isModalOpen && (
+        <CommunityRulesModal
+          setIsOpen={() => setIsModalOpen(false)}
+          onClick={() => setIsModalOpen(false)}
+        />
+      )}
     </div>
   );
 }

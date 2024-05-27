@@ -48,7 +48,6 @@ export function Toast({ isVisible, content, toastType, onClick }: ToastProps): R
           exit={{ y: 'calc(-100% - 24px)', transition: { easings: toastCubicBezier } }}
           onAnimationComplete={handleAnimationComplete}
           role="alert"
-          aria-live="assertive"
           tabIndex={-1}
           ref={toastRef}>
           <div className={cx('toast__icon')}>{getIcon(toastType)}</div>

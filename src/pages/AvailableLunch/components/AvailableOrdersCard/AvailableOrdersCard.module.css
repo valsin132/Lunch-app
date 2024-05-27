@@ -37,6 +37,12 @@
       flex-grow: 0.412;
     }
 
+    & th {
+      @include label-s;
+
+      color: $color-grey-500;
+    }
+
     & .available-lunch__head-text {
       @include label-s;
 

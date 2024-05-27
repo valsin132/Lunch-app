@@ -24,9 +24,9 @@ export function MainContent() {
 
   return (
     <div className={cx('main-content')}>
-      <aside className={cx('main-content__sidebar')}>
+      <nav className={cx('main-content__sidebar')}>
         <Sidebar />
-      </aside>
+      </nav>
       <header className={cx('main-content__header')}>
         <Header pageType={pageType} />
       </header>

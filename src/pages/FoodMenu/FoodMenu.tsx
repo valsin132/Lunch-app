@@ -41,7 +41,6 @@ export function FoodMenu(): ReactElement {
         handleSort={(sortBy) => {
           setSortByValue(sortBy);
         }}
-        isSortBy
       />
       <FoodList
         selectedDay={selectedDay}

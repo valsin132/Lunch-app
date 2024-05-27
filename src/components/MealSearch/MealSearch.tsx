@@ -10,17 +10,17 @@ import styles from './MealSearch.module.css';
 type MealSearchProps = {
   vendorsData: Vendor[] | null;
   handleSearch: (title: string, vendor: string) => void;
-  handleSort: (sortBy: string) => void;
-  isSortBy: boolean;
+  handleSort?: (sortBy: string) => void;
 };
 
 const cx = classNames.bind(styles);
 
-export function MealSearch({ vendorsData, handleSearch, handleSort, isSortBy }: MealSearchProps) {
+export function MealSearch({ vendorsData, handleSearch, handleSort }: MealSearchProps) {
   const [mealTitle, setMealTitle] = useState('');
   const [selectedVendor, setSelectedVendor] = useState<SelectInputOption | undefined>();
-  const [sortButtonValue, setSortButtonValue] = useState('POPULARITY');
+  const [selectedSortButtonValue, setSelectedSortButtonValue] = useState('POPULARITY');
   const sortByValues = ['POPULARITY', 'PRICE', 'RATING'];
+  const isSortBy = !!handleSort;
 
   const vendorOptions: SelectInputOption[] = useMemo(() => {
     if (!vendorsData) return [];
@@ -73,25 +73,33 @@ export function MealSearch({ vendorsData, handleSearch, handleSort, isSortBy }: 
             }}
           />
         </form>
-        {isSortBy && <div className={cx('meal-search__seperator')} />}
-        <div className={cx('meal-search__sort-by')}>
-          <span className={cx('meal-search__label-sort-by')} aria-labelledby="Sort buttons label">
-            Sort By
-          </span>
-          {sortByValues.map((value) => (
-            <Button
-              key={value}
-              buttonSize="xs"
-              buttonType={sortButtonValue === value ? 'secondary' : 'tertiary'}
-              title={value}
-              aria-label={`Select sort by ${value.toLocaleLowerCase()}`}
-              onClick={() => {
-                setSortButtonValue(value);
-                handleSort(value);
-              }}
-            />
-          ))}
-        </div>
+        {isSortBy && (
+          <div className={cx('meal-search__sort-by-container')}>
+            <div className={cx('meal-search__seperator')} />
+            <div className={cx('meal-search__sort-by')}>
+              <span
+                className={cx('meal-search__label-sort-by')}
+                aria-labelledby="Sort buttons label">
+                Sort By
+              </span>
+              {sortByValues.map((value) => (
+                <Button
+                  key={value}
+                  buttonSize="xs"
+                  buttonType={selectedSortButtonValue === value ? 'secondary' : 'tertiary'}
+                  title={value}
+                  aria-label={`Select sort by ${value.toLocaleLowerCase()}`}
+                  onClick={() => {
+                    setSelectedSortButtonValue(value);
+                    if (handleSort) {
+                      handleSort(value);
+                    }
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </Card>
   );

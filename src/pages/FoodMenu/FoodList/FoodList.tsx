@@ -40,7 +40,7 @@ export function FoodList({
       const averageRating = sum / ratings.length;
       return averageRating.toFixed(1);
     }
-    if (isForSort === true) {
+    if (isForSort) {
       return 0;
     }
     return 'Not rated';

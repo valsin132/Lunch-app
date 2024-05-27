@@ -23,12 +23,16 @@
     }
   }
 
+  & .meal-search__sort-by-container {
+    @include flexbox($direction: column, $gap: calc($gap-Xlarge + 1px));
+  }
+
   & .meal-search__seperator {
     border-top: solid 1px $color-grey-200;
   }
 
   & .meal-search__sort-by {
-    @include flexbox($gap: 1.375rem);
+    @include flexbox($gap: calc($gap-large + 2px));
 
     & .meal-search__label-sort-by {
       @include title-s;

@@ -1,7 +1,9 @@
 import classNames from 'classnames/bind';
+import { useState } from 'react';
 import { Checkbox } from '../../../../../components/Checkbox';
 import { Input } from '../../../../../components/Input';
 import { RegisterFieldActions, RegisterState } from '../../../../../hooks/useRegisterData';
+import { CommunityRulesModal } from '../CommunityRulesModal';
 import styles from './RegisterFields.module.css';
 
 const cx = classNames.bind(styles);
@@ -28,6 +30,8 @@ export function RegisterFields({ state, handleFormChange }: RegisterFieldsProps)
     repeatPasswordErrorMsg,
     communityRulesErrorMsg,
   } = state;
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <div className={cx('register-inputs')}>
       <Input
@@ -93,10 +97,19 @@ export function RegisterFields({ state, handleFormChange }: RegisterFieldsProps)
           isError={!!communityRulesErrorMsg}
           errorMessage={communityRulesErrorMsg}
         />
-        <button type="button" className={cx('register-inputs__community-rules')}>
+        <button
+          type="button"
+          className={cx('register-inputs__community-rules')}
+          onClick={() => setIsModalOpen(true)}>
           Community Rules
         </button>
       </div>
+      {isModalOpen && (
+        <CommunityRulesModal
+          setIsOpen={() => setIsModalOpen(false)}
+          onClick={() => setIsModalOpen(false)}
+        />
+      )}
     </div>
   );
 }

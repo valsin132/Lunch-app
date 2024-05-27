@@ -1,0 +1,7 @@
+@import './../../../../../styles/index.css';
+
+.community-rules-modal {
+  @include body-l;
+
+  color: $text-color-blue;
+}

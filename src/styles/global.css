@@ -69,3 +69,31 @@ h6 {
 p {
   margin: 0;
 }
+
+table,
+thead,
+tbody,
+tfoot,
+tr,
+th,
+td {
+  border: none;
+  border-collapse: inherit;
+  border-color: inherit;
+  -webkit-border-horizontal-spacing: 0;
+  border-spacing: 0;
+  -webkit-border-vertical-spacing: 0;
+  display: block;
+  font-weight: inherit;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  vertical-align: inherit;
+  width: auto;
+}
+
+tr {
+  display: flex;
+  width: 100%;
+}

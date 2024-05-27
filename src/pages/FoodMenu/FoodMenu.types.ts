@@ -6,6 +6,7 @@ export interface Meal {
   title: string;
   description: string;
   price: number;
+  ordersCount: number;
   vegetarian: boolean;
   spicy: boolean;
   weekDays: string[];

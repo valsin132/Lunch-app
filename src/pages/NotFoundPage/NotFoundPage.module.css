@@ -1,0 +1,22 @@
+@import '../../styles/index.css';
+
+.not-found-page__wrapper {
+  @include flexbox($direction: column, $justifyContent: space-between);
+
+  width: 100%;
+
+  & .not-found-page__content {
+    @include flexbox($direction: column, $alignItems: center, $gap: $gap-Xlarge);
+    @include title-l;
+
+    color: $color-blue-600;
+    margin: auto;
+
+    & .not-found-page__header {
+      @include headline-l;
+
+      color: $color-orange-300;
+      font-size: $font-size-banner;
+    }
+  }
+}

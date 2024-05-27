@@ -41,6 +41,7 @@
       @include label-s;
 
       color: $color-grey-500;
+      padding: calc($spacing-5xs + 2px) $spacing-2xs;
     }
   }
 }

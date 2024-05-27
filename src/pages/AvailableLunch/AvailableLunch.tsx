@@ -1,3 +1,5 @@
+import { AvailableOrdersCard } from './components/AvailableOrdersCard';
+
 export function AvailableLunch() {
-  return <main>Available lunch</main>;
+  return <AvailableOrdersCard />;
 }

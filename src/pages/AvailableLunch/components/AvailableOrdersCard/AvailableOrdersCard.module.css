@@ -1,0 +1,55 @@
+@import '../../../../styles/index.css';
+
+.available-lunch {
+  @include flexbox($direction: column);
+
+  & .available-lunch__container {
+    @include flexbox($direction: column, $gap: $gap-large);
+
+    & .available-lunch__header {
+      @include flexbox(
+        $direction: row,
+        $justifyContent: space-between,
+        $alignItems: center,
+        $gap: $gap-large
+      );
+
+      & .available-lunch__header-heading {
+        @include headline-s;
+
+        color: $text-color-blue;
+      }
+    }
+
+    & .available-lunch__table-header {
+      box-shadow: 0 1px 0 $color-grey-200;
+    }
+
+    & th:nth-child(1) {
+      flex-grow: 0.344;
+    }
+
+    & th:nth-child(2) {
+      flex-grow: 0.24;
+    }
+
+    & th:nth-child(3) {
+      flex-grow: 0.412;
+    }
+
+    & th {
+      @include label-s;
+
+      color: $color-grey-500;
+      padding: calc($spacing-5xs + 2px) $spacing-2xs;
+    }
+  }
+}
+
+.available-lunch__empty-lunch-text {
+  @include body-m;
+
+  color: $color-grey-500;
+  text-align: center;
+  width: 100%;
+}

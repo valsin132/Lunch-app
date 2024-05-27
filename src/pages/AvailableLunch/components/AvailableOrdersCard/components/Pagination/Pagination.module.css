@@ -30,8 +30,9 @@
       }
 
       &:disabled {
-        background-color: $color-grey-100;
+        border-radius: $border-radius-regular;
         cursor: not-allowed;
+        opacity: 0.4;
       }
     }
   }

@@ -1,3 +1,9 @@
+import { ComingSoonContent } from '../../components/ComingSoonContent';
+
 export function Ratings() {
-  return <main>Vendor Ratings</main>;
+  return (
+    <main>
+      <ComingSoonContent />
+    </main>
+  );
 }

@@ -1,22 +1,17 @@
 import { ReactElement } from 'react';
 import classNames from 'classnames/bind';
+import { motion, AnimatePresence, cubicBezier } from 'framer-motion';
 import {
   CheckOutlinedIcon,
   CloseIcon,
   ErrorOutlinedIcon,
   InfoOutlinedIcon,
 } from '../../utils/iconManager';
+import { ToastProps, ToastTypes } from './Toast.types';
+import { useToastClosing } from './hooks/useToastClosing';
 import styles from './Toast.module.css';
 
 const cx = classNames.bind(styles);
-
-type ToastTypes = 'info' | 'success' | 'warning';
-
-interface ToastProps {
-  content: string;
-  toastType: ToastTypes;
-  onClick: () => void;
-}
 
 const getIcon = (toastType: ToastTypes): ReactElement | null => {
   switch (toastType) {
@@ -31,14 +26,25 @@ const getIcon = (toastType: ToastTypes): ReactElement | null => {
   }
 };
 
-export function Toast({ content, toastType, onClick }: ToastProps): ReactElement {
+const toastCubicBezier = cubicBezier(0.06, 0.14, 0.49, 1.6);
+
+export function Toast({ isVisible, content, toastType, onClick }: ToastProps): ReactElement {
+  useToastClosing(onClick);
   return (
-    <div className={cx('toast', `toast--color-${toastType}`)}>
-      <div className={cx('toast__icon')}>{getIcon(toastType)}</div>
-      <p className={cx('toast__text')}>{content}</p>
-      <div className={cx('toast__close')}>
-        <CloseIcon className={cx('toast__icon-close')} onClick={onClick} />
-      </div>
-    </div>
+    <AnimatePresence>
+      {isVisible && (
+        <motion.div
+          className={cx('toast', `toast--color-${toastType}`)}
+          initial={{ y: 'calc(-100% - 24px)', x: '-50%' }}
+          animate={{ y: 0, x: '-50%' }}
+          exit={{ y: 'calc(-100% - 24px)', transition: { easings: toastCubicBezier } }}>
+          <div className={cx('toast__icon')}>{getIcon(toastType)}</div>
+          <p className={cx('toast__text')}>{content}</p>
+          <div className={cx('toast__close')}>
+            <CloseIcon className={cx('toast__icon-close')} onClick={onClick} />
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }

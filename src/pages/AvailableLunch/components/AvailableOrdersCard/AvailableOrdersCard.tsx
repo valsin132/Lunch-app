@@ -10,13 +10,8 @@ const cx = classNames.bind(styles);
 export function AvailableOrdersCard() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(5);
-
-  // dumb data
-  const items = Array.from({ length: 100 }, (_, index) => ({
-    name: `Name${index + 1}`,
-    age: Math.floor(Math.random() * 100) + 1,
-    test: `Test${index + 1}`,
-  }));
+  // eslint-disable-next-line
+  const items = Array.from({ length: 0 }, (_, index) => ({}));
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -53,15 +48,7 @@ export function AvailableOrdersCard() {
                 <th>Take It From</th>
               </tr>
             </thead>
-            <tbody>
-              {currentItems.map((item) => (
-                <tr key={item.name}>
-                  <td>{item.name}</td>
-                  <td>{item.age}</td>
-                  <td>{item.test}</td>
-                </tr>
-              ))}
-            </tbody>
+            <tbody />
           </table>
           <Pagination
             currentPage={currentPage}

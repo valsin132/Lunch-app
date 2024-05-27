@@ -12,6 +12,7 @@ interface CheckboxProps {
   errorMessage?: string;
   id: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  ariaLabel?: string;
 }
 
 export function Checkbox({
@@ -22,6 +23,7 @@ export function Checkbox({
   isError,
   errorMessage,
   onChange,
+  ariaLabel,
 }: CheckboxProps): ReactElement {
   return (
     <div className={cx('checkbox')}>
@@ -34,6 +36,9 @@ export function Checkbox({
         disabled={isDisabled}
         onChange={onChange}
         checked={isChecked}
+        aria-label={ariaLabel}
+        aria-invalid={isError}
+        aria-errormessage={`${id}-error`}
       />
       <label
         className={cx('checkbox__label', {
@@ -43,7 +48,9 @@ export function Checkbox({
         htmlFor={id}>
         {label}
       </label>
-      <p className={cx('input__error-message')}>{errorMessage}</p>
+      <p id={`${id}-error`} aria-live="polite" className={cx('input__error-message')}>
+        {errorMessage}
+      </p>
     </div>
   );
 }

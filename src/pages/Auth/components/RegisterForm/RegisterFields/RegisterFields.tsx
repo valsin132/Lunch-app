@@ -96,11 +96,14 @@ export function RegisterFields({ state, handleFormChange }: RegisterFieldsProps)
           }
           isError={!!communityRulesErrorMsg}
           errorMessage={communityRulesErrorMsg}
+          ariaLabel="I have read the community rules"
         />
         <button
           type="button"
           className={cx('register-inputs__community-rules')}
-          onClick={() => setIsModalOpen(true)}>
+          onClick={() => setIsModalOpen(true)}
+          aria-haspopup="dialog"
+          aria-label="Read community rules">
           Community Rules
         </button>
       </div>

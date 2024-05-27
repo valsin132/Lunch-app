@@ -5,7 +5,7 @@
     $direction: row,
     $alignItems: center,
     $justifyContent: flex-end,
-    $gap: calc($gap-Xlarge + 2px)
+    $gap: $gap-Xlarge
   );
 
   & .pagination__container-select-input {

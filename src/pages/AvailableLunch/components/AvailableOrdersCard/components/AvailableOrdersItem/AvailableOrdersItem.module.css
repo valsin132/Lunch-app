@@ -1,61 +1,72 @@
 @import '../../../../../../styles/index.css';
 
 .available-dish__content-wrapper {
-  @include flexbox($gap: $gap-medium, $justifyContent: space-between);
+  @include flexbox($gap: $gap-medium);
   @include title-s;
+  @include box-shadow-xs;
 
-  box-shadow: inset 0 0 0 1px $color-grey-100;
+  background-color: $color-white;
+  border: solid 1px $color-grey-100;
+  border-radius: $border-radius-regular;
   color: $color-blue-600;
 
-  & td:nth-child(1) {
-    flex-grow: 0.344;
-  }
-
-  & td:nth-child(2) {
-    flex-grow: 0.24;
-  }
-
-  & td:nth-child(3) {
-    flex-grow: 0.412;
-  }
-
-  & .available-dish__meal-wrapper {
+  & td {
     padding: $spacing-2xs;
 
-    & .available-dish__wrapper {
-      @include flexbox($gap: $gap-compact, $alignItems: center);
+    &:nth-child(1) {
+      width: 34.4%;
+    }
 
-      & .available-dish__food-image {
-        @include size(40px, 40px);
-      }
+    &:nth-child(2) {
+      width: 24%;
+    }
+
+    &:nth-child(3) {
+      width: 41.6%;
+    }
+
+    & p {
+      -webkit-box-orient: vertical;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      overflow: hidden;
+      word-wrap: anywhere;
+    }
+  }
+
+  & .available-dish__wrapper {
+    @include flexbox($gap: $gap-large, $alignItems: center);
+
+    & .available-dish__meal-image {
+      @include size(40px, 40px);
     }
   }
 
   & .available-dish__vendor-wrapper {
-    padding: $spacing-2xs;
+    @include flexbox($direction: column);
 
     & .available-dish__vendor {
-      padding: calc($spacing-4xs + 1px) 0;
+      height: 100%;
+      margin: calc($spacing-4xs + 1px) 0;
       text-transform: uppercase;
     }
   }
 
   & .available-dish__user-wrapper {
-    padding: $spacing-2xs;
-
-    & .available-dish__avatar-wrapper {
-      padding: calc($spacing-4xs + 1px) 0;
-    }
+    @include flexbox($alignItems: flex-start, $justifyContent: space-between);
 
     & .available-dish__avatar-image {
       @include size(22px, 22px);
 
       border-radius: $border-radius-circle;
+      box-sizing: content-box;
+      display: block;
       object-fit: cover;
+      padding: calc($spacing-4xs + 1px) 0;
     }
 
     & .available-dish__user-name {
-      padding: calc($spacing-4xs + 1px) 0;
+      margin: calc($spacing-4xs + 1px) 0;
     }
   }
 

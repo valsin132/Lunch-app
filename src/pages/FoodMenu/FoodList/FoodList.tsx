@@ -65,7 +65,7 @@ export function FoodList({
     if (selectedVendor) {
       filteredMealData = filteredMealData.filter(
         (meal) =>
-          getVendorName(vendorsData)(meal.vendorId).toLowerCase() === selectedVendor.toLowerCase()
+          getVendorName(vendorsData, meal.vendorId).toLowerCase() === selectedVendor.toLowerCase()
       );
     }
     if (sortByValue) {
@@ -85,14 +85,7 @@ export function FoodList({
       }
     }
     return filteredMealData;
-  }, [
-    mealsData,
-    selectedDay,
-    searchedMealTitle,
-    selectedVendor,
-    getVendorName(vendorsData),
-    sortByValue,
-  ]);
+  }, [mealsData, selectedDay, searchedMealTitle, selectedVendor, vendorsData, sortByValue]);
 
   const noMealsFound = useMemo(() => !filteredMeals.length, [filteredMeals]);
   const dayToLowerCase = selectedDay.toLowerCase() as Workdays;
@@ -115,7 +108,7 @@ export function FoodList({
         mealType: meal.mealType,
         price: meal.price,
         title: meal.title,
-        vendor: getVendorName(vendorsData)(meal.vendorId),
+        vendor: getVendorName(vendorsData, meal.vendorId),
       },
     });
     setShowToast(true);
@@ -125,7 +118,7 @@ export function FoodList({
   const getComments = (id: number) => {
     const filteredComments = ratingsData?.filter((rating) => rating.mealId === id);
     return filteredComments?.map((comment) => {
-      const userDetails = getUser(usersData)(comment.rating.userId);
+      const userDetails = getUser(usersData, comment.rating.userId);
       return {
         comment: comment.rating.comment,
         name: userDetails?.name,
@@ -145,7 +138,7 @@ export function FoodList({
         filteredMeals.map((meal) => (
           <FoodCard
             key={meal.id}
-            vendor={getVendorName(vendorsData)(meal.vendorId)}
+            vendor={getVendorName(vendorsData, meal.vendorId)}
             title={meal.title}
             description={meal.description}
             price={meal.price}

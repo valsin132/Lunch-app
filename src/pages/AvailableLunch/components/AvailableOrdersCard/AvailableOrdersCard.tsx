@@ -17,7 +17,26 @@ export function AvailableOrdersCard() {
       img: 'https://lh3.googleusercontent.com/pw/AP1GczPd86eTOZysL0WAf9veGe6WIkEfvgX2zA1gKY65ylS64iQW5kK7ppYKO8uUBJkQZh5UNxDN-E9aJgvQFsS28YzQHREL4rU5_2TXUKd0xjZTd7tu8fCMKANM28tMIHhyD3KnhvA_s0gcvbkK447oLT9E=w611-h321-s-no-gm',
       name: 'Burton',
       surname: 'Whitaker',
-      orders: [{ dishType: 'burger', title: 'Tasty happy meal', vendor: 'McDonalds' }],
+      orders: [
+        {
+          dishType: 'burger',
+          title: 'Tasty happy meal',
+          vendor: 'McDonaldsMcDonaldsMcDonaldsMcDonaldsMcDonaldsMcDonaldsMcDonaldsMcDonalds',
+        },
+        { dishType: 'burger', title: 'Big Mac', vendor: 'McDonalds' },
+      ],
+    },
+    {
+      img: 'https://lh3.googleusercontent.com/pw/AP1GczPd86eTOZysL0WAf9veGe6WIkEfvgX2zA1gKY65ylS64iQW5kK7ppYKO8uUBJkQZh5UNxDN-E9aJgvQFsS28YzQHREL4rU5_2TXUKd0xjZTd7tu8fCMKANM28tMIHhyD3KnhvA_s0gcvbkK447oLT9E=w611-h321-s-no-gm',
+      name: 'Burton',
+      surname: 'Whitaker',
+      orders: [
+        {
+          dishType: 'burger',
+          title: 'McChickenMcChickenMcChickenMcChickenMcChickenMcChickenMcChicken',
+          vendor: 'McDonaldsMcDonaldsMcDonaldsMcDonaldsMcDonaldsMcDonaldsMcDonaldsMcDonalds',
+        },
+      ],
     },
   ];
 

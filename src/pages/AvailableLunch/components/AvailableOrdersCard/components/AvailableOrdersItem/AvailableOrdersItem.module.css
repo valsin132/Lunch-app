@@ -1,7 +1,7 @@
 @import '../../../../../../styles/index.css';
 
-.available-dish__content-wrapper {
-  @include flexbox($gap: $gap-medium);
+.available-dish {
+  @include flexbox();
   @include title-s;
   @include box-shadow-xs;
 
@@ -34,8 +34,8 @@
     }
   }
 
-  & .available-dish__wrapper {
-    @include flexbox($gap: $gap-large, $alignItems: center);
+  & .available-dish__dish-wrapper {
+    @include flexbox($gap: $gap-compact, $alignItems: center);
 
     & .available-dish__meal-image {
       @include size(40px, 40px);
@@ -43,10 +43,9 @@
   }
 
   & .available-dish__vendor-wrapper {
-    @include flexbox($direction: column);
+    @include flexbox($direction: column, $justifyContent: space-between);
 
     & .available-dish__vendor {
-      height: 100%;
       margin: calc($spacing-4xs + 1px) 0;
       text-transform: uppercase;
     }

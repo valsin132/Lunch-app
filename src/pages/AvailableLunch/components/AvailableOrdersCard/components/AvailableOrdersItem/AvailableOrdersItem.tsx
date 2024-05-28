@@ -35,10 +35,10 @@ export function AvailableOrdersItem({
   const [imgLoadError, setImgLoadError] = useState(false);
 
   return (
-    <tr className={cx('available-dish__content-wrapper')}>
+    <tr className={cx('available-dish')}>
       <td>
         {orders.map((order) => (
-          <div key={order.title} className={cx('available-dish__wrapper')}>
+          <div key={order.title} className={cx('available-dish__dish-wrapper')}>
             <img
               src={getDishTypeImage(order.dishType)}
               className={cx('available-dish__meal-image')}
@@ -71,7 +71,13 @@ export function AvailableOrdersItem({
             {name} {surname}
           </p>
         </div>
-        <Button title="Reserve" buttonType="secondary" buttonSize="sm" onClick={onClick} />
+        <Button
+          title="Reserve"
+          buttonType="secondary"
+          buttonSize="sm"
+          onClick={onClick}
+          isDisabled
+        />
       </td>
     </tr>
   );

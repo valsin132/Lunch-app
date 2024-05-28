@@ -36,7 +36,6 @@ export function AvailableOrdersCard() {
 
   if (paginationItemsLoading) return <div>Loading...</div>;
   if (paginationItemsError) return <div>Error occurred while retrieving data</div>;
-
   return currentItems.length > 0 ? (
     <div className={cx('available-lunch')}>
       <Card shadow="s">
@@ -56,9 +55,10 @@ export function AvailableOrdersCard() {
             <tbody className={cx('available-lunch__table-body')}>
               {currentItems.map(
                 (item) =>
-                  item.user && (
+                  item.user &&
+                  item.meals.length > 0 && (
                     <AvailableOrdersItem
-                      key={item.user.id}
+                      key={`${item.user.id}-${item.meals[0].title}`}
                       name={item.user.name}
                       surname={item.user.surname}
                       img={item.user.img}

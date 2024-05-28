@@ -46,7 +46,6 @@ export const useAvailableLunchItems = () => {
       ),
     [mealsData, vendorsData]
   );
-
   const availableOrders = useMemo(
     () =>
       availableLunchData?.map((lunch) => ({

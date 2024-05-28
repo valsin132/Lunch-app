@@ -43,7 +43,7 @@ export const useAvailableLunchItems = () => {
           return null;
         })
         .filter((meal) => meal !== null) as { title: string; dishType: DishType; vendor: string }[],
-    [mealsData, getVendorName(vendorsData)]
+    [mealsData, vendorsData]
   );
 
   const availableOrders = useMemo(
@@ -52,7 +52,7 @@ export const useAvailableLunchItems = () => {
         user: getUser(usersData)(lunch.userId),
         meals: getAvailableDish(lunch.mealIds),
       })) ?? [],
-    [availableLunchData, getUser(usersData), getAvailableDish]
+    [availableLunchData, usersData, getAvailableDish]
   );
 
   return {

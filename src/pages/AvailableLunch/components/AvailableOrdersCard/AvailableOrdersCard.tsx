@@ -3,7 +3,8 @@ import classNames from 'classnames/bind';
 import { RefreshButton } from './components/RefreshButton';
 import { Card } from '../../../../components/Card';
 import { Pagination } from './components/Pagination';
-import { AvailableOrdersItem, OrderItem } from './components/AvailableOrdersItem';
+import { AvailableOrdersItem } from './components/AvailableOrdersItem';
+import { usePaginationItems } from './hooks/usePaginationItem';
 import styles from './AvailableOrdersCard.module.css';
 
 const cx = classNames.bind(styles);
@@ -12,33 +13,7 @@ export function AvailableOrdersCard() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(5);
 
-  const items: OrderItem[] = [
-    {
-      img: 'https://lh3.googleusercontent.com/pw/AP1GczPd86eTOZysL0WAf9veGe6WIkEfvgX2zA1gKY65ylS64iQW5kK7ppYKO8uUBJkQZh5UNxDN-E9aJgvQFsS28YzQHREL4rU5_2TXUKd0xjZTd7tu8fCMKANM28tMIHhyD3KnhvA_s0gcvbkK447oLT9E=w611-h321-s-no-gm',
-      name: 'Burton',
-      surname: 'Whitaker',
-      orders: [
-        {
-          dishType: 'burger',
-          title: 'Tasty happy meal',
-          vendor: 'McDonaldsMcDonaldsMcDonaldsMcDonaldsMcDonaldsMcDonaldsMcDonaldsMcDonalds',
-        },
-        { dishType: 'burger', title: 'Big Mac', vendor: 'McDonalds' },
-      ],
-    },
-    {
-      img: 'https://lh3.googleusercontent.com/pw/AP1GczPd86eTOZysL0WAf9veGe6WIkEfvgX2zA1gKY65ylS64iQW5kK7ppYKO8uUBJkQZh5UNxDN-E9aJgvQFsS28YzQHREL4rU5_2TXUKd0xjZTd7tu8fCMKANM28tMIHhyD3KnhvA_s0gcvbkK447oLT9E=w611-h321-s-no-gm',
-      name: 'Burton',
-      surname: 'Whitaker',
-      orders: [
-        {
-          dishType: 'burger',
-          title: 'McChickenMcChickenMcChickenMcChickenMcChickenMcChickenMcChicken',
-          vendor: 'McDonaldsMcDonaldsMcDonaldsMcDonaldsMcDonaldsMcDonaldsMcDonaldsMcDonalds',
-        },
-      ],
-    },
-  ];
+  const { getPaginationItems, paginationItemsLoading, paginationItemsError } = usePaginationItems();
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -49,15 +24,18 @@ export function AvailableOrdersCard() {
     setCurrentPage(1);
   };
 
-  const totalPages = Math.max(1, Math.ceil(items.length / itemsPerPage));
+  const totalPages = Math.max(1, Math.ceil(getPaginationItems.length / itemsPerPage));
 
   const getCurrentPageItems = () => {
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    return items.slice(indexOfFirstItem, indexOfLastItem);
+    return getPaginationItems.slice(indexOfFirstItem, indexOfLastItem);
   };
 
   const currentItems = getCurrentPageItems();
+
+  if (paginationItemsLoading) return <div>Loading...</div>;
+  if (paginationItemsError) return <div>Error occurred while retrieving data</div>;
 
   return currentItems.length > 0 ? (
     <div className={cx('available-lunch')}>
@@ -76,18 +54,19 @@ export function AvailableOrdersCard() {
               </tr>
             </thead>
             <tbody className={cx('available-lunch__table-body')}>
-              {currentItems.map((item) => (
-                <AvailableOrdersItem
-                  key={item.name + item.orders[0].title}
-                  img={item.img}
-                  name={item.name}
-                  orders={item.orders}
-                  surname={item.surname}
-                  onClick={() => {
-                    alert('reserved');
-                  }}
-                />
-              ))}
+              {currentItems.map(
+                (item) =>
+                  item.user && (
+                    <AvailableOrdersItem
+                      key={item.user.id}
+                      name={item.user.name}
+                      surname={item.user.surname}
+                      img={item.user.img}
+                      orders={item.meals}
+                      onClick={() => alert('Order clicked!')}
+                    />
+                  )
+              )}
             </tbody>
           </table>
           <Pagination

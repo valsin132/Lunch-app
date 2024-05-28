@@ -28,9 +28,8 @@ export const useAvailableLunchItems = () => {
   const isLoading = foodDataLoading || availableLunchDataLoading;
   const isError = foodDataError || availableLunchDataError;
 
-  const getVendorNameCallback = useCallback(getVendorName(vendorsData), [vendorsData]);
-
-  const getUserCallback = useCallback(getUser(usersData), [usersData]);
+  const vendorNameRetriever = getVendorName(vendorsData);
+  const userRetriever = getUser(usersData);
 
   const getAvailableDish = useCallback(
     (ids: number[]) =>
@@ -41,22 +40,22 @@ export const useAvailableLunchItems = () => {
             return {
               title: mealItem.title,
               dishType: mealItem.dishType,
-              vendor: getVendorNameCallback(mealItem.vendorId),
+              vendor: vendorNameRetriever(mealItem.vendorId),
             };
           }
           return null;
         })
         .filter((meal) => meal !== null) as { title: string; dishType: DishType; vendor: string }[],
-    [mealsData, getVendorNameCallback]
+    [mealsData, vendorNameRetriever]
   );
 
   const availableOrders = useMemo(
     () =>
       availableLunchData?.map((lunch) => ({
-        user: getUserCallback(lunch.userId),
+        user: userRetriever(lunch.userId),
         meals: getAvailableDish(lunch.mealIds),
       })) ?? [],
-    [availableLunchData, getUserCallback, getAvailableDish]
+    [availableLunchData, userRetriever, getAvailableDish]
   );
 
   return {

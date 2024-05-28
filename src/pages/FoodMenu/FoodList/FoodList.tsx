@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import classNames from 'classnames/bind';
 import { FoodCard } from '../../../components/FoodCard';
 import { Order, WeekDay, Meal } from '../FoodMenu.types';
@@ -30,9 +30,8 @@ export function FoodList({
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
 
-  const getVendorNameCallback = useCallback(getVendorName(vendorsData), [vendorsData]);
-
-  const getUserCallback = useCallback(getUser(usersData), [usersData]);
+  const vendorNameRetriever = getVendorName(vendorsData);
+  const userRetriever = getUser(usersData);
 
   const getRating = (id: number, isForSort: boolean) => {
     const filteredRatings = ratingsData?.filter((rating) => rating.mealId === id) ?? [];
@@ -68,8 +67,7 @@ export function FoodList({
     }
     if (selectedVendor) {
       filteredMealData = filteredMealData.filter(
-        (meal) =>
-          getVendorNameCallback(meal.vendorId).toLowerCase() === selectedVendor.toLowerCase()
+        (meal) => vendorNameRetriever(meal.vendorId).toLowerCase() === selectedVendor.toLowerCase()
       );
     }
     if (sortByValue) {
@@ -89,14 +87,7 @@ export function FoodList({
       }
     }
     return filteredMealData;
-  }, [
-    mealsData,
-    selectedDay,
-    searchedMealTitle,
-    selectedVendor,
-    getVendorNameCallback,
-    sortByValue,
-  ]);
+  }, [mealsData, selectedDay, searchedMealTitle, selectedVendor, vendorNameRetriever, sortByValue]);
 
   const noMealsFound = useMemo(() => !filteredMeals.length, [filteredMeals]);
   const dayToLowerCase = selectedDay.toLowerCase() as Workdays;
@@ -119,7 +110,7 @@ export function FoodList({
         mealType: meal.mealType,
         price: meal.price,
         title: meal.title,
-        vendor: getVendorNameCallback(meal.vendorId),
+        vendor: vendorNameRetriever(meal.vendorId),
       },
     });
     setShowToast(true);
@@ -129,7 +120,7 @@ export function FoodList({
   const getComments = (id: number) => {
     const filteredComments = ratingsData?.filter((rating) => rating.mealId === id);
     return filteredComments?.map((comment) => {
-      const userDetails = getUserCallback(comment.rating.userId);
+      const userDetails = userRetriever(comment.rating.userId);
       return {
         comment: comment.rating.comment,
         name: userDetails?.name,
@@ -149,7 +140,7 @@ export function FoodList({
         filteredMeals.map((meal) => (
           <FoodCard
             key={meal.id}
-            vendor={getVendorNameCallback(meal.vendorId)}
+            vendor={vendorNameRetriever(meal.vendorId)}
             title={meal.title}
             description={meal.description}
             price={meal.price}

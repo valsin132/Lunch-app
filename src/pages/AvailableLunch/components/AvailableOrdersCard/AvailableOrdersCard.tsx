@@ -4,7 +4,7 @@ import { RefreshButton } from './components/RefreshButton';
 import { Card } from '../../../../components/Card';
 import { Pagination } from './components/Pagination';
 import { AvailableOrdersItem } from './components/AvailableOrdersItem';
-import { useAvailableLunchItems } from './hooks/useAvailableLunchItems';
+import { useAvailableLunchItems } from './hooks/useAvailableLunchData';
 import styles from './AvailableOrdersCard.module.css';
 
 const cx = classNames.bind(styles);

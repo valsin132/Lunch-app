@@ -7,7 +7,7 @@ import { useOrderSummary } from '../../../hooks/useOrderSummary';
 import { Toast } from '../../../components/Toast';
 import { useFoodData } from '../../../hooks/useFoodData';
 import { getVendorName } from '../../../helpers/helperFunctions/getVendorName';
-import { getUsers } from '../../../helpers/helperFunctions/getUsers';
+import { getUser } from '../../../helpers/helperFunctions/getUser';
 import styles from './FoodList.module.css';
 
 interface FoodListProps {
@@ -32,7 +32,7 @@ export function FoodList({
 
   const getVendorNameCallback = useCallback(getVendorName(vendorsData), [vendorsData]);
 
-  const getUserCallback = useCallback(getUsers(usersData), [usersData]);
+  const getUserCallback = useCallback(getUser(usersData), [usersData]);
 
   const getRating = (id: number, isForSort: boolean) => {
     const filteredRatings = ratingsData?.filter((rating) => rating.mealId === id) ?? [];

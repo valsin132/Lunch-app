@@ -3,7 +3,7 @@ import { useFoodData } from '../../../../../hooks/useFoodData';
 import { useFetchData } from '../../../../../hooks/useFetchData';
 import { DishType } from '../../../../../components/FoodCard/FoodCard.types';
 import { getVendorName } from '../../../../../helpers/helperFunctions/getVendorName';
-import { getUsers } from '../../../../../helpers/helperFunctions/getUsers';
+import { getUser } from '../../../../../helpers/helperFunctions/getUser';
 
 interface AvailableLunch {
   userId: number;
@@ -21,16 +21,16 @@ export const useAvailableLunchItems = () => {
 
   const {
     data: availableLunchData,
-    isLoading: paginationItemsLoading,
-    isError: paginationItemsError,
+    isLoading: availableLunchDataLoading,
+    isError: availableLunchDataError,
   } = useFetchData<AvailableLunch[]>('http://localhost:3002/availableLunch');
 
-  const isLoading = foodDataLoading || paginationItemsLoading;
-  const isError = foodDataError || paginationItemsError;
+  const isLoading = foodDataLoading || availableLunchDataLoading;
+  const isError = foodDataError || availableLunchDataError;
 
   const getVendorNameCallback = useCallback(getVendorName(vendorsData), [vendorsData]);
 
-  const getUserCallback = useCallback(getUsers(usersData), [usersData]);
+  const getUserCallback = useCallback(getUser(usersData), [usersData]);
 
   const getAvailableDish = useCallback(
     (ids: number[]) =>

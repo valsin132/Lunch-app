@@ -30,20 +30,19 @@ export const useAvailableLunchItems = () => {
 
   const getAvailableDish = useCallback(
     (ids: number[]) =>
-      ids.reduce(
-        (acc, mealId) => {
+      ids
+        .map((mealId) => {
           const mealItem = mealsData?.find((meal) => Number(meal.id) === mealId);
           if (mealItem) {
-            acc.push({
+            return {
               title: mealItem.title,
               dishType: mealItem.dishType,
               vendor: getVendorName(vendorsData, mealItem.vendorId),
-            });
+            };
           }
-          return acc;
-        },
-        [] as { title: string; dishType: DishType; vendor: string }[]
-      ),
+          return null;
+        })
+        .filter((meal) => meal !== null) as { title: string; dishType: DishType; vendor: string }[],
     [mealsData, vendorsData]
   );
   const availableOrders = useMemo(

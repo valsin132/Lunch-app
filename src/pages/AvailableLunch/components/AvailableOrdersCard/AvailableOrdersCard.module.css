@@ -21,20 +21,30 @@
       }
     }
 
+    & .available-lunch__table {
+      @include flexbox($direction: column, $gap: $gap-large);
+    }
+
     & .available-lunch__table-header {
+      @include flexbox();
+
       box-shadow: 0 1px 0 $color-grey-200;
     }
 
+    & .available-lunch__table-body {
+      @include flexbox($direction: column, $gap: $gap-large);
+    }
+
     & th:nth-child(1) {
-      flex-grow: 0.344;
+      width: 34.4%;
     }
 
     & th:nth-child(2) {
-      flex-grow: 0.24;
+      width: 24%;
     }
 
     & th:nth-child(3) {
-      flex-grow: 0.412;
+      width: 41.6%;
     }
 
     & th {

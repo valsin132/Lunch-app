@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 import { RefreshButton } from './components/RefreshButton';
 import { Card } from '../../../../components/Card';
 import { Pagination } from './components/Pagination';
+import { AvailableOrdersItem, OrderItem } from './components/AvailableOrdersItem';
 import styles from './AvailableOrdersCard.module.css';
 
 const cx = classNames.bind(styles);
@@ -10,8 +11,34 @@ const cx = classNames.bind(styles);
 export function AvailableOrdersCard() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(5);
-  // eslint-disable-next-line
-  const items = Array.from({ length: 0 }, (_, index) => ({}));
+
+  const items: OrderItem[] = [
+    {
+      img: 'https://lh3.googleusercontent.com/pw/AP1GczPd86eTOZysL0WAf9veGe6WIkEfvgX2zA1gKY65ylS64iQW5kK7ppYKO8uUBJkQZh5UNxDN-E9aJgvQFsS28YzQHREL4rU5_2TXUKd0xjZTd7tu8fCMKANM28tMIHhyD3KnhvA_s0gcvbkK447oLT9E=w611-h321-s-no-gm',
+      name: 'Burton',
+      surname: 'Whitaker',
+      orders: [
+        {
+          dishType: 'burger',
+          title: 'Tasty happy meal',
+          vendor: 'McDonaldsMcDonaldsMcDonaldsMcDonaldsMcDonaldsMcDonaldsMcDonaldsMcDonalds',
+        },
+        { dishType: 'burger', title: 'Big Mac', vendor: 'McDonalds' },
+      ],
+    },
+    {
+      img: 'https://lh3.googleusercontent.com/pw/AP1GczPd86eTOZysL0WAf9veGe6WIkEfvgX2zA1gKY65ylS64iQW5kK7ppYKO8uUBJkQZh5UNxDN-E9aJgvQFsS28YzQHREL4rU5_2TXUKd0xjZTd7tu8fCMKANM28tMIHhyD3KnhvA_s0gcvbkK447oLT9E=w611-h321-s-no-gm',
+      name: 'Burton',
+      surname: 'Whitaker',
+      orders: [
+        {
+          dishType: 'burger',
+          title: 'McChickenMcChickenMcChickenMcChickenMcChickenMcChickenMcChicken',
+          vendor: 'McDonaldsMcDonaldsMcDonaldsMcDonaldsMcDonaldsMcDonaldsMcDonaldsMcDonalds',
+        },
+      ],
+    },
+  ];
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -40,7 +67,7 @@ export function AvailableOrdersCard() {
             <h2 className={cx('available-lunch__header-heading')}>Available Orders</h2>
             <RefreshButton />
           </div>
-          <table>
+          <table className={cx('available-lunch__table')}>
             <thead>
               <tr className={cx('available-lunch__table-header')}>
                 <th>Order Summary</th>
@@ -48,7 +75,20 @@ export function AvailableOrdersCard() {
                 <th>Take It From</th>
               </tr>
             </thead>
-            <tbody />
+            <tbody className={cx('available-lunch__table-body')}>
+              {currentItems.map((item) => (
+                <AvailableOrdersItem
+                  key={item.name + item.orders[0].title}
+                  img={item.img}
+                  name={item.name}
+                  orders={item.orders}
+                  surname={item.surname}
+                  onClick={() => {
+                    alert('reserved');
+                  }}
+                />
+              ))}
+            </tbody>
           </table>
           <Pagination
             currentPage={currentPage}

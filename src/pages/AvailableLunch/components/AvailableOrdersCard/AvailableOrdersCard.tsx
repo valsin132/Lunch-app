@@ -64,7 +64,7 @@ export function AvailableOrdersCard() {
                       surname={item.user.surname}
                       img={item.user.img}
                       orders={item.meals}
-                      onClick={() => alert('Reserved')}
+                      onClick={() => {}}
                     />
                   )
               )}

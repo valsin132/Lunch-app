@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import classNames from 'classnames/bind';
 import { FoodCard } from '../../../components/FoodCard';
 import { Order, WeekDay, Meal } from '../FoodMenu.types';
@@ -30,20 +30,22 @@ export function FoodList({
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
 
-  const getRating = (id: number, isForSort: boolean) => {
-    const filteredRatings = ratingsData?.filter((rating) => rating.mealId === id) ?? [];
-    if (filteredRatings.length > 0) {
-      const ratings = filteredRatings.map((rating) => rating.rating.rating);
-      const sum = ratings.reduce((total, rating) => total + rating, 0);
-      const averageRating = sum / ratings.length;
-      return averageRating.toFixed(1);
-    }
-    if (isForSort) {
-      return 0;
-    }
-    return 'Not rated';
-  };
-
+  const getRating = useCallback(
+    (id: number, isForSort: boolean) => {
+      const filteredRatings = ratingsData?.filter((rating) => rating.mealId === id) ?? [];
+      if (filteredRatings.length > 0) {
+        const ratings = filteredRatings.map((rating) => rating.rating.rating);
+        const sum = ratings.reduce((total, rating) => total + rating, 0);
+        const averageRating = sum / ratings.length;
+        return averageRating.toFixed(1);
+      }
+      if (isForSort) {
+        return 0;
+      }
+      return 'Not rated';
+    },
+    [ratingsData]
+  );
   const userData = localStorage.getItem('userData');
 
   const isMealOrdered = useMemo(() => {
@@ -85,7 +87,15 @@ export function FoodList({
       }
     }
     return filteredMealData;
-  }, [mealsData, selectedDay, searchedMealTitle, selectedVendor, vendorsData, sortByValue]);
+  }, [
+    mealsData,
+    selectedDay,
+    searchedMealTitle,
+    selectedVendor,
+    vendorsData,
+    sortByValue,
+    getRating,
+  ]);
 
   const noMealsFound = useMemo(() => !filteredMeals.length, [filteredMeals]);
   const dayToLowerCase = selectedDay.toLowerCase() as Workdays;

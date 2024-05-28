@@ -4,7 +4,7 @@ import { RefreshButton } from './components/RefreshButton';
 import { Card } from '../../../../components/Card';
 import { Pagination } from './components/Pagination';
 import { AvailableOrdersItem } from './components/AvailableOrdersItem';
-import { usePaginationItems } from './hooks/usePaginationItem';
+import { useAvailableLunchItems } from './hooks/useAvailableLunchItems';
 import styles from './AvailableOrdersCard.module.css';
 
 const cx = classNames.bind(styles);
@@ -13,7 +13,7 @@ export function AvailableOrdersCard() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(5);
 
-  const { getPaginationItems, paginationItemsLoading, paginationItemsError } = usePaginationItems();
+  const { availableOrders, isError, isLoading } = useAvailableLunchItems();
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -24,18 +24,19 @@ export function AvailableOrdersCard() {
     setCurrentPage(1);
   };
 
-  const totalPages = Math.max(1, Math.ceil(getPaginationItems.length / itemsPerPage));
+  const totalPages = Math.max(1, Math.ceil(availableOrders.length / itemsPerPage));
 
   const getCurrentPageItems = () => {
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    return getPaginationItems.slice(indexOfFirstItem, indexOfLastItem);
+    return availableOrders.slice(indexOfFirstItem, indexOfLastItem);
   };
 
   const currentItems = getCurrentPageItems();
 
-  if (paginationItemsLoading) return <div>Loading...</div>;
-  if (paginationItemsError) return <div>Error occurred while retrieving data</div>;
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error occurred while retrieving data</div>;
+
   return currentItems.length > 0 ? (
     <div className={cx('available-lunch')}>
       <Card shadow="s">

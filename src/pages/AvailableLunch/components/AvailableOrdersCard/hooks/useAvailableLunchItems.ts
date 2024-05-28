@@ -2,26 +2,36 @@ import { useMemo, useCallback } from 'react';
 import { useFoodData } from '../../../../../hooks/useFoodData';
 import { useFetchData } from '../../../../../hooks/useFetchData';
 import { DishType } from '../../../../../components/FoodCard/FoodCard.types';
+import { getVendorName } from '../../../../../helpers/helperFunctions/getVendorName';
+import { getUsers } from '../../../../../helpers/helperFunctions/getUsers';
 
 interface AvailableLunch {
   userId: number;
   mealIds: number[];
 }
-export const usePaginationItems = () => {
-  const { mealsData, vendorsData, usersData } = useFoodData();
+
+export const useAvailableLunchItems = () => {
+  const {
+    isLoading: foodDataLoading,
+    isError: foodDataError,
+    mealsData,
+    vendorsData,
+    usersData,
+  } = useFoodData();
+
   const {
     data: availableLunchData,
     isLoading: paginationItemsLoading,
     isError: paginationItemsError,
   } = useFetchData<AvailableLunch[]>('http://localhost:3002/availableLunch');
-  const getUsers = useCallback(
-    (id: number) => usersData?.find((user) => Number(user.id) === id) || null,
-    [usersData]
-  );
-  const getVendorName = useCallback(
-    (vendorId: number) => vendorsData?.find((vendor) => Number(vendor.id) === vendorId)?.name ?? '',
-    [vendorsData]
-  );
+
+  const isLoading = foodDataLoading || paginationItemsLoading;
+  const isError = foodDataError || paginationItemsError;
+
+  const getVendorNameCallback = useCallback(getVendorName(vendorsData), [vendorsData]);
+
+  const getUserCallback = useCallback(getUsers(usersData), [usersData]);
+
   const getAvailableDish = useCallback(
     (ids: number[]) =>
       ids
@@ -31,25 +41,27 @@ export const usePaginationItems = () => {
             return {
               title: mealItem.title,
               dishType: mealItem.dishType,
-              vendor: getVendorName(mealItem.vendorId),
+              vendor: getVendorNameCallback(mealItem.vendorId),
             };
           }
           return null;
         })
         .filter((meal) => meal !== null) as { title: string; dishType: DishType; vendor: string }[],
-    [mealsData, getVendorName]
+    [mealsData, getVendorNameCallback]
   );
-  const getPaginationItems = useMemo(
+
+  const availableOrders = useMemo(
     () =>
       availableLunchData?.map((lunch) => ({
-        user: getUsers(lunch.userId),
+        user: getUserCallback(lunch.userId),
         meals: getAvailableDish(lunch.mealIds),
       })) ?? [],
-    [availableLunchData, getUsers, getAvailableDish]
+    [availableLunchData, getUserCallback, getAvailableDish]
   );
+
   return {
-    getPaginationItems,
-    paginationItemsLoading,
-    paginationItemsError,
+    availableOrders,
+    isLoading,
+    isError,
   };
 };

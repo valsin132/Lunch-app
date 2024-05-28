@@ -6,6 +6,8 @@ import { Workdays } from '../../../helpers/OrderSummaryContext';
 import { useOrderSummary } from '../../../hooks/useOrderSummary';
 import { Toast } from '../../../components/Toast';
 import { useFoodData } from '../../../hooks/useFoodData';
+import { getVendorName } from '../../../helpers/helperFunctions/getVendorName';
+import { getUsers } from '../../../helpers/helperFunctions/getUsers';
 import styles from './FoodList.module.css';
 
 interface FoodListProps {
@@ -27,10 +29,10 @@ export function FoodList({
   const { orders, modifyOrders } = useOrderSummary();
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
-  const getVendorName = useCallback(
-    (vendorId: number) => vendorsData?.find((vendor) => Number(vendor.id) === vendorId)?.name ?? '',
-    [vendorsData]
-  );
+
+  const getVendorNameCallback = useCallback(getVendorName(vendorsData), [vendorsData]);
+
+  const getUserCallback = useCallback(getUsers(usersData), [usersData]);
 
   const getRating = (id: number, isForSort: boolean) => {
     const filteredRatings = ratingsData?.filter((rating) => rating.mealId === id) ?? [];
@@ -66,7 +68,8 @@ export function FoodList({
     }
     if (selectedVendor) {
       filteredMealData = filteredMealData.filter(
-        (meal) => getVendorName(meal.vendorId).toLowerCase() === selectedVendor.toLowerCase()
+        (meal) =>
+          getVendorNameCallback(meal.vendorId).toLowerCase() === selectedVendor.toLowerCase()
       );
     }
     if (sortByValue) {
@@ -86,7 +89,14 @@ export function FoodList({
       }
     }
     return filteredMealData;
-  }, [mealsData, selectedDay, searchedMealTitle, selectedVendor, getVendorName, sortByValue]);
+  }, [
+    mealsData,
+    selectedDay,
+    searchedMealTitle,
+    selectedVendor,
+    getVendorNameCallback,
+    sortByValue,
+  ]);
 
   const noMealsFound = useMemo(() => !filteredMeals.length, [filteredMeals]);
   const dayToLowerCase = selectedDay.toLowerCase() as Workdays;
@@ -109,19 +119,17 @@ export function FoodList({
         mealType: meal.mealType,
         price: meal.price,
         title: meal.title,
-        vendor: getVendorName(meal.vendorId),
+        vendor: getVendorNameCallback(meal.vendorId),
       },
     });
     setShowToast(true);
     setToastMessage(`${meal.title} has been added to your cart. Excellent Choice!`);
   };
 
-  const getUser = (id: number) => usersData?.find((users) => Number(users.id) === id);
-
   const getComments = (id: number) => {
     const filteredComments = ratingsData?.filter((rating) => rating.mealId === id);
     return filteredComments?.map((comment) => {
-      const userDetails = getUser(comment.rating.userId);
+      const userDetails = getUserCallback(comment.rating.userId);
       return {
         comment: comment.rating.comment,
         name: userDetails?.name,
@@ -141,7 +149,7 @@ export function FoodList({
         filteredMeals.map((meal) => (
           <FoodCard
             key={meal.id}
-            vendor={getVendorName(meal.vendorId)}
+            vendor={getVendorNameCallback(meal.vendorId)}
             title={meal.title}
             description={meal.description}
             price={meal.price}

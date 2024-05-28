@@ -6,7 +6,7 @@
   @include box-shadow-xs;
 
   background-color: $color-white;
-  border: solid 1px $color-grey-100;
+  border: solid 1px $color-grey-200;
   border-radius: $border-radius-regular;
   color: $color-blue-600;
 

@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode } from 'react';
+import { ReactElement, ReactNode, useEffect, useRef } from 'react';
 import classNames from 'classnames/bind';
 import { Card } from '../Card';
 import { Button } from '../Button';
@@ -32,8 +32,33 @@ export function Modal({
   setIsOpenModal,
   isDisabled,
 }: ModalProps): ReactElement {
+  const modalRef = useRef<HTMLDivElement | null>(null);
+  const closeButtonRef = useRef<HTMLButtonElement | null>(null);
+
+  useEffect(() => {
+    if (modalRef.current) {
+      modalRef.current.focus();
+    }
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsOpenModal(false);
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [setIsOpenModal]);
+
   return (
-    <div className={cx('modal-overlay')}>
+    <div
+      className={cx('modal-overlay')}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+      ref={modalRef}
+      tabIndex={-1}>
       <Card isNoBorder>
         <div className={cx('modal__wrapper', [`modal__wrapper--size-${modalSize}`])}>
           <div
@@ -41,13 +66,15 @@ export function Modal({
               'modal__header-wrapper--gap-smaller': isSmallerUpperGap,
             })}>
             <div className={cx('modal__header')}>
-              <p>{title}</p>
+              <p id={title}>{title}</p>
               <div className={cx('modal__close')}>
-                <CloseIcon
-                  onClick={() => {
-                    setIsOpenModal(false);
-                  }}
-                />
+                <button
+                  onClick={() => setIsOpenModal(false)}
+                  aria-label="Close"
+                  type="button"
+                  ref={closeButtonRef}>
+                  <CloseIcon />
+                </button>
               </div>
             </div>
             {children}
@@ -55,6 +82,7 @@ export function Modal({
           <div className={cx('modal__buttons')}>
             {primaryButtonLabel && (
               <Button
+                aria-label="Add to cart"
                 buttonSize="md"
                 buttonType="primary"
                 title={primaryButtonLabel}
@@ -64,6 +92,7 @@ export function Modal({
             )}
             {secondaryButtonLabel && (
               <Button
+                aria-label="Close"
                 buttonSize="md"
                 buttonType="secondary"
                 title={secondaryButtonLabel}

@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import classNames from 'classnames/bind';
 import { FoodCard } from '../../../components/FoodCard';
 import { Order, WeekDay, Meal } from '../FoodMenu.types';
@@ -6,6 +6,8 @@ import { Workdays } from '../../../helpers/OrderSummaryContext';
 import { useOrderSummary } from '../../../hooks/useOrderSummary';
 import { Toast } from '../../../components/Toast';
 import { useFoodData } from '../../../hooks/useFoodData';
+import { getVendorName } from '../../../helpers/helperFunctions/getVendorName';
+import { getUser } from '../../../helpers/helperFunctions/getUser';
 import styles from './FoodList.module.css';
 
 interface FoodListProps {
@@ -27,25 +29,23 @@ export function FoodList({
   const { orders, modifyOrders } = useOrderSummary();
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
-  const getVendorName = useCallback(
-    (vendorId: number) => vendorsData?.find((vendor) => Number(vendor.id) === vendorId)?.name ?? '',
-    [vendorsData]
+
+  const getRating = useCallback(
+    (id: number, isForSort: boolean) => {
+      const filteredRatings = ratingsData?.filter((rating) => rating.mealId === id) ?? [];
+      if (filteredRatings.length > 0) {
+        const ratings = filteredRatings.map((rating) => rating.rating.rating);
+        const sum = ratings.reduce((total, rating) => total + rating, 0);
+        const averageRating = sum / ratings.length;
+        return averageRating.toFixed(1);
+      }
+      if (isForSort) {
+        return 0;
+      }
+      return 'Not rated';
+    },
+    [ratingsData]
   );
-
-  const getRating = (id: number, isForSort: boolean) => {
-    const filteredRatings = ratingsData?.filter((rating) => rating.mealId === id) ?? [];
-    if (filteredRatings.length > 0) {
-      const ratings = filteredRatings.map((rating) => rating.rating.rating);
-      const sum = ratings.reduce((total, rating) => total + rating, 0);
-      const averageRating = sum / ratings.length;
-      return averageRating.toFixed(1);
-    }
-    if (isForSort) {
-      return 0;
-    }
-    return 'Not rated';
-  };
-
   const userData = localStorage.getItem('userData');
 
   const isMealOrdered = useMemo(() => {
@@ -66,7 +66,8 @@ export function FoodList({
     }
     if (selectedVendor) {
       filteredMealData = filteredMealData.filter(
-        (meal) => getVendorName(meal.vendorId).toLowerCase() === selectedVendor.toLowerCase()
+        (meal) =>
+          getVendorName(vendorsData, meal.vendorId).toLowerCase() === selectedVendor.toLowerCase()
       );
     }
     if (sortByValue) {
@@ -86,7 +87,15 @@ export function FoodList({
       }
     }
     return filteredMealData;
-  }, [mealsData, selectedDay, searchedMealTitle, selectedVendor, getVendorName, sortByValue]);
+  }, [
+    mealsData,
+    selectedDay,
+    searchedMealTitle,
+    selectedVendor,
+    vendorsData,
+    sortByValue,
+    getRating,
+  ]);
 
   const noMealsFound = useMemo(() => !filteredMeals.length, [filteredMeals]);
   const dayToLowerCase = selectedDay.toLowerCase() as Workdays;
@@ -109,19 +118,17 @@ export function FoodList({
         mealType: meal.mealType,
         price: meal.price,
         title: meal.title,
-        vendor: getVendorName(meal.vendorId),
+        vendor: getVendorName(vendorsData, meal.vendorId),
       },
     });
     setShowToast(true);
     setToastMessage(`${meal.title} has been added to your cart. Excellent Choice!`);
   };
 
-  const getUser = (id: number) => usersData?.find((users) => Number(users.id) === id);
-
   const getComments = (id: number) => {
     const filteredComments = ratingsData?.filter((rating) => rating.mealId === id);
     return filteredComments?.map((comment) => {
-      const userDetails = getUser(comment.rating.userId);
+      const userDetails = getUser(usersData, comment.rating.userId);
       return {
         comment: comment.rating.comment,
         name: userDetails?.name,
@@ -141,7 +148,7 @@ export function FoodList({
         filteredMeals.map((meal) => (
           <FoodCard
             key={meal.id}
-            vendor={getVendorName(meal.vendorId)}
+            vendor={getVendorName(vendorsData, meal.vendorId)}
             title={meal.title}
             description={meal.description}
             price={meal.price}

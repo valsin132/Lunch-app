@@ -1,0 +1,75 @@
+@import '../../../../../../styles/index.css';
+
+.available-dish {
+  @include flexbox();
+  @include title-s;
+  @include box-shadow-xs;
+
+  background-color: $color-white;
+  border: solid 1px $color-grey-200;
+  border-radius: $border-radius-regular;
+  color: $color-blue-600;
+
+  & td {
+    padding: $spacing-2xs;
+
+    &:nth-child(1) {
+      width: 34.4%;
+    }
+
+    &:nth-child(2) {
+      width: 24%;
+    }
+
+    &:nth-child(3) {
+      width: 41.6%;
+    }
+
+    & p {
+      -webkit-box-orient: vertical;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      overflow: hidden;
+      word-wrap: anywhere;
+    }
+  }
+
+  & .available-dish__dish-wrapper {
+    @include flexbox($gap: $gap-compact, $alignItems: center);
+
+    & .available-dish__meal-image {
+      @include size(40px, 40px);
+    }
+  }
+
+  & .available-dish__vendor-wrapper {
+    @include flexbox($direction: column, $justifyContent: space-between);
+
+    & .available-dish__vendor {
+      margin: calc($spacing-4xs + 1px) 0;
+      text-transform: uppercase;
+    }
+  }
+
+  & .available-dish__user-wrapper {
+    @include flexbox($alignItems: flex-start, $justifyContent: space-between);
+
+    & .available-dish__avatar-image {
+      @include size(22px, 22px);
+
+      border-radius: $border-radius-circle;
+      box-sizing: content-box;
+      display: block;
+      object-fit: cover;
+      padding: calc($spacing-4xs + 1px) 0;
+    }
+
+    & .available-dish__user-name {
+      margin: calc($spacing-4xs + 1px) 0;
+    }
+  }
+
+  & .available-dish__reserve-button {
+    padding: $spacing-2xs;
+  }
+}

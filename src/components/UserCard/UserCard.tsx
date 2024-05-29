@@ -24,9 +24,13 @@ interface UserData {
 
 interface UserCardProps {
   toggleOrderSummary: () => void;
+  isOrderSummaryVisible: boolean;
 }
 
-export function UserCard({ toggleOrderSummary }: UserCardProps): ReactElement {
+export function UserCard({
+  toggleOrderSummary,
+  isOrderSummaryVisible,
+}: UserCardProps): ReactElement {
   const [userData, setUserData] = useState<UserData | null>(null);
   const [showLogoutButton, setShowLogoutButton] = useState(false);
   const [imgLoadError, setImgLoadError] = useState(false);
@@ -66,7 +70,10 @@ export function UserCard({ toggleOrderSummary }: UserCardProps): ReactElement {
               <button
                 type="button"
                 onClick={() => setShowLogoutButton(!showLogoutButton)}
-                aria-label="Toggle Logout Button">
+                aria-label="Toggle Logout"
+                aria-haspopup="true"
+                aria-expanded={showLogoutButton}
+                aria-controls="user-card__actions-menu">
                 <ArrowFilledIcon
                   className={cx('user-card__button-icon', {
                     'user-card__button-icon-rotated': showLogoutButton,
@@ -74,12 +81,24 @@ export function UserCard({ toggleOrderSummary }: UserCardProps): ReactElement {
                 />
               </button>
               {showLogoutButton && (
-                <button type="button" className={cx('user-card__logout-button')} onClick={logout}>
-                  <span className={cx('user-card__logout-text')}>
-                    <Logout className={cx('user-card__logout-icon')} />
-                    Log Out
-                  </span>
-                </button>
+                <ul
+                  id="user-card__actions-menu"
+                  role="menu"
+                  tabIndex={-1}
+                  aria-activedescendant="logout-button">
+                  <li>
+                    <button
+                      type="button"
+                      id="logout-button"
+                      className={cx('user-card__logout-button')}
+                      onClick={logout}>
+                      <span className={cx('user-card__logout-text')}>
+                        <Logout className={cx('user-card__logout-icon')} />
+                        Log Out
+                      </span>
+                    </button>
+                  </li>
+                </ul>
               )}
             </div>
           </div>
@@ -96,7 +115,9 @@ export function UserCard({ toggleOrderSummary }: UserCardProps): ReactElement {
             <button
               type="button"
               className={cx('user-card__number-of-orders')}
-              aria-labelledby="orderSummaryLabel"
+              aria-label="Open Order Summary"
+              aria-controls="order-summary__region"
+              aria-expanded={isOrderSummaryVisible}
               onClick={toggleOrderSummary}>
               <ShoppingBasketIcon className={cx('user-card__shopping-basket-icon')} />
               {numberOfOrders > 0 && (

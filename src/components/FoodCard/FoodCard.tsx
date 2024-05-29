@@ -38,8 +38,8 @@ export function FoodCard({
               />
             </div>
             <div className={cx('food-card__header-content')}>
-              <h4 className={cx('food-card__vendor')}>{vendor}</h4>
-              <h3 className={cx('food-card__title')}>{title}</h3>
+              <h3 className={cx('food-card__vendor')}>{vendor}</h3>
+              <h2 className={cx('food-card__title')}>{title}</h2>
               {(isVegetarian || isSpicy) && (
                 <div className={cx('food-card__header-icons')}>
                   {isVegetarian && (

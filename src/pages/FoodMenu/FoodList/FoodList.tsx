@@ -141,9 +141,9 @@ export function FoodList({
   return (
     <div className={cx('menu-wrapper')}>
       {isMealOrdered || noMealsFound ? (
-        <div className={cx('menu-wrapper__empty-meals-text')}>
+        <h2 className={cx('menu-wrapper__empty-meals-text')}>
           {isMealOrdered ? `You have already ordered meals for ${selectedDay}` : 'No results found'}
-        </div>
+        </h2>
       ) : (
         filteredMeals.map((meal) => (
           <FoodCard

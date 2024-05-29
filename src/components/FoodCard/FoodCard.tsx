@@ -34,16 +34,23 @@ export function FoodCard({
               <img
                 src={getDishTypeImage(dishType)}
                 className={cx('food-card__food-image')}
-                alt={dishType}
+                alt={`Dish type: ${dishType}`}
               />
             </div>
             <div className={cx('food-card__header-content')}>
-              <h4 className={cx('food-card__vendor')}>{vendor}</h4>
-              <h3 className={cx('food-card__title')}>{title}</h3>
+              <h3 className={cx('food-card__vendor')}>{vendor}</h3>
+              <h2 className={cx('food-card__title')}>{title}</h2>
               {(isVegetarian || isSpicy) && (
                 <div className={cx('food-card__header-icons')}>
-                  {isVegetarian && <PlantIcon className={cx('food-card__plant-icon')} />}
-                  {isSpicy && <ChilliIcon className={cx('food-card__chilli-icon')} />}
+                  {isVegetarian && (
+                    <PlantIcon
+                      className={cx('food-card__plant-icon')}
+                      aria-label="Vegetarian dish"
+                    />
+                  )}
+                  {isSpicy && (
+                    <ChilliIcon className={cx('food-card__chilli-icon')} aria-label="Spicy dish" />
+                  )}
                 </div>
               )}
             </div>
@@ -52,7 +59,7 @@ export function FoodCard({
             <p className={cx('food-card__description')}>{description}</p>
             <div className={cx('food-card__rating-container')}>
               <div className={cx('food-card__rating')}>
-                <StarFullIcon className={cx('food-card__rating-icon')} />
+                <StarFullIcon className={cx('food-card__rating-icon')} aria-hidden="true" />
                 <p className={cx('food-card__rating-number')}>{rating}</p>
               </div>
               <Button
@@ -61,6 +68,7 @@ export function FoodCard({
                 buttonType="tertiary"
                 buttonSize="sm"
                 onClick={() => setIsOpenModal(true)}
+                aria-label="More dish info"
               />
             </div>
           </div>
@@ -79,6 +87,7 @@ export function FoodCard({
               buttonSize="sm"
               onClick={onClick}
               isDisabled={isDisabled}
+              aria-label={`Add ${title} to cart`}
             />
           </div>
         </div>

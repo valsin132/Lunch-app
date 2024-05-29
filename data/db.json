@@ -4,13 +4,9 @@
     "password": "securepass123",
     "name": "Stanton",
     "surname": "Richardson",
-    "balance": 55.55,
+    "balance": 22.55,
     "img": "https://lh3.googleusercontent.com/pw/AP1GczOPmz6MNqqTx2YZekmxppn88NfHDX4qSdH1foq865siphuhKlwTKyqxXhvYmbi28KleHbRtQYEuTSeKP4ib0BTwGKAtCvhw-gBgUxktYziqlh5u9EI-pyYi2cLlaGPXBlTkfRvZJSlDttN7cFAvD03H=w612-h323-s-no-gm",
     "orders": [
-      {
-        "weekDay": "Monday",
-        "mealIds": [6, 3]
-      },
       {
         "weekDay": "Wednesday",
         "mealIds": [6, 11]
@@ -699,6 +695,18 @@
     {
       "userId": 5,
       "mealIds": [22]
+    },
+    {
+      "userId": 1,
+      "mealIds": [2, 17]
+    },
+    {
+      "userId": 3,
+      "mealIds": [7]
+    },
+    {
+      "userId": 5,
+      "mealIds": [1]
     }
   ]
 }

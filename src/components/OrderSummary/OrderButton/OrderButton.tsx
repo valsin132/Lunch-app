@@ -29,7 +29,7 @@ export function OrderButton({ onSubmit, isDisabled }: OrderButtonProps) {
   }, [isDisabled]);
 
   const handlePointerDown = () => {
-    if (isDisabled || isOrderConfirmed) return;
+    if (isDisabled || isOrderConfirmed || isConfirmOrderHeld) return;
     setIsConfirmOrderHeld(true);
     let currentHoldProgress = 1;
     if (backgroundElementRef.current && buttonElementRef.current) {
@@ -62,7 +62,13 @@ export function OrderButton({ onSubmit, isDisabled }: OrderButtonProps) {
       onPointerDown={handlePointerDown}
       onPointerUp={handlePointerUp}
       onPointerLeave={handlePointerUp}
-      ref={buttonElementRef}>
+      ref={buttonElementRef}
+      onKeyDown={(e) => {
+        if (e.code === 'Space' || e.code === 'Enter') handlePointerDown();
+      }}
+      onKeyUp={(e) => {
+        if (e.code === 'Space' || e.code === 'Enter') handlePointerUp();
+      }}>
       <div className={cx('buy-button__background')} ref={backgroundElementRef} />
       {!isOrderConfirmed ? (
         <span>Press & Hold to Send</span>

@@ -29,14 +29,14 @@ export function OrderItem({ day, order }: OrderItemProps) {
       <div className={cx('order-item__info')}>
         <span className={cx('order-item__info-vendor')}>{order.vendor}</span>
         <div className={cx('order-item__info-body')}>
-          <div className={cx('order-item__info-title')}>{order.title}</div>
+          <h3 className={cx('order-item__info-title')}>{order.title}</h3>
           <div className={cx('order-item__info-body-actions')}>
             <span className={cx('order-item__info-body-actions-price')}>
               {order.price.toFixed(2)}
             </span>
             <button
               className={cx('order-item__info-body-actions-remove')}
-              aria-label="remove-order-summary-item"
+              aria-label={`Remove ${order.title} from order summary`}
               type="button"
               onClick={handleItemRemoval}>
               <DeleteBinIcon />

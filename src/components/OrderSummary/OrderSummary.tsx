@@ -58,11 +58,10 @@ export function OrderSummary({ visibilityHandler }: OrderSummaryProps) {
     orderSummaryContext.modifyOrders({ action: 'CLEAR_ORDERS' });
   };
   return (
-    <aside
+    <section
       className={cx('order-summary')}
       id="order-summary__region"
-      aria-labelledby="order-summary__header"
-      role="region">
+      aria-labelledby="order-summary__header">
       <Card spacing="none" shadow="s" roundedCorners="left" isNoBorder>
         <div className={cx('order-summary__content-wrapper')}>
           <div
@@ -129,6 +128,6 @@ export function OrderSummary({ visibilityHandler }: OrderSummaryProps) {
           </p>
         </Dialog>
       )}
-    </aside>
+    </section>
   );
 }

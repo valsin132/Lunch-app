@@ -66,7 +66,7 @@ export function Modal({
               'modal__header-wrapper--gap-smaller': isSmallerUpperGap,
             })}>
             <div className={cx('modal__header')}>
-              <p id="modal-title">{title}</p>
+              <p id={title}>{title}</p>
               <div className={cx('modal__close')}>
                 <button
                   onClick={() => setIsOpenModal(false)}

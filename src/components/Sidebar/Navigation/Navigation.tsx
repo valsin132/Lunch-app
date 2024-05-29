@@ -50,7 +50,7 @@ const navigationItems: NavigationItem[] = [
 ];
 export function Navigation({ isExpanded }: NavProps): ReactElement {
   return (
-    <div className={cx('navigation')}>
+    <nav className={cx('navigation')}>
       <ul role="menubar">
         {Object.entries(navigationItems).map(([key, { title, iconType, route }]) => (
           <li key={key} role="menuitem">
@@ -78,6 +78,6 @@ export function Navigation({ isExpanded }: NavProps): ReactElement {
           </li>
         ))}
       </ul>
-    </div>
+    </nav>
   );
 }

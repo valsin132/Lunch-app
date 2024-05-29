@@ -30,7 +30,14 @@ function AppRoutes() {
               </FoodDataProvider>
             }
           />
-          <Route path={MAIN_PAGES_ROUTES.AvailableLunch} element={<AvailableLunch />} />
+          <Route
+            path={MAIN_PAGES_ROUTES.AvailableLunch}
+            element={
+              <FoodDataProvider>
+                <AvailableLunch />
+              </FoodDataProvider>
+            }
+          />
           <Route path={MAIN_PAGES_ROUTES.YourOrders} element={<YourOrders />} />
           <Route path={MAIN_PAGES_ROUTES.Ratings} element={<Ratings />} />
         </Route>

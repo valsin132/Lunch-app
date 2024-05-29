@@ -7,12 +7,12 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className={cx('footer')}>
+    <div className={cx('footer')}>
       <ul className={cx('footer__container')}>
         <li>Sourcery Academy</li>
         <li>Lunch App</li>
         <li>&copy; {currentYear} Cognizant</li>
       </ul>
-    </footer>
+    </div>
   );
 }

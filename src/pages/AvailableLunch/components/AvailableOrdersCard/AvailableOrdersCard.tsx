@@ -3,6 +3,8 @@ import classNames from 'classnames/bind';
 import { RefreshButton } from './components/RefreshButton';
 import { Card } from '../../../../components/Card';
 import { Pagination } from './components/Pagination';
+import { AvailableOrdersItem } from './components/AvailableOrdersItem';
+import { useAvailableLunchItems } from './hooks/useAvailableLunchData';
 import styles from './AvailableOrdersCard.module.css';
 
 const cx = classNames.bind(styles);
@@ -10,8 +12,8 @@ const cx = classNames.bind(styles);
 export function AvailableOrdersCard() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(5);
-  // eslint-disable-next-line
-  const items = Array.from({ length: 0 }, (_, index) => ({}));
+
+  const { availableOrders, isError, isLoading } = useAvailableLunchItems();
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -22,15 +24,18 @@ export function AvailableOrdersCard() {
     setCurrentPage(1);
   };
 
-  const totalPages = Math.max(1, Math.ceil(items.length / itemsPerPage));
+  const totalPages = Math.max(1, Math.ceil(availableOrders.length / itemsPerPage));
 
   const getCurrentPageItems = () => {
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    return items.slice(indexOfFirstItem, indexOfLastItem);
+    return availableOrders.slice(indexOfFirstItem, indexOfLastItem);
   };
 
   const currentItems = getCurrentPageItems();
+
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error occurred while retrieving data</div>;
 
   return currentItems.length > 0 ? (
     <div className={cx('available-lunch')}>
@@ -40,7 +45,7 @@ export function AvailableOrdersCard() {
             <h2 className={cx('available-lunch__header-heading')}>Available Orders</h2>
             <RefreshButton />
           </div>
-          <table>
+          <table className={cx('available-lunch__table')}>
             <thead>
               <tr className={cx('available-lunch__table-header')}>
                 <th>Order Summary</th>
@@ -48,7 +53,22 @@ export function AvailableOrdersCard() {
                 <th>Take It From</th>
               </tr>
             </thead>
-            <tbody />
+            <tbody className={cx('available-lunch__table-body')}>
+              {currentItems.map(
+                (item) =>
+                  item.user &&
+                  item.meals.length > 0 && (
+                    <AvailableOrdersItem
+                      key={`${item.user.id}-${item.meals[0].title}`}
+                      name={item.user.name}
+                      surname={item.user.surname}
+                      img={item.user.img}
+                      orders={item.meals}
+                      onClick={() => {}}
+                    />
+                  )
+              )}
+            </tbody>
           </table>
           <Pagination
             currentPage={currentPage}

@@ -51,9 +51,9 @@ const navigationItems: NavigationItem[] = [
 export function Navigation({ isExpanded }: NavProps): ReactElement {
   return (
     <nav className={cx('navigation')}>
-      <ul>
+      <ul role="menubar">
         {Object.entries(navigationItems).map(([key, { title, iconType, route }]) => (
-          <li key={key}>
+          <li key={key} role="menuitem">
             <NavLink to={route}>
               {({ isActive }) => (
                 <div

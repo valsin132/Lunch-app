@@ -24,7 +24,7 @@ export function MainContent() {
 
   return (
     <div className={cx('main-content')}>
-      <aside className={cx('main-content__sidebar')}>
+      <aside className={cx('main-content__sidebar')} aria-label="navigation">
         <Sidebar />
       </aside>
       <header className={cx('main-content__header')}>

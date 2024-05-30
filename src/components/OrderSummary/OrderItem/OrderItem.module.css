@@ -45,8 +45,7 @@
         @include flexbox($direction: column, $alignItems: flex-end, $gap: $spacing-5xs);
 
         & .order-item__info-body-actions-remove {
-          border-radius: $spacing-4xs;
-          padding: $spacing-5xs;
+          @include icon-button-tertiary;
 
           svg {
             @include size($width: 18px, $height: 18px);

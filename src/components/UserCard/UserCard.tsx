@@ -52,83 +52,85 @@ export function UserCard({
   const numberOfOrders = orders.length;
 
   return (
-    <Card spacing="2xs" shadow="s" roundedCorners="left" isNoBorder>
-      <div className={cx('user-card__layout')}>
-        <div className={cx('user-card__header')}>
-          <div className={cx('user-card__avatar-container')}>
-            {!imgLoadError ? (
-              <img
-                src={img}
-                alt="profile avatar"
-                className={cx('user-card__avatar')}
-                onError={() => setImgLoadError(true)}
-              />
-            ) : (
-              <UserProfile className={cx('user-card__avatar')} />
-            )}
-            <div className={cx('user-card__button-arrow')}>
+    <section aria-label="User card">
+      <Card spacing="2xs" shadow="s" roundedCorners="left" isNoBorder>
+        <div className={cx('user-card__layout')}>
+          <div className={cx('user-card__header')}>
+            <div className={cx('user-card__avatar-container')}>
+              {!imgLoadError ? (
+                <img
+                  src={img}
+                  alt="profile avatar"
+                  className={cx('user-card__avatar')}
+                  onError={() => setImgLoadError(true)}
+                />
+              ) : (
+                <UserProfile className={cx('user-card__avatar')} />
+              )}
+              <div className={cx('user-card__button-arrow')}>
+                <button
+                  type="button"
+                  onClick={() => setShowLogoutButton(!showLogoutButton)}
+                  aria-label="Toggle Logout"
+                  aria-haspopup="true"
+                  aria-expanded={showLogoutButton}
+                  aria-controls="user-card__actions-menu">
+                  <ArrowFilledIcon
+                    className={cx('user-card__button-icon', {
+                      'user-card__button-icon-rotated': showLogoutButton,
+                    })}
+                  />
+                </button>
+                {showLogoutButton && (
+                  <ul
+                    id="user-card__actions-menu"
+                    role="menu"
+                    tabIndex={-1}
+                    aria-activedescendant="logout-button">
+                    <li>
+                      <button
+                        type="button"
+                        id="logout-button"
+                        className={cx('user-card__logout-button')}
+                        onClick={logout}>
+                        <span className={cx('user-card__logout-text')}>
+                          <Logout className={cx('user-card__logout-icon')} />
+                          Log Out
+                        </span>
+                      </button>
+                    </li>
+                  </ul>
+                )}
+              </div>
+            </div>
+            <p>
+              {name} {surname}
+            </p>
+          </div>
+          <div className={cx('user-card__content')}>
+            <div className={cx('user-card__content-balance')}>
+              <span>Balance</span>
+              <span>&euro;{balance}</span>
+            </div>
+            <div className={cx('user_card__orders-button-wrapper')}>
               <button
                 type="button"
-                onClick={() => setShowLogoutButton(!showLogoutButton)}
-                aria-label="Toggle Logout"
-                aria-haspopup="true"
-                aria-expanded={showLogoutButton}
-                aria-controls="user-card__actions-menu">
-                <ArrowFilledIcon
-                  className={cx('user-card__button-icon', {
-                    'user-card__button-icon-rotated': showLogoutButton,
-                  })}
-                />
+                className={cx('user-card__number-of-orders')}
+                aria-label="Open Order Summary"
+                aria-controls="order-summary__region"
+                aria-expanded={isOrderSummaryVisible}
+                onClick={toggleOrderSummary}>
+                <ShoppingBasketIcon className={cx('user-card__shopping-basket-icon')} />
+                {numberOfOrders > 0 && (
+                  <span className={cx('user-card__badge')}>
+                    <BadgeCount count={numberOfOrders} />
+                  </span>
+                )}
               </button>
-              {showLogoutButton && (
-                <ul
-                  id="user-card__actions-menu"
-                  role="menu"
-                  tabIndex={-1}
-                  aria-activedescendant="logout-button">
-                  <li>
-                    <button
-                      type="button"
-                      id="logout-button"
-                      className={cx('user-card__logout-button')}
-                      onClick={logout}>
-                      <span className={cx('user-card__logout-text')}>
-                        <Logout className={cx('user-card__logout-icon')} />
-                        Log Out
-                      </span>
-                    </button>
-                  </li>
-                </ul>
-              )}
             </div>
           </div>
-          <p>
-            {name} {surname}
-          </p>
         </div>
-        <div className={cx('user-card__content')}>
-          <div className={cx('user-card__content-balance')}>
-            <span>Balance</span>
-            <span>&euro;{balance}</span>
-          </div>
-          <div className={cx('user_card__orders-button-wrapper')}>
-            <button
-              type="button"
-              className={cx('user-card__number-of-orders')}
-              aria-label="Open Order Summary"
-              aria-controls="order-summary__region"
-              aria-expanded={isOrderSummaryVisible}
-              onClick={toggleOrderSummary}>
-              <ShoppingBasketIcon className={cx('user-card__shopping-basket-icon')} />
-              {numberOfOrders > 0 && (
-                <span className={cx('user-card__badge')}>
-                  <BadgeCount count={numberOfOrders} />
-                </span>
-              )}
-            </button>
-          </div>
-        </div>
-      </div>
-    </Card>
+      </Card>
+    </section>
   );
 }
